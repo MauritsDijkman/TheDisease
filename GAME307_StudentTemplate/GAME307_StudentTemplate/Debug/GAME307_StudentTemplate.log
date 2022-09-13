@@ -1,0 +1,16 @@
+﻿  Body.cpp
+  Character.cpp
+C:\Users\Maurits Dijkman\OneDrive - Saxion\Bureaublad\CMGT\Year 3\Game Programming\Artificial Intelligence - 307\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(10,21): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Maurits Dijkman\OneDrive - Saxion\Bureaublad\CMGT\Year 3\Game Programming\Artificial Intelligence - 307\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(82,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  GameManager.cpp
+  Main.cpp
+  MMath.cpp
+  PlayerBody.cpp
+  Scene1.cpp
+  KinematicBody.cpp
+  SteeringOutput.cpp
+  Timer.cpp
+  VMath.cpp
+  Window.cpp
+  Generating Code...
+  GAME307_StudentTemplate.vcxproj -> C:\Users\Maurits Dijkman\OneDrive - Saxion\Bureaublad\CMGT\Year 3\Game Programming\Artificial Intelligence - 307\GAME307_StudentTemplate\Debug\GAME307_StudentTemplate.exe
