@@ -7,7 +7,7 @@ bool Character::OnCreate(Scene* scene_)
 	// Configure and instantiate the body to use for the demo
 	if (!body)
 	{
-		float radius = 0.2f;
+		float radius = 0.2;
 		float orientation = 0.0f;
 		float rotation = 0.0f;
 		float angular = 0.0f;

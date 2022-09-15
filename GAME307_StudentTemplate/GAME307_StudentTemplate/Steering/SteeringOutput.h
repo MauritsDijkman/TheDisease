@@ -15,16 +15,15 @@ public:
 	float angular;
 
 	SteeringOutput();
-	SteeringOutput( Vec3 linear_, float angular_ );
-	inline const SteeringOutput operator + ( const SteeringOutput& v ) const {
-		return SteeringOutput( linear + v.linear, angular + v.angular );
+	SteeringOutput(Vec3 linear_, float angular_);
+	inline const SteeringOutput operator + (const SteeringOutput& v) const {
+		return SteeringOutput(linear + v.linear, angular + v.angular);
 	}
-	inline SteeringOutput& operator += ( const SteeringOutput& v ) {
+	inline SteeringOutput& operator += (const SteeringOutput& v) {
 		linear += v.linear;
 		angular += v.angular;
 		return *this;
 	}
-
 
 	// This class does not have any behaviours, just constructors!
 

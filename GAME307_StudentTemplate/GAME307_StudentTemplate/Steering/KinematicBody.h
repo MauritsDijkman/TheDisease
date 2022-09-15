@@ -5,7 +5,7 @@
 #include "SteeringOutput.h"
 
 class KinematicBody :
-		public Body
+	public Body
 {
 protected:
 
@@ -32,11 +32,11 @@ public:
 		, maxSpeed_
 		, maxAcceleration_
 		, maxRotation_
-		, maxAngular_ 
+		, maxAngular_
 	}
-    {}
+	{}
 
-	void Update( float deltaTime, SteeringOutput *steering );
+	void Update(float deltaTime, SteeringOutput* steering);
 };
 
 #endif
