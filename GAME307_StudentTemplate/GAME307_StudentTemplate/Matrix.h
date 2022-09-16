@@ -136,7 +136,7 @@ namespace  MATH {
 			float x = v.x * m[0] + v.y * m[4] + v.z * m[8] + 1.0f * m[12];
 			float y = v.x * m[1] + v.y * m[5] + v.z * m[9] + 1.0f * m[13];
 			float z = v.x * m[2] + v.y * m[6] + v.z * m[10] + 1.0f * m[14];
-//			float w = v.x * m[3] + v.y * m[7] + v.z * m[11] + 1.0f * m[15];
+			float w = v.x * m[3] + v.y * m[7] + v.z * m[11] + 1.0f * m[15];
 			return Vec3(x, y, z);
 		}
 

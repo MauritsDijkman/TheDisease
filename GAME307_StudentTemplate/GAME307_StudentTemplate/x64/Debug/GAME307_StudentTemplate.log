@@ -2,16 +2,12 @@
 C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(10,21): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(82,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   GameManager.cpp
-  KinematicArrive.cpp
-  KinematicSeek.cpp
-  KinematicSteeringOutput.cpp
-  KinematicWander.cpp
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(22,21): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(23,18): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Main.cpp
+  PlayerBody.cpp
   Scene1.cpp
-  StaticBody.cpp
-  KinematicBody.cpp
-  SteeringOutput.cpp
+  SceneD.cpp
+  SceneMenu.cpp
+  SceneW.cpp
   Generating Code...
 Character.obj : error LNK2019: unresolved external symbol SDL_QueryTexture referenced in function "public: void __cdecl Character::render(float)" (?render@Character@@QEAAXM@Z)
 PlayerBody.obj : error LNK2001: unresolved external symbol SDL_QueryTexture

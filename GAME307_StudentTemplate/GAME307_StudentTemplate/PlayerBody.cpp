@@ -24,7 +24,7 @@ Vec3 PlayerBody::LookDirection(float x, float y)
 
 bool PlayerBody::OnCreate()
 {
-    image = IMG_Load("Pacman.png");
+    image = IMG_Load("Pacman.png");// sprite for player to control
     SDL_Renderer* renderer = game->getRenderer();
     texture = SDL_CreateTextureFromSurface(renderer, image);
     if (image == nullptr) {
@@ -133,6 +133,11 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             vel.x = 0.0f;
             if (VMath::mag(vel) > VERY_SMALL) vel = VMath::normalize(vel) * maxSpeed;
             break;
+
+            /*
+            
+            
+            */
 
             // This section is for seeing how to use acceleration rather than velocity
             // for player movement.
