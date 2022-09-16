@@ -1,1 +1,53 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(439,5): error MSB8020: The build tools for v143 (Platform Toolset = 'v143') cannot be found. To build using the v143 build tools, please install v143 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Retarget solution".
+﻿  Character.cpp
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(10,21): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(82,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  GameManager.cpp
+  KinematicArrive.cpp
+  KinematicSeek.cpp
+  KinematicSteeringOutput.cpp
+  KinematicWander.cpp
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(22,21): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(23,18): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Scene1.cpp
+  StaticBody.cpp
+  KinematicBody.cpp
+  SteeringOutput.cpp
+  Generating Code...
+Character.obj : error LNK2019: unresolved external symbol SDL_QueryTexture referenced in function "public: void __cdecl Character::render(float)" (?render@Character@@QEAAXM@Z)
+PlayerBody.obj : error LNK2001: unresolved external symbol SDL_QueryTexture
+Scene1.obj : error LNK2001: unresolved external symbol SDL_QueryTexture
+Character.obj : error LNK2019: unresolved external symbol SDL_RenderCopyEx referenced in function "public: void __cdecl Character::render(float)" (?render@Character@@QEAAXM@Z)
+PlayerBody.obj : error LNK2001: unresolved external symbol SDL_RenderCopyEx
+Scene1.obj : error LNK2001: unresolved external symbol SDL_RenderCopyEx
+GameManager.obj : error LNK2019: unresolved external symbol SDL_PumpEvents referenced in function "public: void __cdecl GameManager::Run(void)" (?Run@GameManager@@QEAAXXZ)
+GameManager.obj : error LNK2019: unresolved external symbol SDL_PollEvent referenced in function "public: void __cdecl GameManager::Run(void)" (?Run@GameManager@@QEAAXXZ)
+GameManager.obj : error LNK2019: unresolved external symbol SDL_RegisterEvents referenced in function "public: bool __cdecl GameManager::OnCreate(void)" (?OnCreate@GameManager@@QEAA_NXZ)
+GameManager.obj : error LNK2019: unresolved external symbol SDL_GetRenderer referenced in function "public: struct SDL_Renderer * __cdecl GameManager::getRenderer(void)" (?getRenderer@GameManager@@QEAAPEAUSDL_Renderer@@XZ)
+Scene1.obj : error LNK2001: unresolved external symbol SDL_GetRenderer
+Window.obj : error LNK2001: unresolved external symbol SDL_GetRenderer
+GameManager.obj : error LNK2019: unresolved external symbol SDL_Delay referenced in function "public: void __cdecl GameManager::Run(void)" (?Run@GameManager@@QEAAXXZ)
+PlayerBody.obj : error LNK2019: unresolved external symbol SDL_CreateTextureFromSurface referenced in function "public: bool __cdecl PlayerBody::OnCreate(void)" (?OnCreate@PlayerBody@@QEAA_NXZ)
+Scene1.obj : error LNK2001: unresolved external symbol SDL_CreateTextureFromSurface
+PlayerBody.obj : error LNK2019: unresolved external symbol IMG_Load referenced in function "public: bool __cdecl PlayerBody::OnCreate(void)" (?OnCreate@PlayerBody@@QEAA_NXZ)
+Scene1.obj : error LNK2001: unresolved external symbol IMG_Load
+Scene1.obj : error LNK2019: unresolved external symbol SDL_FreeSurface referenced in function "public: virtual bool __cdecl Scene1::OnCreate(void)" (?OnCreate@Scene1@@UEAA_NXZ)
+Window.obj : error LNK2001: unresolved external symbol SDL_FreeSurface
+Scene1.obj : error LNK2019: unresolved external symbol SDL_GetWindowSize referenced in function "public: virtual bool __cdecl Scene1::OnCreate(void)" (?OnCreate@Scene1@@UEAA_NXZ)
+Scene1.obj : error LNK2019: unresolved external symbol SDL_SetRenderDrawColor referenced in function "public: virtual void __cdecl Scene1::Render(void)" (?Render@Scene1@@UEAAXXZ)
+Scene1.obj : error LNK2019: unresolved external symbol SDL_RenderClear referenced in function "public: virtual void __cdecl Scene1::Render(void)" (?Render@Scene1@@UEAAXXZ)
+Scene1.obj : error LNK2019: unresolved external symbol SDL_RenderPresent referenced in function "public: virtual void __cdecl Scene1::Render(void)" (?Render@Scene1@@UEAAXXZ)
+Scene1.obj : error LNK2019: unresolved external symbol IMG_Init referenced in function "public: virtual bool __cdecl Scene1::OnCreate(void)" (?OnCreate@Scene1@@UEAA_NXZ)
+Timer.obj : error LNK2019: unresolved external symbol SDL_GetTicks referenced in function "public: unsigned int __cdecl Timer::GetSleepTime(unsigned int)const " (?GetSleepTime@Timer@@QEBAII@Z)
+Window.obj : error LNK2019: unresolved external symbol SDL_GetError referenced in function "public: bool __cdecl Window::OnCreate(void)" (?OnCreate@Window@@QEAA_NXZ)
+Window.obj : error LNK2019: unresolved external symbol SDL_CreateWindow referenced in function "public: bool __cdecl Window::OnCreate(void)" (?OnCreate@Window@@QEAA_NXZ)
+Window.obj : error LNK2019: unresolved external symbol SDL_GetWindowSurface referenced in function "public: bool __cdecl Window::OnCreate(void)" (?OnCreate@Window@@QEAA_NXZ)
+Window.obj : error LNK2019: unresolved external symbol SDL_DestroyWindow referenced in function "public: void __cdecl Window::OnDestroy(void)" (?OnDestroy@Window@@QEAAXXZ)
+Window.obj : error LNK2019: unresolved external symbol SDL_CreateRenderer referenced in function "public: bool __cdecl Window::OnCreate(void)" (?OnCreate@Window@@QEAA_NXZ)
+Window.obj : error LNK2019: unresolved external symbol SDL_DestroyRenderer referenced in function "public: void __cdecl Window::OnDestroy(void)" (?OnDestroy@Window@@QEAAXXZ)
+Window.obj : error LNK2019: unresolved external symbol SDL_Init referenced in function "public: bool __cdecl Window::OnCreate(void)" (?OnCreate@Window@@QEAA_NXZ)
+Window.obj : error LNK2019: unresolved external symbol SDL_Quit referenced in function "public: void __cdecl Window::OnDestroy(void)" (?OnDestroy@Window@@QEAAXXZ)
+MSVCRTD.lib(exe_main.obj) : error LNK2019: unresolved external symbol main referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+C:\GameDev\SDL\lib\SDL2.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\GameDev\SDL\lib\SDL2main.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\GameDev\SDL\lib\SDL2_image.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\x64\Debug\GAME307_StudentTemplate.exe : fatal error LNK1120: 25 unresolved externals

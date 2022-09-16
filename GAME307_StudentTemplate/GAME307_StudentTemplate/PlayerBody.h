@@ -1,6 +1,6 @@
 //
 //  PlayerBody.h
-//  DemoAIw
+//  DemoAI
 //
 //  Created by Gail Harris on 2021-Dec-23.
 //
@@ -14,10 +14,17 @@
 
 class PlayerBody : public Body
 {
+private:
+	bool mouseDown;// true or flase using mouse
+	Vec3 lookDirection;// Direction that the mouse is looking
+
+	Vec3 LookDirection(float x, float y);// adding th eequation
+
 protected:
 	class GameManager* game;
 
 public:
+	//PlayerBody();
 	PlayerBody() : Body{}
 	{
 		game = nullptr;
@@ -53,14 +60,16 @@ public:
 	{}
 
 	// use the base class versions of getters
-
+	//PlayerBody();
+	//~PlayerBody();
 	bool OnCreate();
 	void Render(float scale = 1.0f);
 	void HandleEvents(const SDL_Event& event);
 	void Update(float deltaTime);
 	void resetToOrigin();
 	void setTexture(SDL_Texture* texture_) { texture = texture_; }
-
+	const bool getMouseDown() const { return mouseDown; }
+	const Vec3 getLookDirection() const { return lookDirection; }
 };
 
 #endif /* PLAYERBODY_H */
