@@ -6,6 +6,8 @@
 //
 
 #include "PlayerBody.h"
+#include "SDL.h"
+
 
 
 Vec3 PlayerBody::LookDirection(float x, float y)
@@ -24,7 +26,7 @@ Vec3 PlayerBody::LookDirection(float x, float y)
 
 bool PlayerBody::OnCreate()
 {
-    image = IMG_Load("Pacman.png");// sprite for player to control
+    image = IMG_Load("Pacman.png");
     SDL_Renderer* renderer = game->getRenderer();
     texture = SDL_CreateTextureFromSurface(renderer, image);
     if (image == nullptr) {
@@ -134,10 +136,6 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             if (VMath::mag(vel) > VERY_SMALL) vel = VMath::normalize(vel) * maxSpeed;
             break;
 
-            /*
-            
-            
-            */
 
             // This section is for seeing how to use acceleration rather than velocity
             // for player movement.
@@ -157,14 +155,37 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             break;
         }
     }
+
+    /*
+    if (sdlEvent.type == SDL_KEYDOWN) {
+    //Pickup/interact
+        if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_E) {
+            item
+        }
+        if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_F) {
+            //healkit
+            if (altWeaponAvailable == true) {
+                heal
+            }
+             if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_R) {
+            //healkit
+            if (altWeaponAvailable == true) {
+                reload
+            }
+
+    }
+
+    */
     //give mouse to rotate the player
     if (event.type == SDL_EventType::SDL_MOUSEMOTION) {
-        //  Vec3 mousePosView = Vec3(event.button.x, event.button.y, 0.0f);
-         //Vec3 mousePosWorld = MMath::inverse() * mousePosView;
-         // LookDirection(mousePosWorld.x, mousePosWorld.y);// 
+        Vec3 mousePosView = Vec3(event.button.x, event.button.y, 0.0f);
+        Vec3 mousePosWorld = MMath::inverse(projectionMatrix) * mousePosView;
+        LookDirection(mousePosWorld.x, mousePosWorld.y);// mousePosWorld.x, mousePosWorld.y
+
     }
 
 }
+
 
 void PlayerBody::Update(float deltaTime)
 {
@@ -172,6 +193,7 @@ void PlayerBody::Update(float deltaTime)
     // Note that would update velocity too, and rotation motion
 
     Body::Update(deltaTime);
+
 
     // This will ensure player body stops at edges
     float height, width;

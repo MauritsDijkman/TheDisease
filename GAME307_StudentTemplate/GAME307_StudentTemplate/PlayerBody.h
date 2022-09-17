@@ -11,20 +11,22 @@
 #include <stdio.h>
 #include "Body.h"
 #include "GameManager.h"
+#include "Vector"
 
 class PlayerBody : public Body
 {
+
 private:
 	bool mouseDown;// true or flase using mouse
 	Vec3 lookDirection;// Direction that the mouse is looking
 
 	Vec3 LookDirection(float x, float y);// adding th eequation
+	Matrix4 projectionMatrix;
 
 protected:
 	class GameManager* game;
 
 public:
-	//PlayerBody();
 	PlayerBody() : Body{}
 	{
 		game = nullptr;
