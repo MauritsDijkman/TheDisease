@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\GameDev\SDL\include;$(SolutionDir)\GAME307_StudentTemplate\Steering;$(SolutionDir)\GAME307_StudentTemplate;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\GameDev\SDL\include;$(SolutionDir)\GAME307_StudentTemplate\Steering;$(SolutionDir)\GAME307_StudentTemplate;C:\GameDev\OpenGL\include;$(IncludePath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

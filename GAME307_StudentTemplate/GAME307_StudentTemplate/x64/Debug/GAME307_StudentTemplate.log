@@ -1,14 +1,4 @@
-﻿  Character.cpp
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(10,21): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(82,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  GameManager.cpp
-  Main.cpp
-  PlayerBody.cpp
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\PlayerBody.cpp(181,62): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\PlayerBody.cpp(181,46): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
-  Scene1.cpp
-  Generating Code...
-Character.obj : error LNK2019: unresolved external symbol SDL_QueryTexture referenced in function "public: void __cdecl Character::render(float)" (?render@Character@@QEAAXM@Z)
+﻿Character.obj : error LNK2019: unresolved external symbol SDL_QueryTexture referenced in function "public: void __cdecl Character::render(float)" (?render@Character@@QEAAXM@Z)
 PlayerBody.obj : error LNK2001: unresolved external symbol SDL_QueryTexture
 Scene1.obj : error LNK2001: unresolved external symbol SDL_QueryTexture
 Character.obj : error LNK2019: unresolved external symbol SDL_RenderCopyEx referenced in function "public: void __cdecl Character::render(float)" (?render@Character@@QEAAXM@Z)
@@ -45,4 +35,4 @@ MSVCRTD.lib(exe_main.obj) : error LNK2019: unresolved external symbol main refer
 C:\GameDev\SDL\lib\SDL2.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
 C:\GameDev\SDL\lib\SDL2main.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
 C:\GameDev\SDL\lib\SDL2_image.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\x64\Debug\GAME307_StudentTemplate.exe : fatal error LNK1120: 25 unresolved externals
+C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\x64\Debug\GAME307_StudentTemplate.exe : fatal error LNK1120: 25 unresolved externals
