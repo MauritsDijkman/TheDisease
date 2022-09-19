@@ -1,19 +1,19 @@
 ﻿  Body.cpp
   Character.cpp
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(10,21): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(82,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(10,21): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(82,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   GameManager.cpp
   KinematicArrive.cpp
   KinematicSeek.cpp
   KinematicSteeringOutput.cpp
   KinematicWander.cpp
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(22,21): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(23,18): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(22,21): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(23,18): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Main.cpp
   MMath.cpp
   PlayerBody.cpp
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\PlayerBody.cpp(181,62): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\PlayerBody.cpp(181,46): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\PlayerBody.cpp(181,62): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\PlayerBody.cpp(181,46): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
   Scene1.cpp
   SceneD.cpp
   SceneMenu.cpp
@@ -25,4 +25,4 @@ C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAM
   VMath.cpp
   Window.cpp
   Generating Code...
-  GAME307_StudentTemplate.vcxproj -> C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\Debug\GAME307_StudentTemplate.exe
+  GAME307_StudentTemplate.vcxproj -> C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\Debug\GAME307_StudentTemplate.exe
