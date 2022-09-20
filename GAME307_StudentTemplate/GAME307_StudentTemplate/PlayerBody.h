@@ -20,8 +20,9 @@ private:
 	bool mouseDown;// true or flase using mouse
 	Vec3 lookDirection;// Direction that the mouse is looking
 
-	Vec3 LookDirection(float x, float y);// adding th eequation
-	Matrix4 projectionMatrix;
+	//Vec3 LookDirection(float x, float y);// adding th eequation
+
+	Vec3 mousePosWorld;
 
 protected:
 	class GameManager* game;
@@ -71,7 +72,8 @@ public:
 	void resetToOrigin();
 	void setTexture(SDL_Texture* texture_) { texture = texture_; }
 	const bool getMouseDown() const { return mouseDown; }
-	const Vec3 getLookDirection() const { return lookDirection; }
+	//const Vec3 getLookDirection() const { return lookDirection; }
+	void FollowMouse(float mousePosX, float mousPosY);
 };
 
 #endif /* PLAYERBODY_H */
