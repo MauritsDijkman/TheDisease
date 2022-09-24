@@ -46,7 +46,7 @@ bool SceneD::OnCreate(float GOF) {
 
 	SDL_FreeSurface(surfacePtr);
 
-	surfacePtr = IMG_Load("Art/YouDied.png");// when player die
+	surfacePtr = IMG_Load("Art/Game_Over_Screen.png");// when player die
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
 	if (surfacePtr == nullptr) {

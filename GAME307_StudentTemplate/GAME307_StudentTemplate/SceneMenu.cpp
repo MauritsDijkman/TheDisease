@@ -34,7 +34,7 @@ bool SceneMenu::OnCreate(float GOF) {
 	IMG_Init(IMG_INIT_PNG); //Make loading PNGs easer so only use PNGs
 	//Load the Back ground image and set the texture as well
 
-	surfacePtr = IMG_Load("Art/BreadMenu.png");
+	surfacePtr = IMG_Load("Art/Main_Menu.png");
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
 	if (surfacePtr == nullptr) {
