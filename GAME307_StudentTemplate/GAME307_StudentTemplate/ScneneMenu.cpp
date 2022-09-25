@@ -7,8 +7,11 @@
 
 SceneMenu::SceneMenu(SDL_Window* sdlWindow_, GameManager* game_) {
 	window = sdlWindow_;
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	play = false;
+	game = game_;
+	renderer = SDL_GetRenderer(window);
+	xAxis = 25.0f;
+	yAxis = 15.0f;
+	//play = false;
 }
 
 SceneMenu::~SceneMenu() {// Rember to delete every pointer NO MEMORY LEAKS!!!!!!

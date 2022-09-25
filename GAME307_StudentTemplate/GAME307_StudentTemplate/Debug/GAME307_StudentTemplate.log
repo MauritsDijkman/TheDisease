@@ -18,8 +18,8 @@ C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_Stude
   Scene1.cpp
 C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\SceneMenu.h(16,32): error C2504: 'Scene': base class undefined
   ScneneMenu.cpp
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\ScneneMenu.cpp(65,61): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\ScneneMenu.cpp(65,42): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\ScneneMenu.cpp(68,61): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\ScneneMenu.cpp(68,42): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
   Seek.cpp
   StaticBody.cpp
   SteeringBehaviour.cpp
