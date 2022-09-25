@@ -16,7 +16,7 @@ private:
 	float yAxis = 15.0f;
 	SDL_Renderer* renderer;
 	Matrix4 projectionMatrix;
-	Matrix4     inverseProjection;
+	Matrix4 inverseProjection;
 
 	Character* blinky;
 	StaticBody* myNPC;

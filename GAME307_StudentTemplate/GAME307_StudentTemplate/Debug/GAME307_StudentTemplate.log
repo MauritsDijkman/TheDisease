@@ -1,11 +1,6 @@
-﻿  Character.cpp
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\SceneMenu.h(16,32): error C2504: 'Scene': base class undefined
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(10,21): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(108,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Scene1.cpp
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\SceneMenu.h(16,32): error C2504: 'Scene': base class undefined
+﻿  GameManager.cpp
   SceneMenu.cpp
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\SceneMenu.cpp(68,61): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\SceneMenu.cpp(68,42): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
-  Window.cpp
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\SceneMenu.cpp(72,61): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\SceneMenu.cpp(72,42): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
   Generating Code...
+  GAME307_StudentTemplate.vcxproj -> C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\Debug\GAME307_StudentTemplate.exe
