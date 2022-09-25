@@ -6,7 +6,7 @@
 #include "Timer.h"
 #include "Scene.h"
 #include "PlayerBody.h"
-
+#include "SceneMenu.h"
 
 class GameManager {
 private:

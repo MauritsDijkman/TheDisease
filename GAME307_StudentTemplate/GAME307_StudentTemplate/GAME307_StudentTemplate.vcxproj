@@ -144,6 +144,7 @@
     <ClCompile Include="MMath.cpp" />
     <ClCompile Include="PlayerBody.cpp" />
     <ClCompile Include="Scene1.cpp" />
+    <ClCompile Include="ScneneMenu.cpp" />
     <ClCompile Include="Seek.cpp" />
     <ClCompile Include="StaticBody.cpp" />
     <ClCompile Include="SteeringBehaviour.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="PlayerBody.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
+    <ClInclude Include="SceneMenu.h" />
     <ClInclude Include="Seek.h" />
     <ClInclude Include="StaticBody.h" />
     <ClInclude Include="SteeringBehaviour.h" />
