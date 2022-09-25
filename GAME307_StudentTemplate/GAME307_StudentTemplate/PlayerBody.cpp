@@ -6,8 +6,6 @@
 //
 
 #include "PlayerBody.h"
-#include "SDL.h"
-
 
 void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
 {
@@ -17,14 +15,14 @@ void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
 
 bool PlayerBody::OnCreate()
 {
-	image = IMG_Load("Pacman.png");
+	//image = IMG_Load("Pacman.png");
+	image = IMG_Load("Assets/humans/idle_human2.png");
 	SDL_Renderer* renderer = game->getRenderer();
 	texture = SDL_CreateTextureFromSurface(renderer, image);
 	if (image == nullptr) {
 		std::cerr << "Can't open the image" << std::endl;
 		return false;
 	}
-
 	return true;
 }
 
@@ -53,7 +51,6 @@ void PlayerBody::Render(float scale)
 		orientationDegrees, nullptr, SDL_FLIP_NONE);
 }
 
-
 void PlayerBody::HandleEvents(const SDL_Event& event)
 {
 	// if key pressed, set velocity or acceleration
@@ -79,6 +76,11 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
 		case SDL_SCANCODE_D:
 			vel.x = maxSpeed * 1.0f;
 			break;
+
+		case SDL_SCANCODE_LSHIFT:
+			maxSpeed *= 2.0f;
+			break;
+
 
 			// This section is for seeing how to use acceleration rather than velocity
 			// for player movement.
@@ -128,6 +130,9 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
 			if (VMath::mag(vel) > VERY_SMALL) vel = VMath::normalize(vel) * maxSpeed;
 			break;
 
+		case SDL_SCANCODE_LSHIFT:
+			maxSpeed /= 2.0f;
+			break;
 
 			// This section is for seeing how to use acceleration rather than velocity
 			// for player movement.
@@ -148,27 +153,6 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
 		}
 	}
 
-	/*
-	if (sdlEvent.type == SDL_KEYDOWN) {
-	//Pickup/interact
-		if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_E) {
-			item
-		}
-		if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_F) {
-			//healkit
-			if (altWeaponAvailable == true) {
-				heal
-			}
-			 if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_R) {
-			//healkit
-			if (altWeaponAvailable == true) {
-				reload
-			}
-
-	}
-
-	*/
-	//give mouse to rotate the player
 	if (event.type == SDL_EventType::SDL_MOUSEMOTION)
 	{
 		Vec3 mousePosView = Vec3(event.button.x, event.button.y, 0);
@@ -176,14 +160,12 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
 	}
 }
 
-
 void PlayerBody::Update(float deltaTime)
 {
 	// Update position, call Update from base class
 	// Note that would update velocity too, and rotation motion
 
 	Body::Update(deltaTime);
-
 
 	// This will ensure player body stops at edges
 	float height, width;
@@ -210,13 +192,6 @@ void PlayerBody::Update(float deltaTime)
 		pos.y = height - radius;
 		vel.y = 0.0f;
 	}
-
-	//Vec3 mousePosView = Vec3(event.button.x, event.button.y, 0);
-	//Vec3 mousePosWorld = MMath::inverse(projectionMatrix) * mousePosView;
-
-	//printf("MousePosView:" + mousePosView)
-	//std::cout << "MousePosView: " << mousePosView.x << ' ' << mousePosView.y << std::endl;
-	//std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << std::endl;
 
 	FollowMouse(mousePosWorld.x, mousePosWorld.y);	// mousePosWorld.x, mousePosWorld.y
 }

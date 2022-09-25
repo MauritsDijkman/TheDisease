@@ -72,14 +72,11 @@
     <ClCompile Include="KinematicWander.cpp">
       <Filter>Source Files\Steering</Filter>
     </ClCompile>
-    <ClCompile Include="SceneD.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="SteeringBehaviour.cpp">
+      <Filter>Source Files\Steering</Filter>
     </ClCompile>
-    <ClCompile Include="SceneW.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneMenu.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Seek.cpp">
+      <Filter>Source Files\Steering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,14 +137,11 @@
     <ClInclude Include="KinematicWander.h">
       <Filter>Header Files\Steering</Filter>
     </ClInclude>
-    <ClInclude Include="SceneD.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SteeringBehaviour.h">
+      <Filter>Header Files\Steering</Filter>
     </ClInclude>
-    <ClInclude Include="SceneW.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneMenu.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Seek.h">
+      <Filter>Header Files\Steering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

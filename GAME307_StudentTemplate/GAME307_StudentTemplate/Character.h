@@ -5,6 +5,7 @@
 
 #include "Scene.h"
 #include "KinematicBody.h"
+#include "Seek.h"
 
 using namespace std;
 
@@ -36,6 +37,8 @@ public:
 	void Update(float time);
 	void HandleEvents(const SDL_Event& event);
 	void render(float scale = 1.0f);
+
+	void steerToSeekPlayer(SteeringOutput* steering);
 
 };
 

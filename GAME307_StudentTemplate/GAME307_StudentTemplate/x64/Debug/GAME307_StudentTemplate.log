@@ -1,9 +1,34 @@
-﻿Character.obj : error LNK2019: unresolved external symbol SDL_QueryTexture referenced in function "public: void __cdecl Character::render(float)" (?render@Character@@QEAAXM@Z)
+﻿  Body.cpp
+  Character.cpp
+C:\Users\Maurits Dijkman\OneDrive - Saxion\Bureaublad\CMGT\Year 3\Game Programming\Artificial Intelligence - 307\Engine\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(10,21): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Maurits Dijkman\OneDrive - Saxion\Bureaublad\CMGT\Year 3\Game Programming\Artificial Intelligence - 307\Engine\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(108,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  GameManager.cpp
+  KinematicArrive.cpp
+  KinematicSeek.cpp
+  KinematicSteeringOutput.cpp
+  KinematicWander.cpp
+C:\Users\Maurits Dijkman\OneDrive - Saxion\Bureaublad\CMGT\Year 3\Game Programming\Artificial Intelligence - 307\Engine\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(22,21): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Maurits Dijkman\OneDrive - Saxion\Bureaublad\CMGT\Year 3\Game Programming\Artificial Intelligence - 307\Engine\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(23,18): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Main.cpp
+  MMath.cpp
+  PlayerBody.cpp
+C:\Users\Maurits Dijkman\OneDrive - Saxion\Bureaublad\CMGT\Year 3\Game Programming\Artificial Intelligence - 307\Engine\GAME307_StudentTemplate\GAME307_StudentTemplate\PlayerBody.cpp(158,56): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
+C:\Users\Maurits Dijkman\OneDrive - Saxion\Bureaublad\CMGT\Year 3\Game Programming\Artificial Intelligence - 307\Engine\GAME307_StudentTemplate\GAME307_StudentTemplate\PlayerBody.cpp(158,40): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
+  Scene1.cpp
+  Seek.cpp
+  StaticBody.cpp
+  SteeringBehaviour.cpp
+  KinematicBody.cpp
+  SteeringOutput.cpp
+  Timer.cpp
+  VMath.cpp
+  Window.cpp
+  Generating Code...
+Character.obj : error LNK2019: unresolved external symbol SDL_QueryTexture referenced in function "public: void __cdecl Character::render(float)" (?render@Character@@QEAAXM@Z)
 PlayerBody.obj : error LNK2001: unresolved external symbol SDL_QueryTexture
 Scene1.obj : error LNK2001: unresolved external symbol SDL_QueryTexture
 Character.obj : error LNK2019: unresolved external symbol SDL_RenderCopyEx referenced in function "public: void __cdecl Character::render(float)" (?render@Character@@QEAAXM@Z)
 PlayerBody.obj : error LNK2001: unresolved external symbol SDL_RenderCopyEx
-Scene1.obj : error LNK2001: unresolved external symbol SDL_RenderCopyEx
 GameManager.obj : error LNK2019: unresolved external symbol SDL_PumpEvents referenced in function "public: void __cdecl GameManager::Run(void)" (?Run@GameManager@@QEAAXXZ)
 GameManager.obj : error LNK2019: unresolved external symbol SDL_PollEvent referenced in function "public: void __cdecl GameManager::Run(void)" (?Run@GameManager@@QEAAXXZ)
 GameManager.obj : error LNK2019: unresolved external symbol SDL_RegisterEvents referenced in function "public: bool __cdecl GameManager::OnCreate(void)" (?OnCreate@GameManager@@QEAA_NXZ)
@@ -35,4 +60,4 @@ MSVCRTD.lib(exe_main.obj) : error LNK2019: unresolved external symbol main refer
 C:\GameDev\SDL\lib\SDL2.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
 C:\GameDev\SDL\lib\SDL2main.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
 C:\GameDev\SDL\lib\SDL2_image.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\x64\Debug\GAME307_StudentTemplate.exe : fatal error LNK1120: 25 unresolved externals
+C:\Users\Maurits Dijkman\OneDrive - Saxion\Bureaublad\CMGT\Year 3\Game Programming\Artificial Intelligence - 307\Engine\GAME307_StudentTemplate\x64\Debug\GAME307_StudentTemplate.exe : fatal error LNK1120: 25 unresolved externals

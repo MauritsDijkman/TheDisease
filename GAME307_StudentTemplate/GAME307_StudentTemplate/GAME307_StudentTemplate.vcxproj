@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\GameDev\SDL\include;$(SolutionDir)\GAME307_StudentTemplate\Steering;$(SolutionDir)\GAME307_StudentTemplate;C:\GameDev\OpenGL\include;$(IncludePath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\GameDev\SDL\include;$(SolutionDir)\GAME307_StudentTemplate\Steering;$(SolutionDir)\GAME307_StudentTemplate;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,10 +144,9 @@
     <ClCompile Include="MMath.cpp" />
     <ClCompile Include="PlayerBody.cpp" />
     <ClCompile Include="Scene1.cpp" />
-    <ClCompile Include="SceneD.cpp" />
-    <ClCompile Include="SceneMenu.cpp" />
-    <ClCompile Include="SceneW.cpp" />
+    <ClCompile Include="Seek.cpp" />
     <ClCompile Include="StaticBody.cpp" />
+    <ClCompile Include="SteeringBehaviour.cpp" />
     <ClCompile Include="Steering\KinematicBody.cpp" />
     <ClCompile Include="Steering\SteeringOutput.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -167,10 +166,9 @@
     <ClInclude Include="PlayerBody.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
-    <ClInclude Include="SceneD.h" />
-    <ClInclude Include="SceneMenu.h" />
-    <ClInclude Include="SceneW.h" />
+    <ClInclude Include="Seek.h" />
     <ClInclude Include="StaticBody.h" />
+    <ClInclude Include="SteeringBehaviour.h" />
     <ClInclude Include="Steering\KinematicBody.h" />
     <ClInclude Include="Steering\SteeringOutput.h" />
     <ClInclude Include="Timer.h" />

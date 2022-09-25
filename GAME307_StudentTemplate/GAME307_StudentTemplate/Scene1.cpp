@@ -27,17 +27,35 @@ bool Scene1::OnCreate() {
 
 	Matrix4 ndc = MMath::viewportNDC(w, h);
 	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
+	//TODO: Calculate the ortho every frame and take the player's location as the middle point
+
+	float minX = game->getPlayer()->getPos().x - xAxis / 2;
+	float maxX = game->getPlayer()->getPos().x + xAxis / 2;
+
+	float minY = game->getPlayer()->getPos().y - yAxis / 2;
+	float maxY = game->getPlayer()->getPos().y + yAxis / 2;
+
+	ortho = MMath::orthographic(minX, maxX, minY, maxY, 0.0f, 1.0f);
+
 	projectionMatrix = ndc * ortho;
 
 	/// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
 
-	// Set player image to PacMan
+	// Tried to add a background image
+	/**
+	SDL_Surface* backgroundSurface;
+	backgroundSurface = IMG_Load("Pinky.png");
+	SDL_Texture* backgroundTexture;
+	backgroundTexture = SDL_CreateTextureFromSurface(renderer, backgroundSurface);
+	**/
 
+	// Set player image to PacMan
 	SDL_Surface* image;
 	SDL_Texture* texture;
 
-	image = IMG_Load("pacman.png");
+	image = IMG_Load("Assets/humans/idle_human2.png");
+	//image = IMG_Load("pacman.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
@@ -90,7 +108,24 @@ bool Scene1::OnCreate() {
 
 void Scene1::OnDestroy() {}
 
-void Scene1::Update(const float deltaTime) {
+void Scene1::Update(const float deltaTime)
+{
+	// Updates the location of the orthograpic each frame
+	int w, h;
+	SDL_GetWindowSize(window, &w, &h);
+
+	float minX = game->getPlayer()->getPos().x - xAxis / 2;
+	float maxX = game->getPlayer()->getPos().x + xAxis / 2;
+
+	float minY = game->getPlayer()->getPos().y - yAxis / 2;
+	float maxY = game->getPlayer()->getPos().y + yAxis / 2;
+
+	Matrix4 ndc = MMath::viewportNDC(w, h);
+	Matrix4 ortho = MMath::orthographic(minX, maxX, minY, maxY, 0.0f, 1.0f);
+
+	projectionMatrix = ndc * ortho;
+
+
 	// Calculate and apply any steering for npc's
 	blinky->Update(deltaTime);
 
@@ -103,7 +138,7 @@ void Scene1::Update(const float deltaTime) {
 	KinematicSteeringOutput* steering;
 	steering = steering_algorithm->getSteering();
 
-	myNPC->Update(deltaTime, steering);
+	//myNPC->Update(deltaTime, steering);
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
@@ -114,7 +149,7 @@ void Scene1::Render() {
 	SDL_RenderClear(renderer);
 
 	// render any npc's
-	// blinky->render(0.15f);
+	blinky->render(0.15f);
 
 	SDL_Rect square;
 	Vec3 screenCoords;
@@ -133,7 +168,7 @@ void Scene1::Render() {
 
 	float orientation = myNPC->getOrientation() * 180 / M_PI;
 
-	SDL_RenderCopyEx(renderer, myNPC->getTexture(), nullptr, &square, orientation, nullptr, SDL_FLIP_NONE);
+	//SDL_RenderCopyEx(renderer, myNPC->getTexture(), nullptr, &square, orientation, nullptr, SDL_FLIP_NONE);
 
 
 	// render the player
