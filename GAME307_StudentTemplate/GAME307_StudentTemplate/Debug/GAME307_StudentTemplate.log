@@ -1,31 +1,11 @@
-﻿  Body.cpp
-  Character.cpp
+﻿  Character.cpp
 C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\SceneMenu.h(16,32): error C2504: 'Scene': base class undefined
 C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(10,21): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(108,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  GameManager.cpp
-  KinematicArrive.cpp
-  KinematicSeek.cpp
-  KinematicSteeringOutput.cpp
-  KinematicWander.cpp
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(22,21): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(23,18): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  Main.cpp
-  MMath.cpp
-  PlayerBody.cpp
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\PlayerBody.cpp(158,56): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\PlayerBody.cpp(158,40): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
   Scene1.cpp
 C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\SceneMenu.h(16,32): error C2504: 'Scene': base class undefined
-  ScneneMenu.cpp
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\ScneneMenu.cpp(68,61): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\ScneneMenu.cpp(68,42): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
-  Seek.cpp
-  StaticBody.cpp
-  SteeringBehaviour.cpp
-  KinematicBody.cpp
-  SteeringOutput.cpp
-  Timer.cpp
-  VMath.cpp
+  SceneMenu.cpp
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\SceneMenu.cpp(68,61): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\SceneMenu.cpp(68,42): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
   Window.cpp
   Generating Code...

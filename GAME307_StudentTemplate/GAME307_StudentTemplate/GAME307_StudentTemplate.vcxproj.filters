@@ -78,7 +78,7 @@
     <ClCompile Include="Seek.cpp">
       <Filter>Source Files\Steering</Filter>
     </ClCompile>
-    <ClCompile Include="ScneneMenu.cpp">
+    <ClCompile Include="SceneMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

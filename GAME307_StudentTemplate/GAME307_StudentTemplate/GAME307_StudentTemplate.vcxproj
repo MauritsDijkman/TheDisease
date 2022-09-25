@@ -144,7 +144,7 @@
     <ClCompile Include="MMath.cpp" />
     <ClCompile Include="PlayerBody.cpp" />
     <ClCompile Include="Scene1.cpp" />
-    <ClCompile Include="ScneneMenu.cpp" />
+    <ClCompile Include="SceneMenu.cpp" />
     <ClCompile Include="Seek.cpp" />
     <ClCompile Include="StaticBody.cpp" />
     <ClCompile Include="SteeringBehaviour.cpp" />
