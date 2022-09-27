@@ -1,38 +1,4 @@
-﻿  A_Star.cpp
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\A_Star.cpp(91,20): warning C4018: '<': signed/unsigned mismatch
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xutility(5438,26): error C2676: binary '==': 'Node' does not define this operator or a conversion to a type acceptable to the predefined operator
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xutility(3899,30): message : could be 'bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &)'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xutility(5438,17): error C2784: 'bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &)': could not deduce template argument for 'const std::move_iterator<_Iter> &' from 'Node'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xutility(3899): message : see declaration of 'std::operator =='
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xutility(5438,17): error C2784: 'bool std::operator ==(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &)': could not deduce template argument for 'const std::reverse_iterator<_BidIt> &' from 'Node'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xutility(5438,17): error C2784: 'bool std::operator ==(const std::pair<_Ty1,_Ty2> &,const std::pair<_Ty1,_Ty2> &)': could not deduce template argument for 'const std::pair<_Ty1,_Ty2> &' from 'Node'
-  Body.cpp
-  Character.cpp
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(10,21): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Character.cpp(108,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  GameManager.cpp
-  KinematicArrive.cpp
-  KinematicSeek.cpp
-  KinematicSteeringOutput.cpp
-  KinematicWander.cpp
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(22,21): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\KinematicWander.cpp(23,18): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  Main.cpp
-  MMath.cpp
-  Node.cpp
-  PlayerBody.cpp
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\PlayerBody.cpp(158,56): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
-C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\PlayerBody.cpp(158,40): warning C4244: 'argument': conversion from 'const Sint32' to 'float', possible loss of data
-  Scene1.cpp
-  SceneMenu.cpp
-  Seek.cpp
-  StaticBody.cpp
-  SteeringBehaviour.cpp
-  KinematicBody.cpp
-  SteeringOutput.cpp
-  Timer.cpp
-  Generating Code...
-  Compiling...
-  VMath.cpp
-  Window.cpp
-  Generating Code...
+﻿  Scene1.cpp
+C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Scene1.cpp(254,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\GAME307_StudentTemplate\Scene1.cpp(255,33): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  GAME307_StudentTemplate.vcxproj -> C:\Users\Maurits Dijkman\Documents\GitHub\TheDisease\GAME307_StudentTemplate\Debug\GAME307_StudentTemplate.exe

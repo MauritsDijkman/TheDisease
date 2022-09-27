@@ -25,6 +25,9 @@ private:
 	Node GetLowestDistance(vector<Node> nodes);
 	vector<Node> FindParent(Node currentNode);
 
+	bool inUnvisitedList;
+	bool inVisitedList;
+
 public:
 	A_Star();
 	~A_Star();

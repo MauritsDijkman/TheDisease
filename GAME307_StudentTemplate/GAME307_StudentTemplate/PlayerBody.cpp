@@ -172,6 +172,7 @@ void PlayerBody::Update(float deltaTime)
 	height = game->getSceneHeight();
 	width = game->getSceneWidth();
 
+	/**
 	if (pos.x < radius)
 	{
 		pos.x = radius;
@@ -192,6 +193,7 @@ void PlayerBody::Update(float deltaTime)
 		pos.y = height - radius;
 		vel.y = 0.0f;
 	}
+	/**/
 
 	FollowMouse(mousePosWorld.x, mousePosWorld.y);	// mousePosWorld.x, mousePosWorld.y
 }

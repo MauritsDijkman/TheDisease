@@ -21,6 +21,8 @@ Scene1::~Scene1() {
 	}
 }
 
+
+
 bool Scene1::OnCreate() {
 	int w, h;
 	SDL_GetWindowSize(window, &w, &h);
@@ -100,7 +102,11 @@ bool Scene1::OnCreate() {
 		SDL_FreeSurface(image);
 	}
 
-	RenderImage("Assets/Background.png", Vec3(10.0f, 7.5f, 0.0f), 0.0f, 1.0f);
+	//RenderImage("Assets/Background.png", Vec3(10.0f, 7.5f, 0.0f), 0.0f, 1.0f);
+
+	background = new GameObject(renderer, "Assets/Background.png");
+
+	GenerateLevel();
 
 	// end of character set ups
 
@@ -171,13 +177,20 @@ void Scene1::Render() {
 
 	float orientation = myNPC->getOrientation() * 180 / M_PI;
 
-	//RenderImage("Clyde.png", Vec3(1.0f, 1.0f, 0.0f), 0.0f, 0.5f);
+	//background->Render(projectionMatrix, Vec3(10.0f, 10.0f, 0.0f), renderer, 1.0f, 0.0f);
+	//background->Render(projectionMatrix, renderer, 1.0f, 0.0f);
+	//background->posX = 10.0f;
+	//background->posY = 10.0f;
 
-	//SDL_RenderCopyEx(renderer, myNPC->getTexture(), nullptr, &square, orientation, nullptr, SDL_FLIP_NONE);
+	for (GameObject* tile_ : backgroundTiles) {
+		tile_->Render(projectionMatrix, renderer, 1.0f, 0.0f);
+		cout << "Position: " << tile_->GetPosition().x << " || " << tile_->GetPosition().y << endl;
+	}
 
-	// render the player
+	// Render the player
 	game->RenderPlayer(0.10f);
 
+	// Render all things in the renderer
 	SDL_RenderPresent(renderer);
 }
 
@@ -189,6 +202,66 @@ void Scene1::HandleEvents(const SDL_Event& event)
 	game->getPlayer()->HandleEvents(event);
 }
 
+void Scene1::GenerateLevel()
+{
+	gridWidth = 15;
+	gridHeight = 10;
+
+	int levelData[10][15] = {
+	{ 1, 1, 1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0 },
+	{ 0,3,0,0,0,0,0,0,0,3,0,0,0,0,0 },
+	{ 0,0,3,0,0,0,0,0,0,0,0,0,0,3,0 },
+	{ 0,0,0,0,3,0,0,0,3,0,0,0,0,0,0 },
+	{ 0,3,0,0,0,0,0,0,0,0,3,0,0,0,0 },
+	{ 0,0,3,0,0,0,3,0,0,0,0,0,0,0,0 },
+	{ 0,0,0,0,3,0,0,0,0,0,0,0,0,3,0 },
+	{ 3,0,0,0,0,0,0,0,0,3,0,0,0,0,0 },
+	{ 0,0,3,0,0,0,0,0,0,0,0,0,3,0,0 },
+	{ 0,3,0,0,3,0,0,3,0,0,0,0,0,0,0 }
+	};
+
+	for (int row = 0; row < gridHeight; row++)
+	{
+		for (int column = 0; column < gridWidth; column++)
+		{
+			int id = levelData[row][column];
+			AddTile(column, row, id);
+		}
+	}
+}
+
+void Scene1::AddTile(int column, int row, int id)
+{
+	GameObject* tile = NULL;
+	cout << "ID: " << id << endl;
+
+	switch (id)
+	{
+	case 1:
+		tile = new GameObject(renderer, "Assets/HelloWorld.png");
+		break;
+		//case 2:
+		//	tile = new GameObject(renderer, "Assets/Background.png");
+		//	break;
+		//case 3:
+		//	tile = new GameObject(renderer, "Assets/Background.png");
+		//	break;
+	}
+
+	if (tile != NULL)
+	{
+		//LateAddChild(newTile);
+		tile->posX = column * TileWidth;
+		tile->posY = row * TileHeight - (TileHeight * gridHeight + 500);
+
+		//tile->posX = 10.0f;
+		//tile->posY = 10.0f;
+
+		backgroundTiles.insert(backgroundTiles.end(), tile);
+	}
+}
+
+/**
 void Scene1::RenderImage(string pathName_, Vec3 spawnPos_, float orientationDegrees_, float scale_)
 {
 	// Display some image in the scene that doesn't move
@@ -228,3 +301,4 @@ void Scene1::RenderImage(string pathName_, Vec3 spawnPos_, float orientationDegr
 
 	cout << "Image" << endl;
 }
+/**/

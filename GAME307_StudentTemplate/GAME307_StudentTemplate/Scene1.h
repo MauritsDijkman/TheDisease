@@ -7,6 +7,7 @@
 #include "StaticBody.h"
 #include "KinematicSeek.h"
 #include "KinematicArrive.h"
+#include "GameObject.h"
 
 using namespace MATH;
 class Scene1 : public Scene {
@@ -20,6 +21,18 @@ private:
 
 	Character* blinky;
 	StaticBody* myNPC;
+
+	GameObject* background;
+
+	const int TileWidth = 84;
+	const int TileHeight = 104;
+	int gridWidth = 10;
+	int gridHeight = 10;
+
+	void GenerateLevel();
+	void AddTile(int column, int row, int id);
+
+	vector<GameObject*> backgroundTiles;
 
 public:
 	Scene1(SDL_Window* sdlWindow, GameManager* game_);
