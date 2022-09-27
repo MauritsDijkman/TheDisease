@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="A_Star.cpp" />
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -142,9 +143,10 @@
     <ClCompile Include="KinematicWander.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MMath.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="PlayerBody.cpp" />
     <ClCompile Include="Scene1.cpp" />
-    <ClCompile Include="ScneneMenu.cpp" />
+    <ClCompile Include="SceneMenu.cpp" />
     <ClCompile Include="Seek.cpp" />
     <ClCompile Include="StaticBody.cpp" />
     <ClCompile Include="SteeringBehaviour.cpp" />
@@ -155,6 +157,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="A_Star.h" />
     <ClInclude Include="Body.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="GameManager.h" />
@@ -164,6 +167,7 @@
     <ClInclude Include="KinematicWander.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MMath.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="PlayerBody.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />

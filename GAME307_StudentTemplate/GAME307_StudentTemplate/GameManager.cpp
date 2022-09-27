@@ -37,7 +37,8 @@ bool GameManager::OnCreate() {
 
 	// select scene for specific assignment
 
-	currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+	//currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+	currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
 
 	// create player
 	float mass = 1.0f;
@@ -193,10 +194,12 @@ void GameManager::LoadScene(int i)
 	switch (i)
 	{
 	case 1:
-		currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+		//currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+		currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
 		break;
 	default:
-		currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+		//currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+		currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
 		break;
 	}
 	// using ValidateCurrentScene() to safely run OnCreate

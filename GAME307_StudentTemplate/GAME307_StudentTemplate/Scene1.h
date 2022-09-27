@@ -34,6 +34,8 @@ public:
 	SDL_Window* getWindow() { return window; }
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
+
+	void RenderImage(string pathName_, Vec3 spawnPos_, float orientationDegrees_, float scale_);
 };
 
 #endif

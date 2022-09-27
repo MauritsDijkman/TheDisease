@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Steering">
       <UniqueIdentifier>{c03f687b-4a9c-4a6d-9d37-04d3e52a5014}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Algorithms">
+      <UniqueIdentifier>{aac8ca0d-0313-466c-bd24-cdeed5171008}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Algorithms">
+      <UniqueIdentifier>{c5a18afc-5503-4f59-991b-4244432f0d43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -78,8 +84,14 @@
     <ClCompile Include="Seek.cpp">
       <Filter>Source Files\Steering</Filter>
     </ClCompile>
-    <ClCompile Include="ScneneMenu.cpp">
+    <ClCompile Include="SceneMenu.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="A_Star.cpp">
+      <Filter>Source Files\Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files\Algorithms</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="SceneMenu.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="A_Star.h">
+      <Filter>Header Files\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files\Algorithms</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
