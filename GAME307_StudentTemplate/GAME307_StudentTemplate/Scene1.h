@@ -24,10 +24,10 @@ private:
 
 	GameObject* background;
 
-	const int TileWidth = 84;
-	const int TileHeight = 104;
-	int gridWidth = 10;
-	int gridHeight = 10;
+	const int TileWidth = 77;
+	const int TileHeight = 43;
+	int gridWidth = 18;
+	int gridHeight = 8;
 
 	void GenerateLevel();
 	void AddTile(int column, int row, int id);

@@ -157,6 +157,11 @@ void Scene1::Render() {
 
 	//RenderImage("Assets/Background.png", Vec3(10.0f, 7.5f, 0.0f), 0.0f, 1.0f);
 
+	for (GameObject* tile_ : backgroundTiles) {
+		tile_->Render(projectionMatrix, renderer, 1.0f, 0.0f);
+		//cout << "Position: " << tile_->GetPosition().x << " || " << tile_->GetPosition().y << endl;
+	}
+
 	// render any npc's
 	blinky->render(0.15f);
 
@@ -182,11 +187,6 @@ void Scene1::Render() {
 	//background->posX = 10.0f;
 	//background->posY = 10.0f;
 
-	for (GameObject* tile_ : backgroundTiles) {
-		tile_->Render(projectionMatrix, renderer, 1.0f, 0.0f);
-		cout << "Position: " << tile_->GetPosition().x << " || " << tile_->GetPosition().y << endl;
-	}
-
 	// Render the player
 	game->RenderPlayer(0.10f);
 
@@ -204,22 +204,33 @@ void Scene1::HandleEvents(const SDL_Event& event)
 
 void Scene1::GenerateLevel()
 {
-	gridWidth = 15;
-	gridHeight = 10;
+	gridWidth = 20;
+	gridHeight = 20;
 
-	int levelData[10][15] = {
-	{ 1, 1, 1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0 },
-	{ 0,3,0,0,0,0,0,0,0,3,0,0,0,0,0 },
-	{ 0,0,3,0,0,0,0,0,0,0,0,0,0,3,0 },
-	{ 0,0,0,0,3,0,0,0,3,0,0,0,0,0,0 },
-	{ 0,3,0,0,0,0,0,0,0,0,3,0,0,0,0 },
-	{ 0,0,3,0,0,0,3,0,0,0,0,0,0,0,0 },
-	{ 0,0,0,0,3,0,0,0,0,0,0,0,0,3,0 },
-	{ 3,0,0,0,0,0,0,0,0,3,0,0,0,0,0 },
-	{ 0,0,3,0,0,0,0,0,0,0,0,0,3,0,0 },
-	{ 0,3,0,0,3,0,0,3,0,0,0,0,0,0,0 }
+	int levelData[20][20] = {
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 }
 	};
 
+	// Place the tiles for the amount of columns and rows
 	for (int row = 0; row < gridHeight; row++)
 	{
 		for (int column = 0; column < gridWidth; column++)
@@ -238,24 +249,31 @@ void Scene1::AddTile(int column, int row, int id)
 	switch (id)
 	{
 	case 1:
-		tile = new GameObject(renderer, "Assets/HelloWorld.png");
+		tile = new GameObject(renderer, "Assets/Tiles/Grass.png");
+		cout << "Case 1" << endl;
 		break;
-		//case 2:
-		//	tile = new GameObject(renderer, "Assets/Background.png");
-		//	break;
-		//case 3:
-		//	tile = new GameObject(renderer, "Assets/Background.png");
-		//	break;
+	case 2:
+		tile = new GameObject(renderer, "Assets/Tiles/Water.png");
+		break;
+	case 3:
+		tile = new GameObject(renderer, "Assets/Tiles/Brick.png");
+		break;
 	}
 
 	if (tile != NULL)
 	{
-		//LateAddChild(newTile);
-		tile->posX = column * TileWidth;
-		tile->posY = row * TileHeight - (TileHeight * gridHeight + 500);
+		tile->posX = column * TileWidth + (TileWidth * 0.5f);
+		tile->posY = row * TileHeight + (TileHeight * 0.5f);
 
-		//tile->posX = 10.0f;
-		//tile->posY = 10.0f;
+		cout << "Column: " << column << " || Row: " << row << endl;
+
+		// Transverse the position from viewport to game
+		Vec3 position = Vec3(tile->posX, tile->posY, 0.0f);
+		position = MMath::inverse(game->getProjectionMatrix()) * position;
+
+		// Set the position to the game coordinates
+		tile->posX = position.x;
+		tile->posY = position.y;
 
 		backgroundTiles.insert(backgroundTiles.end(), tile);
 	}
