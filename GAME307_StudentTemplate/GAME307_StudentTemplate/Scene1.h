@@ -24,8 +24,8 @@ private:
 
 	GameObject* background;
 
-	const int TileWidth = 77;
-	const int TileHeight = 43;
+	const int tileWidth = 77;
+	const int tileHeight = 43;
 	int gridWidth = 18;
 	int gridHeight = 8;
 
@@ -47,8 +47,6 @@ public:
 	SDL_Window* getWindow() { return window; }
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
-
-	void RenderImage(string pathName_, Vec3 spawnPos_, float orientationDegrees_, float scale_);
 };
 
 #endif

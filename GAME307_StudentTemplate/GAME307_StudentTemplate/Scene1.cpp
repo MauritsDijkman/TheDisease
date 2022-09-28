@@ -1,19 +1,21 @@
 #include "Scene1.h"
 #include "VMath.h"
 
-Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_) {
+Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
+{
 	window = sdlWindow_;
 	game = game_;
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
 
-	// create a NPC
+	// Create a NPC
 	blinky = nullptr;
 	myNPC = NULL;
 }
 
-Scene1::~Scene1() {
+Scene1::~Scene1()
+{
 	if (blinky)
 	{
 		blinky->OnDestroy();
@@ -21,16 +23,15 @@ Scene1::~Scene1() {
 	}
 }
 
-
-
-bool Scene1::OnCreate() {
+bool Scene1::OnCreate()
+{
 	int w, h;
 	SDL_GetWindowSize(window, &w, &h);
 
 	Matrix4 ndc = MMath::viewportNDC(w, h);
 	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
-	//TODO: Calculate the ortho every frame and take the player's location as the middle point
 
+	//TODO: Calculate the ortho every frame and take the player's location as the middle point
 	float minX = game->getPlayer()->getPos().x - xAxis / 2;
 	float maxX = game->getPlayer()->getPos().x + xAxis / 2;
 
@@ -43,14 +44,6 @@ bool Scene1::OnCreate() {
 
 	/// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
-
-	// Tried to add a background image
-	/**
-	SDL_Surface* backgroundSurface;
-	backgroundSurface = IMG_Load("Pinky.png");
-	SDL_Texture* backgroundTexture;
-	backgroundTexture = SDL_CreateTextureFromSurface(renderer, backgroundSurface);
-	**/
 
 	// Set player image to PacMan
 	SDL_Surface* image;
@@ -93,23 +86,22 @@ bool Scene1::OnCreate() {
 	image = IMG_Load("Clyde.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
 
-	if (image == nullptr) {
+	if (image == nullptr)
+	{
 		std::cerr << "Can't open the image" << std::endl;
 		return false;
 	}
-	else {
+	else
+	{
 		myNPC->setTexture(texture);
 		SDL_FreeSurface(image);
 	}
-
-	//RenderImage("Assets/Background.png", Vec3(10.0f, 7.5f, 0.0f), 0.0f, 1.0f);
 
 	background = new GameObject(renderer, "Assets/Background.png");
 
 	GenerateLevel();
 
-	// end of character set ups
-
+	// End of character set ups
 	return true;
 }
 
@@ -132,7 +124,6 @@ void Scene1::Update(const float deltaTime)
 
 	projectionMatrix = ndc * ortho;
 
-
 	// Calculate and apply any steering for npc's
 	blinky->Update(deltaTime);
 
@@ -151,18 +142,17 @@ void Scene1::Update(const float deltaTime)
 	game->getPlayer()->Update(deltaTime);
 }
 
-void Scene1::Render() {
+void Scene1::Render()
+{
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
-
-	//RenderImage("Assets/Background.png", Vec3(10.0f, 7.5f, 0.0f), 0.0f, 1.0f);
 
 	for (GameObject* tile_ : backgroundTiles) {
 		tile_->Render(projectionMatrix, renderer, 1.0f, 0.0f);
 		//cout << "Position: " << tile_->GetPosition().x << " || " << tile_->GetPosition().y << endl;
 	}
 
-	// render any npc's
+	// Render any npc's
 	blinky->render(0.15f);
 
 	SDL_Rect square;
@@ -182,11 +172,6 @@ void Scene1::Render() {
 
 	float orientation = myNPC->getOrientation() * 180 / M_PI;
 
-	//background->Render(projectionMatrix, Vec3(10.0f, 10.0f, 0.0f), renderer, 1.0f, 0.0f);
-	//background->Render(projectionMatrix, renderer, 1.0f, 0.0f);
-	//background->posX = 10.0f;
-	//background->posY = 10.0f;
-
 	// Render the player
 	game->RenderPlayer(0.10f);
 
@@ -196,17 +181,19 @@ void Scene1::Render() {
 
 void Scene1::HandleEvents(const SDL_Event& event)
 {
-	// send events to npc's as needed
+	// Send events to npc's as needed
 
-	// send events to player as needed
+	// Send events to player as needed
 	game->getPlayer()->HandleEvents(event);
 }
 
 void Scene1::GenerateLevel()
 {
+	// Amount of tiles on the width and height
 	gridWidth = 20;
 	gridHeight = 20;
 
+	// Level layout (x value = gridWidth and y value = gridHeight)
 	int levelData[20][20] = {
 	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
 	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
@@ -244,13 +231,12 @@ void Scene1::GenerateLevel()
 void Scene1::AddTile(int column, int row, int id)
 {
 	GameObject* tile = NULL;
-	cout << "ID: " << id << endl;
 
+	// Load the tile according to the id
 	switch (id)
 	{
 	case 1:
 		tile = new GameObject(renderer, "Assets/Tiles/Grass.png");
-		cout << "Case 1" << endl;
 		break;
 	case 2:
 		tile = new GameObject(renderer, "Assets/Tiles/Water.png");
@@ -262,10 +248,16 @@ void Scene1::AddTile(int column, int row, int id)
 
 	if (tile != NULL)
 	{
-		tile->posX = column * TileWidth + (TileWidth * 0.5f);
-		tile->posY = row * TileHeight + (TileHeight * 0.5f);
+		// Position in pixels
+		Vec3 startPos = Vec3(0.0f, 0.0f, 0.0f);
 
-		cout << "Column: " << column << " || Row: " << row << endl;
+		// Set the position to have the origin top left
+		tile->posX = startPos.x + column * tileWidth + (tileWidth * 0.5f);
+		tile->posY = startPos.y + row * tileHeight + (tileHeight * 0.5f);
+
+		// Print ID (with pathname), column and row
+		cout << "ID: " << id << " " << "(" << tile->GetPathName() << ")"
+			<< " || " << "Column: " << column << " || " << "Row : " << row << endl;
 
 		// Transverse the position from viewport to game
 		Vec3 position = Vec3(tile->posX, tile->posY, 0.0f);
@@ -275,48 +267,7 @@ void Scene1::AddTile(int column, int row, int id)
 		tile->posX = position.x;
 		tile->posY = position.y;
 
+		// Add the tile to the list
 		backgroundTiles.insert(backgroundTiles.end(), tile);
 	}
 }
-
-/**
-void Scene1::RenderImage(string pathName_, Vec3 spawnPos_, float orientationDegrees_, float scale_)
-{
-	// Display some image in the scene that doesn't move
-	SDL_Rect square;
-	Vec3 screenCoords;
-	int w, h;
-
-	SDL_Surface* image;
-	SDL_Texture* texture;
-
-	image = IMG_Load(pathName_.c_str());
-	texture = SDL_CreateTextureFromSurface(renderer, image);
-	if (image == nullptr)
-		std::cerr << "Can't open the image" << std::endl;
-
-	Vec3 pos = Vec3(spawnPos_.x, spawnPos_.y, 0.0f);
-	SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
-	screenCoords = projectionMatrix * pos;
-	//w = static_cast<int>(image->w * scale_);
-	//h = static_cast<int>(image->h * scale_);
-
-	w = static_cast<int>(w * scale_);
-	h = static_cast<int>(h * scale_);
-
-	square.x = static_cast<int>(screenCoords.x - 0.5f * w);
-	square.y = static_cast<int>(screenCoords.y - 0.5f * h);
-	//square.x = static_cast<int>(screenCoords.x);
-	//square.y = static_cast<int>(screenCoords.y - h);
-	square.w = w;
-	square.h = h;
-
-	// Convert character orientation from radians to degrees (degrees * 180.0f / M_PI).
-	float orientationDegrees = orientationDegrees_ * 180.0f / M_PI;
-
-	SDL_RenderCopyEx(renderer, texture, nullptr, &square,
-		orientationDegrees, nullptr, SDL_FLIP_NONE);
-
-	cout << "Image" << endl;
-}
-/**/

@@ -9,6 +9,8 @@ GameObject::GameObject(SDL_Renderer* render_, string pathName_)
 	texture = SDL_CreateTextureFromSurface(render_, surface);
 	if (surface == nullptr)
 		std::cerr << "Can't open the image" << std::endl;
+
+	pathName = pathName_;
 }
 
 void GameObject::Render(Matrix4 projectionMatrix_, SDL_Renderer* renderer_,
@@ -52,6 +54,11 @@ SDL_Texture* GameObject::GetTexture()
 Vec3 GameObject::GetPosition()
 {
 	return Vec3(posX, posY, 0.0f);
+}
+
+string GameObject::GetPathName()
+{
+	return pathName;
 }
 
 #pragma endregion
