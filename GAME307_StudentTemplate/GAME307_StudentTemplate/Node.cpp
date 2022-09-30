@@ -2,8 +2,8 @@
 
 Node::Node()
 {
-	previousNode = new Node();
-	targetNode = new Node();
+	//previousNode = new Node();
+	//targetNode = new Node();
 }
 
 Node::~Node() {}
@@ -87,6 +87,11 @@ void Node::SetParent(Node parent_)
 {
 	// TODO: fix from Node to Node*
 	//previousNode = parent_;
+}
+
+void Node::SetPosition(Vec3 position_)
+{
+	position = position_;
 }
 
 #pragma endregion

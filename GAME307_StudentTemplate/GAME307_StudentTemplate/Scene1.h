@@ -8,6 +8,7 @@
 #include "KinematicSeek.h"
 #include "KinematicArrive.h"
 #include "GameObject.h"
+#include "Node.h"
 
 using namespace MATH;
 class Scene1 : public Scene {
@@ -31,8 +32,10 @@ private:
 
 	void GenerateLevel();
 	void AddTile(int column, int row, int id);
+	void AddNode(Vec3 pos);
 
 	vector<GameObject*> backgroundTiles;
+	vector<Node*> nodes;
 
 public:
 	Scene1(SDL_Window* sdlWindow, GameManager* game_);

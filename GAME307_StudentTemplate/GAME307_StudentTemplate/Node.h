@@ -40,6 +40,7 @@ public:
 	void Set_F(float F_);
 	void SetTargetNode(Node* targetNode_);
 	void SetParent(Node parent_);
+	void SetPosition(Vec3 position_);
 };
 
 #endif

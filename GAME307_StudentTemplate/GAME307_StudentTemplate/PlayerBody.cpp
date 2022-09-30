@@ -7,12 +7,6 @@
 
 #include "PlayerBody.h"
 
-void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
-{
-	orientation = atan2(pos.y - mousPosY, mousePosX - pos.x);
-	std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
-}
-
 bool PlayerBody::OnCreate()
 {
 	//image = IMG_Load("Pacman.png");
@@ -157,6 +151,7 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
 	{
 		Vec3 mousePosView = Vec3(event.button.x, event.button.y, 0);
 		mousePosWorld = MMath::inverse(game->getProjectionMatrix()) * mousePosView;
+		// TODO: Set the mouse position relative to the position of the player (+ pos)
 	}
 }
 
@@ -197,6 +192,13 @@ void PlayerBody::Update(float deltaTime)
 
 	FollowMouse(mousePosWorld.x, mousePosWorld.y);	// mousePosWorld.x, mousePosWorld.y
 }
+
+void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
+{
+	orientation = atan2(pos.y - mousPosY, mousePosX - pos.x);
+	std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
+}
+
 
 void PlayerBody::resetToOrigin()
 {

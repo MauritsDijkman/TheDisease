@@ -1,5 +1,6 @@
 #include "Scene1.h"
 #include "VMath.h"
+#include <Node.h>
 
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 {
@@ -113,11 +114,21 @@ void Scene1::Update(const float deltaTime)
 	int w, h;
 	SDL_GetWindowSize(window, &w, &h);
 
+	/**/
 	float minX = game->getPlayer()->getPos().x - xAxis / 2;
 	float maxX = game->getPlayer()->getPos().x + xAxis / 2;
 
 	float minY = game->getPlayer()->getPos().y - yAxis / 2;
 	float maxY = game->getPlayer()->getPos().y + yAxis / 2;
+	/**/
+
+	/**
+	float minX = 0;
+	float maxX = xAxis;
+
+	float minY = 0;
+	float maxY = yAxis;
+	/**/
 
 	Matrix4 ndc = MMath::viewportNDC(w, h);
 	Matrix4 ortho = MMath::orthographic(minX, maxX, minY, maxY, 0.0f, 1.0f);
@@ -201,14 +212,14 @@ void Scene1::GenerateLevel()
 	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
 	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
 	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 1, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 2, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 2, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
 	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
 	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 3, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
+	{ 1, 1, 1, 2, 2, 1, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
 	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
 	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
 	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
@@ -225,6 +236,14 @@ void Scene1::GenerateLevel()
 			int id = levelData[row][column];
 			AddTile(column, row, id);
 		}
+	}
+
+	for (Node* node : nodes)
+	{
+		GameObject* nodeTile = new GameObject(renderer, "Assets/Node.png");
+		nodeTile->posX = node->GetPos().x;
+		nodeTile->posY = node->GetPos().y;
+		backgroundTiles.insert(backgroundTiles.end(), nodeTile);
 	}
 }
 
@@ -269,5 +288,25 @@ void Scene1::AddTile(int column, int row, int id)
 
 		// Add the tile to the list
 		backgroundTiles.insert(backgroundTiles.end(), tile);
+
+		if (id == 1)
+			AddNode(tile->GetPosition());
 	}
+}
+
+void Scene1::AddNode(Vec3 pos)
+{
+	// Create new node
+	Node* node = new Node();
+
+	Vec3 position;
+	position.x = pos.x + (tileWidth / 2);
+	position.y = pos.y + (tileHeight / 2);
+
+	// Set the position of the node
+	node->SetPosition(pos);
+
+	cout << "Node pos: " << node->GetPos().x << " " << node->GetPos().y << endl;
+
+	nodes.insert(nodes.end(), node);
 }
