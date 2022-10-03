@@ -6,7 +6,7 @@ Body::Body()
     vel = Vec3();
     accel = Vec3();
 	mass = 1.0f;
-    radius = 0.0f;
+    radius = 1.0f;
     orientation = 0.0f;
     rotation = 0.0f;
     angular = 0.0f;
@@ -21,7 +21,7 @@ Body::Body()
 Body::Body(
     Vec3 pos_, Vec3 vel_, Vec3 accel_,
     float mass_,
-    float radius_ = 0.0f,
+    float radius_ = 1.0f,
     float orientation_ = 0.0f,
     float rotation_ = 0.0f,
     float angular_ = 0.0f,

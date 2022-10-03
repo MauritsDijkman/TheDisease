@@ -2,18 +2,29 @@
 #define CHARACTER_H
 
 #include <vector>
+//
+#include "GameObject.h"
 
+//
 #include "Scene.h"
 #include "KinematicBody.h"
 #include "Seek.h"
+#include "Physics.h"
+
 
 using namespace std;
 
-class Character
+class Character : public GameObject
 {
 private:
 	class KinematicBody* body;
 	class Scene* scene;
+
+	
+protected:
+	//bool isVisible, isActive;
+	//float moveSpeed = 4.0f;
+
 
 public:
 	Character()

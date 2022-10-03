@@ -6,7 +6,8 @@
 #include "Timer.h"
 #include "Scene.h"
 #include "PlayerBody.h"
-//#include "SceneMenu.h"
+
+
 
 class GameManager {
 private:
@@ -22,6 +23,8 @@ private:
 	class Window* windowPtr;
 	class Timer* timer;
 	bool isRunning;
+    int sceneNum;
+	//class
 	class Scene* currentScene;
 	class PlayerBody* player;
 	Uint32 changeSceneEventType; // event type number for user defined events
@@ -37,11 +40,17 @@ public:
 	PlayerBody* getPlayer() { return player; }
 	Uint32 getChangeScene() { return changeSceneEventType; }
 
+	
+
 	SDL_Renderer* getRenderer();
 	void RenderPlayer(float scale = 1.0f);
+	//void RenderWeapon(float scale = 1.0f);
 	void Run();
+	//bool isRunning;
 	void LoadScene(int i);
 	bool ValidateCurrentScene();
+
+	
 
 };
 #endif

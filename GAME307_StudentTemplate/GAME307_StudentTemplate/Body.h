@@ -9,6 +9,9 @@
 using namespace MATH;
 
 class Body {
+private:
+	
+
 protected:
 	// inherited classes can access this
 	Vec3 pos;
@@ -73,6 +76,7 @@ public:
 	// Added this as public to deal with my demo 
 	// so that mouse position can be copied into a Body.
 	virtual void setPos(Vec3 pos);
+
 };
 
 #endif /* BODY_H */

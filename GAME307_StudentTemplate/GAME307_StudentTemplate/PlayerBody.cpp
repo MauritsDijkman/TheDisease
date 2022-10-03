@@ -7,11 +7,58 @@
 
 #include "PlayerBody.h"
 
+
+
+#include <SDL.h>
+
 void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
 {
 	orientation = atan2(pos.y - mousPosY, mousePosX - pos.x);
-	std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
+	//std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
 }
+
+/*
+std::vector<Ammunition*> PlayerBody::fireBullet() 
+{
+	
+	Bullets.clear();
+
+	//weaponType 0 standard weapon
+	
+	if (weaponType == 0) {
+		float velx = 10.0f * cos(angle * M_PI / 180);
+		float vely = -10.0f * sin(angle * M_PI / 180);
+
+		Bullets.push_back(new Bullets);
+		Bullets[0]->setBoundingSphere(Sphere(0.25f));
+	
+		Bullets[0]->setPos(Vec3(pos.x, pos.y, 0.0f));
+		Bullets[0]->setVel(Vec3(velx, vely, 0.0f));
+
+		Bullets[0]->setRemainingBounces(3);
+	}
+	//weaponType 1 is shotgun
+	if (weaponType == 1) {
+		for (int i = 0; i < 3; ++i) {
+			Bullets.push_back(Bullets);
+			Bullets[i]->setBoundingSphere(Sphere(0.25f));
+
+			if (i == 1) { angle += 15; }
+			if (i == 2) { angle -= 30; }
+
+			float velx = 10.0f * cos(angle * M_PI / 180);
+			float vely = -10.0f * sin(angle * M_PI / 180);
+
+			Bullets[i]->setPos(Vec3(pos.x, pos.y, 0.0f));
+			Bullets[i]->setVel(Vec3(velx, vely, 0.0f));
+
+			Bullets[i]->setRemainingBounces(0);
+		}
+
+		angle += 15;
+	}
+}
+*/
 
 bool PlayerBody::OnCreate()
 {
@@ -24,6 +71,28 @@ bool PlayerBody::OnCreate()
 		return false;
 	}
 	return true;
+
+	/*
+	//weapon pickup
+	surfacePtr = IMG_Load("Art/Shotgun96.png");
+	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+
+	if (surfacePtr == nullptr) {
+		std::cerr << "Imgage does not work" << std::endl;
+		return false;
+	}
+	if (texturePtr == nullptr) {
+		printf("%s\n", SDL_GetError());
+		return false;
+	}
+	weaponPickup = new GameObject();
+
+	SDL_FreeSurface(surfacePtr);
+
+	weaponPickup->setPos(Vec3(3.0f, 13.0f, 0.0f));
+	weaponPickup->setBoundingSphere(Sphere(0.5f));
+	weaponPickup->setTexture(texturePtr);
+	*/
 }
 
 void PlayerBody::Render(float scale)

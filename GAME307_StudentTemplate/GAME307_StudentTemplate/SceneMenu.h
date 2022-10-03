@@ -6,6 +6,7 @@
 #include <vector>
 #include <SDL.h>
 
+
 using namespace MATH;
 struct MATH::Plane;
 
@@ -21,6 +22,9 @@ private:
 	Matrix4 inverseProjection;
 	bool play;
 
+
+	class Window* windowPtr;
+
 public:
 	SceneMenu(SDL_Window* sdlWindow_, GameManager* game_);
 	~SceneMenu();
@@ -30,6 +34,8 @@ public:
 	void Render();
 	void HandleEvents(const SDL_Event& sdlEvent);
 	bool nextScene() { return false; }
+
+	//Game manager need this to get acces to SceneMenu
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }
 	SDL_Window* getWindow() { return window; }
