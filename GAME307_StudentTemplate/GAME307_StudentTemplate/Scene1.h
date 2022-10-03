@@ -37,6 +37,8 @@ private:
 	vector<GameObject*> backgroundTiles;
 	vector<Node*> nodes;
 
+	//Button* clyde;
+
 public:
 	Scene1(SDL_Window* sdlWindow, GameManager* game_);
 	~Scene1();
@@ -50,6 +52,8 @@ public:
 	SDL_Window* getWindow() { return window; }
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
+
+	Vec3 getMousePosition();
 };
 
 #endif

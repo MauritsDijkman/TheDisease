@@ -100,6 +100,11 @@ bool Scene1::OnCreate()
 
 	background = new GameObject(renderer, "Assets/Background.png");
 
+	//Button class
+	//clyde = new Button("clyde.png", this);
+	//if (!clyde->onCreate())
+	//	return false;
+
 	GenerateLevel();
 
 	// End of character set ups
@@ -134,6 +139,8 @@ void Scene1::Update(const float deltaTime)
 	Matrix4 ortho = MMath::orthographic(minX, maxX, minY, maxY, 0.0f, 1.0f);
 
 	projectionMatrix = ndc * ortho;
+
+	inverseProjection = MMath::inverse(projectionMatrix);
 
 	// Calculate and apply any steering for npc's
 	blinky->Update(deltaTime);
@@ -183,8 +190,11 @@ void Scene1::Render()
 
 	float orientation = myNPC->getOrientation() * 180 / M_PI;
 
+	//clyde->Render();
+
 	// Render the player
 	game->RenderPlayer(0.10f);
+
 
 	// Render all things in the renderer
 	SDL_RenderPresent(renderer);
@@ -196,6 +206,26 @@ void Scene1::HandleEvents(const SDL_Event& event)
 
 	// Send events to player as needed
 	game->getPlayer()->HandleEvents(event);
+
+	Vec3 mousePos = getMousePosition();
+
+	if (event.button.type == SDL_MOUSEBUTTONUP
+		&& event.button.button == SDL_BUTTON_LEFT)
+	{
+		//if (clyde->clicked(mousePos))
+		//	printf("Mouse clicked inside clyde!");
+	}
+}
+
+Vec3 Scene1::getMousePosition()
+{
+	Uint32 buttons;
+	int x, y; // Mouse position in screen coords
+	buttons = SDL_GetMouseState(&x, &y);
+	Vec3 mouseScreenCoords(Vec3(float(x), float(y), 0.0f));
+	Vec3 mouseWorldCoords = inverseProjection * (mouseScreenCoords);
+	return mouseWorldCoords;
+
 }
 
 void Scene1::GenerateLevel()
