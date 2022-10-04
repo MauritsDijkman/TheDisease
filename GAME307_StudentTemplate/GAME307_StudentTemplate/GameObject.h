@@ -1,27 +1,35 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
-#include "SDL_image.h"
-#include "PhysicsObject.h"
+
+#include <SDL.h>
+#include <SDL_image.h>
+#include <iostream>
+#include "MMath.h"
 
 using namespace MATH;
+using namespace std;
 
-class GameObject : public PhysicsObject
-{
+class GameObject {
 private:
+	SDL_Surface* surface;
 	SDL_Texture* texture;
+	string pathName;
 
 public:
-	GameObject();
-	GameObject(SDL_Texture* texture_);
-	~GameObject();
+	GameObject(SDL_Renderer* render_, string pathName_);
 
-	virtual bool OnCreate();
-	virtual void OnDestroy();
-	virtual void Update(const float deltaTime_);
-	virtual void Render() const;
-	virtual void HandleEvent(const SDL_Event& event);
+	void Render(Matrix4 projectionMatrix_, SDL_Renderer* renderer_,
+		float scale_, float orientationDegrees_);
 
-	void setTexture(SDL_Texture* texture_) { texture = texture_; }
-	SDL_Texture* getTexture() { return texture; }
+	// Get functions
+	SDL_Surface* GetSurface();
+	SDL_Texture* GetTexture();
+	Vec3 GetPosition();
+	string GetPathName();
+
+	// Spawnposition
+	float posX;
+	float posY;
 };
-#endif // !GAMEOBJECT_H
+
+#endif
