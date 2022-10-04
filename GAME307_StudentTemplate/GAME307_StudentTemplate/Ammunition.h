@@ -3,7 +3,7 @@
 
 #include "GameObject.h"
 
-class Ammunition : public GameObject
+class Ammunition
 {
 public:
 	Ammunition();

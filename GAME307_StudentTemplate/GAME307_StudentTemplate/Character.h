@@ -14,13 +14,13 @@
 
 using namespace std;
 
-class Character : public GameObject
+class Character
 {
 private:
 	class KinematicBody* body;
 	class Scene* scene;
 
-	
+
 protected:
 	//bool isVisible, isActive;
 	//float moveSpeed = 4.0f;
