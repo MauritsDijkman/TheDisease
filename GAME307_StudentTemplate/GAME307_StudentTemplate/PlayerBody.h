@@ -12,7 +12,7 @@
 #include "Body.h"
 #include "Character.h"
 #include "GameManager.h"
-#include "Ammunition.h"
+//#include "Ammunition.h"
 
 
 #include <vector>
@@ -26,7 +26,7 @@ private:
 	bool altWeaponAvailable;
 	//void dead();
 
-	std::vector<Ammunition> Bullets;
+	//std::vector<Ammunition> Bullets;
 
 protected:
 	class GameManager* game;
@@ -69,7 +69,7 @@ public:
 
 	// use the base class versions of getters
 
-	std::vector<Ammunition*> fireBullet();
+	//std::vector<Ammunition*> fireBullet();
 
 	bool OnCreate();
 	void Render(float scale = 1.0f);

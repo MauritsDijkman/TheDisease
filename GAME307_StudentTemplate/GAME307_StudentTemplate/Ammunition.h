@@ -1,3 +1,4 @@
+/*
 #ifndef AMMUNITION_H
 #define AMMUNITION_H
 
@@ -11,3 +12,4 @@ public:
 
 };
 #endif
+*/

@@ -4,6 +4,7 @@
 #include "SceneCredit.h"
 #include "SceneSetting.h"
 
+
 GameManager::GameManager() {
 	windowPtr = nullptr;
 	timer = nullptr;
@@ -156,7 +157,28 @@ void GameManager::Run() {
 					isRunning = false;
 				}
 			}
-
+			else if (event.type == changeSceneEventType && event.user.code == 4)
+			{
+				// switch sens
+				currentScene->OnDestroy();
+				delete currentScene;
+				currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+				if (!currentScene->OnCreate())
+				{
+					isRunning = false;
+				}
+			}
+			else if (event.type == changeSceneEventType && event.user.code == 5)
+			{
+				// switch sens
+				currentScene->OnDestroy();
+				delete currentScene;
+				currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+				if (!currentScene->OnCreate())
+				{
+					isRunning = false;
+				}
+			}
 
 			else if (event.type == SDL_KEYDOWN)
 			{
@@ -186,6 +208,14 @@ void GameManager::Run() {
 				case SDL_SCANCODE_3:
 					launched = false;
 					LoadScene(3);
+					break;
+				case SDL_SCANCODE_4:
+					launched = false;
+					LoadScene(4);
+					break;
+				case SDL_SCANCODE_5:
+					launched = false;
+					LoadScene(5);
 					break;
 				default:
 					break;
@@ -246,6 +276,9 @@ void GameManager::LoadScene(int i)
 		delete currentScene;
 		switch (i)
 		{
+		case 0:
+			currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
+			break;
 		case 1:
 			currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
 		break;
@@ -255,6 +288,12 @@ void GameManager::LoadScene(int i)
 		    case 3:
 		currentScene = new SceneCredit(windowPtr->GetSDL_Window(), this);
 		 break;
+			case 4:
+		currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+		  break;
+			case 5:
+		currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+			break;
 		default:
 			currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
 			break;

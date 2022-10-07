@@ -30,7 +30,10 @@ bool SceneCredit::OnCreate()
 
 	IMG_Init(IMG_INIT_PNG);
 
-	surfacePtr = IMG_Load("Credit.png");
+	//surfacePtr = IMG_Load("Credit.png");
+	surfacePtr = IMG_Load("Credit.2.png");
+	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
 	if (surfacePtr == nullptr) {
@@ -62,12 +65,19 @@ void SceneCredit::HandleEvents(const SDL_Event& sdlEvent)
 	Vec3 mousePosView = Vec3(sdlEvent.button.x, sdlEvent.button.y, 0.0f);
 	Vec3 mousePosWorld = MMath::inverse(projectionMatrix) * mousePosView;
 	//This is the play button it'll load scene zero
-	if (sdlEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN && 3.3 < mousePosWorld.x && mousePosWorld.x < 7.3 && 11.5 < mousePosWorld.y && mousePosWorld.y < 13.1) {// 12 < mousePosWorld.x && mousePosWorld.x < 19 && 7 < mousePosWorld.y && mousePosWorld.y < 10
+	if (sdlEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN && 8.3 < mousePosWorld.x && mousePosWorld.x < 20.3 && 4.5 < mousePosWorld.y && mousePosWorld.y < 15.1) {// 12 < mousePosWorld.x && mousePosWorld.x < 19 && 7 < mousePosWorld.y && mousePosWorld.y < 10
 		play = true;
+		SDL_Event event;
+		SDL_memset(&event, 0, sizeof(event));
+		event.type = game->getChangeScene();
+		event.user.code = 4;
+		event.user.data1 = nullptr;
+		event.user.data2 = nullptr;
+		SDL_PushEvent(&event);
 		std::cout << mousePosWorld.x << "  start  " << mousePosWorld.y << std::endl;
 
 	}
-
+	/*
 	//This is the exit button which will exit and quit the game
 	else if (sdlEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN && 3.1 < mousePosWorld.x && mousePosWorld.x < 6.9 && 5 < mousePosWorld.y && mousePosWorld.y < 6.7) {//12 < mousePosWorld.x && mousePosWorld.x < 19 && 2.5 < mousePosWorld.y && mousePosWorld.y < 5)
 		std::cout << mousePosWorld.x << "  exit  " << mousePosWorld.y << std::endl;
@@ -75,6 +85,7 @@ void SceneCredit::HandleEvents(const SDL_Event& sdlEvent)
 		sdlevent.type = SDL_QUIT;
 		SDL_PushEvent(&sdlevent);
 	}
+	*/
 }
 
 void SceneCredit::Render()

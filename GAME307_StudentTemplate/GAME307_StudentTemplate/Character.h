@@ -14,13 +14,13 @@
 
 using namespace std;
 
-class Character : public GameObject
+class Character
 {
 private:
 	class KinematicBody* body;
 	class Scene* scene;
 
-	
+
 protected:
 	//bool isVisible, isActive;
 	//float moveSpeed = 4.0f;
@@ -48,6 +48,7 @@ public:
 	void Update(float time);
 	void HandleEvents(const SDL_Event& event);
 	void render(float scale = 1.0f);
+	KinematicBody* getBody() { return body; }
 
 	void steerToSeekPlayer(SteeringOutput* steering);
 

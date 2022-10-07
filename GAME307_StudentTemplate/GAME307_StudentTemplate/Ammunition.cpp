@@ -1,5 +1,5 @@
 #include "Ammunition.h"
-
+/*
 Ammunition::Ammunition()
 {
 }
@@ -7,3 +7,4 @@ Ammunition::Ammunition()
 Ammunition::~Ammunition()
 {
 }
+*/
