@@ -145,3 +145,9 @@ vector<Node> A_Star::FindParent(Node currentNode)
 		return list;
 	}
 }
+
+void A_Star::SetNodeList(Node nodes_[])
+{
+	//nodes = nodes_;
+	//copy(begin(nodes), std::end(nodes), begin(nodes_));
+}

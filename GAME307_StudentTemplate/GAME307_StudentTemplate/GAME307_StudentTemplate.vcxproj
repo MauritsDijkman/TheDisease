@@ -133,6 +133,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ammunition.cpp" />
+    <ClCompile Include="A_Star.cpp" />
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -143,6 +145,7 @@
     <ClCompile Include="KinematicWander.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MMath.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="PlayerBody.cpp" />
@@ -160,6 +163,8 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ammunition.h" />
+    <ClInclude Include="A_Star.h" />
     <ClInclude Include="Body.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="GameManager.h" />
@@ -170,6 +175,7 @@
     <ClInclude Include="KinematicWander.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MMath.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="Plane.h" />

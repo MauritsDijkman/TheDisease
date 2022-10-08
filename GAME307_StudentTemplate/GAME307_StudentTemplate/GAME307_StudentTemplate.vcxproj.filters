@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Steering">
       <UniqueIdentifier>{c03f687b-4a9c-4a6d-9d37-04d3e52a5014}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Algorithm">
+      <UniqueIdentifier>{e7216608-21c9-477d-a754-e5ec1669d389}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Algorithm">
+      <UniqueIdentifier>{7bee28c4-006c-4814-be03-c160cef1ad51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -95,6 +101,15 @@
     </ClCompile>
     <ClCompile Include="PhysicsObject.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ammunition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files\Algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="A_Star.cpp">
+      <Filter>Source Files\Algorithm</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +199,15 @@
     </ClInclude>
     <ClInclude Include="PhysicsObject.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ammunition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="A_Star.h">
+      <Filter>Header Files\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files\Algorithm</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

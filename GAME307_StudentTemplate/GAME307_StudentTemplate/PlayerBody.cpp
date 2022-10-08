@@ -199,7 +199,6 @@ void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
 	std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
 }
 
-
 void PlayerBody::resetToOrigin()
 {
 	pos = Vec3(0.0f + radius, 0.0f + radius, 0.0f);

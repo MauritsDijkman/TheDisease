@@ -21,6 +21,7 @@ private:
 public:
 	KinematicArrive(float radius_, float timeToTarget_, Body* character_, Body* target_);
 	KinematicSteeringOutput* getSteering();
+	//SteeringOutput** getSteering();
 };
 
 #endif

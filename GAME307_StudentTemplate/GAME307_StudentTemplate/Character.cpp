@@ -67,10 +67,12 @@ void Character::steerToSeekPlayer(SteeringOutput* steering)
 	PlayerBody* target = scene->game->getPlayer();
 
 	SteeringBehaviour* steering_algorithm = new Seek(body, target);
+	//SteeringBehaviour* steering_algorithm = new KinematicArrive(3.0f, 0.5f, body, target);
 	steering_outputs.push_back(steering_algorithm->getSteering());
 
 	// Add togethere any steering outputs
-	for (unsigned i = 0; i < steering_outputs.size(); i++) {
+	for (unsigned i = 0; i < steering_outputs.size(); i++)
+	{
 		if (steering_outputs[i])
 			*steering += *steering_outputs[i];
 	}
@@ -82,7 +84,7 @@ void Character::steerToSeekPlayer(SteeringOutput* steering)
 
 void Character::HandleEvents(const SDL_Event& event)
 {
-	// handle events here, if needed
+	// Handle events here, if needed
 }
 
 void Character::render(float scale)
@@ -94,7 +96,7 @@ void Character::render(float scale)
 	Vec3 screenCoords;
 	int    w, h;
 
-	// notice use of "body" in the following
+	// Notice use of "body" in the following
 	SDL_QueryTexture(body->getTexture(), nullptr, nullptr, &w, &h);
 	w = static_cast<int>(w * scale);
 	h = static_cast<int>(h * scale);
@@ -104,7 +106,7 @@ void Character::render(float scale)
 	square.w = w;
 	square.h = h;
 
-	// Convert character orientation from radians to degrees.
+	// Convert character orientation from radians to degrees
 	float orientation = body->getOrientation() * 180.0f / M_PI;
 
 	SDL_RenderCopyEx(renderer, body->getTexture(), nullptr, &square,

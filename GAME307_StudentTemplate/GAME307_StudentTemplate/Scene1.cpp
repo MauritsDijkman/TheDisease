@@ -148,11 +148,12 @@ void Scene1::Update(const float deltaTime)
 	float radius = 1.0f;
 	float timeToTarget = 0.5f;
 
-	Body* player = game->getPlayer();
-	KinematicArrive* steering_algorithm;
-	steering_algorithm = new KinematicArrive(radius, timeToTarget, myNPC, player);
-	KinematicSteeringOutput* steering;
-	steering = steering_algorithm->getSteering();
+	//Body* player = game->getPlayer();
+	//KinematicArrive* steering_algorithm;
+	//steering_algorithm = new KinematicArrive(radius, timeToTarget, myNPC, player);
+
+	//KinematicSteeringOutput* steering;
+	//steering = steering_algorithm->getSteering();
 
 	//myNPC->Update(deltaTime, steering);
 
@@ -165,10 +166,8 @@ void Scene1::Render()
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
-	for (GameObject* tile_ : backgroundTiles) {
+	for (GameObject* tile_ : backgroundTiles)
 		tile_->Render(projectionMatrix, renderer, 1.0f, 0.0f);
-		//cout << "Position: " << tile_->GetPosition().x << " || " << tile_->GetPosition().y << endl;
-	}
 
 	// Render any npc's
 	blinky->render(0.15f);
@@ -190,11 +189,8 @@ void Scene1::Render()
 
 	float orientation = myNPC->getOrientation() * 180 / M_PI;
 
-	//clyde->Render();
-
 	// Render the player
 	game->RenderPlayer(0.10f);
-
 
 	// Render all things in the renderer
 	SDL_RenderPresent(renderer);
@@ -202,28 +198,20 @@ void Scene1::Render()
 
 void Scene1::HandleEvents(const SDL_Event& event)
 {
-	// Send events to npc's as needed
-
 	// Send events to player as needed
 	game->getPlayer()->HandleEvents(event);
-
-	Vec3 mousePos = getMousePosition();
-
-	if (event.button.type == SDL_MOUSEBUTTONUP
-		&& event.button.button == SDL_BUTTON_LEFT)
-	{
-		//if (clyde->clicked(mousePos))
-		//	printf("Mouse clicked inside clyde!");
-	}
 }
 
 Vec3 Scene1::getMousePosition()
 {
 	Uint32 buttons;
 	int x, y; // Mouse position in screen coords
+
 	buttons = SDL_GetMouseState(&x, &y);
+
 	Vec3 mouseScreenCoords(Vec3(float(x), float(y), 0.0f));
 	Vec3 mouseWorldCoords = inverseProjection * (mouseScreenCoords);
+
 	return mouseWorldCoords;
 
 }
@@ -231,31 +219,26 @@ Vec3 Scene1::getMousePosition()
 void Scene1::GenerateLevel()
 {
 	// Amount of tiles on the width and height
-	gridWidth = 20;
-	gridHeight = 20;
+	gridWidth = 30;
+	gridHeight = 15;
 
-	// Level layout (x value = gridWidth and y value = gridHeight)
-	int levelData[20][20] = {
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 1, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 2, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 2, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 3, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 1, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 },
-	{ 1, 1, 1, 2, 2, 3, 2, 2, 3, 3, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2 }
+	// Level layout (x value = gridWidth and y value = gridHeight) (first number = y, second number = x)
+	int levelData[15][30] = {
+	{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, },
+	{ 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, },
+	{ 3, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 3, },
+	{ 3, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 3, },
+	{ 3, 1, 2, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 2, 1, 3, },
+	{ 3, 1, 2, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 2, 1, 3, },
+	{ 3, 1, 2, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 2, 1, 3, },
+	{ 3, 1, 2, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 2, 1, 3, },
+	{ 3, 1, 2, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 2, 1, 3, },
+	{ 3, 1, 2, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 2, 1, 3, },
+	{ 3, 1, 2, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 2, 1, 3, },
+	{ 3, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 3, },
+	{ 3, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 3, },
+	{ 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, },
+	{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }
 	};
 
 	// Place the tiles for the amount of columns and rows
@@ -275,6 +258,8 @@ void Scene1::GenerateLevel()
 		nodeTile->posY = node->GetPos().y;
 		backgroundTiles.insert(backgroundTiles.end(), nodeTile);
 	}
+
+	// Set all the nodes from this list to the one used in the A* class
 }
 
 void Scene1::AddTile(int column, int row, int id)
@@ -285,19 +270,20 @@ void Scene1::AddTile(int column, int row, int id)
 	switch (id)
 	{
 	case 1:
-		tile = new GameObject(renderer, "Assets/Tiles/Grass.png");
+		tile = new GameObject(renderer, "Assets/Tiles/Tile_Grass.png");
 		break;
 	case 2:
-		tile = new GameObject(renderer, "Assets/Tiles/Water.png");
+		tile = new GameObject(renderer, "Assets/Tiles/Tile_Water.png");
 		break;
 	case 3:
-		tile = new GameObject(renderer, "Assets/Tiles/Brick.png");
+		tile = new GameObject(renderer, "Assets/Tiles/Tile_Stone.png");
 		break;
 	}
 
 	if (tile != NULL)
 	{
 		// Position in pixels
+		//Vec3 startPos = Vec3(-100.0f, -100.0f, 0.0f);
 		Vec3 startPos = Vec3(0.0f, 0.0f, 0.0f);
 
 		// Set the position to have the origin top left

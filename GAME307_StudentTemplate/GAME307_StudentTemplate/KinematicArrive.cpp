@@ -1,6 +1,8 @@
 #include "KinematicArrive.h"
+#include <SteeringOutput.h>
 
-KinematicArrive::KinematicArrive(float radius_, float timeToTarget_, Body* character_, Body* target_) {
+KinematicArrive::KinematicArrive(float radius_, float timeToTarget_, Body* character_, Body* target_)
+{
 	radius = radius_;
 	timeToTarget = timeToTarget_;
 
@@ -9,6 +11,7 @@ KinematicArrive::KinematicArrive(float radius_, float timeToTarget_, Body* chara
 	target = target_;
 }
 
+//SteeringOutput* KinematicArrive::getSteering() {
 KinematicSteeringOutput* KinematicArrive::getSteering() {
 	// Get the direction to the target
 	result->velocity = target->getPos() - character->getPos();

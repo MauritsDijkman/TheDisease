@@ -33,9 +33,11 @@ public:
 	~A_Star();
 
 	bool OnCreate();
-	void OnDestroy();
+	//void OnDestroy();
 
-	void Update(const float time);
+	//void Update(const float time);
+
+	void SetNodeList(Node nodes[]);
 };
 
 #endif

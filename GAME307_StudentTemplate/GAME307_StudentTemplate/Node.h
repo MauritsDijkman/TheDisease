@@ -11,6 +11,8 @@ class Node {
 private:
 	void Galculate_H();
 
+	int label;	// Label of the node
+
 	float f;	// Distance amount (g + h)
 	float g;	// Distance from start node to this node
 	float h;	// Distance from this node to target node

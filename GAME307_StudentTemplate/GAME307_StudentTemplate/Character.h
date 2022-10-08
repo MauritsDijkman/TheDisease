@@ -2,15 +2,15 @@
 #define CHARACTER_H
 
 #include <vector>
-//
+
 #include "GameObject.h"
 
-//
 #include "Scene.h"
 #include "KinematicBody.h"
-#include "Seek.h"
 #include "Physics.h"
 
+#include "Seek.h"
+#include "KinematicArrive.h"
 
 using namespace std;
 
@@ -20,18 +20,13 @@ private:
 	class KinematicBody* body;
 	class Scene* scene;
 
-
-protected:
-	//bool isVisible, isActive;
-	//float moveSpeed = 4.0f;
-
-
 public:
 	Character()
 	{
 		body = NULL;
 		scene = NULL;
 	};
+
 	// TODO add constructor that takes parameters for the body
 	~Character()
 	{
@@ -50,7 +45,6 @@ public:
 	void render(float scale = 1.0f);
 
 	void steerToSeekPlayer(SteeringOutput* steering);
-
 };
 
 #endif

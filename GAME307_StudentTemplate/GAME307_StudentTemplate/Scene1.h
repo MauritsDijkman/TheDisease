@@ -25,8 +25,8 @@ private:
 
 	GameObject* background;
 
-	const int tileWidth = 77;
-	const int tileHeight = 43;
+	const int tileWidth = 60;
+	const int tileHeight = 60;
 	int gridWidth = 18;
 	int gridHeight = 8;
 
