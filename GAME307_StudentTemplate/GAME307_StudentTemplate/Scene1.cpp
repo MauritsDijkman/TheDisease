@@ -7,12 +7,12 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	window = sdlWindow_;
 	game = game_;
 	renderer = SDL_GetRenderer(window);
+
 	xAxis = 25.0f;
 	yAxis = 15.0f;
 
 	// Create a NPC
 	blinky = nullptr;
-	myNPC = NULL;
 }
 
 Scene1::~Scene1()
@@ -51,7 +51,6 @@ bool Scene1::OnCreate()
 	SDL_Texture* texture;
 
 	image = IMG_Load("Assets/humans/idle_human2.png");
-	//image = IMG_Load("pacman.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
@@ -60,33 +59,10 @@ bool Scene1::OnCreate()
 	// or use the defaults, like this
 	blinky = new Character();
 	if (!blinky->OnCreate(this))
-	{
 		return false;
-	}
 
 	image = IMG_Load("Blinky.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
-	if (image == nullptr) {
-		std::cerr << "Can't open the image" << std::endl;
-		return false;
-	}
-	else {
-		blinky->setTexture(texture);
-		SDL_FreeSurface(image);
-	}
-
-	//myNPC = new StaticBody();
-
-	Vec3 postion = Vec3();
-	float orientation = 0.0f;
-	float maxSpeed = 3.5f;
-	float maxRotation = 100.0f;
-
-	myNPC = new StaticBody(postion, orientation, maxSpeed, maxRotation);
-
-	image = IMG_Load("Clyde.png");
-	texture = SDL_CreateTextureFromSurface(renderer, image);
-
 	if (image == nullptr)
 	{
 		std::cerr << "Can't open the image" << std::endl;
@@ -94,18 +70,12 @@ bool Scene1::OnCreate()
 	}
 	else
 	{
-		myNPC->setTexture(texture);
+		blinky->setTexture(texture);
 		SDL_FreeSurface(image);
 	}
 
-	background = new GameObject(renderer, "Assets/Background.png");
-
-	//Button class
-	//clyde = new Button("clyde.png", this);
-	//if (!clyde->onCreate())
-	//	return false;
-
-	GenerateLevel();
+	// Generate the layout of the scene
+	GenerateSceneLayout();
 
 	// End of character set ups
 	return true;
@@ -135,27 +105,16 @@ void Scene1::Update(const float deltaTime)
 	float maxY = yAxis;
 	/**/
 
+	// Calculate the matrixes
 	Matrix4 ndc = MMath::viewportNDC(w, h);
 	Matrix4 ortho = MMath::orthographic(minX, maxX, minY, maxY, 0.0f, 1.0f);
 
+	// Calculate the projections
 	projectionMatrix = ndc * ortho;
-
 	inverseProjection = MMath::inverse(projectionMatrix);
 
-	// Calculate and apply any steering for npc's
+	// Update the npc's
 	blinky->Update(deltaTime);
-
-	float radius = 1.0f;
-	float timeToTarget = 0.5f;
-
-	//Body* player = game->getPlayer();
-	//KinematicArrive* steering_algorithm;
-	//steering_algorithm = new KinematicArrive(radius, timeToTarget, myNPC, player);
-
-	//KinematicSteeringOutput* steering;
-	//steering = steering_algorithm->getSteering();
-
-	//myNPC->Update(deltaTime, steering);
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
@@ -166,28 +125,12 @@ void Scene1::Render()
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	// Render all the background tiles
 	for (GameObject* tile_ : backgroundTiles)
 		tile_->Render(projectionMatrix, renderer, 1.0f, 0.0f);
 
 	// Render any npc's
 	blinky->render(0.15f);
-
-	SDL_Rect square;
-	Vec3 screenCoords;
-	int w, h;
-	float scale = 0.1f;
-
-	SDL_QueryTexture(myNPC->getTexture(), nullptr, nullptr, &w, &h);
-	w = static_cast<int>(w * scale);
-	h = static_cast<int>(h * scale);
-
-	screenCoords = projectionMatrix * myNPC->getPos();
-	square.x = static_cast<int>(screenCoords.x - 0.5f * w);
-	square.y = static_cast<int>(screenCoords.y - 0.5f * h);
-	square.w = w;
-	square.h = h;
-
-	float orientation = myNPC->getOrientation() * 180 / M_PI;
 
 	// Render the player
 	game->RenderPlayer(0.10f);
@@ -213,10 +156,9 @@ Vec3 Scene1::getMousePosition()
 	Vec3 mouseWorldCoords = inverseProjection * (mouseScreenCoords);
 
 	return mouseWorldCoords;
-
 }
 
-void Scene1::GenerateLevel()
+void Scene1::GenerateSceneLayout()
 {
 	// Amount of tiles on the width and height
 	gridWidth = 30;
@@ -251,19 +193,24 @@ void Scene1::GenerateLevel()
 		}
 	}
 
+	// For every node in the node list, place the visual
 	for (Node* node : nodes)
 	{
 		GameObject* nodeTile = new GameObject(renderer, "Assets/Node.png");
 		nodeTile->posX = node->GetPos().x;
 		nodeTile->posY = node->GetPos().y;
-		backgroundTiles.insert(backgroundTiles.end(), nodeTile);
+
+		// Add the node visuals to the background tiles
+		backgroundTiles.push_back(nodeTile);
 	}
 
+	// TODO
 	// Set all the nodes from this list to the one used in the A* class
 }
 
 void Scene1::AddTile(int column, int row, int id)
 {
+	// Create tile for later use
 	GameObject* tile = NULL;
 
 	// Load the tile according to the id
@@ -280,7 +227,7 @@ void Scene1::AddTile(int column, int row, int id)
 		break;
 	}
 
-	if (tile != NULL)
+	if (tile)	// (if(tile != NULL))
 	{
 		// Position in pixels
 		//Vec3 startPos = Vec3(-100.0f, -100.0f, 0.0f);
@@ -315,14 +262,12 @@ void Scene1::AddNode(Vec3 pos)
 	// Create new node
 	Node* node = new Node();
 
-	Vec3 position;
-	position.x = pos.x + (tileWidth / 2);
-	position.y = pos.y + (tileHeight / 2);
-
 	// Set the position of the node
 	node->SetPosition(pos);
 
-	cout << "Node pos: " << node->GetPos().x << " " << node->GetPos().y << endl;
+	// Debug for position of the node in the game view
+	cout << "Node pos: " << node->GetPos().x << " || " << node->GetPos().y << endl;
 
-	nodes.insert(nodes.end(), node);
+	// Add the node to the list with nodes
+	nodes.push_back(node);
 }
