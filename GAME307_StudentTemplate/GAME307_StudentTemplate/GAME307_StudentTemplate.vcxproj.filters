@@ -25,6 +25,12 @@
     <Filter Include="Header Files\Algorithm">
       <UniqueIdentifier>{7bee28c4-006c-4814-be03-c160cef1ad51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enemy">
+      <UniqueIdentifier>{fe272c4b-b5df-4721-8314-912c44e345cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemy">
+      <UniqueIdentifier>{644b9af2-fd90-4796-8f6b-55f9be2d1bfa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -110,6 +116,15 @@
     </ClCompile>
     <ClCompile Include="A_Star.cpp">
       <Filter>Source Files\Algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SeekTarget.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ArriveTarget.cpp">
+      <Filter>Source Files\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +223,15 @@
     </ClInclude>
     <ClInclude Include="Node.h">
       <Filter>Header Files\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SeekTarget.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ArriveTarget.h">
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

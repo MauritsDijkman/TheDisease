@@ -10,7 +10,7 @@ using namespace MATH;
 
 class Body {
 private:
-	
+
 
 protected:
 	// inherited classes can access this
@@ -59,6 +59,8 @@ public:
 	virtual float getMaxAcceleration() { return maxAcceleration; }
 	virtual float getMaxRotation() { return maxRotation; }
 	virtual float getMaxAngular() { return maxAngular; }
+
+	virtual void setMaxSpeed(float maxSpeed_) { maxSpeed = maxSpeed_; }
 
 	virtual void setImage(SDL_Surface* image_) { image = image_; }
 	virtual SDL_Surface* getImage() { return image; }

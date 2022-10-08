@@ -9,6 +9,7 @@
 #include "KinematicArrive.h"
 #include "GameObject.h"
 #include "Node.h"
+#include "Enemy.h"
 
 using namespace MATH;
 class Scene1 : public Scene {
@@ -24,6 +25,7 @@ private:
 
 	// Npc
 	Character* blinky;
+	Enemy* enemy;
 
 	// Variables for background tile placement
 	const int tileWidth = 60;

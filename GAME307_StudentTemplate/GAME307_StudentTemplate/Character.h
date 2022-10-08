@@ -7,7 +7,6 @@
 
 #include "Scene.h"
 #include "KinematicBody.h"
-#include "Physics.h"
 
 #include "Seek.h"
 #include "KinematicArrive.h"
@@ -30,8 +29,10 @@ public:
 	// TODO add constructor that takes parameters for the body
 	~Character()
 	{
-		if (body) delete body;
+		if (body)
+			delete body;
 	};
+
 	bool OnCreate(Scene* scene_);
 	void OnDestroy() {};
 

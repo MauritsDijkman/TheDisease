@@ -19,7 +19,6 @@ KinematicSteeringOutput* KinematicSeek::getSteering() {
 	result->velocity = VMath::normalize(result->velocity);
 	result->velocity *= character->getMaxSpeed();
 
-
 	result->rotation = 0.0f;
 	return result;
 }

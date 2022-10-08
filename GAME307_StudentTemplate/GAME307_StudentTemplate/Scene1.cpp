@@ -13,6 +13,7 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 
 	// Create a NPC
 	blinky = nullptr;
+	enemy = nullptr;
 }
 
 Scene1::~Scene1()
@@ -21,6 +22,12 @@ Scene1::~Scene1()
 	{
 		blinky->OnDestroy();
 		delete blinky;
+	}
+
+	if (enemy)
+	{
+		enemy->OnDestroy();
+		delete enemy;
 	}
 }
 
@@ -55,6 +62,7 @@ bool Scene1::OnCreate()
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+#pragma region Blinky
 	// Set up characters, choose good values for the constructor
 	// or use the defaults, like this
 	blinky = new Character();
@@ -73,6 +81,29 @@ bool Scene1::OnCreate()
 		blinky->setTexture(texture);
 		SDL_FreeSurface(image);
 	}
+#pragma endregion
+
+#pragma region Enemy
+	// Set up characters, choose good values for the constructor
+		// or use the defaults, like this
+	enemy = new Enemy();
+	if (!enemy->OnCreate(this))
+		return false;
+
+	image = IMG_Load("Clyde.png");
+	texture = SDL_CreateTextureFromSurface(renderer, image);
+	if (image == nullptr)
+	{
+		std::cerr << "Can't open the image" << std::endl;
+		return false;
+	}
+	else
+	{
+		enemy->setTexture(texture);
+		SDL_FreeSurface(image);
+	}
+#pragma endregion
+
 
 	// Generate the layout of the scene
 	GenerateSceneLayout();
@@ -89,6 +120,7 @@ void Scene1::Update(const float deltaTime)
 	int w, h;
 	SDL_GetWindowSize(window, &w, &h);
 
+	// For moving camera view
 	/**/
 	float minX = game->getPlayer()->getPos().x - xAxis / 2;
 	float maxX = game->getPlayer()->getPos().x + xAxis / 2;
@@ -97,6 +129,7 @@ void Scene1::Update(const float deltaTime)
 	float maxY = game->getPlayer()->getPos().y + yAxis / 2;
 	/**/
 
+	// For static view
 	/**
 	float minX = 0;
 	float maxX = xAxis;
@@ -115,6 +148,7 @@ void Scene1::Update(const float deltaTime)
 
 	// Update the npc's
 	blinky->Update(deltaTime);
+	enemy->Update(deltaTime);
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
@@ -131,6 +165,7 @@ void Scene1::Render()
 
 	// Render any npc's
 	blinky->render(0.15f);
+	enemy->render(0.15f);
 
 	// Render the player
 	game->RenderPlayer(0.10f);
