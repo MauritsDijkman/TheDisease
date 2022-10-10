@@ -31,6 +31,7 @@ protected:
 	SDL_Surface* image;
 	SDL_Texture* texture;
 
+	//float health, maxHealth;
 public:
 	Body();
 	Body(
@@ -77,6 +78,7 @@ public:
 	// so that mouse position can be copied into a Body.
 	virtual void setPos(Vec3 pos);
 
+	//bool restoreHealth(float healingAmount_);
 };
 
 #endif /* BODY_H */

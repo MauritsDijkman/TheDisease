@@ -104,6 +104,28 @@ bool Scene1::OnCreate()
 		SDL_FreeSurface(image);
 	}
 
+	//load enemy characters
+	surfacePtr = IMG_Load("The Unbread.png");
+	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+
+	if (surfacePtr == nullptr) {
+		std::cerr << "Imgage does not work" << std::endl;
+		return false;
+	}
+	if (texturePtr == nullptr) {
+		printf("%s\n", SDL_GetError());
+		return false;
+	}
+
+	SDL_FreeSurface(surfacePtr);
+
+	for (int i = 0; i < 9999; ++i) {
+		enemies.push_back(new EnemyCharacter());
+		enemies[i]->setPos(Vec3(xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies[i]->setBoundingSphere(Sphere(0.5f));
+		enemies[i]->setTexture(texturePtr);
+	}
+
 	background = new GameObject(renderer, "Assets/Background.png");
 	std::cout << " baground image can't open " << background << endl;
 	//Button class
@@ -111,7 +133,45 @@ bool Scene1::OnCreate()
 	//if (!clyde->onCreate())
 	//	return false;
 
+	game->getPlayer()->setHealth(1.0f);
 	
+	//character health icons
+	surfacePtr = IMG_Load("Assets/Ethan/medicine.png");
+	health = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+
+	if (surfacePtr == nullptr) {
+		std::cerr << "Imgage does not work" << std::endl;
+		return false;
+	}
+	if (health == nullptr) {
+		printf("%s\n", SDL_GetError());
+		return false;
+	}
+	SDL_FreeSurface(surfacePtr);
+	//
+	//character health icons
+	//load collectibles
+	//health pickup
+	surfacePtr = IMG_Load("Assets/Ethan/medicine.png");
+	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+
+	if (surfacePtr == nullptr) {
+		std::cerr << "Imgage does not work" << std::endl;
+		return false;
+	}
+	if (texturePtr == nullptr) {
+		printf("%s\n", SDL_GetError());
+		return false;
+	}
+	healthPickup = new Object();
+
+	SDL_FreeSurface(surfacePtr);
+
+	healthPickup->setPos(Vec3(10.0f, 9.0f, 0.0f));
+	healthPickup->setBoundingSphere(Sphere(0.5f));
+	healthPickup->setTexture(texturePtr);
+	//
+
 	//weapon pickup
 	surfacePtr = IMG_Load("Shotgun96.png");//surfacePtr
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
@@ -131,6 +191,24 @@ bool Scene1::OnCreate()
 	weaponPickup->setPos(Vec3(3.0f, 13.0f, 0.0f));
 	weaponPickup->setBoundingSphere(Sphere(0.25f));
 	weaponPickup->setTexture(texturePtr);
+
+	//
+	//Load the crouton image and set the texture as well
+	surfacePtr = IMG_Load("bullet.2.png");
+	bullet = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+
+	if (surfacePtr == nullptr) {
+		std::cerr << "Imgage does not work" << std::endl;
+		return false;
+	}
+	if (background == nullptr) {
+		printf("%s\n", SDL_GetError());
+		return false;
+	}
+
+	SDL_FreeSurface(surfacePtr);
+	//
+	
 
 	//Loads in the wall image and set the texture to the walls
 	surfacePtr = IMG_Load("Assets/Ethan/wall.png");
@@ -159,7 +237,13 @@ bool Scene1::OnCreate()
 	return true;
 }
 
-void Scene1::OnDestroy() {}
+void Scene1::OnDestroy() 
+{
+	for (EnemyCharacter* EnemyCharacter : enemies) {
+		delete EnemyCharacter;
+	}
+		SDL_DestroyRenderer(renderer);
+}
 
 void Scene1::Update(const float deltaTime)
 {
@@ -197,7 +281,7 @@ void Scene1::Update(const float deltaTime)
 
 	float radius = 1.0f;
 	float timeToTarget = 0.5f;
-
+	//player
 	Body* player = game->getPlayer();
 	KinematicArrive* steering_algorithm;
 	steering_algorithm = new KinematicArrive(radius, timeToTarget, myNPC, player);
@@ -250,7 +334,18 @@ void Scene1::Update(const float deltaTime)
 
 	Physics::SimpleNewtonMotion(*P1, deltaTime);
 	Physics::SimpleNewtonMotion(*AI, deltaTime);
+
 	//Physics::SimpleNewtonMotion(*blinky, deltaTime);
+
+	//Player Hits Collectibles
+	if (healthPickup) {
+		if (Physics::SphereSphereCollision(*P1, *healthPickup) == true) {
+			if(P1->restoreHealth(1.0f) == true) {
+				delete healthPickup;
+				healthPickup = nullptr;
+			}
+		}
+	}
 
 	if (weaponPickup) {
 		if (Physics::SphereSphereCollision(*weaponPickup, *P1) == true) {
@@ -258,11 +353,10 @@ void Scene1::Update(const float deltaTime)
 			P1->setWeaponType(1);
 			game->getPlayer()->Update(-deltaTime);
 			std::cout << "collide " << std::endl;
-			delete weaponPickup;
-			weaponPickup = nullptr;
+			//delete weaponPickup;
+			//weaponPickup = nullptr;
 		}
 	}
-
 
 	//Player Hits Walls
 	for (int i = 0; i < level->getWallNum(); ++i) {
@@ -280,6 +374,42 @@ void Scene1::Update(const float deltaTime)
 		
 		}
 	}
+
+
+	//Enemy Hits Player
+	for (int i = 0; i < enemies.size(); ++i) {
+		if (Physics::SphereSphereCollision(*enemies[i], *P1) == true) {
+			P1->takeDamage(1.0f);
+			enemies.erase(enemies.begin() + i);
+			enemies[i]->Update(-deltaTime);
+		}
+	}
+
+	//Bullets Movement
+	for (int i = 0; i < Bullets.size(); ++i) {
+		Physics::SimpleNewtonMotion(*Bullets[i], deltaTime);
+
+	}
+
+	//Enemy Movement
+	for (int i = 0; i < enemies.size(); ++i) {
+		enemies[i]->seekPlayer(player->getPos());
+		Physics::SimpleNewtonMotion(*enemies[i], deltaTime);
+	}
+
+	//Bullet Hits Enemy
+	for (int i = 0; i < Bullets.size(); ++i) {
+		for (int j = 0; j < enemies.size(); ++j) {
+			if (Physics::SphereSphereCollision(*Bullets[i], *AI) == true) {
+				Bullets.erase(Bullets.begin() + i);
+				enemies[j]->takeDamage(1.0f);
+				if (enemies[j]->getHealth() <= 0) {
+					enemies.erase(enemies.begin() + j);
+				}
+				break;
+			}
+		}
+	 }	
 }
 
 void Scene1::Render()
@@ -337,8 +467,95 @@ void Scene1::Render()
 		WallRect.h = 70;
 		SDL_RenderCopy(renderer, level->getWall(i)->getTexture(), nullptr, &WallRect);
 	}
-	//clyde->Render();
+
+	//Draw Bullets
+	SDL_Rect bulletRect;
+	Vec3 bulletScreenCoords;
+	int bulletW, bulletH;
+
+	for (int i = 0; i < Bullets.size(); ++i) {
+		bulletScreenCoords = projectionMatrix * Bullets[i]->getPos();
+		SDL_QueryTexture(Bullets[i]->getTexture(), nullptr, nullptr, &bulletW, &bulletH);
+		bulletRect.x = static_cast<int>(bulletScreenCoords.x - bulletW / 20);
+		bulletRect.y = static_cast<int>(bulletScreenCoords.y - bulletH / 20);
+		bulletRect.w = bulletW / 10;
+		bulletRect.h = bulletH / 10;
+
+		SDL_RenderCopy(renderer, Bullets[i]->getTexture(), nullptr, &bulletRect);
+	}
+
+
+	if (game->getPlayer()->getHealth() > 0)
+	{
+		SDL_Rect healthRect;
+
+		healthRect.x = 10;
+		healthRect.y = 13;
+		healthRect.w = 100;
+		healthRect.h = 100;
+		SDL_RenderCopy(renderer, health, nullptr, &healthRect);
+
+		if (game->getPlayer()->getHealth() > 1)
+		{
+			SDL_Rect health1Rect;
+
+			health1Rect.x = 40;
+			health1Rect.y = 13;
+			health1Rect.w = 100;
+			health1Rect.h = 100;
+			SDL_RenderCopy(renderer, health, nullptr, &health1Rect);
+
+			if (game->getPlayer()->getHealth() > 2)
+			{
+				SDL_Rect health2Rect;
+
+				health2Rect.x = 70;
+				health2Rect.y = 13;
+				health2Rect.w = 100;
+				health2Rect.h = 100;
+				SDL_RenderCopy(renderer, health, nullptr, &health2Rect);
+			}
+		}
+	}
+	//Draw collectibles
+	//SDL_Rect collectibleRect;
+	Vec3 healthPickupScreenCoords;
+	//Vec3 weaponPickupScreenCoords;
+	//int collectibleW, collectibleH;
+
+	if (healthPickup) {
+		SDL_QueryTexture(healthPickup->getTexture(), nullptr, nullptr, &collectibleW, &collectibleH);
+		healthPickupScreenCoords = projectionMatrix * healthPickup->getPos();
+		collectibleRect.x = static_cast<int>(healthPickupScreenCoords.x) - collectibleW / 8;
+		collectibleRect.y = static_cast<int>(healthPickupScreenCoords.y) - collectibleH / 8;
+		collectibleRect.w = collectibleW / 4;
+		collectibleRect.h = collectibleH / 4;
+		SDL_RenderCopy(renderer, healthPickup->getTexture(), nullptr, &collectibleRect);
+	}
+
 	
+	// Draw Enemies
+	SDL_Rect enemyRect;
+	Vec3 enemyScreenCoords;
+	int enemyW, enemyH;
+
+	for (int i = 0; i < enemies.size(); ++i) {
+		enemyScreenCoords = projectionMatrix * enemies[i]->getPos();
+		SDL_QueryTexture(enemies[i]->getTexture(), nullptr, nullptr, &enemyW, &enemyH);
+		enemyRect.x = static_cast<int>(enemyScreenCoords.x - enemyW / 2);//1
+		enemyRect.y = static_cast<int>(enemyScreenCoords.y - enemyH / 2);
+		enemyRect.w = enemyW;
+		enemyRect.h = enemyH;
+
+		SDL_RenderCopy(renderer, enemies[i]->getTexture(), nullptr, &enemyRect);
+	}
+
+
+		/*
+	if(game->getPlayer() >)
+	//clyde->Render();
+	*/
+
 	// Render the player
 	game->RenderPlayer(0.10f);
 
@@ -353,6 +570,7 @@ void Scene1::HandleEvents(const SDL_Event& event)
 	// Send events to player as needed
 	game->getPlayer()->HandleEvents(event);
 
+
 	Vec3 mousePos = getMousePosition();
 
 	if (event.button.type == SDL_MOUSEBUTTONUP
@@ -361,6 +579,20 @@ void Scene1::HandleEvents(const SDL_Event& event)
 		//if (clyde->clicked(mousePos))
 		//	printf("Mouse clicked inside clyde!");
 	}
+
+	if (event.type == SDL_EventType::SDL_MOUSEBUTTONDOWN) {
+		std::vector<Ammunition*> newBullets;
+		newBullets = game->getPlayer()->fireBullet();
+		for (int i = 0; i < newBullets.size(); ++i) {
+			newBullets[i]->setTexture(bullet);
+			Bullets.push_back(newBullets[i]);
+         //get bullet to update with player
+			
+		}
+	}
+
+	
+
 }
 
 Vec3 Scene1::getMousePosition()

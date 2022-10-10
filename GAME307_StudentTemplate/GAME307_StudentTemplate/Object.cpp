@@ -2,7 +2,7 @@
 
 Object::Object() : texture(nullptr) {}
 
-Object::Object(SDL_Texture* texture_) {}
+Object::Object(SDL_Texture* texture_) : texture(texture_) {}
 
 Object::~Object()
 {
@@ -10,7 +10,7 @@ Object::~Object()
 
 bool Object::OnCreate()
 {
-	return false;
+	return true;
 }
 
 void Object::OnDestroy()

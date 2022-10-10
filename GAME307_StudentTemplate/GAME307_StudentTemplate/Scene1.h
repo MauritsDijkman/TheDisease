@@ -11,6 +11,9 @@
 #include "Node.h"
 #include "Object.h"
 #include "Level.h"
+#include "PlayerBody.h"
+#include <EnemyCharacter.h>
+//#include "PhysicsObject.h"
 
 
 using namespace MATH;
@@ -32,16 +35,19 @@ private:
 	//
 	SDL_Surface* surfacePtr;
 	SDL_Texture* texturePtr;
-	
+	SDL_Texture* health;
+	SDL_Texture* bullet;
 	
 	//
 
 	Character* blinky;
+	vector<EnemyCharacter*> enemies;
 	StaticBody* myNPC;
 
 	GameObject* background;
 
 	Object* weaponPickup;
+	Object* healthPickup;
 
 	Level* level;
 	Plane* wallLeft;
@@ -62,7 +68,7 @@ private:
 	vector<GameObject*> backgroundTiles;
 	vector<Node*> nodes;
 
-
+	std::vector<Ammunition*> Bullets;
 
 	//Button* clyde;
 
@@ -82,6 +88,7 @@ public:
 
 	Vec3 getMousePosition();
 	bool nextScene() { return false; }
+
 };
 
 #endif

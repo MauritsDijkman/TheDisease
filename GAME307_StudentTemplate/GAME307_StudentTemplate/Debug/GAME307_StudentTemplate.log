@@ -1,3 +1,11 @@
 ﻿  Scene1.cpp
-C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease2\GAME307_StudentTemplate\GAME307_StudentTemplate\PhysicsObject.h(52,61): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease2\GAME307_StudentTemplate\GAME307_StudentTemplate\PhysicsObject.h(56,61): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease2\GAME307_StudentTemplate\GAME307_StudentTemplate\Scene1.cpp(380,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease2\GAME307_StudentTemplate\GAME307_StudentTemplate\Scene1.cpp(389,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease2\GAME307_StudentTemplate\GAME307_StudentTemplate\Scene1.cpp(395,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease2\GAME307_StudentTemplate\GAME307_StudentTemplate\Scene1.cpp(401,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease2\GAME307_StudentTemplate\GAME307_StudentTemplate\Scene1.cpp(402,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease2\GAME307_StudentTemplate\GAME307_StudentTemplate\Scene1.cpp(476,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease2\GAME307_StudentTemplate\GAME307_StudentTemplate\Scene1.cpp(542,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease2\GAME307_StudentTemplate\GAME307_StudentTemplate\Scene1.cpp(586,21): warning C4018: '<': signed/unsigned mismatch
   GAME307_StudentTemplate.vcxproj -> C:\Users\Ethan\Desktop\school 2022\Game Production\work\TheDisease2\GAME307_StudentTemplate\Debug\GAME307_StudentTemplate.exe

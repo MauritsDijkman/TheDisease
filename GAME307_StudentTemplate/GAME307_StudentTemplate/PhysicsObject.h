@@ -8,10 +8,11 @@ using namespace MATH;
 
 class PhysicsObject {
 	friend class Physics;
+	
 private:
 	int weaponType;
 	bool altWeaponAvailable;
-
+	
 protected:
 	Vec3 pos, vel, accel;
 	double mass;
@@ -19,6 +20,9 @@ protected:
 	double angle, angularVel, angularAccel, rotationalI;
 	bool fixedStatus;
 	float boundingBoxHeight, boundingBoxWidth;
+	float health, maxHealth;
+
+	virtual void dead();
 public:
 	PhysicsObject();
 	virtual ~PhysicsObject();
@@ -52,10 +56,14 @@ public:
 	inline void applyForce(const Vec3 force) { accel = force / mass; }
 
 
-
+	
 	const void setAltWeaponAvailable(bool altWeaponAvailable_) { altWeaponAvailable = altWeaponAvailable_; }
 	const void setWeaponType(int weaponType_) { weaponType = weaponType_; }
-
+	float getHealth() { return health; }
+	void setHealth(float h) { health = h; }
+	bool restoreHealth(float healingAmount_);
+	void takeDamage(float damageAmount_);
+	
 
 };
 #endif

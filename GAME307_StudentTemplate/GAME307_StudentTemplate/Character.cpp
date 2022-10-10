@@ -1,5 +1,6 @@
 #include "Character.h"
 
+
 bool Character::OnCreate(Scene* scene_)
 {
 	scene = scene_;
@@ -78,6 +79,14 @@ void Character::steerToSeekPlayer(SteeringOutput* steering)
 	// Clean up memory
 	if (steering_algorithm)
 		delete steering_algorithm;
+}
+void Character::dead() {
+
+}
+
+void Character::projectile()
+{
+	printf("Enemy killed \n");
 }
 
 void Character::HandleEvents(const SDL_Event& event)

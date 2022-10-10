@@ -6,10 +6,12 @@
 #include "MMath.h"
 #include "GameManager.h"
 
+
 using namespace MATH;
 
 class Scene {
 public:
+	int health;
     class GameManager* game = NULL;
 	virtual bool OnCreate() = 0;
 	virtual void OnDestroy() = 0;
@@ -22,7 +24,8 @@ public:
 	virtual SDL_Window* getWindow() = 0;
     virtual Matrix4 getProjectionMatrix() = 0;
 	virtual Matrix4 getInverseMatrix() = 0;
-
+	
+	//virtual float getHealth() { = 0; //Get the player health
 	//virtual bool nextScene() = 0; //Check if to load next scene
 };
 

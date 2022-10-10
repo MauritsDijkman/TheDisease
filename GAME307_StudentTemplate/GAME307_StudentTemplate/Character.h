@@ -4,6 +4,7 @@
 #include <vector>
 //
 #include "GameObject.h"
+#include "Object.h"
 
 //
 #include "Scene.h"
@@ -20,8 +21,12 @@ private:
 	class KinematicBody* body;
 	class Scene* scene;
 
+	int enemyType;
+
+	void dead();
 
 protected:
+	//float health, maxHealth;
 	//bool isVisible, isActive;
 	//float moveSpeed = 4.0f;
 
@@ -50,8 +55,12 @@ public:
 	void render(float scale = 1.0f);
 	KinematicBody* getBody() { return body; }
 
-	void steerToSeekPlayer(SteeringOutput* steering);
+	//float getHealth() { return health; }
 
+	void steerToSeekPlayer(SteeringOutput* steering);
+	//void setHealth(float h) { health = h; }
+
+	void projectile();
 };
 
 #endif

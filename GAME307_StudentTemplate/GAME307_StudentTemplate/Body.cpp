@@ -98,3 +98,23 @@ void Body::setPos( Vec3 pos_ )
 {
     pos = pos_;
 }
+
+
+/*
+bool PlayerBody::restoreHealth(float healingAmount_)
+{
+    bool destroyHealthPickup;	//if player full on health, keep health pickup on ground
+    if (health == maxHealth) {
+        destroyHealthPickup = false;
+    }
+    else {
+        health += healingAmount_;
+        if (health > maxHealth) {
+            health = maxHealth;
+        }
+        destroyHealthPickup = true;
+    }
+
+    return destroyHealthPickup;
+}
+*/

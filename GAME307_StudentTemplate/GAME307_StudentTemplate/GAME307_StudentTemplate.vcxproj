@@ -137,6 +137,8 @@
     <ClCompile Include="A_Star.cpp" />
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="CharacterHealth.cpp" />
+    <ClCompile Include="EnemyCharacter.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="KinematicArrive.cpp" />
@@ -170,6 +172,8 @@
     <ClInclude Include="A_Star.h" />
     <ClInclude Include="Body.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="CharacterHealth.h" />
+    <ClInclude Include="EnemyCharacter.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="KinematicArrive.h" />

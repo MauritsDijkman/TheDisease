@@ -3,6 +3,7 @@
 #include "SceneMenu.h"
 #include "SceneCredit.h"
 #include "SceneSetting.h"
+//#include "CharacterHealth.h"
 
 
 GameManager::GameManager() {
@@ -12,10 +13,16 @@ GameManager::GameManager() {
 	currentScene = nullptr;
 	player = nullptr;
 	changeSceneEventType = 0;
-
+	playerHealth = 3.0f;
 	//This will keep track of wich scene it is -1 will be the menu 
 	//and -2 will be option -3 will be the credit and -4 will be the win screen
-	sceneNum = -1;
+	//sceneNum = -1;
+}
+
+float GameManager::health() {
+
+
+	return 3;
 }
 
 bool GameManager::OnCreate() {
@@ -132,6 +139,7 @@ void GameManager::Run() {
 				currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
 				if (!currentScene->OnCreate())
 				{
+		
 					isRunning = false;
 				}
 			}

@@ -6,19 +6,56 @@
 //
 
 #include "PlayerBody.h"
-
-
-
+//#include "PhysicsObject.h"
 #include <SDL.h>
 
 void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
 {
 	orientation = atan2(pos.y - mousPosY, mousePosX - pos.x);
+	
+	lookDirection = Vec3(mousePosX, mousePosX, 0.0f);
+	if (mousePosX > pos.x) {
+		angle = -atan((mousPosY - pos.y) / (mousePosX - pos.x)) * 180 / M_PI;
+	}
+	else {
+		angle = 180 - atan((mousPosY - pos.y) / (mousePosX - pos.x)) * 180 / M_PI;
+	}
 	//std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
 }
 
 /*
-std::vector<Ammunition*> PlayerBody::fireBullet() 
+bool PlayerBody::restoreHealth(float healingAmount_)
+{
+	bool destroyHealthPickup;	//if player full on health, keep health pickup on ground
+	if (health == maxHealth) {
+		destroyHealthPickup = false;//
+	}
+	else {
+		health += healingAmount_;
+		if (health > maxHealth) {
+			health = maxHealth;
+		}
+		destroyHealthPickup = true;
+	}
+
+	return destroyHealthPickup;
+}
+*/
+
+
+void PlayerBody::dropammo()
+{
+  int ammo = 10;
+	
+}
+
+void PlayerBody::dead()
+{
+	isDead = true;
+	printf("You Died\n");
+}
+
+std::vector<Ammunition*> PlayerBody::fireBullet()
 {
 	
 	Bullets.clear();
@@ -29,18 +66,27 @@ std::vector<Ammunition*> PlayerBody::fireBullet()
 		float velx = 10.0f * cos(angle * M_PI / 180);
 		float vely = -10.0f * sin(angle * M_PI / 180);
 
-		Bullets.push_back(new Bullets);
+		Bullets.push_back(new Ammunition);
 		Bullets[0]->setBoundingSphere(Sphere(0.25f));
 	
+		float offsetx = 0.01 + (boundingSphere.r + Bullets[0]->getBoundingSphere().r) * cos(angle * M_PI / 180);
+		float offsety = 0.01 + (boundingSphere.r + Bullets[0]->getBoundingSphere().r) * sin(angle * M_PI / 180);
+
+
 		Bullets[0]->setPos(Vec3(pos.x, pos.y, 0.0f));
 		Bullets[0]->setVel(Vec3(velx, vely, 0.0f));
 
-		Bullets[0]->setRemainingBounces(3);
+		
+			//angle = -atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
+			//angle = 180 - atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
+		
+		//Bullets[0]->setRemainingBounces(3);
 	}
 	//weaponType 1 is shotgun
+	
 	if (weaponType == 1) {
 		for (int i = 0; i < 3; ++i) {
-			Bullets.push_back(Bullets);
+			Bullets.push_back(new Ammunition);
 			Bullets[i]->setBoundingSphere(Sphere(0.25f));
 
 			if (i == 1) { angle += 15; }
@@ -52,13 +98,15 @@ std::vector<Ammunition*> PlayerBody::fireBullet()
 			Bullets[i]->setPos(Vec3(pos.x, pos.y, 0.0f));
 			Bullets[i]->setVel(Vec3(velx, vely, 0.0f));
 
-			Bullets[i]->setRemainingBounces(0);
+			//Bullets[i]->setRemainingBounces(0);
 		}
-
+		
 		angle += 15;
 	}
+	
+	return Bullets;
 }
-*/
+
 
 bool PlayerBody::OnCreate()
 {
@@ -222,10 +270,22 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
 		}
 	}
 
+	//WeaponSwitch
+	if (event.key.keysym.scancode == SDL_SCANCODE_E) {
+		weaponType = 0;
+	}
+	if (event.key.keysym.scancode == SDL_SCANCODE_R) {
+		//if (altWeaponAvailable == true) {
+		//	weaponType = 1;
+		//}
+		weaponType = 1;
+	}
+
 	if (event.type == SDL_EventType::SDL_MOUSEMOTION)
 	{
 		Vec3 mousePosView = Vec3(event.button.x, event.button.y, 0);
 		mousePosWorld = MMath::inverse(game->getProjectionMatrix()) * mousePosView;
+		
 	}
 }
 

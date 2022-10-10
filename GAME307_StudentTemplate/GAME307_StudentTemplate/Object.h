@@ -20,9 +20,12 @@ public:
 	virtual void Update(const float deltaTime_);
 	virtual void Render() const;
 	virtual void HandleEvent(const SDL_Event& event);
+	
 
 
 	void setTexture(SDL_Texture* texture_) { texture = texture_; }
 	SDL_Texture* getTexture() { return texture; }
+
+	
 };
 #endif // !OBJECT_H
