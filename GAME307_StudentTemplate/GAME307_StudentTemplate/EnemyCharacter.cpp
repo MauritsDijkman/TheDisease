@@ -1,4 +1,5 @@
-/*
+#include "EnemyCharacter.h"
+
 EnemyCharacter::EnemyCharacter() : enemyType(0)
 {
 }
@@ -47,4 +48,5 @@ void EnemyCharacter::projectile()
 {
 
 }
-*/
+
+

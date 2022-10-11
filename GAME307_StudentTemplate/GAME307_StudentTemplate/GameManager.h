@@ -6,7 +6,7 @@
 #include "Timer.h"
 #include "Scene.h"
 #include "PlayerBody.h"
-
+//#include "CharacterHealth.h"
 
 
 class GameManager {
@@ -24,6 +24,8 @@ private:
 	class Timer* timer;
 	bool isRunning;
     int sceneNum;
+	float playerHealth;
+	
 	//class
 	class Scene* currentScene;
 	class PlayerBody* player;
@@ -50,7 +52,7 @@ public:
 	void LoadScene(int i);
 	bool ValidateCurrentScene();
 
-	
+	float health();
 
 };
 #endif

@@ -62,11 +62,15 @@ void SceneSetting::HandleEvents(const SDL_Event& sdlEvent)
 	Vec3 mousePosView = Vec3(sdlEvent.button.x, sdlEvent.button.y, 0.0f);
 	Vec3 mousePosWorld = MMath::inverse(projectionMatrix) * mousePosView;
 	//This is the play button it'll load scene zero
-	if (sdlEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN && 3.1 < mousePosWorld.x && mousePosWorld.x < 6.9 && 5 < mousePosWorld.y && mousePosWorld.y < 6.7) {// 12 < mousePosWorld.x && mousePosWorld.x < 19 && 7 < mousePosWorld.y && mousePosWorld.y < 10
+	if (sdlEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN && 8.3 < mousePosWorld.x && mousePosWorld.x < 20.3 && 4.5 < mousePosWorld.y && mousePosWorld.y < 15.1) {// 12 < mousePosWorld.x && mousePosWorld.x < 19 && 7 < mousePosWorld.y && mousePosWorld.y < 10
 		std::cout << mousePosWorld.x << "  exit  " << mousePosWorld.y << std::endl;
-		SDL_Event sdlevent;
-		sdlevent.type = SDL_QUIT;
-		SDL_PushEvent(&sdlevent);
+		SDL_Event event;
+		SDL_memset(&event, 0, sizeof(event));
+		event.type = game->getChangeScene();
+		event.user.code = 5;
+		event.user.data1 = nullptr;
+		event.user.data2 = nullptr;
+		SDL_PushEvent(&event);
 	}
 }
 

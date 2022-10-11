@@ -12,6 +12,7 @@
 #include "Body.h"
 #include "Character.h"
 #include "GameManager.h"
+#include "CharacterHealth.h"
 #include "Ammunition.h"
 
 
@@ -24,13 +25,19 @@ private:
 	bool isDead;
 	int weaponType;
 	bool altWeaponAvailable;
+
+	Vec3 lookDirection;
 	//void dead();
 
-	std::vector<Ammunition> Bullets;
+	std::vector<Ammunition*> Bullets;
 
 protected:
 	class GameManager* game;
-
+	float health, maxHealth;
+	//
+	Sphere boundingSphere;
+	double angle, angularVel, angularAccel, rotationalI;
+	//
 public:
 	PlayerBody() : Body{}
 	{
@@ -69,6 +76,7 @@ public:
 
 	// use the base class versions of getters
 
+	
 	std::vector<Ammunition*> fireBullet();
 
 	bool OnCreate();
@@ -78,10 +86,19 @@ public:
 	void resetToOrigin();
 	void setTexture(SDL_Texture* texture_) { texture = texture_; }
 	void FollowMouse(float mousePosX, float mousPosY);
+	
+	void dropammo();
+	void dead();
 
+	void setHealth(float h) { health = h; }
+    float getHealth() { return health ; }
+	
+	//bool restoreHealth(float healingAmount_);
+	
 	void setAltWeaponAvailable(bool altWeaponAvailable_) { altWeaponAvailable = altWeaponAvailable_; }
 	void setWeaponType(int weaponType_) { weaponType = weaponType_; }
 	
+	//const Vec3 getLookDirection() const { return lookDirection; }
 };
 
 #endif /* PLAYERBODY_H */
