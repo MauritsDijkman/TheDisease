@@ -1,4 +1,5 @@
 #include "ArriveTarget.h"
+#include <Vector2D.h>
 
 ArriveTarget::ArriveTarget(KinematicBody* character_, Node* target_)
 {
@@ -10,6 +11,7 @@ ArriveTarget::~ArriveTarget() {}
 
 SteeringOutput* ArriveTarget::getSteering()
 {
+	/**/
 	result = new SteeringOutput;
 
 	direction = target->GetPos() - character->getPos();
@@ -39,7 +41,16 @@ SteeringOutput* ArriveTarget::getSteering()
 
 	result->angular = 0;
 
-	cout << "Target speed: " << targetSpeed << " || " << "Distance: " << distance << endl;
+	//cout << "Target speed: " << targetSpeed << " || " << "Distance: " << distance << endl;
+	//cout << "Position ghost: " << character->getPos().x << " || " << character->getPos().y << endl;
 
 	return result;
+	/**/
+
+	/**
+	Vector2D targetPos = Vector2D(target->GetPos().x, target->GetPos().y);
+	Vector2D characterPos = Vector2D(character->getPos().x, character->getPos().y);
+
+	Vec3 desiredV = target->GetPos() - character->getPos();
+	/**/
 }

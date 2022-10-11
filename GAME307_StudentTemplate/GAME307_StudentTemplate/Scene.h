@@ -6,6 +6,7 @@
 #include "MMath.h"
 #include "GameManager.h"
 #include "Button.h"
+#include "Node.h"
 
 using namespace MATH;
 
@@ -23,6 +24,8 @@ public:
 	virtual SDL_Window* getWindow() = 0;
 	virtual Matrix4 getProjectionMatrix() = 0;
 	virtual Matrix4 getInverseMatrix() = 0;
+
+	vector<Node*> nodes;
 
 	//virtual bool nextScene() = 0; //Check if to load next scene
 };

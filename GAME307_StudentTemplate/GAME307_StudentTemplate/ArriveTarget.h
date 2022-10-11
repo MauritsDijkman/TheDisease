@@ -16,12 +16,12 @@ private:
 	KinematicBody* character;
 	Node* target;
 
-	float maxAcceleration = 2.0f;
-	float maxSpeed = 5;
+	float maxAcceleration = 1.0f;
+	float maxSpeed = 2.0f;
 
-	float targetRadius = 0.1f;
-	float slowRadius = 1.0f;
-	float timeToTarget = 0.1f;
+	float targetRadius = 0.2f;
+	float slowRadius = 3.0f;
+	float timeToTarget = 0.01f;
 
 	Vec3 direction;
 	float distance;

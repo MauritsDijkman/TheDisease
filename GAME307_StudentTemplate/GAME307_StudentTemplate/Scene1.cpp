@@ -53,6 +53,9 @@ bool Scene1::OnCreate()
 	/// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
 
+	// Generate the layout of the scene
+	GenerateSceneLayout();
+
 	// Set player image to PacMan
 	SDL_Surface* image;
 	SDL_Texture* texture;
@@ -103,10 +106,6 @@ bool Scene1::OnCreate()
 		SDL_FreeSurface(image);
 	}
 #pragma endregion
-
-
-	// Generate the layout of the scene
-	GenerateSceneLayout();
 
 	// End of character set ups
 	return true;
@@ -227,6 +226,8 @@ void Scene1::GenerateSceneLayout()
 			AddTile(column, row, id);
 		}
 	}
+
+	cout << "Size of nodes: " << nodes.size() << endl;
 
 	// For every node in the node list, place the visual
 	for (Node* node : nodes)

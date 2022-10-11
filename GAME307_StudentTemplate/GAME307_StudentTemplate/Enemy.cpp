@@ -4,10 +4,12 @@ bool Enemy::OnCreate(Scene* ownerScene_)
 {
 	ownerScene = ownerScene_;
 
-	for (int i = 0; i < 4; i++)
+	cout << "Owner Scene List Size: " << ownerScene->nodes.size() << endl;
+
+	for (int i = 0; i < 10; i++)
 	{
 		Node* node_ = new Node();
-		node_->SetPosition(Vec3(i + 2, 0.0f, 0.0f));
+		node_->SetPosition(ownerScene->nodes[i]->GetPos());
 		targetNodes.push_back(node_);
 	}
 
@@ -52,16 +54,19 @@ bool Enemy::OnCreate(Scene* ownerScene_)
 
 void Enemy::Update(float deltaTime)
 {
+	cout << "CurrentTargetNumber: " << currentTargetNumber << " || " << "VectorSize: " << targetNodes.size() << endl;
+
 	/**/
 	if (currentTargetNode)
 	{
-		float distance = GetDistance(position, currentTargetNode->GetPos());
-		cout << "Distance: " << distance << endl;
+		float distance = GetDistance(moveBody->getPos(), currentTargetNode->GetPos());
+		//cout << "Distance: " << distance << endl;
 
-		if (distance < 0.5f)
+		if (distance < 0.5f && currentTargetNumber + 1 < targetNodes.size())
 		{
 			currentTargetNumber++;
 			currentTargetNode = targetNodes[currentTargetNumber];
+			cout << "New node set!" << endl;
 		}
 		else
 			MoveToTarget(deltaTime);

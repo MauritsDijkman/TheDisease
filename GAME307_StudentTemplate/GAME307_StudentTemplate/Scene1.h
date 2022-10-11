@@ -40,7 +40,7 @@ private:
 
 	// Lists for scene creation
 	vector<GameObject*> backgroundTiles;
-	vector<Node*> nodes;
+	//vector<Node*> nodes;
 
 public:
 	Scene1(SDL_Window* sdlWindow, GameManager* game_);

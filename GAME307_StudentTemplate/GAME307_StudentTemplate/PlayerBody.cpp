@@ -196,7 +196,7 @@ void PlayerBody::Update(float deltaTime)
 void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
 {
 	orientation = atan2(pos.y - mousPosY, mousePosX - pos.x);
-	std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
+	//std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
 }
 
 void PlayerBody::resetToOrigin()
