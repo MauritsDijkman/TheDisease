@@ -33,7 +33,12 @@ private:
 
 protected:
 	class GameManager* game;
-	float health, maxHealth;
+	float health;
+	float maxHealth= 3.0f;
+
+	float gun;
+	float onegun = 1.0f;
+
 	//
 	Sphere boundingSphere;
 	double angle, angularVel, angularAccel, rotationalI;
@@ -90,11 +95,15 @@ public:
 	void dropammo();
 	void dead();
 
+	void setshotgun(float s) { gun = s; }
+	float getshotgun() { return gun; }
+	bool restoreshotgun(float shotgun_);
+
 	void setHealth(float h) { health = h; }
     float getHealth() { return health ; }
-	
-	//bool restoreHealth(float healingAmount_);
-	
+	bool restoreHealth(float healingAmount_);
+	void takeDamage(float damageAmount_);
+
 	void setAltWeaponAvailable(bool altWeaponAvailable_) { altWeaponAvailable = altWeaponAvailable_; }
 	void setWeaponType(int weaponType_) { weaponType = weaponType_; }
 	

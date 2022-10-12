@@ -71,7 +71,7 @@ bool Scene1::OnCreate()
 
 	SDL_FreeSurface(surfacePtr);
 
-	for (int i = 0; i < 9999; ++i) {
+	for (int i = 0; i < 10; ++i) {
 		enemies.push_back(new EnemyCharacter());
 		enemies[i]->setPos(Vec3(xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies[i]->setBoundingSphere(Sphere(0.5f));
@@ -116,6 +116,21 @@ bool Scene1::OnCreate()
 	healthPickup->setBoundingSphere(Sphere(0.5f));
 	healthPickup->setTexture(texturePtr);
 	//
+
+
+	//character health icons
+	surfacePtr = IMG_Load("Shotgun96.png");
+	melee = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+
+	if (surfacePtr == nullptr) {
+		std::cerr << "Imgage does not work" << std::endl;
+		return false;
+	}
+	if (melee == nullptr) {
+		printf("%s\n", SDL_GetError());
+		return false;
+	}
+	SDL_FreeSurface(surfacePtr);
 
 	//weapon pickup
 	surfacePtr = IMG_Load("Shotgun96.png");//surfacePtr
@@ -336,7 +351,7 @@ void Scene1::Update(const float deltaTime)
 	//Player Hits Collectibles
 	if (healthPickup) {
 		if (Physics::SphereSphereCollision(*P1, *healthPickup) == true) {
-			if (P1->restoreHealth(1.0f) == true) {
+			if (game->getPlayer()->restoreHealth(1.0f) == true) {
 				delete healthPickup;
 				healthPickup = nullptr;
 			}
@@ -348,7 +363,8 @@ void Scene1::Update(const float deltaTime)
 			P1->setAltWeaponAvailable(true);
 			P1->setWeaponType(1);
 			game->getPlayer()->Update(-deltaTime);
-			std::cout << "collide " << std::endl;
+			//std::cout << "collide " << std::endl;
+			game->getPlayer()->restoreshotgun(1.0f) == true;
 			delete weaponPickup;
 			weaponPickup = nullptr;
 		}
@@ -364,9 +380,9 @@ void Scene1::Update(const float deltaTime)
 		//Enemy Hits Player
 		for (int i = 0; i < enemies.size(); ++i) {
 			if (Physics::SphereSphereCollision(*enemies[i], *P1) == true) {
-				P1->takeDamage(1.0f);
+				game->getPlayer()->takeDamage(1.0f);
 				enemies.erase(enemies.begin() + i);
-				enemies[i]->Update(-deltaTime);
+				//enemies[i]->Update(-deltaTime);
 			}
 		}
 
@@ -422,16 +438,19 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, level->getWall(i)->getTexture(), nullptr, &WallRect);
 	}
 
-	SDL_Rect collectibleRect;
-	Vec3 weaponPickupScreenCoords;
-	int collectibleW, collectibleH;
-	SDL_QueryTexture(weaponPickup->getTexture(), nullptr, nullptr, &collectibleW, &collectibleH);
-	weaponPickupScreenCoords = projectionMatrix * weaponPickup->getPos();
-	collectibleRect.x = static_cast<int>(weaponPickupScreenCoords.x) - collectibleW / 4;
-	collectibleRect.y = static_cast<int>(weaponPickupScreenCoords.y) - collectibleH / 4;
-	collectibleRect.w = collectibleW / 2;
-	collectibleRect.h = collectibleH / 2;
-	SDL_RenderCopy(renderer, weaponPickup->getTexture(), nullptr, &collectibleRect);
+	if (weaponPickup) {
+		SDL_Rect collectibleRect;
+		Vec3 weaponPickupScreenCoords;
+		int collectibleW, collectibleH;
+		SDL_QueryTexture(weaponPickup->getTexture(), nullptr, nullptr, &collectibleW, &collectibleH);
+		weaponPickupScreenCoords = projectionMatrix * weaponPickup->getPos();
+		collectibleRect.x = static_cast<int>(weaponPickupScreenCoords.x) - collectibleW / 4;
+		collectibleRect.y = static_cast<int>(weaponPickupScreenCoords.y) - collectibleH / 4;
+		collectibleRect.w = collectibleW / 2;
+		collectibleRect.h = collectibleH / 2;
+		SDL_RenderCopy(renderer, weaponPickup->getTexture(), nullptr, &collectibleRect);
+	}
+
 
 
 	//Draw Bullets
@@ -449,6 +468,20 @@ void Scene1::Render()
 
 		SDL_RenderCopy(renderer, Bullets[i]->getTexture(), nullptr, &bulletRect);
 	}
+
+	if (game->getPlayer()->getshotgun() > 0)
+	{
+		SDL_Rect gunRect;
+
+		gunRect.x = 70;
+		gunRect.y = 500;
+		gunRect.w = 50;
+		gunRect.h = 50;
+		SDL_RenderCopy(renderer, melee, nullptr, &gunRect);
+	}
+
+
+
 
 	if (game->getPlayer()->getHealth() > 0)
 	{
@@ -483,10 +516,9 @@ void Scene1::Render()
 		}
 	}
 	//Draw collectibles
-	//SDL_Rect collectibleRect;
+	SDL_Rect collectibleRect;
 	Vec3 healthPickupScreenCoords;
-	//Vec3 weaponPickupScreenCoords;
-	//int collectibleW, collectibleH;
+	int collectibleW, collectibleH;
 
 	if (healthPickup) {
 		SDL_QueryTexture(healthPickup->getTexture(), nullptr, nullptr, &collectibleW, &collectibleH);

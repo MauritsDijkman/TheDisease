@@ -20,7 +20,7 @@ protected:
 	double angle, angularVel, angularAccel, rotationalI;
 	bool fixedStatus;
 	float boundingBoxHeight, boundingBoxWidth;
-	float health, maxHealth;
+	//float health, maxHealth;
 
 	virtual void dead();
 public:
@@ -59,10 +59,6 @@ public:
 	
 	const void setAltWeaponAvailable(bool altWeaponAvailable_) { altWeaponAvailable = altWeaponAvailable_; }
 	const void setWeaponType(int weaponType_) { weaponType = weaponType_; }
-	float getHealth() { return health; }
-	void setHealth(float h) { health = h; }
-	bool restoreHealth(float healingAmount_);
-	void takeDamage(float damageAmount_);
 	
 
 };

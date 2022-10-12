@@ -23,7 +23,24 @@ void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
 	//std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
 }
 
-/*
+bool PlayerBody::restoreshotgun(float shotgun_)
+{
+	bool destroyshotgunPickup;
+	if (gun == onegun) {
+		destroyshotgunPickup = false;//
+	}
+	else {
+		gun += shotgun_;
+		if (gun > onegun) {
+			gun = onegun;
+		}
+		destroyshotgunPickup = true;
+	}
+
+	return destroyshotgunPickup;
+}
+
+
 bool PlayerBody::restoreHealth(float healingAmount_)
 {
 	bool destroyHealthPickup;	//if player full on health, keep health pickup on ground
@@ -40,8 +57,14 @@ bool PlayerBody::restoreHealth(float healingAmount_)
 
 	return destroyHealthPickup;
 }
-*/
 
+void PlayerBody::takeDamage(float damageAmount_)
+{
+	health -= damageAmount_;
+	if (health <= 0) {
+		dead();
+	}
+}
 
 void PlayerBody::dropammo()
 {

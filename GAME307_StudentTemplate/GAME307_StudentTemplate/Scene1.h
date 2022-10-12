@@ -34,7 +34,8 @@ private:
 	SDL_Texture* texturePtr;
 	SDL_Texture* health;
 	SDL_Texture* bullet;
-	
+	SDL_Texture* melee;
+
 	std::vector<Ammunition*> Bullets;
 	GameObject* background;
 	vector<EnemyCharacter*> enemies;
