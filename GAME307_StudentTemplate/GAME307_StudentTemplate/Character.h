@@ -4,12 +4,13 @@
 #include <vector>
 
 #include "GameObject.h"
-
+#include "Object.h"
 #include "Scene.h"
 #include "KinematicBody.h"
 
 #include "Seek.h"
 #include "KinematicArrive.h"
+#include "Physics.h"
 
 using namespace std;
 
@@ -44,7 +45,7 @@ public:
 	void Update(float time);
 	void HandleEvents(const SDL_Event& event);
 	void render(float scale = 1.0f);
-
+	KinematicBody* getBody() { return body; }
 	void steerToSeekPlayer(SteeringOutput* steering);
 
 	void dead();

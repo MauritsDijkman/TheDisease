@@ -7,11 +7,18 @@
 #include "StaticBody.h"
 #include "KinematicSeek.h"
 #include "KinematicArrive.h"
+#include "Object.h"
 #include "GameObject.h"
 #include "Node.h"
 #include "Enemy.h"
+#include "Level.h"
+#include "PlayerBody.h"
+#include "EnemyCharacter.h"
 
 using namespace MATH;
+
+#define NUMWALL 58
+
 class Scene1 : public Scene {
 private:
 	SDL_Window* window;
@@ -23,9 +30,27 @@ private:
 	Matrix4 projectionMatrix;
 	Matrix4 inverseProjection;
 
+	SDL_Surface* surfacePtr;
+	SDL_Texture* texturePtr;
+	SDL_Texture* health;
+	SDL_Texture* bullet;
+	
+	std::vector<Ammunition*> Bullets;
+	GameObject* background;
+	vector<EnemyCharacter*> enemies;
 	// Npc
 	Character* blinky;
 	Enemy* enemy;
+
+
+	Object* weaponPickup;
+	Object* healthPickup;
+
+	Level* level;
+	Plane* wallLeft;
+	Plane* wallRight;
+	Plane* wallTop;
+	Plane* wallBottom;
 
 	// Variables for background tile placement
 	const int tileWidth = 60;

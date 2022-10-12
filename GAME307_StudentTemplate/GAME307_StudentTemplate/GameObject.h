@@ -5,11 +5,12 @@
 #include <SDL_image.h>
 #include <iostream>
 #include "MMath.h"
+#include "PhysicsObject.h"
 
 using namespace MATH;
 using namespace std;
 
-class GameObject {
+class GameObject : public PhysicsObject {
 private:
 	SDL_Surface* surface;
 	SDL_Texture* texture;
