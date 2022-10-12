@@ -7,10 +7,10 @@ class Ammunition : public Object
 {
 private:
 	//int remainingBounces;
-	
+
 public:
 	Ammunition();
 	~Ammunition();
-	
+
 };
 #endif

@@ -46,6 +46,9 @@ public:
 	void render(float scale = 1.0f);
 
 	void steerToSeekPlayer(SteeringOutput* steering);
+
+	void dead();
+	void projectile();
 };
 
 #endif
