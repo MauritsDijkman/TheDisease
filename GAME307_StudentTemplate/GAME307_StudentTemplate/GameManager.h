@@ -1,13 +1,20 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
+
 #include <SDL.h>
 #include <iostream>
+
 #include "Window.h"
 #include "Timer.h"
 #include "Scene.h"
 #include "PlayerBody.h"
-//#include "CharacterHealth.h"
 
+#include "Scene1.h"
+#include "SceneMenu.h"
+#include "SceneCredit.h"
+#include "SceneSetting.h"
+
+//#include "CharacterHealth.h"
 
 class GameManager {
 private:
@@ -23,9 +30,9 @@ private:
 	class Window* windowPtr;
 	class Timer* timer;
 	bool isRunning;
-    int sceneNum;
+	int sceneNum;
 	float playerHealth;
-	
+
 	//class
 	class Scene* currentScene;
 	class PlayerBody* player;
@@ -42,17 +49,15 @@ public:
 	PlayerBody* getPlayer() { return player; }
 	Uint32 getChangeScene() { return changeSceneEventType; }
 
-	
-
 	SDL_Renderer* getRenderer();
 	void RenderPlayer(float scale = 1.0f);
 	//void RenderWeapon(float scale = 1.0f);
+
 	void Run();
 	//bool isRunning;
 	void LoadScene(int i);
 	bool ValidateCurrentScene();
 
-	float health();
-
+	float GetHealth();
 };
 #endif

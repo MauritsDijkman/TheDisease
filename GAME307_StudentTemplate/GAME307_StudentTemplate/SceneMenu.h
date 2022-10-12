@@ -3,9 +3,13 @@
 
 #include "Scene.h"
 #include "Plane.h"
-#include <vector>
-#include <SDL.h>
 
+#include <vector>
+#include <iostream>
+#include <SDL.h>
+#include "SDL_image.h"
+
+using namespace std;
 
 using namespace MATH;
 struct MATH::Plane;
@@ -20,8 +24,6 @@ private:
 	SDL_Texture* texturePtr;
 	Matrix4 projectionMatrix;
 	Matrix4 inverseProjection;
-	bool play;
-
 
 	class Window* windowPtr;
 

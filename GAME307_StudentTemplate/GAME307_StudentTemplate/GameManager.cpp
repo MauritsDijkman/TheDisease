@@ -1,9 +1,4 @@
 #include "GameManager.h"
-#include "Scene1.h"
-#include "SceneMenu.h"
-#include "SceneCredit.h"
-#include "SceneSetting.h"
-//#include "CharacterHealth.h"
 
 
 GameManager::GameManager() {
@@ -19,14 +14,13 @@ GameManager::GameManager() {
 	//sceneNum = -1;
 }
 
-float GameManager::health() {
-
-
+float GameManager::GetHealth() {
 	return 3;
 }
 
 bool GameManager::OnCreate() {
 	// My display is 1920 x 1080 but the following seems to work best to fill the screen.
+	// Newest: 1800x900
 	const int SCREEN_WIDTH = 1540;
 	const int SCREEN_HEIGHT = 860;
 
@@ -139,7 +133,7 @@ void GameManager::Run() {
 				currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
 				if (!currentScene->OnCreate())
 				{
-		
+
 					isRunning = false;
 				}
 			}
@@ -274,44 +268,44 @@ SDL_Renderer* GameManager::getRenderer()
 
 void GameManager::RenderPlayer(float scale)
 {
-	player->Render(scale);	
+	player->Render(scale);
 }
 
 void GameManager::LoadScene(int i)
 {
-		// cleanup of current scene before loading anothe one
-		currentScene->OnDestroy();
-		delete currentScene;
-		switch (i)
-		{
-		case 0:
-			currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
-			break;
-		case 1:
-			currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+	// cleanup of current scene before loading anothe one
+	currentScene->OnDestroy();
+	delete currentScene;
+	switch (i)
+	{
+	case 0:
+		currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
 		break;
-			case 2:
+	case 1:
+		currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+		break;
+	case 2:
 		currentScene = new SceneSetting(windowPtr->GetSDL_Window(), this);
 		break;
-		    case 3:
+	case 3:
 		currentScene = new SceneCredit(windowPtr->GetSDL_Window(), this);
-		 break;
-			case 4:
+		break;
+	case 4:
 		currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
-		  break;
-			case 5:
+		break;
+	case 5:
 		currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
-			break;
-		default:
-			currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
-			break;
-		}
-		
-		// using ValidateCurrentScene() to safely run OnCreate
-		if (!ValidateCurrentScene())
-		{
-			isRunning = false;
-		}
+		break;
+	default:
+		currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
+		break;
+	}
+
+	// using ValidateCurrentScene() to safely run OnCreate
+	if (!ValidateCurrentScene())
+	{
+		isRunning = false;
+	}
 }
 
 
