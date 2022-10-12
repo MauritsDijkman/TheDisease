@@ -1,5 +1,10 @@
 #include "GameManager.h"
 
+// KEEP INCLUDE BELOW IN CPP FILE
+#include "Scene1.h"
+#include "SceneMenu.h"
+#include "SceneCredit.h"
+#include "SceneSetting.h"
 
 GameManager::GameManager() {
 	windowPtr = nullptr;

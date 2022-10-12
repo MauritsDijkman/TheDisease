@@ -9,11 +9,6 @@
 #include "Scene.h"
 #include "PlayerBody.h"
 
-#include "Scene1.h"
-#include "SceneMenu.h"
-#include "SceneCredit.h"
-#include "SceneSetting.h"
-
 //#include "CharacterHealth.h"
 
 class GameManager {
