@@ -1,27 +1,28 @@
 #include "Level.h"
-Level::Level(int wallNum_) {
+
+Level::Level(int wallNum_)
+{
 	wallNum = wallNum_;
 	walls = new Wall * [wallNum];
+
 	for (int i = 0; i < wallNum; i++) {
 		walls[i] = new Wall;
 		walls[i]->setBoundingBoxWidth(1.0f);
 		walls[i]->setBoundingBoxHeight(1.0f);
 	}
-
-
-
 }
 
-Level::~Level() {
-	for (int i = 0; i < wallNum; i++) {
+Level::~Level()
+{
+	for (int i = 0; i < wallNum; i++)
 		delete walls[i];
-	}
 
 	delete walls;
-
 }
 
-void Level::makeLevel(int sceneNum) { //Makes the level by placing all the walls
+// Makes the level by placing all the walls
+void Level::makeLevel(int sceneNum)
+{
 	//For outside walls
 	//float xpos1 = 0.0;
 	//float ypos1 = 0.0f;
@@ -33,8 +34,8 @@ void Level::makeLevel(int sceneNum) { //Makes the level by placing all the walls
 	//float ypos3 = 0.0f;
 
 
-	switch (sceneNum) {
-
+	switch (sceneNum)
+	{
 	case 1:
 
 		//Interior walls       x.x    y.y    z.z
@@ -53,18 +54,15 @@ void Level::makeLevel(int sceneNum) { //Makes the level by placing all the walls
 		walls[55]->setPos(Vec3(18.0f, 3.0f, 0.0f));
 		walls[56]->setPos(Vec3(20.0f, 3.0f, 0.0f));
 		walls[57]->setPos(Vec3(20.0f, 5.0f, 0.0f));
-
-
 		break;
+
 	default:
 		break;
 	}
-
 }
 
-void Level::setWallTextures(SDL_Texture* texturePtr) {
-	for (int i = 0; i < wallNum; i++) {
+void Level::setWallTextures(SDL_Texture* texturePtr)
+{
+	for (int i = 0; i < wallNum; i++)
 		walls[i]->setTexture(texturePtr);
-	}
-
 }

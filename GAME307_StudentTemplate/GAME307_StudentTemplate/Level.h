@@ -1,5 +1,6 @@
 #ifndef LEVEL_H
 #define LEVEL_H
+
 #include "Wall.h"
 
 class Level {
@@ -16,7 +17,6 @@ public:
 	void setWallTextures(SDL_Texture* texturePtr);
 	Wall* getWall(int i) { return walls[i]; }
 	int getWallNum() { return wallNum; }
-
 };
 
 #endif // LEVEL_H

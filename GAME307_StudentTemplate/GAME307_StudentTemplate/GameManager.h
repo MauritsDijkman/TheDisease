@@ -9,8 +9,6 @@
 #include "Scene.h"
 #include "PlayerBody.h"
 
-//#include "CharacterHealth.h"
-
 class GameManager {
 private:
 	/// These are called "forward declarations" The idea is that a pointer is 
@@ -28,31 +26,28 @@ private:
 	int sceneNum;
 	float playerHealth;
 
-	//class
+	// Class
 	class Scene* currentScene;
 	class PlayerBody* player;
-	Uint32 changeSceneEventType; // event type number for user defined events
+	Uint32 changeSceneEventType;	// Event type number for user defined events
 
 public:
 	GameManager();
 	~GameManager();
+
 	bool OnCreate();
 	void OnDestroy();
+
 	float getSceneHeight();
 	float getSceneWidth();
 	Matrix4 getProjectionMatrix();
 	PlayerBody* getPlayer() { return player; }
 	Uint32 getChangeScene() { return changeSceneEventType; }
-
 	SDL_Renderer* getRenderer();
-	void RenderPlayer(float scale = 1.0f);
-	//void RenderWeapon(float scale = 1.0f);
 
+	void RenderPlayer(float scale = 1.0f);
 	void Run();
-	//bool isRunning;
 	void LoadScene(int i);
 	bool ValidateCurrentScene();
-
-	float GetHealth();
 };
 #endif

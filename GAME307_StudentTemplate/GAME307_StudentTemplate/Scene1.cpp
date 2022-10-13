@@ -1,7 +1,6 @@
 #include "Scene1.h"
 #include "VMath.h"
 #include <Node.h>
-//#include "PhysicsObject.h"
 
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 {
@@ -19,12 +18,14 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 
 Scene1::~Scene1()
 {
+	// Following enemy
 	if (blinky)
 	{
 		blinky->OnDestroy();
 		delete blinky;
 	}
 
+	// Enemy follows given targetss
 	if (enemy)
 	{
 		enemy->OnDestroy();
@@ -40,7 +41,7 @@ bool Scene1::OnCreate()
 	Matrix4 ndc = MMath::viewportNDC(w, h);
 	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
 
-	//TODO: Calculate the ortho every frame and take the player's location as the middle point
+	// Calculates the ortho matrix with the player's position as middle point
 	float minX = game->getPlayer()->getPos().x - xAxis / 2;
 	float maxX = game->getPlayer()->getPos().x + xAxis / 2;
 
@@ -48,42 +49,35 @@ bool Scene1::OnCreate()
 	float maxY = game->getPlayer()->getPos().y + yAxis / 2;
 
 	ortho = MMath::orthographic(minX, maxX, minY, maxY, 0.0f, 1.0f);
-
 	projectionMatrix = ndc * ortho;
 
 
-	//Load the crouton image and set the texture as well
+	// Load the crouton image and set the texture
 	surfacePtr = IMG_Load("bullet.2.png");
 	bullet = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
-	//load enemy characters
-	surfacePtr = IMG_Load("The Unbread.png");//The Unbread.
-	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+	LoadImage("The Unbread.png");
 
-	if (surfacePtr == nullptr) {
-		std::cerr << "Imgage does not work" << std::endl;
-		return false;
-	}
-	if (texturePtr == nullptr) {
-		printf("%s\n", SDL_GetError());
-		return false;
-	}
-
-	SDL_FreeSurface(surfacePtr);
-
-	for (int i = 0; i < 10; ++i) {
+	// Spawn 10 enemies
+	for (int i = 0; i < 10; i++)
+	{
+		// Create enemy and add in the list
 		enemies.push_back(new EnemyCharacter());
+
+		// Set stats of the current enemy
 		enemies[i]->setPos(Vec3(xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies[i]->setBoundingSphere(Sphere(0.5f));
 		enemies[i]->setTexture(texturePtr);
 	}
 
+	// Set the health of the player
 	game->getPlayer()->setHealth(1.0f);
 
-	//character health icons
+	// Load health icon and set the texture
 	surfacePtr = IMG_Load("Assets/Ethan/medicine.png");
 	health = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
+	// Null pointer checks
 	if (surfacePtr == nullptr) {
 		std::cerr << "Imgage does not work" << std::endl;
 		return false;
@@ -92,36 +86,26 @@ bool Scene1::OnCreate()
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
-	SDL_FreeSurface(surfacePtr);
-	//
-	//character health icons
-	//load collectibles
-	//health pickup
-	surfacePtr = IMG_Load("Assets/Ethan/medicine.png");
-	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
-	if (surfacePtr == nullptr) {
-		std::cerr << "Imgage does not work" << std::endl;
-		return false;
-	}
-	if (texturePtr == nullptr) {
-		printf("%s\n", SDL_GetError());
-		return false;
-	}
+	SDL_FreeSurface(surfacePtr);
+
+	LoadImage("Assets/Ethan/medicine.png");
+
+
+	// Create health pickup
 	healthPickup = new Object();
 
-	SDL_FreeSurface(surfacePtr);
-
+	// Set stats
 	healthPickup->setPos(Vec3(10.0f, 9.0f, 0.0f));
 	healthPickup->setBoundingSphere(Sphere(0.5f));
 	healthPickup->setTexture(texturePtr);
-	//
 
 
-	//character health icons
+	// Load shotgun picked up icon and set the texture
 	surfacePtr = IMG_Load("Shotgun96.png");
 	melee = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
+	// Null pointer checks
 	if (surfacePtr == nullptr) {
 		std::cerr << "Imgage does not work" << std::endl;
 		return false;
@@ -130,69 +114,35 @@ bool Scene1::OnCreate()
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
+
 	SDL_FreeSurface(surfacePtr);
 
-	//weapon pickup
-	surfacePtr = IMG_Load("Shotgun96.png");//surfacePtr
-	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
-	if (surfacePtr == nullptr) {
-		std::cerr << "Imgage does not work" << std::endl;
-		return false;
-	}
-	if (texturePtr == nullptr) {
-		printf("%s\n", SDL_GetError());
-		return false;
-	}
+	LoadImage("Shotgun96.png");
+
+	// Create weapon pickup
 	weaponPickup = new Object();
 
-	SDL_FreeSurface(surfacePtr);
-
-
+	// Set stats
 	weaponPickup->setPos(Vec3(3.0f, 13.0f, 0.0f));
 	weaponPickup->setBoundingSphere(Sphere(0.25f));
 	weaponPickup->setTexture(texturePtr);
 
-	//temporary border walls
-	wallLeft = new Plane(Vec3(1.0f, 0.0f, 0.0f), 0.0f);//1.0f, 0.0f, 0.0f), 0.0f
+
+	// Temporary border walls
+	wallLeft = new Plane(Vec3(1.0f, 0.0f, 0.0f), 0.0f);
 	wallRight = new Plane(Vec3(-1.0f, 0.0f, 0.0f), xAxis);
 	wallTop = new Plane(Vec3(0.0f, -1.0f, 0.0f), yAxis);
 	wallBottom = new Plane(Vec3(0.0f, 1.0f, 0.0f), 0.0f);
 
-	
-	//Loads in the wall image and set the texture to the walls
-	surfacePtr = IMG_Load("Assets/Ethan/wall.png");
-	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+	LoadImage("Assets/Ethan/wall.png");
 
-	if (surfacePtr == nullptr) {
-		std::cerr << "Imgage does not work" << std::endl;
-		return false;
-	}
-	if (texturePtr == nullptr) {
-		printf("%s\n", SDL_GetError());
-		return false;
-	}
-
-	SDL_FreeSurface(surfacePtr);
-
-
-
+	// Load background
 	background = new GameObject(renderer, "Assets/Background.png");
-	std::cout << " baground image can't open " << background << endl;
-	//Button class
-	//clyde = new Button("clyde.png", this);
-	//if (!clyde->onCreate())
-	//	return false;
 
-
-
-
-
-
-	//Making the level
+	// Making the level
 	level = new Level(NUMWALL);
 	level->makeLevel(1); //pos of wall
 	level->setWallTextures(texturePtr);
-
 
 	/// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
@@ -255,11 +205,11 @@ bool Scene1::OnCreate()
 	return true;
 }
 
-void Scene1::OnDestroy() 
+void Scene1::OnDestroy()
 {
-	for (EnemyCharacter* EnemyCharacter : enemies) {
+	for (EnemyCharacter* EnemyCharacter : enemies)
 		delete EnemyCharacter;
-	}
+
 	SDL_DestroyRenderer(renderer);
 }
 
@@ -313,7 +263,7 @@ void Scene1::Update(const float deltaTime)
 	boundingSphere2.y = player->getPos().y;// get pos.y of the sphere equal to player
 	boundingSphere2.r = 0.4f;
 
-	
+
 	PhysicsObject* AI = new PhysicsObject();
 	AI->setPos(blinky->getBody()->getPos());//
 	AI->setVel(blinky->getBody()->getVel());
@@ -323,7 +273,7 @@ void Scene1::Update(const float deltaTime)
 	AI->setAngularAccel(blinky->getBody()->getAngular());
 	AI->setMass(blinky->getBody()->getMass());
 	AI->setBoundingSphere(boundingSphere);
-	
+
 
 	PhysicsObject* P1 = new PhysicsObject();
 	P1->setPos(player->getPos());
@@ -334,73 +284,82 @@ void Scene1::Update(const float deltaTime)
 	P1->setAngularAccel(player->getAngular());
 	P1->setMass(player->getMass());
 	P1->setBoundingSphere(boundingSphere2);
-	//myNPC->Update(deltaTime, steering);
 
 	Physics::SimpleNewtonMotion(*P1, deltaTime);
 	Physics::SimpleNewtonMotion(*AI, deltaTime);
-	//Player Hits Walls
-	for (int i = 0; i < level->getWallNum(); ++i) {
-		//if (Physics::SphereSphereCollision(*level->getWall(i)), *P1) == true)
-		if (Physics::CircleRectCollision(*P1, *level->getWall(i)) == true) {
+
+	// Player hits walls
+	for (int i = 0; i < level->getWallNum(); i++)
+	{
+		if (Physics::CircleRectCollision(*P1, *level->getWall(i)) == true)
+		{
 			game->getPlayer()->Update(-deltaTime);
 			Physics::SimpleNewtonMotion(*P1, -deltaTime);
 		}
-
 	}
 
-	//Player Hits Collectibles
-	if (healthPickup) {
-		if (Physics::SphereSphereCollision(*P1, *healthPickup) == true) {
-			if (game->getPlayer()->restoreHealth(1.0f) == true) {
+	// Player hits collectibles
+	if (healthPickup)
+	{
+		if (Physics::SphereSphereCollision(*P1, *healthPickup) == true)
+		{
+			if (game->getPlayer()->restoreHealth(1.0f) == true)
+			{
 				delete healthPickup;
 				healthPickup = nullptr;
 			}
 		}
 	}
 
-	if (weaponPickup) {
-		if (Physics::SphereSphereCollision(*weaponPickup, *P1) == true) {
+	if (weaponPickup)
+	{
+		if (Physics::SphereSphereCollision(*weaponPickup, *P1) == true)
+		{
 			P1->setAltWeaponAvailable(true);
 			P1->setWeaponType(1);
+
 			game->getPlayer()->Update(-deltaTime);
-			//std::cout << "collide " << std::endl;
 			game->getPlayer()->restoreshotgun(1.0f) == true;
+
 			delete weaponPickup;
 			weaponPickup = nullptr;
 		}
 	}
 
-	//Bullets Movement
-		for (int i = 0; i < Bullets.size(); ++i) {
-			Physics::SimpleNewtonMotion(*Bullets[i], deltaTime);
+	// Bullets movement
+	for (int i = 0; i < Bullets.size(); i++)
+		Physics::SimpleNewtonMotion(*Bullets[i], deltaTime);
 
+	// Enemy hits player
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		if (Physics::SphereSphereCollision(*enemies[i], *P1) == true)
+		{
+			game->getPlayer()->takeDamage(1.0f);
+			enemies.erase(enemies.begin() + i);
 		}
+	}
 
-
-		//Enemy Hits Player
-		for (int i = 0; i < enemies.size(); ++i) {
-			if (Physics::SphereSphereCollision(*enemies[i], *P1) == true) {
-				game->getPlayer()->takeDamage(1.0f);
-				enemies.erase(enemies.begin() + i);
-				//enemies[i]->Update(-deltaTime);
-			}
-		}
-
-	//Enemy Movement
-	for (int i = 0; i < enemies.size(); ++i) {
-		enemies[i]->seekPlayer(player->getPos());
+	// Enemy movement
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		enemies[i]->SeekPlayer(player->getPos());
 		Physics::SimpleNewtonMotion(*enemies[i], deltaTime);
 	}
 
-	//Bullet Hits Enemy
-	for (int i = 0; i < Bullets.size(); ++i) {
-		for (int j = 0; j < enemies.size(); ++j) {
-			if (Physics::SphereSphereCollision(*Bullets[i], *AI) == true) {
+	//Bullet hits enemy
+	for (int i = 0; i < Bullets.size(); i++)
+	{
+		for (int j = 0; j < enemies.size(); j++)
+		{
+			if (Physics::SphereSphereCollision(*Bullets[i], *AI) == true)
+			{
 				Bullets.erase(Bullets.begin() + i);
 				enemies[j]->takeDamage(1.0f);
-				if (enemies[j]->getHealth() <= 0) {
+
+				if (enemies[j]->getHealth() <= 0)
 					enemies.erase(enemies.begin() + j);
-				}
+
 				break;
 			}
 		}
@@ -438,29 +397,33 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, level->getWall(i)->getTexture(), nullptr, &WallRect);
 	}
 
-	if (weaponPickup) {
+	if (weaponPickup)
+	{
 		SDL_Rect collectibleRect;
 		Vec3 weaponPickupScreenCoords;
 		int collectibleW, collectibleH;
+
 		SDL_QueryTexture(weaponPickup->getTexture(), nullptr, nullptr, &collectibleW, &collectibleH);
+
 		weaponPickupScreenCoords = projectionMatrix * weaponPickup->getPos();
 		collectibleRect.x = static_cast<int>(weaponPickupScreenCoords.x) - collectibleW / 4;
 		collectibleRect.y = static_cast<int>(weaponPickupScreenCoords.y) - collectibleH / 4;
 		collectibleRect.w = collectibleW / 2;
 		collectibleRect.h = collectibleH / 2;
+
 		SDL_RenderCopy(renderer, weaponPickup->getTexture(), nullptr, &collectibleRect);
 	}
-
-
 
 	//Draw Bullets
 	SDL_Rect bulletRect;
 	Vec3 bulletScreenCoords;
 	int bulletW, bulletH;
 
-	for (int i = 0; i < Bullets.size(); ++i) {
+	for (int i = 0; i < Bullets.size(); i++)
+	{
 		bulletScreenCoords = projectionMatrix * Bullets[i]->getPos();
 		SDL_QueryTexture(Bullets[i]->getTexture(), nullptr, nullptr, &bulletW, &bulletH);
+
 		bulletRect.x = static_cast<int>(bulletScreenCoords.x - bulletW / 20);
 		bulletRect.y = static_cast<int>(bulletScreenCoords.y - bulletH / 20);
 		bulletRect.w = bulletW / 10;
@@ -480,9 +443,6 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, melee, nullptr, &gunRect);
 	}
 
-
-
-
 	if (game->getPlayer()->getHealth() > 0)
 	{
 		SDL_Rect healthRect;
@@ -491,6 +451,7 @@ void Scene1::Render()
 		healthRect.y = 13;
 		healthRect.w = 100;
 		healthRect.h = 100;
+
 		SDL_RenderCopy(renderer, health, nullptr, &healthRect);
 
 		if (game->getPlayer()->getHealth() > 1)
@@ -501,6 +462,7 @@ void Scene1::Render()
 			health1Rect.y = 13;
 			health1Rect.w = 100;
 			health1Rect.h = 100;
+
 			SDL_RenderCopy(renderer, health, nullptr, &health1Rect);
 
 			if (game->getPlayer()->getHealth() > 2)
@@ -511,34 +473,40 @@ void Scene1::Render()
 				health2Rect.y = 13;
 				health2Rect.w = 100;
 				health2Rect.h = 100;
+
 				SDL_RenderCopy(renderer, health, nullptr, &health2Rect);
 			}
 		}
 	}
-	//Draw collectibles
+
+	// Draw collectibles
 	SDL_Rect collectibleRect;
 	Vec3 healthPickupScreenCoords;
 	int collectibleW, collectibleH;
 
-	if (healthPickup) {
+	if (healthPickup)
+	{
 		SDL_QueryTexture(healthPickup->getTexture(), nullptr, nullptr, &collectibleW, &collectibleH);
 		healthPickupScreenCoords = projectionMatrix * healthPickup->getPos();
+
 		collectibleRect.x = static_cast<int>(healthPickupScreenCoords.x) - collectibleW / 8;
 		collectibleRect.y = static_cast<int>(healthPickupScreenCoords.y) - collectibleH / 8;
 		collectibleRect.w = collectibleW / 4;
 		collectibleRect.h = collectibleH / 4;
+
 		SDL_RenderCopy(renderer, healthPickup->getTexture(), nullptr, &collectibleRect);
 	}
 
-
-	// Draw Enemies
+	// Draw enemies
 	SDL_Rect enemyRect;
 	Vec3 enemyScreenCoords;
 	int enemyW, enemyH;
 
-	for (int i = 0; i < enemies.size(); ++i) {
+	for (int i = 0; i < enemies.size(); i++)
+	{
 		enemyScreenCoords = projectionMatrix * enemies[i]->getPos();
 		SDL_QueryTexture(enemies[i]->getTexture(), nullptr, nullptr, &enemyW, &enemyH);
+
 		enemyRect.x = static_cast<int>(enemyScreenCoords.x - enemyW / 2);//1
 		enemyRect.y = static_cast<int>(enemyScreenCoords.y - enemyH / 2);
 		enemyRect.w = enemyW;
@@ -546,7 +514,6 @@ void Scene1::Render()
 
 		SDL_RenderCopy(renderer, enemies[i]->getTexture(), nullptr, &enemyRect);
 	}
-
 
 	// Render the player
 	game->RenderPlayer(0.10f);
@@ -579,7 +546,6 @@ void Scene1::HandleEvents(const SDL_Event& event)
 
 		}
 	}
-
 }
 
 Vec3 Scene1::getMousePosition()
@@ -643,7 +609,7 @@ void Scene1::GenerateSceneLayout()
 		backgroundTiles.push_back(nodeTile);
 	}
 
-	// TODO
+	// [TODO]
 	// Set all the nodes from this list to the one used in the A* class
 }
 
@@ -666,10 +632,9 @@ void Scene1::AddTile(int column, int row, int id)
 		break;
 	}
 
-	if (tile)	// (if(tile != NULL))
+	if (tile)
 	{
 		// Position in pixels
-		//Vec3 startPos = Vec3(-100.0f, -100.0f, 0.0f);
 		Vec3 startPos = Vec3(0.0f, 0.0f, 0.0f);
 
 		// Set the position to have the origin top left
@@ -709,4 +674,24 @@ void Scene1::AddNode(Vec3 pos)
 
 	// Add the node to the list with nodes
 	nodes.push_back(node);
+}
+
+bool Scene1::LoadImage(string pathName_)
+{
+	// Loads in the wall image and set the texture to the walls
+	surfacePtr = IMG_Load(pathName_.c_str());
+	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+
+	// Null pointer checks
+	if (surfacePtr == nullptr) {
+		cerr << "Image cannot be loaded!" << endl;
+		return false;
+	}
+	if (texturePtr == nullptr) {
+		printf("%s\n", SDL_GetError());
+		return false;
+	}
+
+	SDL_FreeSurface(surfacePtr);
+	return true;
 }

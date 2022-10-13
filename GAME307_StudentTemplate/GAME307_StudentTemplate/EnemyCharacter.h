@@ -7,8 +7,7 @@ class EnemyCharacter : public CharacterHealth
 {
 private:
 	int enemyType;
-
-	void dead();
+	void Dead();
 
 protected:
 	float moveSpeed = 4.0f;
@@ -17,7 +16,7 @@ public:
 	EnemyCharacter();
 	~EnemyCharacter();
 
-	void seekPlayer(Vec3 playerLocation_);
+	void SeekPlayer(Vec3 playerLocation_);
 
 	void projectile();
 };

@@ -12,7 +12,7 @@
 void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
 {
 	orientation = atan2(pos.y - mousPosY, mousePosX - pos.x);
-	
+
 	lookDirection = Vec3(mousePosX, mousePosX, 0.0f);
 	if (mousePosX > pos.x) {
 		angle = -atan((mousPosY - pos.y) / (mousePosX - pos.x)) * 180 / M_PI;
@@ -68,8 +68,8 @@ void PlayerBody::takeDamage(float damageAmount_)
 
 void PlayerBody::dropammo()
 {
-  int ammo = 10;
-	
+	int ammo = 10;
+
 }
 
 void PlayerBody::dead()
@@ -80,18 +80,18 @@ void PlayerBody::dead()
 
 std::vector<Ammunition*> PlayerBody::fireBullet()
 {
-	
+
 	Bullets.clear();
 
 	//weaponType 0 standard weapon
-	
+
 	if (weaponType == 0) {
 		float velx = 10.0f * cos(angle * M_PI / 180);
 		float vely = -10.0f * sin(angle * M_PI / 180);
 
 		Bullets.push_back(new Ammunition);
 		Bullets[0]->setBoundingSphere(Sphere(0.25f));
-	
+
 		float offsetx = 0.01 + (boundingSphere.r + Bullets[0]->getBoundingSphere().r) * cos(angle * M_PI / 180);
 		float offsety = 0.01 + (boundingSphere.r + Bullets[0]->getBoundingSphere().r) * sin(angle * M_PI / 180);
 
@@ -99,14 +99,14 @@ std::vector<Ammunition*> PlayerBody::fireBullet()
 		Bullets[0]->setPos(Vec3(pos.x, pos.y, 0.0f));
 		Bullets[0]->setVel(Vec3(velx, vely, 0.0f));
 
-		
-			//angle = -atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
-			//angle = 180 - atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
-		
-		//Bullets[0]->setRemainingBounces(3);
+
+		//angle = -atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
+		//angle = 180 - atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
+
+	//Bullets[0]->setRemainingBounces(3);
 	}
 	//weaponType 1 is shotgun
-	
+
 	if (weaponType == 1) {
 		for (int i = 0; i < 3; ++i) {
 			Bullets.push_back(new Ammunition);
@@ -123,10 +123,10 @@ std::vector<Ammunition*> PlayerBody::fireBullet()
 
 			//Bullets[i]->setRemainingBounces(0);
 		}
-		
+
 		angle += 15;
 	}
-	
+
 	return Bullets;
 }
 
@@ -142,28 +142,6 @@ bool PlayerBody::OnCreate()
 		return false;
 	}
 	return true;
-
-	/*
-	//weapon pickup
-	surfacePtr = IMG_Load("Art/Shotgun96.png");
-	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
-
-	if (surfacePtr == nullptr) {
-		std::cerr << "Imgage does not work" << std::endl;
-		return false;
-	}
-	if (texturePtr == nullptr) {
-		printf("%s\n", SDL_GetError());
-		return false;
-	}
-	weaponPickup = new GameObject();
-
-	SDL_FreeSurface(surfacePtr);
-
-	weaponPickup->setPos(Vec3(3.0f, 13.0f, 0.0f));
-	weaponPickup->setBoundingSphere(Sphere(0.5f));
-	weaponPickup->setTexture(texturePtr);
-	*/
 }
 
 void PlayerBody::Render(float scale)
@@ -172,7 +150,7 @@ void PlayerBody::Render(float scale)
 	Matrix4 projectionMatrix = game->getProjectionMatrix();
 	SDL_Rect square;
 	Vec3 screenCoords;
-	int    w, h;
+	int w, h;
 
 	SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
 	screenCoords = projectionMatrix * pos;
@@ -193,8 +171,7 @@ void PlayerBody::Render(float scale)
 
 void PlayerBody::HandleEvents(const SDL_Event& event)
 {
-	// if key pressed, set velocity or acceleration
-
+	// If key pressed, set velocity or acceleration
 	if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
 	{
 		switch (event.key.keysym.scancode)
@@ -243,8 +220,7 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
 		}
 	}
 
-	// if key is released, stop applying movement
-
+	// If key is released, stop applying movement
 	if (event.type == SDL_KEYUP && event.key.repeat == 0)
 	{
 		switch (event.key.keysym.scancode)
@@ -294,10 +270,10 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
 	}
 
 	//WeaponSwitch
-	if (event.key.keysym.scancode == SDL_SCANCODE_E) {
+	if (event.key.keysym.scancode == SDL_SCANCODE_E)
 		weaponType = 0;
-	}
-	if (event.key.keysym.scancode == SDL_SCANCODE_R) {
+	if (event.key.keysym.scancode == SDL_SCANCODE_R)
+	{
 		//if (altWeaponAvailable == true) {
 		//	weaponType = 1;
 		//}
@@ -308,7 +284,7 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
 	{
 		Vec3 mousePosView = Vec3(event.button.x, event.button.y, 0);
 		mousePosWorld = MMath::inverse(game->getProjectionMatrix()) * mousePosView;
-		
+
 	}
 }
 
@@ -324,6 +300,8 @@ void PlayerBody::Update(float deltaTime)
 	height = game->getSceneHeight();
 	width = game->getSceneWidth();
 
+	// [TODO] Border for the game
+	/**
 	if (pos.x < radius)
 	{
 		pos.x = radius;
@@ -344,6 +322,7 @@ void PlayerBody::Update(float deltaTime)
 		pos.y = height - radius;
 		vel.y = 0.0f;
 	}
+	/**/
 
 	FollowMouse(mousePosWorld.x, mousePosWorld.y);	// mousePosWorld.x, mousePosWorld.y
 }

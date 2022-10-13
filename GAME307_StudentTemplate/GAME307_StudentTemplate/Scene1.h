@@ -36,14 +36,15 @@ private:
 	SDL_Texture* bullet;
 	SDL_Texture* melee;
 
-	std::vector<Ammunition*> Bullets;
+	vector<Ammunition*> Bullets;
 	GameObject* background;
 	vector<EnemyCharacter*> enemies;
+
 	// Npc
 	Character* blinky;
 	Enemy* enemy;
 
-
+	// Pickups
 	Object* weaponPickup;
 	Object* healthPickup;
 
@@ -66,7 +67,8 @@ private:
 
 	// Lists for scene creation
 	vector<GameObject*> backgroundTiles;
-	//vector<Node*> nodes;
+
+	bool LoadImage(string pathName_);
 
 public:
 	Scene1(SDL_Window* sdlWindow, GameManager* game_);

@@ -14,13 +14,10 @@ GameManager::GameManager() {
 	player = nullptr;
 	changeSceneEventType = 0;
 	playerHealth = 3.0f;
+
 	//This will keep track of wich scene it is -1 will be the menu 
 	//and -2 will be option -3 will be the credit and -4 will be the win screen
 	//sceneNum = -1;
-}
-
-float GameManager::GetHealth() {
-	return 3;
 }
 
 bool GameManager::OnCreate() {
@@ -49,16 +46,16 @@ bool GameManager::OnCreate() {
 		return false;
 	}
 
-	// select scene for specific assignment
-
+	// Select scene for specific assignment
 	currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
 
-	// create player
+	// Create player
 	float mass = 1.0f;
 	float radius = 0.5f;
 	float orientation = 0.0f;
 	float rotation = 0.0f;
 	float angular = 0.0f;
+
 	// These are not very good defaults, but they will prevent compiler warnings.
 	float maxSpeed = 5.0f;
 	float maxAcceleration = 10.0f;
@@ -84,12 +81,13 @@ bool GameManager::OnCreate() {
 		maxAngular,
 		this
 	);
+
 	if (player->OnCreate() == false) {
 		OnDestroy();
 		return false;
 	}
 
-	// need to create Player before validating scene
+	// Need to create Player before validating scene
 	if (!ValidateCurrentScene()) {
 		OnDestroy();
 		return false;
@@ -108,12 +106,13 @@ bool GameManager::OnCreate() {
 
 
 /// Here's the whole game loop
-void GameManager::Run() {
+void GameManager::Run()
+{
 	SDL_Event event;
 
-
 	timer->Start();
-	// control if current scene's update() is called each tick
+
+	// Control if current scene's update() is called each tick
 	bool launched = false;
 
 	while (isRunning) {
@@ -121,70 +120,67 @@ void GameManager::Run() {
 		// Let's add mouse movement and position
 		// https://wiki.libsdl.org/SDL_GetMouseState
 
-		SDL_PumpEvents();  // make sure we have the latest mouse state.
+		SDL_PumpEvents();  // Make sure we have the latest mouse state.
 
 		//https://www.youtube.com/watch?v=SYrRMr4BaD4&list=PLM7LHX-clszBIGsrh7_3B2Pi74AhMpKhj&index=3
 		while (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT)
-			{
 				isRunning = false;
-			}
 			else if (event.type == changeSceneEventType && event.user.code == 1)
 			{
-				// switch sens
 				currentScene->OnDestroy();
 				delete currentScene;
-				currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
-				if (!currentScene->OnCreate())
-				{
 
+				// Switch scenes
+				currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
+
+				if (!currentScene->OnCreate())
 					isRunning = false;
-				}
 			}
 			else if (event.type == changeSceneEventType && event.user.code == 2)
 			{
-				// switch sens
 				currentScene->OnDestroy();
 				delete currentScene;
+
+				// Switch scenes
 				currentScene = new SceneSetting(windowPtr->GetSDL_Window(), this);
+
 				if (!currentScene->OnCreate())
-				{
 					isRunning = false;
-				}
 			}
 			else if (event.type == changeSceneEventType && event.user.code == 3)
 			{
-				// switch sens
 				currentScene->OnDestroy();
 				delete currentScene;
+
+				// Switch scenes
 				currentScene = new SceneCredit(windowPtr->GetSDL_Window(), this);
+
 				if (!currentScene->OnCreate())
-				{
 					isRunning = false;
-				}
 			}
 			else if (event.type == changeSceneEventType && event.user.code == 4)
 			{
-				// switch sens
 				currentScene->OnDestroy();
 				delete currentScene;
+
+				// Switch scenes
 				currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+
 				if (!currentScene->OnCreate())
-				{
 					isRunning = false;
-				}
 			}
 			else if (event.type == changeSceneEventType && event.user.code == 5)
 			{
-				// switch sens
 				currentScene->OnDestroy();
 				delete currentScene;
+
+				// Switch scenes
 				currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+
 				if (!currentScene->OnCreate())
-				{
 					isRunning = false;
-				}
 			}
 
 			else if (event.type == SDL_KEYDOWN)
@@ -194,36 +190,45 @@ void GameManager::Run() {
 				case SDL_SCANCODE_ESCAPE:
 					isRunning = false;
 					break;
+
 				case SDL_SCANCODE_Q:
 					isRunning = false;
 					break;
+
 				case SDL_SCANCODE_DELETE:
 					isRunning = false;
 					break;
+
 				case SDL_SCANCODE_L:
 					//toggle launched with L key)
 					launched = !launched;
 					break;
+
 				case SDL_SCANCODE_1:
 					launched = false;
 					LoadScene(1);
 					break;
+
 				case SDL_SCANCODE_2:
 					launched = false;
 					LoadScene(2);
 					break;
+
 				case SDL_SCANCODE_3:
 					launched = false;
 					LoadScene(3);
 					break;
+
 				case SDL_SCANCODE_4:
 					launched = false;
 					LoadScene(4);
 					break;
+
 				case SDL_SCANCODE_5:
 					launched = false;
 					LoadScene(5);
 					break;
+
 				default:
 					break;
 
@@ -233,17 +238,17 @@ void GameManager::Run() {
 		}
 
 		timer->UpdateFrameTicks();
+
 		if (launched)
-		{
 			currentScene->Update(timer->GetDeltaTime());
-		}
+
 		currentScene->Render();
 
-		/// Keep the event loop running at a proper rate
-		SDL_Delay(timer->GetSleepTime(60)); ///60 frames per sec
+		// Keep the event loop running at a proper rate
+		SDL_Delay(timer->GetSleepTime(60));		//60 frames per sececond
 	}
 
-	// do stuff in scene
+	// Do stuff in scene
 }
 
 GameManager::~GameManager() {}
@@ -265,7 +270,7 @@ Matrix4 GameManager::getProjectionMatrix()
 
 SDL_Renderer* GameManager::getRenderer()
 {
-	// [TODO] might be missing some SDL error checking
+	// [TODO] Might be missing some SDL error checking
 	SDL_Window* window = currentScene->getWindow();
 	SDL_Renderer* renderer = SDL_GetRenderer(window);
 	return renderer;
@@ -278,7 +283,7 @@ void GameManager::RenderPlayer(float scale)
 
 void GameManager::LoadScene(int i)
 {
-	// cleanup of current scene before loading anothe one
+	// Cleanup of current scene before loading anothe one
 	currentScene->OnDestroy();
 	delete currentScene;
 	switch (i)
@@ -286,21 +291,27 @@ void GameManager::LoadScene(int i)
 	case 0:
 		currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
 		break;
+
 	case 1:
 		currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
 		break;
+
 	case 2:
 		currentScene = new SceneSetting(windowPtr->GetSDL_Window(), this);
 		break;
+
 	case 3:
 		currentScene = new SceneCredit(windowPtr->GetSDL_Window(), this);
 		break;
+
 	case 4:
 		currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
 		break;
+
 	case 5:
 		currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
 		break;
+
 	default:
 		currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
 		break;
@@ -308,19 +319,17 @@ void GameManager::LoadScene(int i)
 
 	// using ValidateCurrentScene() to safely run OnCreate
 	if (!ValidateCurrentScene())
-	{
 		isRunning = false;
-	}
 }
 
 
 bool GameManager::ValidateCurrentScene()
 {
-	if (currentScene == nullptr) {
+	if (currentScene == nullptr)
 		return false;
-	}
-	if (currentScene->OnCreate() == false) {
+
+	if (currentScene->OnCreate() == false)
 		return false;
-	}
+
 	return true;
 }

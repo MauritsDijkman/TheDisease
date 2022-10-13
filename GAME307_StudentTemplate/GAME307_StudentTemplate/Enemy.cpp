@@ -4,9 +4,11 @@ bool Enemy::OnCreate(Scene* ownerScene_)
 {
 	ownerScene = ownerScene_;
 
-	cout << "Owner Scene List Size: " << ownerScene->nodes.size() << endl;
+	// Debug
+	//cout << "Owner Scene List Size: " << ownerScene->nodes.size() << endl;
 
-	for (int i = 0; i < 10; i++)
+	// Set the target nodes according to amount of nodes in the scene
+	for (int i = 0; i < ownerScene->nodes.size(); i++)
 	{
 		Node* node_ = new Node();
 		node_->SetPosition(ownerScene->nodes[i]->GetPos());
@@ -17,8 +19,8 @@ bool Enemy::OnCreate(Scene* ownerScene_)
 	if (targetNodes.size() > 0) {
 		currentTargetNumber = 0;
 		currentTargetNode = targetNodes[currentTargetNumber];
-		cout << "Current target node: " << currentTargetNumber << endl;
-		cout << "Current target node position: " << currentTargetNode->GetPos().x << " || " << currentTargetNode->GetPos().y << endl;
+		//cout << "Current target node: " << currentTargetNumber << endl;
+		//cout << "Current target node position: " << currentTargetNode->GetPos().x << " || " << currentTargetNode->GetPos().y << endl;
 	}
 	/**/
 
@@ -54,14 +56,14 @@ bool Enemy::OnCreate(Scene* ownerScene_)
 
 void Enemy::Update(float deltaTime)
 {
-	cout << "CurrentTargetNumber: " << currentTargetNumber << " || " << "VectorSize: " << targetNodes.size() << endl;
+	//cout << "CurrentTargetNumber: " << currentTargetNumber << " || " << "VectorSize: " << targetNodes.size() << endl;
 
-	/**/
 	if (currentTargetNode)
 	{
 		float distance = GetDistance(moveBody->getPos(), currentTargetNode->GetPos());
 		//cout << "Distance: " << distance << endl;
 
+		// If in range of the node and there is a next node, set the next node
 		if (distance < 0.5f && currentTargetNumber + 1 < targetNodes.size())
 		{
 			currentTargetNumber++;
@@ -71,7 +73,6 @@ void Enemy::Update(float deltaTime)
 		else
 			MoveToTarget(deltaTime);
 	}
-	/**/
 }
 
 void Enemy::MoveToTarget(float deltaTime)
@@ -94,7 +95,6 @@ void Enemy::HandleEvents(const SDL_Event& event)
 
 void Enemy::render(float scale)
 {
-	/**/
 	SDL_Renderer* renderer = ownerScene->game->getRenderer();
 	Matrix4 projectionMatrix = ownerScene->getProjectionMatrix();
 
@@ -117,14 +117,14 @@ void Enemy::render(float scale)
 
 	SDL_RenderCopyEx(renderer, moveBody->getTexture(), nullptr, &square,
 		orientation, nullptr, SDL_FLIP_NONE);
-	/**/
 }
 
 void Enemy::SteerToTarget(SteeringOutput* steering)
 {
+	// Create a list with the steering outputs
 	vector<SteeringOutput*> steering_outputs;
 
-	//SteeringBehaviour* steering_algorithm = new SeekTarget(moveBody, currentTargetNode);
+	// Set the steering behaviour
 	SteeringBehaviour* steering_algorithm = new ArriveTarget(moveBody, currentTargetNode);
 	steering_outputs.push_back(steering_algorithm->getSteering());
 

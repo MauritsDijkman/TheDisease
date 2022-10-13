@@ -9,14 +9,16 @@
 #define PLAYERBODY_H
 
 #include <stdio.h>
+#include <vector>
+
 #include "Body.h"
 #include "Character.h"
 #include "GameManager.h"
 #include "CharacterHealth.h"
 #include "Ammunition.h"
 
-
-#include <vector>
+using namespace std;
+using namespace MATH;
 
 class PlayerBody : public Body
 {
@@ -27,22 +29,20 @@ private:
 	bool altWeaponAvailable;
 
 	Vec3 lookDirection;
-	//void dead();
 
-	std::vector<Ammunition*> Bullets;
+	vector<Ammunition*> Bullets;
 
 protected:
 	class GameManager* game;
 	float health;
-	float maxHealth= 3.0f;
+	float maxHealth = 3.0f;
 
 	float gun;
 	float onegun = 1.0f;
 
-	//
 	Sphere boundingSphere;
 	double angle, angularVel, angularAccel, rotationalI;
-	//
+
 public:
 	PlayerBody() : Body{}
 	{
@@ -77,12 +77,10 @@ public:
 	}
 		, game{ game_ }
 	{}
-	
 
-	// use the base class versions of getters
 
-	
-	std::vector<Ammunition*> fireBullet();
+	// Use the base class versions of getters
+	vector<Ammunition*> fireBullet();
 
 	bool OnCreate();
 	void Render(float scale = 1.0f);
@@ -91,7 +89,7 @@ public:
 	void resetToOrigin();
 	void setTexture(SDL_Texture* texture_) { texture = texture_; }
 	void FollowMouse(float mousePosX, float mousPosY);
-	
+
 	void dropammo();
 	void dead();
 
@@ -100,14 +98,12 @@ public:
 	bool restoreshotgun(float shotgun_);
 
 	void setHealth(float h) { health = h; }
-    float getHealth() { return health ; }
+	float getHealth() { return health; }
 	bool restoreHealth(float healingAmount_);
 	void takeDamage(float damageAmount_);
 
 	void setAltWeaponAvailable(bool altWeaponAvailable_) { altWeaponAvailable = altWeaponAvailable_; }
 	void setWeaponType(int weaponType_) { weaponType = weaponType_; }
-	
-	//const Vec3 getLookDirection() const { return lookDirection; }
 };
 
 #endif /* PLAYERBODY_H */
