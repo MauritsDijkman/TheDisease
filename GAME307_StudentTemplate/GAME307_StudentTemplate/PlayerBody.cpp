@@ -325,9 +325,27 @@ void PlayerBody::Update(float deltaTime)
 	/**/
 
 	FollowMouse(mousePosWorld.x, mousePosWorld.y);	// mousePosWorld.x, mousePosWorld.y
+	//PrintVectorRotation();
 }
 
 void PlayerBody::resetToOrigin()
 {
 	pos = Vec3(0.0f + radius, 0.0f + radius, 0.0f);
+}
+
+void PlayerBody::PrintVectorRotation()
+{
+	Vec3 characterPos = pos;
+	Vec3 originPos = Vec3(0.0f, 0.0f, 0.0f);
+
+	// sqrt((pX-qX)^2 + (pY-qY)^2)
+	float unitlength = sqrt((characterPos.x - originPos.x) * (characterPos.x - originPos.x) +
+		(characterPos.y - originPos.y) * (characterPos.y - originPos.y));
+
+	// (x2 - x1, y2 - y1)
+	Vec3 orientationVector;
+	orientationVector = Vec3((characterPos.x - originPos.x) / unitlength, (characterPos.y - originPos.y) / unitlength, 0.0f);
+
+	cout << "Orientation Vector: " << orientationVector.x << " || " << orientationVector.y << endl;
+
 }

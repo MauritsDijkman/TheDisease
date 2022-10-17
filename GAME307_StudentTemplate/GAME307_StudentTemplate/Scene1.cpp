@@ -347,7 +347,7 @@ void Scene1::Update(const float deltaTime)
 		Physics::SimpleNewtonMotion(*enemies[i], deltaTime);
 	}
 
-	//Bullet hits enemy
+	// Bullet hits enemy
 	for (int i = 0; i < Bullets.size(); i++)
 	{
 		for (int j = 0; j < enemies.size(); j++)

@@ -140,6 +140,29 @@ void Enemy::SteerToTarget(SteeringOutput* steering)
 		delete steering_algorithm;
 }
 
+/**
+void Enemy::WanderAround(SteeringOutput* steering)
+{
+	// Create a list with the steering outputs
+	vector<KinematicSteeringOutput*> steering_outputs;
+
+	// Set the steering behaviour
+	KinematicSteeringOutput* steering_algorithm = new KinematicWander(moveBody);
+	steering_outputs.push_back(steering_algorithm->getSteering());
+
+	// Add togethere any steering outputs
+	for (unsigned i = 0; i < steering_outputs.size(); i++)
+	{
+		if (steering_outputs[i])
+			*steering += *steering_outputs[i];
+	}
+
+	// Clean up memory
+	if (steering_algorithm)
+		delete steering_algorithm;
+}
+/**/
+
 float Enemy::GetDistance(Vec3 p, Vec3 q)
 {
 	// Distance = sqrt((pX-qX)^2 + (pY-qY)^2)

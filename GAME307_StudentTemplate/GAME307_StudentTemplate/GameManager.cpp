@@ -309,7 +309,7 @@ void GameManager::LoadScene(int i)
 		break;
 
 	case 5:
-		currentScene = new SceneMenu(windowPtr->GetSDL_Window(), this);
+		currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
 		break;
 
 	default:

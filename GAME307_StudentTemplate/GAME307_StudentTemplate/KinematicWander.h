@@ -12,6 +12,7 @@ class KinematicWander {
 private:
 	KinematicSteeringOutput* result;
 	Body* character;
+
 	float maxSpeed;
 	float maxRotation;
 

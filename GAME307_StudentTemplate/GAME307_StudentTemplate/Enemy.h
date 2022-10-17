@@ -10,6 +10,8 @@
 #include "Node.h"
 #include "SeekTarget.h"
 #include "ArriveTarget.h"
+#include "Wander.h"
+#include "KinematicWander.h"
 
 using namespace std;
 using namespace MATH;
@@ -58,6 +60,7 @@ public:
 	float GetDistance(Vec3 p, Vec3 q);
 
 	void SteerToTarget(SteeringOutput* steering);
+	void WanderAround(SteeringOutput* steering);
 };
 
 #endif // !ENEMY_H

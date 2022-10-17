@@ -32,6 +32,8 @@ private:
 
 	vector<Ammunition*> Bullets;
 
+	void PrintVectorRotation();
+
 protected:
 	class GameManager* game;
 	float health;
