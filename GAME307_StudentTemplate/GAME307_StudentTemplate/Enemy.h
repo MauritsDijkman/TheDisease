@@ -29,17 +29,25 @@ private:
 
 	Vec3 position;
 	Vec3 velocity;
-
 	float maxSpeed = 5;
 
+	PlayerBody* player;
+
+	float currentAttackValue;
+
+	void HandleDecisionMaking(float deltaTime);
+	void AttackPlayer(float deltaTime, float attackInterval);
+
 public:
-	Enemy()
+	Enemy(PlayerBody* player_)
 	{
 		ownerScene = NULL;
 		moveBody = NULL;
+		player = player_;
 	};
 
-	~Enemy() {
+	~Enemy()
+	{
 		if (moveBody)
 			delete moveBody;
 	};
@@ -57,10 +65,12 @@ public:
 	void render(float scale);
 
 	void MoveToTarget(float deltaTime);
+	void WanderAround(float deltaTime);
+
 	float GetDistance(Vec3 p, Vec3 q);
 
 	void SteerToTarget(SteeringOutput* steering);
-	void WanderAround(SteeringOutput* steering);
+	void WanderRandom(SteeringOutput* steering);
 };
 
 #endif // !ENEMY_H

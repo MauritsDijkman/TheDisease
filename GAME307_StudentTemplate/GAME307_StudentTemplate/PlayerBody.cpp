@@ -60,10 +60,13 @@ bool PlayerBody::restoreHealth(float healingAmount_)
 
 void PlayerBody::takeDamage(float damageAmount_)
 {
-	health -= damageAmount_;
-	if (health <= 0) {
+	if (health > 0)
+		health -= damageAmount_;
+	else if (health < 0)
+		health = 0;
+
+	if (health <= 0)
 		dead();
-	}
 }
 
 void PlayerBody::dropammo()

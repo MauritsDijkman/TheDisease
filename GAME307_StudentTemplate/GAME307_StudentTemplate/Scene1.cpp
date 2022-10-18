@@ -183,7 +183,7 @@ bool Scene1::OnCreate()
 #pragma region Enemy
 	// Set up characters, choose good values for the constructor
 		// or use the defaults, like this
-	enemy = new Enemy();
+	enemy = new Enemy(game->getPlayer());
 	if (!enemy->OnCreate(this))
 		return false;
 
