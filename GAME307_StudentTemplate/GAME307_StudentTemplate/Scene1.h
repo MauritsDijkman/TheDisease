@@ -14,6 +14,8 @@
 #include "Level.h"
 #include "PlayerBody.h"
 #include "EnemyCharacter.h"
+#include <BackgroundTile.h>
+#include <Graph.h>
 
 using namespace MATH;
 
@@ -62,11 +64,16 @@ private:
 
 	// Scene generation
 	void GenerateSceneLayout();
-	void AddTile(int column, int row, int id);
-	void AddNode(Vec3 pos);
+	void CalculateConnectionWeights();
+	//void AddTile(int column, int row, int id, int label);
+	//void AddNode(int column, int row, int label);
 
 	// Lists for scene creation
-	vector<GameObject*> backgroundTiles;
+	vector<vector<BackgroundTile*>> tiles;
+	vector<Node*> nodes;
+
+	Graph* graph;
+	void CreateTiles(int rows_, int columns_);
 
 	bool LoadImage(string pathName_);
 

@@ -51,7 +51,6 @@ bool Scene1::OnCreate()
 	ortho = MMath::orthographic(minX, maxX, minY, maxY, 0.0f, 1.0f);
 	projectionMatrix = ndc * ortho;
 
-
 	// Load the crouton image and set the texture
 	surfacePtr = IMG_Load("bullet.2.png");
 	bullet = SDL_CreateTextureFromSurface(renderer, surfacePtr);
@@ -147,8 +146,28 @@ bool Scene1::OnCreate()
 	/// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
 
+
+
+
 	// Generate the layout of the scene
 	GenerateSceneLayout();
+
+	// Create the graph, an empty graph
+	graph = new Graph();
+	if (!graph->OnCreate(nodes)) {
+		cout << "Graph OnCreate false!" << endl;
+		return false;
+	}
+
+	// Calculate the weight of the connections
+	CalculateConnectionWeights();
+
+	printf("Neighbours of 93: \n");
+	int nodeLabel;
+	for (auto nodeLabel : graph->GetNeighbours(93))
+		printf("Node %i, ", nodeLabel);
+
+
 
 	// Set player image to PacMan
 	SDL_Surface* image;
@@ -263,7 +282,7 @@ void Scene1::Update(const float deltaTime)
 	boundingSphere2.y = player->getPos().y;// get pos.y of the sphere equal to player
 	boundingSphere2.r = 0.4f;
 
-
+#pragma region Ethan
 	PhysicsObject* AI = new PhysicsObject();
 	AI->setPos(blinky->getBody()->getPos());//
 	AI->setVel(blinky->getBody()->getVel());
@@ -364,6 +383,7 @@ void Scene1::Update(const float deltaTime)
 			}
 		}
 	}
+#pragma endregion
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
@@ -374,9 +394,18 @@ void Scene1::Render()
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
-	// Render all the background tiles
-	for (GameObject* tile_ : backgroundTiles)
-		tile_->Render(projectionMatrix, renderer, 1.0f, 0.0f);
+	// Render all the background tiles (including their nodes)
+	/**/
+	// Place the tiles for the amount of columns and rows
+	for (int row = 0; row < gridHeight; row++)
+	{
+		for (int column = 0; column < gridWidth; column++)
+		{
+			tiles[row][column]->Render(renderer, game->getProjectionMatrix());
+		}
+	}
+	/**/
+
 
 	// Render any npc's
 	blinky->render(0.15f);
@@ -568,6 +597,7 @@ void Scene1::GenerateSceneLayout()
 	gridHeight = 15;
 
 	// Level layout (x value = gridWidth and y value = gridHeight) (first number = y, second number = x)
+	// rows = x & columns = y
 	int levelData[15][30] = {
 	{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, },
 	{ 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, },
@@ -586,94 +616,204 @@ void Scene1::GenerateSceneLayout()
 	{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }
 	};
 
-	// Place the tiles for the amount of columns and rows
+	tiles.resize(gridHeight);
+
+	for (int i = 0; i < gridHeight; i++)
+		tiles[i].resize(gridWidth);
+
+	Node* n;
+	BackgroundTile* t;
+	int i, j, label;
+	i = 0;
+	j = 0;
+	label = 0;
+
 	for (int row = 0; row < gridHeight; row++)
 	{
 		for (int column = 0; column < gridWidth; column++)
 		{
 			int id = levelData[row][column];
-			AddTile(column, row, id);
+
+			// Position in pixels
+			Vec3 startPos = Vec3(0.0f, 0.0f, 0.0f);
+			Vec3 endPos = Vec3(0.0f, 0.0f, 0.0f);
+
+			// Set the position to have the origin top left
+			endPos.x = (startPos.x + column * tileWidth + (tileWidth * 0.5f));
+			endPos.y = (startPos.y + row * tileHeight + (tileHeight * 0.5f));
+
+			// Transverse the position from viewport to game
+			Vec3 position = Vec3(endPos.x, endPos.y, 0.0f);
+			position = MMath::inverse(projectionMatrix) * position;
+
+			// Set the position to the game coordinates
+			endPos.x = (position.x);
+			endPos.y = (position.y);
+
+			n = new Node(label, endPos);
+			nodes.push_back(n);
+
+			if (id == 1 || id == 3)
+				t = new BackgroundTile(n, true);
+			else
+				t = new BackgroundTile(n, false);
+
+			t->AddTile(renderer, column, row, id, label, tileWidth, tileHeight, game->getProjectionMatrix());
+
+
+			tiles[row][column] = t;
+
+			label++;
 		}
 	}
-
-	cout << "Size of nodes: " << nodes.size() << endl;
-
-	// For every node in the node list, place the visual
-	for (Node* node : nodes)
-	{
-		GameObject* nodeTile = new GameObject(renderer, "Assets/Node.png");
-		nodeTile->posX = node->GetPos().x;
-		nodeTile->posY = node->GetPos().y;
-
-		// Add the node visuals to the background tiles
-		backgroundTiles.push_back(nodeTile);
-	}
-
-	// [TODO]
-	// Set all the nodes from this list to the one used in the A* class
 }
 
-void Scene1::AddTile(int column, int row, int id)
+
+
+//CreateTiles(30, 15);
+
+/**
+int label = 0;
+Node* n;
+BackgroundTile* bgT;
+
+tiles.resize(15);
+for (int i = 0; i < 15; i++)
+	tiles[i].resize(30);
+
+// Place the tiles for the amount of columns and rows
+for (int row = 0; row < gridHeight; row++)
 {
-	// Create tile for later use
-	GameObject* tile = NULL;
-
-	// Load the tile according to the id
-	switch (id)
+	for (int column = 0; column < gridWidth; column++)
 	{
-	case 1:
-		tile = new GameObject(renderer, "Assets/Tiles/Tile_Grass.png");
-		break;
-	case 2:
-		tile = new GameObject(renderer, "Assets/Tiles/Tile_Water.png");
-		break;
-	case 3:
-		tile = new GameObject(renderer, "Assets/Tiles/Tile_Stone.png");
-		break;
-	}
 
-	if (tile)
-	{
-		// Position in pixels
-		Vec3 startPos = Vec3(0.0f, 0.0f, 0.0f);
+		int id = levelData[row][column];
 
-		// Set the position to have the origin top left
-		tile->posX = startPos.x + column * tileWidth + (tileWidth * 0.5f);
-		tile->posY = startPos.y + row * tileHeight + (tileHeight * 0.5f);
+		bgT = new BackgroundTile(n);
+		bgT->AddTile(renderer, row, column, id, label, tileWidth, tileHeight, game->getProjectionMatrix());
 
-		// Print ID (with pathname), column and row
-		cout << "ID: " << id << " " << "(" << tile->GetPathName() << ")"
-			<< " || " << "Column: " << column << " || " << "Row : " << row << endl;
+		//tiles[row][column] = bgT;
+		tiles[row][column] = bgT;
 
-		// Transverse the position from viewport to game
-		Vec3 position = Vec3(tile->posX, tile->posY, 0.0f);
-		position = MMath::inverse(game->getProjectionMatrix()) * position;
-
-		// Set the position to the game coordinates
-		tile->posX = position.x;
-		tile->posY = position.y;
-
-		// Add the tile to the list
-		backgroundTiles.insert(backgroundTiles.end(), tile);
-
-		if (id == 1)
-			AddNode(tile->GetPosition());
+		label++;
 	}
 }
+/**/
 
-void Scene1::AddNode(Vec3 pos)
+
+void Scene1::CreateTiles(int rows_, int columns_)
 {
-	// Create new node
-	Node* node = new Node();
+	/**
+	tiles.resize(columns_);
 
-	// Set the position of the node
-	node->SetPosition(pos);
+	for (int i = 0; i < columns_; i++)
+		tiles[i].resize(rows_);
 
-	// Debug for position of the node in the game view
-	cout << "Node pos: " << node->GetPos().x << " || " << node->GetPos().y << endl;
+	Node* n;
+	BackgroundTile* t;
+	int i, j, label;
+	i = 0;
+	j = 0;
+	label = 0;
 
-	// Add the node to the list with nodes
-	nodes.push_back(node);
+	for (int row = 0; row < gridHeight; row++)
+	{
+		for (int column = 0; column < gridWidth; column++)
+		{
+			// Position in pixels
+			Vec3 startPos = Vec3(0.0f, 0.0f, 0.0f);
+			Vec3 endPos = Vec3(0.0f, 0.0f, 0.0f);
+
+			// Set the position to have the origin top left
+			endPos.x = (startPos.x + column * tileWidth + (tileWidth * 0.5f));
+			endPos.y = (startPos.y + row * tileHeight + (tileHeight * 0.5f));
+
+			// Transverse the position from viewport to game
+			Vec3 position = Vec3(endPos.x, endPos.y, 0.0f);
+			position = MMath::inverse(projectionMatrix) * position;
+
+			// Set the position to the game coordinates
+			endPos.x = (position.x);
+			endPos.y = (position.y);
+
+
+			n = new Node(label, endPos);
+			t = new BackgroundTile(n);
+			//n->SetTile(t);
+
+			nodes.push_back(n);
+			tiles[row][column] = t;
+
+			label++;
+		}
+	}
+	/**/
+
+
+	/**
+	for (float y = 0.5f * tileHeight; y < yAxis; y += tileHeight)
+	{
+		// Do stuff for row, where y stays constant
+		for (float x = 0.5f * tileWidth; x < xAxis; x += tileWidth)
+		{
+			n = new Node(label, Vec3(x, y, 0.0f));
+			t = new BackgroundTile(n);
+			//n->SetTile(t);
+
+			nodes.push_back(n);
+			tiles[i][j] = t;
+
+			label++;
+			j++;
+		}
+
+		j = 0;
+		i++;
+	}
+	/**/
+
+}
+
+void Scene1::CalculateConnectionWeights()
+{
+	int rows = tiles.size();
+	int columns = tiles[0].size();
+
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < columns; j++)
+		{
+			//						i+1, j
+			//		i, j-1			  i, j			 i, j+1
+			//						i-1, j
+
+			int from = tiles[i][j]->GetNode()->GetLabel();
+
+			// Left is i, j-1
+			if (j > 0 && tiles[i][j - 1]->HasNode()) {
+				int to = tiles[i][j - 1]->GetNode()->GetLabel();
+				graph->AddWeightConnection(from, to, tileWidth);
+			}
+
+			// Right is i, j+1
+			if (j < columns - 1 && tiles[i][j + 1]->HasNode()) {
+				int to = tiles[i][j + 1]->GetNode()->GetLabel();
+				graph->AddWeightConnection(from, to, tileWidth);
+			}
+
+			// Above is i+1, j
+			if (i < rows - 1 && tiles[i + 1][j]->HasNode()) {
+				int to = tiles[i + 1][j]->GetNode()->GetLabel();
+				graph->AddWeightConnection(from, to, tileWidth);
+			}
+
+			// Below is i-1, j
+			if (i > 0 && tiles[i - 1][j]->HasNode()) {
+				int to = tiles[i - 1][j]->GetNode()->GetLabel();
+				graph->AddWeightConnection(from, to, tileWidth);
+			}
+		}
+	}
 }
 
 bool Scene1::LoadImage(string pathName_)

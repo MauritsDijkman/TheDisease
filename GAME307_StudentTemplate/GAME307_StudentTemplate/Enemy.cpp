@@ -8,12 +8,16 @@ bool Enemy::OnCreate(Scene* ownerScene_)
 	//cout << "Owner Scene List Size: " << ownerScene->nodes.size() << endl;
 
 	// Set the target nodes according to amount of nodes in the scene
+	// [TODO] Turn on again for enemy following the nodes
+	/**
 	for (int i = 0; i < ownerScene->nodes.size(); i++)
 	{
 		Node* node_ = new Node();
 		node_->SetPosition(ownerScene->nodes[i]->GetPos());
 		targetNodes.push_back(node_);
 	}
+	/**/
+
 
 	/**/
 	if (targetNodes.size() > 0) {

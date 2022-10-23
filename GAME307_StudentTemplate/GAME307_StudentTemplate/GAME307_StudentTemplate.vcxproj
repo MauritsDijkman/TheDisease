@@ -136,6 +136,7 @@
     <ClCompile Include="Ammunition.cpp" />
     <ClCompile Include="ArriveTarget.cpp" />
     <ClCompile Include="A_Star.cpp" />
+    <ClCompile Include="BackgroundTile.cpp" />
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CharacterHealth.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="EnemyCharacter.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Graph.cpp" />
     <ClCompile Include="KinematicArrive.cpp" />
     <ClCompile Include="KinematicSeek.cpp" />
     <ClCompile Include="KinematicSteeringOutput.cpp" />
@@ -175,6 +177,7 @@
     <ClInclude Include="Ammunition.h" />
     <ClInclude Include="ArriveTarget.h" />
     <ClInclude Include="A_Star.h" />
+    <ClInclude Include="BackgroundTile.h" />
     <ClInclude Include="Body.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterHealth.h" />
@@ -182,6 +185,7 @@
     <ClInclude Include="EnemyCharacter.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Graph.h" />
     <ClInclude Include="KinematicArrive.h" />
     <ClInclude Include="KinematicSeek.h" />
     <ClInclude Include="KinematicSteeringOutput.h" />

@@ -2,47 +2,37 @@
 #define NODE_H
 
 #include "MMath.h"
-#include <vector>
 
-using namespace MATH;
 using namespace std;
+using namespace MATH;
 
-class Node {
+class Tile;
+
+class Node
+{
 private:
-	void Galculate_H();
-
-	int label;	// Label of the node
-
-	float f;	// Distance amount (g + h)
-	float g;	// Distance from start node to this node
-	float h;	// Distance from this node to target node
-
-	float distanceBetweenNodes;		// Distance between the provided node and this node
-
-	vector<Node> connectedNodes;	// List with all the connectedNodes
-
-	Node* targetNode;	// Target node (Node* test[4] also works)
-	Node* previousNode;	// Node before this node (= new Node()
-
-	Vec3 position;		// Position of the node
+	int	label;
+	Vec3 position;
+	Tile* tile;
 
 public:
-	Node();
+	Node(int label_, Vec3 position_ = Vec3())
+	{
+		label = label_;
+		position = position_;
+		tile = NULL;
+	}
+
 	~Node();
 
-	// Get Functions
-	float Get_F();
-	float Get_G();
-	Vec3 GetPos();
-	Node* GetPreviousNode();
-	vector<Node> GetConnections();
+	int GetLabel() { return label; }
+	Vec3 GetPos() { return position; }
+	Tile* GetTile() { return tile; }
 
-	// Set Functions
-	void Set_DistanceBetweenNodes(Node* G_);
-	void Set_F(float F_);
-	void SetTargetNode(Node* targetNode_);
-	void SetParent(Node parent_);
-	void SetPosition(Vec3 position_);
+	void SetTile(Tile* tile_) { tile = tile_; }
+
+	void SetPosX(float posX_) { position.x = posX_; }
+	void SetPosY(float posY_) { position.y = posY_; }
 };
 
 #endif

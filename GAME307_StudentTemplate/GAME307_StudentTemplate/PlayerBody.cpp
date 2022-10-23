@@ -303,6 +303,9 @@ void PlayerBody::Update(float deltaTime)
 	height = game->getSceneHeight();
 	width = game->getSceneWidth();
 
+	float scalar = getOrientation();
+	cout << "Orientation/Scalar player: " << scalar << endl;
+
 	// [TODO] Border for the game
 	/**
 	if (pos.x < radius)

@@ -26,7 +26,7 @@ public:
 	virtual Matrix4 getProjectionMatrix() = 0;
 	virtual Matrix4 getInverseMatrix() = 0;
 
-	vector<Node*> nodes;
+	//vector<Node*> nodes;
 
 	//virtual bool nextScene() = 0; //Check if to load next scene
 };
