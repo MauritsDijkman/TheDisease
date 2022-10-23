@@ -65,10 +65,12 @@ void Enemy::HandleDecisionMaking(float deltaTime)
 {
 	float distanceToPlayer = GetDistance(moveBody->getPos(), player->getPos());
 
-	cout << "Distance to player: " << distanceToPlayer << endl;
+	//cout << "Distance to player: " << distanceToPlayer << endl;
 
-	/**/
-	if (distanceToPlayer > 8.0f) {
+	WanderAround(deltaTime);
+
+	/**
+	if (distanceToPlayer > 5.0f) {
 		WanderAround(deltaTime);
 		cout << "Wander State!" << endl;
 	}
@@ -118,9 +120,6 @@ void Enemy::WanderAround(float deltaTime)
 	steering = new SteeringOutput();
 
 	WanderRandom(steering);
-
-	steering->angular = 0.0f;
-	steering->linear = Vec3(0, 0, 0);
 
 	moveBody->Update(deltaTime, steering);
 
@@ -182,25 +181,23 @@ void Enemy::SteerToTarget(SteeringOutput* steering)
 
 void Enemy::WanderRandom(SteeringOutput* steering)
 {
-	/**
-		// Create a list with the steering outputs
-		vector<KinematicSteeringOutput*> steering_outputs;
+	// Create a list with the steering outputs
+	vector<SteeringOutput*> steering_outputs;
 
-		// Set the steering behaviour
-		KinematicSteeringOutput* steering_algorithm = new KinematicWander(moveBody);
-		steering_outputs.push_back(steering_algorithm->getSteering());
+	// Set the steering behaviour
+	SteeringBehaviour* steering_algorithm = new Wander(moveBody);
+	steering_outputs.push_back(steering_algorithm->getSteering());
 
-		// Add togethere any steering outputs
-		for (unsigned i = 0; i < steering_outputs.size(); i++)
-		{
-			if (steering_outputs[i])
-				*steering += *steering_outputs[i];
-		}
+	// Add togethere any steering outputs
+	for (unsigned i = 0; i < steering_outputs.size(); i++)
+	{
+		if (steering_outputs[i])
+			*steering += *steering_outputs[i];
+	}
 
-		// Clean up memory
-		if (steering_algorithm)
-			delete steering_algorithm;
-			/**/
+	// Clean up memory
+	if (steering_algorithm)
+		delete steering_algorithm;
 }
 
 void Enemy::AttackPlayer(float deltaTime, float attackInterval)

@@ -18,6 +18,9 @@ private:
 	float maxSpeed = 3.0f;
 	float maxRotationSpeed = 50.0f;
 
+	Vec3 GetOrientationVector();
+	float randomBinomial();
+
 public:
 	Wander(KinematicBody* character_);
 	virtual ~Wander();
