@@ -20,7 +20,6 @@ class Enemy
 {
 private:
 	class Scene* ownerScene;
-	class KinematicBody* moveBody;
 
 	Node* currentTargetNode;
 	int currentTargetNumber;
@@ -39,6 +38,8 @@ private:
 	void AttackPlayer(float deltaTime, float attackInterval);
 
 public:
+	class KinematicBody* moveBody;
+
 	Enemy(PlayerBody* player_)
 	{
 		ownerScene = NULL;

@@ -3,8 +3,7 @@
 
 void BackgroundTile::Render(SDL_Renderer* renderer, Matrix4 projectionMatrix)
 {
-	cout << "TileImage Pos: " << tileImage << endl;
-	cout << "NodeImage Pos: " << nodeImage << endl;
+	cout << "TileImage Pos: " << tileImage << " || " << "NodeImage Pos: " << nodeImage << endl;
 
 	tileImage->Render(projectionMatrix, renderer, 1.0f, 0.0f);
 

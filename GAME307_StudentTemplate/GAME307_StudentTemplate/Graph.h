@@ -34,6 +34,8 @@ public:
 
 	void AddWeightConnection(int fromNode, int toNode, float weight);
 	vector<int> GetNeighbours(int fromNode);
+
+	float GetHeuristic(Vec3 a, Vec3 b);
 	vector<int> Dijkstra(int startNode, int goalNode);
 };
 

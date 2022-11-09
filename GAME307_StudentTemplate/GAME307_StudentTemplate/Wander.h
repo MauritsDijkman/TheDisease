@@ -32,6 +32,7 @@ private:
 	// The maximum acceleration of the character
 	float maxAcceleration;
 
+	float angle;
 
 	Vec3 GetOrientationVector(KinematicBody* actor_);
 	float randomBinomial();

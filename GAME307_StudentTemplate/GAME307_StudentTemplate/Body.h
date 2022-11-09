@@ -62,6 +62,7 @@ public:
 	virtual float getMaxAngular() { return maxAngular; }
 
 	virtual void setMaxSpeed(float maxSpeed_) { maxSpeed = maxSpeed_; }
+	virtual void setMaxAcceleration(float maxAcceleration_) { maxAcceleration = maxAcceleration_; }
 
 	virtual void setImage(SDL_Surface* image_) { image = image_; }
 	virtual SDL_Surface* getImage() { return image; }

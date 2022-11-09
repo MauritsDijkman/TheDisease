@@ -61,11 +61,34 @@ vector<int> Graph::GetNeighbours(int fromNode)
 	return result;
 }
 
+struct NodeAndPriority {
+	int node;
+	float priority;
+
+	NodeAndPriority(int node_, float priority_) { node = node_; priority = priority_; }
+	int GetNode() { return node; }
+};
+
+// create struct with one operation, for use in the comparisons needed by the priority queue
+   // (might be better to have in a separate file and included?)
+struct ComparePriority
+{
+	bool operator()(NodeAndPriority const& lhs, NodeAndPriority const& rhs)
+	{
+		// make it a min queue
+		return lhs.priority > rhs.priority;
+	}
+};
+
+float Graph::GetHeuristic(Vec3 a, Vec3 b)
+{
+	return abs(a.x - b.x) + abs(a.y - b.y);
+}
+
 vector<int> Graph::Dijkstra(int startNode, int goalNode)
 {
-	/**
 	// Declare helper variables
-	float new_cost;
+	float new_cost = 0;
 	int current;
 
 	// Declare current NodeAndPriority
@@ -84,43 +107,49 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode)
 	map<int, float> cost_so_far;
 	cost_so_far[startNode] = 0.0f;
 
-	// [TODO] Implement the algorithm
+	for (int i = 0; i < cost_so_far.size(); i++)
+		cost_so_far[i] = 0.0f;
 
-	// Start looping through the frontier, put it in "current"
+	while (!frontier.empty())
 	{
-		// Get the node from the top of the frontier
-		// Pop it off
-		// If it's the goal, then break out of the loop
+		current = frontier.top().node;
+		frontier.pop();
 
-		// For the neighbours of current node
+		if (current == goalNode) {
+			cout << "Same node! || " << current << " || " << goalNode << endl;
+			break;
+		}
+
+		for (Node next : GetNeighbours(current))
 		{
-			// Calculate new_cost
-			// If neighbour is not in cost_so_far OR new_cost is lower
+			cout << "Current: " << current << " || Neighbour: " << next.GetLabel() << endl;
+
+			new_cost = cost_so_far[current] + cost[current][next.GetLabel()];
+			//if (count(cost_so_far.begin(), cost_so_far.end(), next.GetLabel()) || new_cost < cost_so_far[next.GetLabel()])
+			if (cost_so_far[next.GetLabel()] == 0.0f || new_cost < cost_so_far[next.GetLabel()])
 			{
-				// Found a better path. so update structure (look at pseudocode algorithm)
+				cost_so_far[next.GetLabel()] = new_cost;
+				//currentNodeAndPriority->priority = new_cost;
+				currentNodeAndPriority->priority = new_cost + GetHeuristic(node[goalNode]->GetPos(), next.GetPos());
+				currentNodeAndPriority->node = next.GetLabel();
+				frontier.push(*currentNodeAndPriority);
+				came_from[next.GetLabel()] = current;
 			}
 		}
 	}
 
-	frontier = priority_queue;
+	vector<int> path;
 
-	while (!frontier.empty())
+	while (current != startNode)
 	{
-		current = frontier.get();
-
-		if (current == goal)
-			break;
-
-		for (Node next in graph.neighbours)
-		{
-			new_cost = cost_so_far[current] + graph.cost(current, node);
-
-		}
+		path.push_back(current);
+		current = came_from[current];
 	}
 
-	return came_from;
-	/**/
+	path.push_back(startNode);
+	reverse(path.begin(), path.end());
 
-	vector<int> Test;
-	return Test;
+	return path;
+
+	//return came_from;
 }

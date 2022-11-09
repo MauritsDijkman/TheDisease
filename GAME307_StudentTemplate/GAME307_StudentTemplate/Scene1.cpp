@@ -51,6 +51,7 @@ bool Scene1::OnCreate()
 	ortho = MMath::orthographic(minX, maxX, minY, maxY, 0.0f, 1.0f);
 	projectionMatrix = ndc * ortho;
 
+#pragma region Ethan de Lange
 	// Load the crouton image and set the texture
 	surfacePtr = IMG_Load("bullet.2.png");
 	bullet = SDL_CreateTextureFromSurface(renderer, surfacePtr);
@@ -134,6 +135,7 @@ bool Scene1::OnCreate()
 	wallBottom = new Plane(Vec3(0.0f, 1.0f, 0.0f), 0.0f);
 
 	LoadImage("Assets/Ethan/wall.png");
+#pragma endregion
 
 	// Load background
 	background = new GameObject(renderer, "Assets/Background.png");
@@ -145,9 +147,6 @@ bool Scene1::OnCreate()
 
 	/// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
-
-
-
 
 	// Generate the layout of the scene
 	GenerateSceneLayout();
@@ -167,7 +166,10 @@ bool Scene1::OnCreate()
 	for (auto nodeLabel : graph->GetNeighbours(93))
 		printf("Node %i, ", nodeLabel);
 
-
+	vector<int> path = graph->Dijkstra(0, 92);
+	cout << "Path size: " << path.size() << endl;
+	for (int i = 0; i < path.size(); i++)
+		cout << "Path " << i << ": " << path[i] << endl;
 
 	// Set player image to PacMan
 	SDL_Surface* image;
@@ -205,6 +207,7 @@ bool Scene1::OnCreate()
 	enemy = new Enemy(game->getPlayer());
 	if (!enemy->OnCreate(this))
 		return false;
+	enemy->moveBody->setMaxAcceleration(0.5f);
 
 	image = IMG_Load("Clyde.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
@@ -400,9 +403,7 @@ void Scene1::Render()
 	for (int row = 0; row < gridHeight; row++)
 	{
 		for (int column = 0; column < gridWidth; column++)
-		{
 			tiles[row][column]->Render(renderer, game->getProjectionMatrix());
-		}
 	}
 	/**/
 
@@ -416,6 +417,7 @@ void Scene1::Render()
 	Vec3 wallScreenCoords;
 	int WallW, WallH;
 
+#pragma region Ethan de Lange
 	for (int i = 0; i < NUMWALL; ++i) {
 		SDL_QueryTexture(level->getWall(i)->getTexture(), nullptr, nullptr, &WallW, &WallH);
 		wallScreenCoords = projectionMatrix * level->getWall(i)->getPos();
@@ -543,6 +545,7 @@ void Scene1::Render()
 
 		SDL_RenderCopy(renderer, enemies[i]->getTexture(), nullptr, &enemyRect);
 	}
+#pragma endregion
 
 	// Render the player
 	game->RenderPlayer(0.10f);
@@ -659,119 +662,11 @@ void Scene1::GenerateSceneLayout()
 				t = new BackgroundTile(n, false);
 
 			t->AddTile(renderer, column, row, id, label, tileWidth, tileHeight, game->getProjectionMatrix());
-
-
 			tiles[row][column] = t;
 
 			label++;
 		}
 	}
-}
-
-
-
-//CreateTiles(30, 15);
-
-/**
-int label = 0;
-Node* n;
-BackgroundTile* bgT;
-
-tiles.resize(15);
-for (int i = 0; i < 15; i++)
-	tiles[i].resize(30);
-
-// Place the tiles for the amount of columns and rows
-for (int row = 0; row < gridHeight; row++)
-{
-	for (int column = 0; column < gridWidth; column++)
-	{
-
-		int id = levelData[row][column];
-
-		bgT = new BackgroundTile(n);
-		bgT->AddTile(renderer, row, column, id, label, tileWidth, tileHeight, game->getProjectionMatrix());
-
-		//tiles[row][column] = bgT;
-		tiles[row][column] = bgT;
-
-		label++;
-	}
-}
-/**/
-
-
-void Scene1::CreateTiles(int rows_, int columns_)
-{
-	/**
-	tiles.resize(columns_);
-
-	for (int i = 0; i < columns_; i++)
-		tiles[i].resize(rows_);
-
-	Node* n;
-	BackgroundTile* t;
-	int i, j, label;
-	i = 0;
-	j = 0;
-	label = 0;
-
-	for (int row = 0; row < gridHeight; row++)
-	{
-		for (int column = 0; column < gridWidth; column++)
-		{
-			// Position in pixels
-			Vec3 startPos = Vec3(0.0f, 0.0f, 0.0f);
-			Vec3 endPos = Vec3(0.0f, 0.0f, 0.0f);
-
-			// Set the position to have the origin top left
-			endPos.x = (startPos.x + column * tileWidth + (tileWidth * 0.5f));
-			endPos.y = (startPos.y + row * tileHeight + (tileHeight * 0.5f));
-
-			// Transverse the position from viewport to game
-			Vec3 position = Vec3(endPos.x, endPos.y, 0.0f);
-			position = MMath::inverse(projectionMatrix) * position;
-
-			// Set the position to the game coordinates
-			endPos.x = (position.x);
-			endPos.y = (position.y);
-
-
-			n = new Node(label, endPos);
-			t = new BackgroundTile(n);
-			//n->SetTile(t);
-
-			nodes.push_back(n);
-			tiles[row][column] = t;
-
-			label++;
-		}
-	}
-	/**/
-
-
-	/**
-	for (float y = 0.5f * tileHeight; y < yAxis; y += tileHeight)
-	{
-		// Do stuff for row, where y stays constant
-		for (float x = 0.5f * tileWidth; x < xAxis; x += tileWidth)
-		{
-			n = new Node(label, Vec3(x, y, 0.0f));
-			t = new BackgroundTile(n);
-			//n->SetTile(t);
-
-			nodes.push_back(n);
-			tiles[i][j] = t;
-
-			label++;
-			j++;
-		}
-
-		j = 0;
-		i++;
-	}
-	/**/
-
 }
 
 void Scene1::CalculateConnectionWeights()
@@ -804,13 +699,13 @@ void Scene1::CalculateConnectionWeights()
 			// Above is i+1, j
 			if (i < rows - 1 && tiles[i + 1][j]->HasNode()) {
 				int to = tiles[i + 1][j]->GetNode()->GetLabel();
-				graph->AddWeightConnection(from, to, tileWidth);
+				graph->AddWeightConnection(from, to, tileHeight);
 			}
 
 			// Below is i-1, j
 			if (i > 0 && tiles[i - 1][j]->HasNode()) {
 				int to = tiles[i - 1][j]->GetNode()->GetLabel();
-				graph->AddWeightConnection(from, to, tileWidth);
+				graph->AddWeightConnection(from, to, tileHeight);
 			}
 		}
 	}
