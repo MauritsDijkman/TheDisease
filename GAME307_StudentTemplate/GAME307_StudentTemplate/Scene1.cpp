@@ -166,10 +166,15 @@ bool Scene1::OnCreate()
 	for (auto nodeLabel : graph->GetNeighbours(93))
 		printf("Node %i, ", nodeLabel);
 
-	vector<int> path = graph->Dijkstra(0, 92);
+	vector<int> path = graph->Dijkstra(0, 91);
 	cout << "Path size: " << path.size() << endl;
-	for (int i = 0; i < path.size(); i++)
-		cout << "Path " << i << ": " << path[i] << endl;
+	if (path.size() > 0)
+	{
+		for (int i = 0; i < path.size(); i++)
+			cout << "Path " << i << ": " << path[i] << endl;
+	}
+	else if (path.size() <= 0)
+		cout << "You can't get there from here!" << endl;
 
 	// Set player image to PacMan
 	SDL_Surface* image;

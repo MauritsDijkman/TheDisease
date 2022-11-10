@@ -110,6 +110,8 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode)
 	for (int i = 0; i < cost_so_far.size(); i++)
 		cost_so_far[i] = 0.0f;
 
+	bool hasReachedEndNode = false;
+
 	while (!frontier.empty())
 	{
 		current = frontier.top().node;
@@ -117,6 +119,7 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode)
 
 		if (current == goalNode) {
 			cout << "Same node! || " << current << " || " << goalNode << endl;
+			hasReachedEndNode = true;
 			break;
 		}
 
@@ -138,18 +141,20 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode)
 		}
 	}
 
-	vector<int> path;
-
-	while (current != startNode)
+	if (hasReachedEndNode)
 	{
-		path.push_back(current);
-		current = came_from[current];
+		vector<int> path;
+
+		while (current != startNode)
+		{
+			path.push_back(current);
+			current = came_from[current];
+		}
+
+		path.push_back(startNode);
+
+		cout << "Has reached end node!" << endl;
+		reverse(path.begin(), path.end());
+		return path;
 	}
-
-	path.push_back(startNode);
-	reverse(path.begin(), path.end());
-
-	return path;
-
-	//return came_from;
 }
