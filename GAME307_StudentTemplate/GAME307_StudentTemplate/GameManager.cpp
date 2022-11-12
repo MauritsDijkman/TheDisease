@@ -113,7 +113,7 @@ void GameManager::Run()
 	timer->Start();
 
 	// Control if current scene's update() is called each tick
-	bool launched = false;
+	bool launched = true;
 
 	while (isRunning) {
 
@@ -199,7 +199,7 @@ void GameManager::Run()
 					isRunning = false;
 					break;
 
-				case SDL_SCANCODE_L:
+				case SDL_SCANCODE_P:
 					//toggle launched with L key)
 					launched = !launched;
 					break;
