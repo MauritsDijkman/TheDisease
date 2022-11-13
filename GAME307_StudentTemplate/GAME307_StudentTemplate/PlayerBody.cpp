@@ -11,6 +11,7 @@
 
 void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
 {
+	
 	orientation = atan2(pos.y - mousPosY, mousePosX - pos.x);
 
 	lookDirection = Vec3(mousePosX, mousePosX, 0.0f);
@@ -105,6 +106,24 @@ void PlayerBody::takeDamage(float damageAmount_)
 		dead();
 }
 
+void PlayerBody::OnReload()
+{
+	//Do we have ammo in the ammoPool?
+	if (ammoPool <= 0 || loadammo >= 30) { return; }
+
+	//Do we have enough to meet what the gun needs?
+	if (ammoPool < (30 - loadammo))
+	{
+	loadammo = loadammo + ammoPool;
+	ammoPool = 0;
+	}
+	else
+	{
+	ammoPool = ammoPool - (30 - loadammo);
+	loadammo = 30;
+     }
+}
+
 void PlayerBody::dropammo()
 {
 	int ammo = 10;
@@ -119,6 +138,9 @@ void PlayerBody::dead()
 
 std::vector<Ammunition*> PlayerBody::firePistolBullet()
 {
+	
+	
+
 	Bullets.clear();
 
 	//weaponType 0 standard weapon
@@ -137,7 +159,9 @@ std::vector<Ammunition*> PlayerBody::firePistolBullet()
 		Bullets[0]->setPos(Vec3(pos.x, pos.y, 0.0f));
 		Bullets[0]->setVel(Vec3(velx, vely, 0.0f));
 
+		if (loadammo <= 0) { return; }//need to return something
 
+		loadammo - loadammo - 1;
 		//angle = -atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
 		//angle = 180 - atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
 
@@ -249,6 +273,11 @@ void PlayerBody::Render(float scale)
 
 void PlayerBody::HandleEvents(const SDL_Event& event)
 {
+
+	loadammo = 30;
+	ammoPool = 30;
+
+
 	// If key pressed, set velocity or acceleration
 	if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
 	{

@@ -49,8 +49,9 @@ protected:
 	float ammos;
 	float oneammos = 1.0f;
 
-	//float ammo
-	//flaot loadammo
+	int ammoPool;
+	int loadammo;
+
 
 	Sphere boundingSphere;
 	double angle, angularVel, angularAccel, rotationalI;
@@ -124,6 +125,9 @@ public:
 	bool restoreitemhealth(float healingitemamount_);
 
 	void takeDamage(float damageAmount_);
+
+
+	void OnReload();
 
 	void setAltWeaponAvailable(bool altWeaponAvailable_) { altWeaponAvailable = altWeaponAvailable_; }
 	void setWeaponType(int weaponType_) { weaponType = weaponType_; }
