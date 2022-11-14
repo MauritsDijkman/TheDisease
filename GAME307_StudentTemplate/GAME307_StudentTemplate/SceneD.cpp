@@ -96,7 +96,6 @@ void SceneD::Render() {
 	//Update screen
 	SDL_RenderPresent(renderer);
 
-
 }
 
 bool SceneD::getDead() {

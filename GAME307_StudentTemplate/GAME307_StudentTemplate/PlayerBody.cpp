@@ -23,6 +23,7 @@ void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
 	}
 	//std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
 }
+
 bool PlayerBody::restoreshotgun(float shotgun_)
 {
 	bool destroyshotgunPickup;
@@ -106,6 +107,7 @@ void PlayerBody::takeDamage(float damageAmount_)
 		dead();
 }
 
+# pragma region reload 
 void PlayerBody::OnReload()
 {
 	//Do we have ammo in the ammoPool?
@@ -123,6 +125,7 @@ void PlayerBody::OnReload()
 		loadammo = 30;
 	}
 }
+#pragma endregion
 
 void PlayerBody::dropammo()
 {
@@ -136,11 +139,9 @@ void PlayerBody::dead()
 	printf("You Died\n");
 }
 
+#pragma region firebullet
 std::vector<Ammunition*> PlayerBody::firePistolBullet()
 {
-
-
-
 	Bullets.clear();
 
 	//weaponType 0 standard weapon
@@ -159,6 +160,7 @@ std::vector<Ammunition*> PlayerBody::firePistolBullet()
 		Bullets[0]->setPos(Vec3(pos.x, pos.y, 0.0f));
 		Bullets[0]->setVel(Vec3(velx, vely, 0.0f));
 
+		/*
 		if (loadammo <= 0) {
 			return vector<Ammunition*>();
 		}//need to return something
@@ -168,7 +170,9 @@ std::vector<Ammunition*> PlayerBody::firePistolBullet()
 		//angle = 180 - atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
 
 	//Bullets[0]->setRemainingBounces(3);
+	*/
 	}
+	
 
 	return Bullets;
 }
@@ -192,8 +196,6 @@ std::vector<Ammunition*> PlayerBody::fireshotgunBullet()
 
 			Bullets[i]->setPos(Vec3(pos.x, pos.y, 0.0f));
 			Bullets[i]->setVel(Vec3(velx, vely, 0.0f));
-
-			//Bullets[i]->setRemainingBounces(0);
 		}
 
 		angle += 15;
@@ -201,7 +203,9 @@ std::vector<Ammunition*> PlayerBody::fireshotgunBullet()
 
 	return Bullets;
 }
+#pragma endregion
 
+#pragma region knife
 vector<Ammunition*> PlayerBody::stabbing()
 {
 	knife.clear();
@@ -223,16 +227,10 @@ vector<Ammunition*> PlayerBody::stabbing()
 		knife[0]->setPos(Vec3(knifePos.x, knifePos.y, 0.0f));
 		knife[0]->setVel(Vec3(0.0f, 0.0f, 0.0f));
 
-
-		//angle = -atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
-		//angle = 180 - atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
-
-	//Bullets[0]->setRemainingBounces(3);
-
 	}
 	return knife;
 }
-
+#pragma endregion
 
 
 bool PlayerBody::OnCreate()
