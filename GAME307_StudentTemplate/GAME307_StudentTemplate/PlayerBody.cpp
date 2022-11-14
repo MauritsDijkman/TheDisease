@@ -77,7 +77,6 @@ bool PlayerBody::restoreHealth(float healingAmount_)
 }
 
 
-
 bool PlayerBody::restoreitemhealth(float healingitemamount_)
 {
 	bool destroyitemHealthPickup;	//if player full on health, keep health pickup on ground
@@ -105,7 +104,7 @@ void PlayerBody::takeDamage(float damageAmount_)
 	if (health <= 0)
 		dead();
 }
-
+/*
 void PlayerBody::OnReload()
 {
 	//Do we have ammo in the ammoPool?
@@ -123,6 +122,7 @@ void PlayerBody::OnReload()
 	loadammo = 30;
      }
 }
+*/
 
 void PlayerBody::dropammo()
 {
@@ -138,8 +138,6 @@ void PlayerBody::dead()
 
 std::vector<Ammunition*> PlayerBody::firePistolBullet()
 {
-	
-	
 
 	Bullets.clear();
 
@@ -159,9 +157,9 @@ std::vector<Ammunition*> PlayerBody::firePistolBullet()
 		Bullets[0]->setPos(Vec3(pos.x, pos.y, 0.0f));
 		Bullets[0]->setVel(Vec3(velx, vely, 0.0f));
 
-		if (loadammo <= 0) { return; }//need to return something
+		//if (loadammo <= 0) { return; }//need to return something
 
-		loadammo - loadammo - 1;
+	//	loadammo - loadammo - 1;
 		//angle = -atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
 		//angle = 180 - atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
 

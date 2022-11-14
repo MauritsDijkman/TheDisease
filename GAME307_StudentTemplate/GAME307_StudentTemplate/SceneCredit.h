@@ -36,7 +36,6 @@ public:
 	void Render();
 	void HandleEvents(const SDL_Event& sdlEvent);
 	bool nextScene() { return false; }
-
 	bool getDead();
 
 	//Game manager need this to get acces to SceneMenu

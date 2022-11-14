@@ -51,7 +51,8 @@ bool Scene1::OnCreate()
 	ortho = MMath::orthographic(minX, maxX, minY, maxY, 0.0f, 1.0f);
 	projectionMatrix = ndc * ortho;
 
-	// Load the crouton image and set the texture
+ #pragma region added image bullet
+//Load the bullet image for pistol
 	surfacePtr = IMG_Load("bullet.2.png");
 	pistolbullet = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
@@ -66,7 +67,7 @@ bool Scene1::OnCreate()
 
 	SDL_FreeSurface(surfacePtr);
 
-	// Load the crouton image and set the texture
+	// Load the bullet image for shotgun
 	surfacePtr = IMG_Load("bullet.2.png");
 	shotgunbullet = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
@@ -80,8 +81,9 @@ bool Scene1::OnCreate()
 	}
 
 	SDL_FreeSurface(surfacePtr);
-	//
+#pragma endregion
 
+#pragma region enemies 
 	//load enemy characters
 	surfacePtr = IMG_Load("The Unbread.png");//The Unbread.
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
@@ -96,7 +98,7 @@ bool Scene1::OnCreate()
 	}
 
 	SDL_FreeSurface(surfacePtr);
-	//
+
 		// Spawn to right
 	for (int i = 0; i < 10; i++)
 	{
@@ -109,7 +111,7 @@ bool Scene1::OnCreate()
 		enemies[i]->setTexture(texturePtr);
 	}
 
-	// Spawn to left
+	// Spawn enemy to left
 	for (int i = 0; i < 10; i++)
 	{
 		// Create enemy and add in the list
@@ -121,7 +123,7 @@ bool Scene1::OnCreate()
 		enemies1[i]->setTexture(texturePtr);
 	}
 
-	// Spawn up
+	// Spawn enemy to up
 	for (int i = 0; i < 10; i++)
 	{
 		// Create enemy and add in the list
@@ -133,7 +135,7 @@ bool Scene1::OnCreate()
 		enemies2[i]->setTexture(texturePtr);
 	}
 
-	// Spawn down
+	// Spawn enemy to down
 	for (int i = 0; i < 10; i++)
 	{
 		// Create enemy and add in the list
@@ -144,11 +146,12 @@ bool Scene1::OnCreate()
 		enemies3[i]->setBoundingSphere(Sphere(0.5f));
 		enemies3[i]->setTexture(texturePtr);
 	}
+#pragma endregion
+
 	// Load background
 	background = new GameObject(renderer, "Assets/Background.png");
 
-
-
+#pragma region health 
 	// Set the health of the player
 	game->getPlayer()->setHealth(3.0f);
 
@@ -168,8 +171,8 @@ bool Scene1::OnCreate()
 
 	SDL_FreeSurface(surfacePtr);
 
+	/// add the itemhealth at the location
 	LoadImage("Assets/Ethan/medicine.png");
-
 
 	// Create health pickup
 	healthPickup = new Object();
@@ -178,8 +181,9 @@ bool Scene1::OnCreate()
 	healthPickup->setPos(Vec3(10.0f, 9.0f, 0.0f));
 	healthPickup->setBoundingSphere(Sphere(0.5f));
 	healthPickup->setTexture(texturePtr);
+#pragma endregion
 
-
+#pragma region weapon image
 	// Load shotgun picked up icon and set the texture
 	surfacePtr = IMG_Load("Shotgun96.png");
 	melee = SDL_CreateTextureFromSurface(renderer, surfacePtr);
@@ -195,7 +199,9 @@ bool Scene1::OnCreate()
 	}
 
 	SDL_FreeSurface(surfacePtr);
+#pragma endregion
 
+#pragma region health icon
 	// Load health icon and set the texture
 	surfacePtr = IMG_Load("Assets/Ethan/medicine.png");
 	itemhealth = SDL_CreateTextureFromSurface(renderer, surfacePtr);
@@ -217,8 +223,9 @@ bool Scene1::OnCreate()
 	// Create health pickup
 	itemhealthpickup = new Object();
 	itemhealthpickup->setTexture(texturePtr);
+#pragma endregion
 
-
+#pragma region weapon location
 	LoadImage("Shotgun96.png");
 
 	// Create weapon pickup
@@ -228,16 +235,9 @@ bool Scene1::OnCreate()
 	weaponPickup->setPos(Vec3(3.0f, 13.0f, 0.0f));
 	weaponPickup->setBoundingSphere(Sphere(0.25f));
 	weaponPickup->setTexture(texturePtr);
+#pragma endregion
 
-
-	/*
-	// Temporary border walls
-	wallLeft = new Plane(Vec3(1.0f, 0.0f, 0.0f), 0.0f);
-	wallRight = new Plane(Vec3(-1.0f, 0.0f, 0.0f), xAxis);
-	wallTop = new Plane(Vec3(0.0f, -1.0f, 0.0f), yAxis);
-	wallBottom = new Plane(Vec3(0.0f, 1.0f, 0.0f), 0.0f);
-	*/
-
+#pragma region wall
 	//Loads in the wall image and set the texture to the walls
 	surfacePtr = IMG_Load("Assets/Ethan/wall.png");
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
@@ -252,7 +252,9 @@ bool Scene1::OnCreate()
 	}
 
 	SDL_FreeSurface(surfacePtr);
+#pragma endregion
 
+#pragma region knife
 	surfacePtr = IMG_Load("knife.png");
 	knifes = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 	// Null pointer checks
@@ -265,8 +267,9 @@ bool Scene1::OnCreate()
 		return false;
 	}
 	SDL_FreeSurface(surfacePtr);
+#pragma endregion
 
-
+#pragma region ammo
 	// Load shotgun picked up icon and set the texture
 	surfacePtr = IMG_Load("Assets/Ethan/ammo_1.png");
 	ammo = SDL_CreateTextureFromSurface(renderer, surfacePtr);
@@ -290,34 +293,15 @@ bool Scene1::OnCreate()
 	ammoPickup->setPos(Vec3(.0f, 13.0f, 0.0f));
 	ammoPickup->setBoundingSphere(Sphere(0.25f));
 	ammoPickup->setTexture(ammo);
-
-
-	// Temporary border walls
-	wallLeft = new Plane(Vec3(1.0f, 0.0f, 0.0f), 0.0f);
-	wallRight = new Plane(Vec3(-1.0f, 0.0f, 0.0f), xAxis);
-	wallTop = new Plane(Vec3(0.0f, -1.0f, 0.0f), yAxis);
-	wallBottom = new Plane(Vec3(0.0f, 1.0f, 0.0f), 0.0f);
+#pragma endregion
 
 	//Making the level
 	level = new Level(NUMWALL);
 	level->makeLevel(1); //pos of wall
 	level->setWallTextures(texturePtr);
-	/*
-	if (ammo == nullptr) {
-		printf("%s\n", SDL_GetError());
-		return false;
-	}
-
-	SDL_FreeSurface(surfacePtr);
-	*/
-
-
-
+	
 	/// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
-
-
-
 
 	// Generate the layout of the scene
 	GenerateSceneLayout();
@@ -336,8 +320,6 @@ bool Scene1::OnCreate()
 	int nodeLabel;
 	for (auto nodeLabel : graph->GetNeighbours(93))
 		printf("Node %i, ", nodeLabel);
-
-
 
 	// Set player image to PacMan
 	SDL_Surface* image;
@@ -479,6 +461,7 @@ void Scene1::Update(const float deltaTime)
 	Physics::SimpleNewtonMotion(*P1, deltaTime);
 	Physics::SimpleNewtonMotion(*AI, deltaTime);
 
+#pragma region level
 	// Player hits walls
 	for (int i = 0; i < level->getWallNum(); i++)
 	{
@@ -488,7 +471,9 @@ void Scene1::Update(const float deltaTime)
 			Physics::SimpleNewtonMotion(*P1, -deltaTime);
 		}
 	}
+#pragma endregion
 
+#pragma region healthpickup
 	// Player hits collectibles
 	if (healthPickup)
 	{
@@ -497,30 +482,28 @@ void Scene1::Update(const float deltaTime)
 			game->getPlayer()->Update(-deltaTime);
 		}
 	}
+#pragma endregion
 
+#pragma region weaponPickup
 	if (weaponPickup)
 	{
 		if (Physics::SphereSphereCollision(*weaponPickup, *P1) == true)
 		{
 			game->getPlayer()->Update(-deltaTime);
-			//game->getPlayer()->restoreshotgun(1.0f) == true;
-			//delete weaponPickup;
-			//weaponPickup = nullptr;;
-			//game->getPlayer()->restoreshotgun(1.0f) == true;
-
-		//delete weaponPickup;
-		//weaponPickup = nullptr;
 		}
 	}
+#pragma endregion
 
+#pragma region ammopickup
 	if (ammoPickup)
 	{
 		if (Physics::SphereSphereCollision(*ammoPickup, *P1) == true) {
 			game->getPlayer()->Update(-deltaTime);
 		}
 	}
+#pragma endregion
 
-
+#pragma region motion
 	// Bullets movement
 	for (int i = 0; i < pistol.size(); i++)
 		Physics::SimpleNewtonMotion(*pistol[i], deltaTime);
@@ -528,11 +511,9 @@ void Scene1::Update(const float deltaTime)
 	// Bullets movement
 	for (int i = 0; i < shotgun.size(); i++)
 		Physics::SimpleNewtonMotion(*shotgun[i], deltaTime);
+#pragma endregion
 
-	//for (int i = 0; i < knife.size(); i++)
-	//	Physics::SimpleNewtonMotion(*knife[i], deltaTime);
-
-
+#pragma region enemy damage
 	// Enemy hits player
 	for (int i = 0; i < enemies.size(); i++)
 	{
@@ -542,7 +523,9 @@ void Scene1::Update(const float deltaTime)
 			enemies.erase(enemies.begin() + i);
 		}
 	}
+#pragma endregion
 
+#pragma region enemies collide to player
 	for (int i = 0; i < enemies1.size(); i++)
 	{
 		if (Physics::SphereSphereCollision(*enemies1[i], *P1) == true)
@@ -592,7 +575,9 @@ void Scene1::Update(const float deltaTime)
 		enemies3[i]->SeekPlayer(player->getPos());
 		Physics::SimpleNewtonMotion(*enemies3[i], deltaTime);
 	}
+#pragma endregion
 
+#pragma region weapon collide 
 	//Bullet hits enemy
 	for (int i = 0; i < pistol.size(); i++) {
 		for (int j = 0; j < enemies.size(); j++) {
@@ -602,13 +587,9 @@ void Scene1::Update(const float deltaTime)
 				enemies[j]->EnemytakeDamage(0.5f);
 				//std::cout << "collide" << std::endl;
 
-
 				if (enemies[j]->getHealth() <= 0) {
 					enemies.erase(enemies.begin() + j);
-
 				}
-				// Create ammo
-				//ammoPickup = new Object();
 
 				break;
 			}
@@ -813,7 +794,7 @@ void Scene1::Render()
 	}
 	*/
 
-
+#pragma region draw_wall
 	// Render any npc's
 		//blinky->render(0.15f);
 	enemy->render(0.15f);
@@ -832,8 +813,9 @@ void Scene1::Render()
 		WallRect.h = 80;
 		SDL_RenderCopy(renderer, level->getWall(i)->getTexture(), nullptr, &WallRect);
 	}
+#pragma endregion
 
-
+#pragma region draw_weapon
 	if (weaponPickup)
 	{
 		SDL_Rect collectibleRect;
@@ -850,7 +832,9 @@ void Scene1::Render()
 
 		SDL_RenderCopy(renderer, weaponPickup->getTexture(), nullptr, &collectibleRect);
 	}
+#pragma endregion
 
+#pragma region ammo
 	if (ammoPickup)
 	{
 		SDL_Rect collectibleRect;
@@ -866,10 +850,10 @@ void Scene1::Render()
 		collectibleRect.h = collectibleH / 2;
 
 		SDL_RenderCopy(renderer, ammoPickup->getTexture(), nullptr, &collectibleRect);
-
-
 	}
+#pragma endregion
 
+#pragma region add location when player pick item
 	if (game->getPlayer()->getammo() > 0)
 	{
 		SDL_Rect ammoRect;
@@ -893,7 +877,9 @@ void Scene1::Render()
 		gunRect.h = 50;
 		SDL_RenderCopy(renderer, melee, nullptr, &gunRect);
 	}
+#pragma endregion
 
+#pragma region add location when player pick item
 	//Draw Bullets
 	SDL_Rect pistolRect;
 	Vec3 pistolScreenCoords;
@@ -911,7 +897,9 @@ void Scene1::Render()
 
 		SDL_RenderCopy(renderer, pistol[i]->getTexture(), nullptr, &pistolRect);
 	}
+#pragma endregion
 
+#pragma region draw_shotgun
 	//Draw Bullets
 	SDL_Rect shotgunRect;
 	Vec3 shotgunScreenCoords;
@@ -929,12 +917,13 @@ void Scene1::Render()
 
 		SDL_RenderCopy(renderer, shotgun[i]->getTexture(), nullptr, &shotgunRect);
 	}
+#pragma endregion
 
+#pragma region draw_knife
 	//Draw knife
 	SDL_Rect knifeRect;
 	Vec3 knifeScreenCoords;
 	int knifeW, knifeH;
-
 
 	for (int i = 0; i < knife.size(); i++)
 	{
@@ -951,7 +940,9 @@ void Scene1::Render()
 		}
 		knife[i]->decrementVisible();
 	}
+#pragma endregion
 
+#pragma region get_iteamhealth
 	if (game->getPlayer()->getHealth() > 0)
 	{
 		SDL_Rect healthRect;
@@ -987,7 +978,9 @@ void Scene1::Render()
 			}
 		}
 	}
+#pragma endregion
 
+#pragma region get_iteamhealth
 	// Draw collectibles
 	SDL_Rect collectibleRect;
 	Vec3 healthPickupScreenCoords;
@@ -1030,9 +1023,9 @@ void Scene1::Render()
 		itemRect.h = 50;
 		SDL_RenderCopy(renderer, itemhealth, nullptr, &itemRect);
 	}
+#pragma endregion
 
-
-
+#pragma region get_enemy
 	// Draw enemies
 	SDL_Rect enemyRect;
 	Vec3 enemyScreenCoords;
@@ -1083,6 +1076,7 @@ void Scene1::Render()
 		enemyRect.h = enemyH;
 		SDL_RenderCopy(renderer, enemies3[i]->getTexture(), nullptr, &enemyRect);
 	}
+#pragma endregion
 
 	// Render the player
 	game->RenderPlayer(0.10f);
@@ -1124,6 +1118,7 @@ void Scene1::HandleEvents(const SDL_Event& event)
 		//	printf("Mouse clicked inside clyde!");
 	}
 
+#pragma region mouse button
 	if (event.button.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 		std::vector<Ammunition*> newpistol;
 		newpistol = game->getPlayer()->firePistolBullet();
@@ -1156,12 +1151,10 @@ void Scene1::HandleEvents(const SDL_Event& event)
 		}
 
 	}
+#pragma endregion
 
-
-
-
-
-
+#pragma region pressing_key
+// when collide to shotgun is able to press E to pick it up.
 	if (event.key.keysym.scancode == SDL_SCANCODE_E) {
 
 		if (weaponPickup && Physics::SphereSphereCollision(*weaponPickup, *P1) == true)
@@ -1173,7 +1166,7 @@ void Scene1::HandleEvents(const SDL_Event& event)
 			game->getPlayer()->setWeaponType(1);
 		}
 
-
+		// when collide to itemhealth is able to press E to pick it up.
 		if (healthPickup && Physics::SphereSphereCollision(*healthPickup, *P1) == true)
 		{
 
@@ -1185,6 +1178,7 @@ void Scene1::HandleEvents(const SDL_Event& event)
 			itemhealthpickup = nullptr;
 		}
 
+		// when collide to ammo is able to press E to pick it up.
 		if ((ammoPickup && Physics::SphereSphereCollision(*ammoPickup, *P1) == true))
 		{
 			game->getPlayer()->restoreammo(1.0f) == true;
@@ -1192,6 +1186,8 @@ void Scene1::HandleEvents(const SDL_Event& event)
 			ammoPickup = nullptr;
 		}
 	}
+
+	//// when item health in inventory player is able to press f to refill the healthbar and destroy the itemhealth in the inventory
 	if (event.key.keysym.scancode == SDL_SCANCODE_F)
 	{
 		if (game->getPlayer()->getitemhealth())
@@ -1200,10 +1196,9 @@ void Scene1::HandleEvents(const SDL_Event& event)
 			game->getPlayer()->setitemhealth(0.0f);
 
 		}
-
 	}
-
 }
+#pragma endregion
 
 bool Scene1::getDead()
 {

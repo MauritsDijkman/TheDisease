@@ -39,6 +39,7 @@ void Level::makeLevel(int sceneNum)
 	case 1:
 
 		//Interior walls       x.x    y.y    z.z
+#pragma region left_wall		
 		//left wall
 		walls[0]->setPos(Vec3(-250.0f, 50.0f, 0.0f));
 		walls[1]->setPos(Vec3(-250.0f, 49.0f, 0.0f));
@@ -146,11 +147,9 @@ void Level::makeLevel(int sceneNum)
 		walls[98]->setPos(Vec3(-250.0f, -48.0f, 0.0f));
 		walls[99]->setPos(Vec3(-250.0f, -49.0f, 0.0f));
 		walls[100]->setPos(Vec3(-250.0f, -50.0f, 0.0f));
+#pragma endregion
 
-		//
-
-		////////////////
-
+#pragma region right_wall
 		//right wall
 		walls[101]->setPos(Vec3(250.0f, 50.0f, 0.0f));
 		walls[102]->setPos(Vec3(250.0f, 49.0f, 0.0f));
@@ -263,10 +262,9 @@ void Level::makeLevel(int sceneNum)
 		walls[200]->setPos(Vec3(250.0f, -48.0f, 0.0f));
 		walls[201]->setPos(Vec3(250.0f, -49.0f, 0.0f));
 		walls[202]->setPos(Vec3(250.0f, -50.0f, 0.0f));
-		//
+#pragma endregion
 
-		////////////
-
+#pragma region
 		// down wall
 		walls[203]->setPos(Vec3(-249.0f, -50.0f, 0.0f));//1
 		walls[204]->setPos(Vec3(-248.0f, -50.0f, 0.0f));//2
@@ -818,11 +816,9 @@ void Level::makeLevel(int sceneNum)
 		walls[699]->setPos(Vec3(247.0f, -50.0f, 0.0f));//8
 		walls[700]->setPos(Vec3(248.0f, -50.0f, 0.0f));//9
 		walls[701]->setPos(Vec3(249.0f, -50.0f, 0.0f));//10
+#pragma endregion
 
-		//
-
-		/////////////
-
+#pragma region
 		//top wall
 		walls[702]->setPos(Vec3(-249.0f, 50.0f, 0.0f));//1
 		walls[703]->setPos(Vec3(-248.0f, 50.0f, 0.0f));//2
@@ -1372,7 +1368,7 @@ void Level::makeLevel(int sceneNum)
 		walls[1200]->setPos(Vec3(247.0f, 50.0f, 0.0f));//8
 		walls[1201]->setPos(Vec3(248.0f, 50.0f, 0.0f));//9
 		walls[1202]->setPos(Vec3(249.0f, 50.0f, 0.0f));//10
-		//
+#pragma endregion
 
 		break;
 

@@ -32,6 +32,7 @@ private:
 	Matrix4 projectionMatrix;
 	Matrix4 inverseProjection;
 
+#pragma region texture_image
 	SDL_Surface* surfacePtr;
 	SDL_Texture* texturePtr;
 	SDL_Texture* health;
@@ -41,28 +42,34 @@ private:
 	SDL_Texture* melee;
 	SDL_Texture* ammo;
 	SDL_Texture* knifes;
+#pragma endregion
 
-
+#pragma region ammo
 	vector<Ammunition*> pistol;
 	vector<Ammunition*> shotgun;
 	vector<Ammunition*> knife;
+#pragma endregion
 
+#pragma region enemy
 	GameObject* background;
 	vector<EnemyCharacter*> enemies;
 	vector<EnemyCharacter*> enemies1;
 	vector<EnemyCharacter*> enemies2;
 	vector<EnemyCharacter*> enemies3;
+#pragma endregion
 
 	// Npc
 	Character* blinky;
 	Enemy* enemy;
 
+	
+#pragma region ammo
 	// Pickups
 	Object* weaponPickup;
 	Object* healthPickup;
 	Object* itemhealthpickup;
 	Object* ammoPickup;
-
+#pragma endregion
 
 	Level* level;
 	Plane* wallLeft;
@@ -109,7 +116,6 @@ public:
 	SDL_Window* getWindow() { return window; }
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
-
 	Vec3 getMousePosition();
 };
 
