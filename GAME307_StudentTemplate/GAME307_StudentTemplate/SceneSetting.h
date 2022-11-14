@@ -25,6 +25,8 @@ private:
 	Matrix4 projectionMatrix;
 	Matrix4 inverseProjection;
 
+	bool pressed;
+
 public:
 	SceneSetting(SDL_Window* sdlWindow_, GameManager* game_);
 	~SceneSetting();
@@ -34,6 +36,8 @@ public:
 	void Render();
 	void HandleEvents(const SDL_Event& sdlEvent);
 	bool nextScene() { return false; }
+
+	bool getDead();
 
 	//Game manager need this to get acces to SceneMenu
 	float getxAxis() { return xAxis; }

@@ -46,6 +46,7 @@ bool SceneSetting::OnCreate()
 void SceneSetting::OnDestroy()
 {
 	//SDL_DestroyRenderer(renderer);
+	SDL_DestroyTexture(texturePtr);
 }
 
 void SceneSetting::Update(const float time)
@@ -76,6 +77,11 @@ void SceneSetting::HandleEvents(const SDL_Event& sdlEvent)
 		// Push the event
 		SDL_PushEvent(&event);
 	}
+}
+
+bool SceneSetting::getDead()
+{
+	return pressed;
 }
 
 void SceneSetting::Render()

@@ -5,6 +5,7 @@
 #include "SceneMenu.h"
 #include "SceneCredit.h"
 #include "SceneSetting.h"
+#include "SceneD.h"
 
 GameManager::GameManager() {
 	windowPtr = nullptr;
@@ -113,7 +114,7 @@ void GameManager::Run()
 	timer->Start();
 
 	// Control if current scene's update() is called each tick
-	bool launched = false;
+	bool launched = true;
 
 	while (isRunning) {
 
@@ -183,6 +184,17 @@ void GameManager::Run()
 					isRunning = false;
 			}
 
+
+			//Check to see what happens when you die. The code decides your fate, worship the code, THE CODE!!!!
+			else if (currentScene->getDead() && sceneNum >= 0) {
+				currentScene->OnDestroy();
+				delete currentScene;
+				currentScene = new SceneD(windowPtr->GetSDL_Window());
+				currentScene->OnCreate();
+
+			}
+
+
 			else if (event.type == SDL_KEYDOWN)
 			{
 				switch (event.key.keysym.scancode)
@@ -199,7 +211,7 @@ void GameManager::Run()
 					isRunning = false;
 					break;
 
-				case SDL_SCANCODE_L:
+				case SDL_SCANCODE_P:
 					//toggle launched with L key)
 					launched = !launched;
 					break;
@@ -257,6 +269,7 @@ void GameManager::OnDestroy() {
 	if (windowPtr) delete windowPtr;
 	if (timer) delete timer;
 	if (currentScene) delete currentScene;
+
 }
 
 float GameManager::getSceneHeight() { return currentScene->getyAxis(); }

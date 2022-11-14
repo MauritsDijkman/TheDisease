@@ -10,7 +10,7 @@ private:
 	void Dead();
 
 protected:
-	float moveSpeed = 4.0f;
+	float moveSpeed = 1.0f;
 
 public:
 	EnemyCharacter();
