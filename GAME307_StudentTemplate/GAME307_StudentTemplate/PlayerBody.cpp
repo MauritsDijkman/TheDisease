@@ -11,7 +11,7 @@
 
 void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
 {
-	
+
 	orientation = atan2(pos.y - mousPosY, mousePosX - pos.x);
 
 	lookDirection = Vec3(mousePosX, mousePosX, 0.0f);
@@ -114,14 +114,14 @@ void PlayerBody::OnReload()
 	//Do we have enough to meet what the gun needs?
 	if (ammoPool < (30 - loadammo))
 	{
-	loadammo = loadammo + ammoPool;
-	ammoPool = 0;
+		loadammo = loadammo + ammoPool;
+		ammoPool = 0;
 	}
 	else
 	{
-	ammoPool = ammoPool - (30 - loadammo);
-	loadammo = 30;
-     }
+		ammoPool = ammoPool - (30 - loadammo);
+		loadammo = 30;
+	}
 }
 
 void PlayerBody::dropammo()
@@ -138,8 +138,8 @@ void PlayerBody::dead()
 
 std::vector<Ammunition*> PlayerBody::firePistolBullet()
 {
-	
-	
+
+
 
 	Bullets.clear();
 
@@ -159,7 +159,9 @@ std::vector<Ammunition*> PlayerBody::firePistolBullet()
 		Bullets[0]->setPos(Vec3(pos.x, pos.y, 0.0f));
 		Bullets[0]->setVel(Vec3(velx, vely, 0.0f));
 
-		if (loadammo <= 0) { return; }//need to return something
+		if (loadammo <= 0) {
+			return vector<Ammunition*>();
+		}//need to return something
 
 		loadammo - loadammo - 1;
 		//angle = -atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
