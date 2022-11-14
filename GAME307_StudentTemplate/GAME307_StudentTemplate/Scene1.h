@@ -19,7 +19,7 @@
 
 using namespace MATH;
 
-#define NUMWALL 58
+#define NUMWALL 9999
 
 class Scene1 : public Scene {
 private:
@@ -35,12 +35,23 @@ private:
 	SDL_Surface* surfacePtr;
 	SDL_Texture* texturePtr;
 	SDL_Texture* health;
-	SDL_Texture* bullet;
+	SDL_Texture* itemhealth;
+	SDL_Texture* pistolbullet;
+	SDL_Texture* shotgunbullet;
 	SDL_Texture* melee;
+	SDL_Texture* ammo;
+	SDL_Texture* knifes;
 
-	vector<Ammunition*> Bullets;
+
+	vector<Ammunition*> pistol;
+	vector<Ammunition*> shotgun;
+	vector<Ammunition*> knife;
+
 	GameObject* background;
 	vector<EnemyCharacter*> enemies;
+	vector<EnemyCharacter*> enemies1;
+	vector<EnemyCharacter*> enemies2;
+	vector<EnemyCharacter*> enemies3;
 
 	// Npc
 	Character* blinky;
@@ -49,6 +60,9 @@ private:
 	// Pickups
 	Object* weaponPickup;
 	Object* healthPickup;
+	Object* itemhealthpickup;
+	Object* ammoPickup;
+
 
 	Level* level;
 	Plane* wallLeft;
@@ -86,6 +100,8 @@ public:
 	void Update(const float time);
 	void Render();
 	void HandleEvents(const SDL_Event& event);
+
+	bool getDead();
 
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }

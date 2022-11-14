@@ -157,10 +157,13 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="PlayerBody.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="SceneCredit.cpp" />
+    <ClCompile Include="SceneD.cpp" />
     <ClCompile Include="SceneMenu.cpp" />
     <ClCompile Include="SceneSetting.cpp" />
+    <ClCompile Include="SceneWin.cpp" />
     <ClCompile Include="Seek.cpp" />
     <ClCompile Include="SeekTarget.cpp" />
     <ClCompile Include="StaticBody.cpp" />
@@ -202,8 +205,10 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
     <ClInclude Include="SceneCredit.h" />
+    <ClInclude Include="SceneD.h" />
     <ClInclude Include="SceneMenu.h" />
     <ClInclude Include="SceneSetting.h" />
+    <ClInclude Include="SceneWin.h" />
     <ClInclude Include="Seek.h" />
     <ClInclude Include="SeekTarget.h" />
     <ClInclude Include="Sphere.h" />

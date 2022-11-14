@@ -31,6 +31,7 @@ private:
 	Vec3 lookDirection;
 
 	vector<Ammunition*> Bullets;
+	vector<Ammunition*> knife;
 
 	void PrintVectorRotation();
 
@@ -39,8 +40,18 @@ protected:
 	float health;
 	float maxHealth = 3.0f;
 
+	float itemhealth;
+	float maxitemhealth = 1.0f;
+
 	float gun;
 	float onegun = 1.0f;
+
+	float ammos;
+	float oneammos = 1.0f;
+
+	int ammoPool;
+	int loadammo;
+
 
 	Sphere boundingSphere;
 	double angle, angularVel, angularAccel, rotationalI;
@@ -82,7 +93,9 @@ public:
 
 
 	// Use the base class versions of getters
-	vector<Ammunition*> fireBullet();
+	vector<Ammunition*> firePistolBullet();
+	vector<Ammunition*> fireshotgunBullet();
+	vector<Ammunition*> stabbing();
 
 	bool OnCreate();
 	void Render(float scale = 1.0f);
@@ -99,13 +112,27 @@ public:
 	float getshotgun() { return gun; }
 	bool restoreshotgun(float shotgun_);
 
+	void setammo(float a) { ammos = a; }
+	float getammo() { return ammos; }
+	bool restoreammo(float ammo_);
+
 	void setHealth(float h) { health = h; }
 	float getHealth() { return health; }
 	bool restoreHealth(float healingAmount_);
+
+	void setitemhealth(float h) { itemhealth = h; }
+	float getitemhealth() { return itemhealth; }
+	bool restoreitemhealth(float healingitemamount_);
+
 	void takeDamage(float damageAmount_);
+
+
+	void OnReload();
 
 	void setAltWeaponAvailable(bool altWeaponAvailable_) { altWeaponAvailable = altWeaponAvailable_; }
 	void setWeaponType(int weaponType_) { weaponType = weaponType_; }
 };
 
+
 #endif /* PLAYERBODY_H */
+

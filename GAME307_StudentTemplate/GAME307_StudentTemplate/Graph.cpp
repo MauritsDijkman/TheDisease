@@ -152,8 +152,9 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode)
 		}
 
 		path.push_back(startNode);
-		reverse(path.begin(), path.end());
 
+		cout << "Has reached end node!" << endl;
+		reverse(path.begin(), path.end());
 		return path;
 	}
 }

@@ -6,15 +6,18 @@
 class CharacterHealth : public Object
 {
 protected:
-	float health, maxHealth;
+	float health = 2.0f;
+	float maxHealth = 2.0f;
+
+
 	virtual void dead();
 public:
 	CharacterHealth();
 	~CharacterHealth();
 
-	void takeDamage(float damageAmount_);
+	void EnemytakeDamage(float enemydamageAmount_);
 
-	float getHealth() { return health = 0; }
+	float getHealth() { return health; }
 
 	void setHealth(float h) { health = h; }
 

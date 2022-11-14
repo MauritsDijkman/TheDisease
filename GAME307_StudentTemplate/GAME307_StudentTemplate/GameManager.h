@@ -49,5 +49,7 @@ public:
 	void Run();
 	void LoadScene(int i);
 	bool ValidateCurrentScene();
+
 };
 #endif
+

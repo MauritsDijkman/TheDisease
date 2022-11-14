@@ -48,6 +48,7 @@ bool SceneCredit::OnCreate()
 void SceneCredit::OnDestroy()
 {
 	//SDL_DestroyRenderer(renderer);
+	SDL_DestroyTexture(texturePtr);
 }
 
 void SceneCredit::Update(const float time)
@@ -78,6 +79,11 @@ void SceneCredit::HandleEvents(const SDL_Event& sdlEvent)
 		// Push the event
 		SDL_PushEvent(&event);
 	}
+}
+
+bool SceneCredit::getDead()
+{
+	return pressed;
 }
 
 void SceneCredit::Render()

@@ -46,6 +46,7 @@ bool SceneMenu::OnCreate()
 void SceneMenu::OnDestroy()
 {
 	//SDL_DestroyRenderer(renderer);
+	SDL_DestroyTexture(texturePtr);
 }
 
 void SceneMenu::Update(const float time)
@@ -129,6 +130,13 @@ void SceneMenu::HandleEvents(const SDL_Event& sdlEvent)
 		// Push the event
 		SDL_PushEvent(&sdlevent);
 	}
+
+}
+
+bool SceneMenu::getDead()
+{
+
+	return play;
 }
 
 void SceneMenu::Render()
@@ -163,3 +171,4 @@ void SceneMenu::Render()
 	// Render the screen
 	SDL_RenderPresent(renderer);
 }
+
