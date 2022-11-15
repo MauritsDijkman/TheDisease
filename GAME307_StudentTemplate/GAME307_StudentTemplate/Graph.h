@@ -1,11 +1,11 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include "Node.h"
+
 #include <vector>	// From STL
 #include <map>
 #include <queue>
-
-#include "Node.h"
 
 using namespace std;
 
@@ -19,10 +19,6 @@ private:
 	// 2D matrix of the connection costs
 	vector<vector<float>> cost;
 
-private:
-	//frontier = PriorityQueue;
-
-
 public:
 	Graph();
 	~Graph();
@@ -35,8 +31,10 @@ public:
 	void AddWeightConnection(int fromNode, int toNode, float weight);
 	vector<int> GetNeighbours(int fromNode);
 
-	float GetHeuristic(Vec3 a, Vec3 b);
 	vector<int> Dijkstra(int startNode, int goalNode);
+	vector<int> AStar(int startNode, int goalNode);
+
+	float GetHeuristic(Vec3 a, Vec3 b);
 };
 
-#endif
+#endif // !GRAPH_H

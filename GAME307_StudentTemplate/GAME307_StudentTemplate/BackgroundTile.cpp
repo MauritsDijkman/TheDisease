@@ -1,21 +1,26 @@
 #include "BackgroundTile.h"
 #include <GameObject.h>
 
-void BackgroundTile::Render(SDL_Renderer* renderer, Matrix4 projectionMatrix)
+void BackgroundTile::Render(SDL_Renderer* renderer, Matrix4 projectionMatrix, bool renderNodeImage)
 {
-	//cout << "TileImage Pos: " << tileImage << " || " << "NodeImage Pos: " << nodeImage << endl;
-
+	// Render the tile sprites
 	tileImage->Render(projectionMatrix, renderer, 1.0f, 0.0f);
 
-	if (hasNode)
+	// Render the node sprites
+	if (hasNode && renderNodeImage)
 		nodeImage->Render(projectionMatrix, renderer, 1.0f, 1.0f);
 }
 
-void BackgroundTile::AddTile(SDL_Renderer* renderer, int column, int row, int id, int label, float tileWidth, float tileHeight, Matrix4 projectionMatrix)
+void BackgroundTile::AddTile(SDL_Renderer* renderer,
+	int column, int row,
+	int id, int label,
+	float tileWidth, float tileHeight,
+	Matrix4 projectionMatrix)
 {
 	bool placeNode = false;
 
-	cout << "Tile with label: " << label << " has been created!" << endl;
+	// Debug for tile spawning
+	//cout << "Tile with label: " << label << " has been created!" << endl;
 
 	// Load the tile according to the id
 	switch (id)
@@ -43,9 +48,11 @@ void BackgroundTile::AddTile(SDL_Renderer* renderer, int column, int row, int id
 		tileImage->posY = startPos.y + row * tileHeight + (tileHeight * 0.5f);
 
 		// Print ID (with pathname), column and row
+		/**
 		cout << "ID: " << id << " " << "(" << tileImage->GetPathName() << ")"
 			<< " || " << "Column: " << column << " || " << "Row : " << row
 			<< " Label: " << label << endl;
+		/**/
 
 		// Transverse the position from viewport to game
 		Vec3 position = Vec3(tileImage->posX, tileImage->posY, 0.0f);
@@ -55,6 +62,7 @@ void BackgroundTile::AddTile(SDL_Renderer* renderer, int column, int row, int id
 		tileImage->posX = position.x;
 		tileImage->posY = position.y;
 
+		// Place node if the tile has a node
 		if (placeNode)
 			AddNode(renderer, column, row, label, tileWidth, tileHeight, projectionMatrix);
 	}
@@ -62,6 +70,7 @@ void BackgroundTile::AddTile(SDL_Renderer* renderer, int column, int row, int id
 
 void BackgroundTile::AddNode(SDL_Renderer* renderer, int column, int row, int label, float tileWidth, float tileHeight, Matrix4 projectionMatrix)
 {
+	// Create start node
 	Node* n = new Node(label);
 
 	// Position in pixels
@@ -79,11 +88,16 @@ void BackgroundTile::AddNode(SDL_Renderer* renderer, int column, int row, int la
 	n->SetPosX(position.x);
 	n->SetPosY(position.y);
 
+	// Set the node of the class to the created one
 	node = n;
 
-	//cout << "NodePos from node " << label << ":";
-	//node->GetPos().print();
+	// Debug for node position
+	/**
+	cout << "NodePos from node " << label << ":";
+	node->GetPos().print();
+	/**/
 
+	// Set the sprite and the position of the node
 	nodeImage = new GameObject(renderer, "Assets/Node.png");
 	nodeImage->posX = node->GetPos().x;
 	nodeImage->posY = node->GetPos().y;

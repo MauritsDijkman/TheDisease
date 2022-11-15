@@ -9,8 +9,8 @@ protected:
 	float health = 2.0f;
 	float maxHealth = 2.0f;
 
-
 	virtual void dead();
+
 public:
 	CharacterHealth();
 	~CharacterHealth();
@@ -18,9 +18,7 @@ public:
 	void EnemytakeDamage(float enemydamageAmount_);
 
 	float getHealth() { return health; }
-
-	void setHealth(float h) { health = h; }
-
-	//virtual float getHealth() = 0; //Get the player health
+	void setHealth(float newHealth) { health = newHealth; }
 };
-#endif
+
+#endif // !CHARACTERHEALTH_H

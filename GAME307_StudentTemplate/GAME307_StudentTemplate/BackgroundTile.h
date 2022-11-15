@@ -27,7 +27,7 @@ public:
 		hasNode = hasNode_;
 	}
 
-	void Render(SDL_Renderer* renderer, Matrix4 projectionMatrix);
+	void Render(SDL_Renderer* renderer, Matrix4 projectionMatrix, bool renderNodeImage);
 	void AddTile(SDL_Renderer* renderer, int column, int row, int id, int label, float tileWidth, float tileHeight, Matrix4 projectionMatrix);
 
 	Node* GetNode() { return node; }

@@ -17,8 +17,7 @@ public:
 	~EnemyCharacter();
 
 	void SeekPlayer(Vec3 playerLocation_);
-
 	void projectile();
 };
 
-#endif
+#endif //!ENEMYCHARACTER_H

@@ -21,7 +21,8 @@ using namespace MATH;
 
 #define NUMWALL 9999
 
-class Scene1 : public Scene {
+class Scene1 : public Scene
+{
 private:
 	SDL_Window* window;
 
@@ -32,6 +33,7 @@ private:
 	Matrix4 projectionMatrix;
 	Matrix4 inverseProjection;
 
+	// Surfaces and textures
 	SDL_Surface* surfacePtr;
 	SDL_Texture* texturePtr;
 	SDL_Texture* health;
@@ -42,12 +44,15 @@ private:
 	SDL_Texture* ammo;
 	SDL_Texture* knifes;
 
-
+	// Lists for weapons
 	vector<Ammunition*> pistol;
 	vector<Ammunition*> shotgun;
 	vector<Ammunition*> knife;
 
+	// Background
 	GameObject* background;
+
+	// Enemies
 	vector<EnemyCharacter*> enemies;
 	vector<EnemyCharacter*> enemies1;
 	vector<EnemyCharacter*> enemies2;
@@ -63,7 +68,7 @@ private:
 	Object* itemhealthpickup;
 	Object* ammoPickup;
 
-
+	// Level
 	Level* level;
 	Plane* wallLeft;
 	Plane* wallRight;

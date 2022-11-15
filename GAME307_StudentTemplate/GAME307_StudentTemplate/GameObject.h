@@ -33,4 +33,4 @@ public:
 	float posY;
 };
 
-#endif
+#endif //!GAMEOBJECT_H

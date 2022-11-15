@@ -1,10 +1,3 @@
-//
-//  PlayerBody.h
-//  DemoAIw
-//
-//  Created by Gail Harris on 2021-Dec-23.
-//
-
 #ifndef PLAYERBODY_H
 #define PLAYERBODY_H
 
@@ -52,7 +45,6 @@ protected:
 	int ammoPool;
 	int loadammo;
 
-
 	Sphere boundingSphere;
 	double angle, angularVel, angularAccel, rotationalI;
 
@@ -91,7 +83,6 @@ public:
 		, game{ game_ }
 	{}
 
-
 	// Use the base class versions of getters
 	vector<Ammunition*> firePistolBullet();
 	vector<Ammunition*> fireshotgunBullet();
@@ -122,10 +113,9 @@ public:
 
 	void setitemhealth(float h) { itemhealth = h; }
 	float getitemhealth() { return itemhealth; }
-	bool restoreitemhealth(float healingitemamount_);
+	bool restoreItemHealth(float healingitemamount_);
 
 	void takeDamage(float damageAmount_);
-
 
 	void OnReload();
 
@@ -133,6 +123,4 @@ public:
 	void setWeaponType(int weaponType_) { weaponType = weaponType_; }
 };
 
-
 #endif /* PLAYERBODY_H */
-

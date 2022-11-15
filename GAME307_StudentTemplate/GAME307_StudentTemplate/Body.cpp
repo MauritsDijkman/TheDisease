@@ -25,6 +25,7 @@ Body::Body(
 	float orientation_ = 0.0f,
 	float rotation_ = 0.0f,
 	float angular_ = 0.0f,
+
 	// These are not very good defaults, but they will prevent compiler warnings.
 	float maxSpeed_ = 5.0f,
 	float maxAcceleration_ = 1.0f,
@@ -49,72 +50,40 @@ Body::Body(
 }
 
 
-Body::~Body() {
-}
+Body::~Body() {}
 
-void Body::ApplyForce(Vec3 force_) {
+void Body::ApplyForce(Vec3 force_)
+{
 	accel = force_ / mass;
 }
 
-void Body::Update(float deltaTime) {
+void Body::Update(float deltaTime)
+{
 	pos = pos + vel * deltaTime + accel * (0.5f * deltaTime * deltaTime);
 	vel = vel + accel * deltaTime;
+
 	// Update orientation
 	orientation += rotation * deltaTime;
 	rotation += angular * deltaTime;
 
 	// Clip to maxspeed, if speed exceeds max
 	if (VMath::mag(vel) > maxSpeed)
-	{
 		vel = VMath::normalize(vel) * maxSpeed;
-	}
 
 	// Clip to maxrotation, if needed
-	if (rotation > maxRotation) rotation = maxRotation;
+	if (rotation > maxRotation)
+		rotation = maxRotation;
 
 	// Could introduce dampening, of velocity and/or rotation, to simulate friction
-	//vel -= 0.05 * vel;
-	//rotation -= 0.05 * rotation;
-
+	/**
+	vel -= 0.05 * vel;
+	rotation -= 0.05 * rotation;
+	/**/
 }
 
-void Body::HandleEvents(const SDL_Event& event)
-{
-	if (event.type == SDL_MOUSEBUTTONDOWN)
-	{
-		printf("Mousedown\n");
-	}
-	else if (event.type == SDL_KEYDOWN)
-	{
-		if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
-		{
-			printf("Space\n");
-		}
-	}
-	// etc
-}
+void Body::HandleEvents(const SDL_Event& event) {}
 
 void Body::setPos(Vec3 pos_)
 {
 	pos = pos_;
 }
-
-
-/*
-bool PlayerBody::restoreHealth(float healingAmount_)
-{
-	bool destroyHealthPickup;	//if player full on health, keep health pickup on ground
-	if (health == maxHealth) {
-		destroyHealthPickup = false;
-	}
-	else {
-		health += healingAmount_;
-		if (health > maxHealth) {
-			health = maxHealth;
-		}
-		destroyHealthPickup = true;
-	}
-
-	return destroyHealthPickup;
-}
-*/

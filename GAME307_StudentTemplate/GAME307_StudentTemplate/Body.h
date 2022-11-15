@@ -3,35 +3,32 @@
 
 #include "MMath.h"
 #include "VMath.h"
+
 #include <SDL.h>
 #include <SDL_image.h>
 
 using namespace MATH;
 
 class Body {
-private:
-
-
 protected:
-	// inherited classes can access this
+	// Inherited classes can access this
 	Vec3 pos;
 	Vec3 vel;
 	Vec3 accel;
 	float mass;
-	float orientation;		// facing this direction
-	float rotation;			// rotating at this speed (radians per second?)
-	float angular;          // angular acceleration
+	float orientation;			// Facing this direction
+	float rotation;				// Rotating at this speed (radians per second?)
+	float angular;				// Angular acceleration
 	float maxSpeed;
 	float maxAcceleration;
 	float maxRotation;
 	float maxAngular;
-	float radius;           // for getting near walls
+	float radius;				// For getting near walls
 
 	Vec3 imageSizeWorldCoords;
 	SDL_Surface* image;
 	SDL_Texture* texture;
 
-	//float health, maxHealth;
 public:
 	Body();
 	Body(
@@ -47,8 +44,11 @@ public:
 		float maxAngular_
 	);
 	virtual ~Body();
+
 	virtual void Update(float deltaTime);
 	virtual void ApplyForce(Vec3 force_);
+
+	// Get functions
 	virtual Vec3 getPos() { return pos; }
 	virtual Vec3 getVel() { return vel; }
 	virtual Vec3 getAccel() { return accel; }
@@ -61,27 +61,27 @@ public:
 	virtual float getMaxRotation() { return maxRotation; }
 	virtual float getMaxAngular() { return maxAngular; }
 
+	// Set functions
 	virtual void setMaxSpeed(float maxSpeed_) { maxSpeed = maxSpeed_; }
 	virtual void setMaxAcceleration(float maxAcceleration_) { maxAcceleration = maxAcceleration_; }
 
+	// Image
 	virtual void setImage(SDL_Surface* image_) { image = image_; }
 	virtual SDL_Surface* getImage() { return image; }
-
 	virtual void setImageSizeWorldCoords(Vec3 imageSizeWorldCoords_)
 	{
 		imageSizeWorldCoords = imageSizeWorldCoords_;
 	}
 
+	// Texture
 	virtual void setTexture(SDL_Texture* texture_) { texture = texture_; }
 	virtual SDL_Texture* getTexture() { return texture; }
 
+	// Events
 	virtual void HandleEvents(const SDL_Event& event);
 
-	// Added this as public to deal with my demo 
-	// so that mouse position can be copied into a Body.
+	// Added this as public to deal with my demo so that mouse position can be copied into a Body.
 	virtual void setPos(Vec3 pos);
-
-	//bool restoreHealth(float healingAmount_);
 };
 
 #endif /* BODY_H */

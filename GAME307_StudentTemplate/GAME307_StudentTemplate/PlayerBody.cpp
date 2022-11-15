@@ -27,14 +27,16 @@ void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
 bool PlayerBody::restoreshotgun(float shotgun_)
 {
 	bool destroyshotgunPickup;
-	if (gun == onegun) {
-		destroyshotgunPickup = false;//
-	}
-	else {
+
+	if (gun == onegun)
+		destroyshotgunPickup = false;
+	else
+	{
 		gun += shotgun_;
-		if (gun > onegun) {
+
+		if (gun > onegun)
 			gun = onegun;
-		}
+
 		destroyshotgunPickup = true;
 	}
 
@@ -44,52 +46,53 @@ bool PlayerBody::restoreshotgun(float shotgun_)
 bool PlayerBody::restoreammo(float ammo_)
 {
 	bool destroyammoPickup;
-	if (ammos == oneammos) {
+
+	if (ammos == oneammos)
 		destroyammoPickup = false;
-	}
 	else
 	{
 		ammos += ammo_;
+
 		if (ammos > oneammos)
-		{
 			ammos > oneammos;
-		}
+
 		destroyammoPickup = true;
 	}
 	return destroyammoPickup;
 }
 
-
 bool PlayerBody::restoreHealth(float healingAmount_)
 {
 	bool destroyHealthPickup;	//if player full on health, keep health pickup on ground
-	if (health == maxHealth) {
-		destroyHealthPickup = false;//
-	}
-	else {
+
+	if (health == maxHealth)
+		destroyHealthPickup = false;
+	else
+	{
 		health += healingAmount_;
-		if (health > maxHealth) {
+
+		if (health > maxHealth)
 			health = maxHealth;
-		}
+
 		destroyHealthPickup = true;
 	}
 
 	return destroyHealthPickup;
 }
 
-
-
-bool PlayerBody::restoreitemhealth(float healingitemamount_)
+bool PlayerBody::restoreItemHealth(float healingItemAmount_)
 {
 	bool destroyitemHealthPickup;	//if player full on health, keep health pickup on ground
-	if (itemhealth == maxitemhealth) {
-		destroyitemHealthPickup = false;//
-	}
-	else {
-		itemhealth += healingitemamount_;
-		if (itemhealth > maxitemhealth) {
+
+	if (itemhealth == maxitemhealth)
+		destroyitemHealthPickup = false;
+	else
+	{
+		itemhealth += healingItemAmount_;
+
+		if (itemhealth > maxitemhealth)
 			itemhealth = maxitemhealth;
-		}
+
 		destroyitemHealthPickup = true;
 	}
 
@@ -100,18 +103,17 @@ void PlayerBody::takeDamage(float damageAmount_)
 {
 	if (health > 0)
 		health -= damageAmount_;
-	else if (health < 0)
-		health = 0;
-
-	if (health <= 0)
+	else if (health < 0) {
 		dead();
+		health = 0;
+	}
 }
 
-# pragma region reload 
 void PlayerBody::OnReload()
 {
 	//Do we have ammo in the ammoPool?
-	if (ammoPool <= 0 || loadammo >= 30) { return; }
+	if (ammoPool <= 0 || loadammo >= 30)
+		return;
 
 	//Do we have enough to meet what the gun needs?
 	if (ammoPool < (30 - loadammo))
@@ -125,12 +127,10 @@ void PlayerBody::OnReload()
 		loadammo = 30;
 	}
 }
-#pragma endregion
 
 void PlayerBody::dropammo()
 {
 	int ammo = 10;
-
 }
 
 void PlayerBody::dead()
@@ -139,14 +139,13 @@ void PlayerBody::dead()
 	printf("You Died\n");
 }
 
-#pragma region firebullet
 std::vector<Ammunition*> PlayerBody::firePistolBullet()
 {
 	Bullets.clear();
 
-	//weaponType 0 standard weapon
-
-	if (weaponType == 0) {
+	// WeaponType 0 standard weapon
+	if (weaponType == 0)
+	{
 		float velx = 10.0f * cos(angle * M_PI / 180);
 		float vely = -10.0f * sin(angle * M_PI / 180);
 
@@ -156,23 +155,18 @@ std::vector<Ammunition*> PlayerBody::firePistolBullet()
 		float offsetx = 0.01 + (boundingSphere.r + Bullets[0]->getBoundingSphere().r) * cos(angle * M_PI / 180);
 		float offsety = 0.01 + (boundingSphere.r + Bullets[0]->getBoundingSphere().r) * sin(angle * M_PI / 180);
 
-
 		Bullets[0]->setPos(Vec3(pos.x, pos.y, 0.0f));
 		Bullets[0]->setVel(Vec3(velx, vely, 0.0f));
 
-		/*
-		if (loadammo <= 0) {
+		if (loadammo <= 0)
 			return vector<Ammunition*>();
-		}//need to return something
 
 		loadammo - loadammo - 1;
 		//angle = -atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
 		//angle = 180 - atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
 
-	//Bullets[0]->setRemainingBounces(3);
-	*/
+		//Bullets[0]->setRemainingBounces(3);
 	}
-	
 
 	return Bullets;
 }
@@ -181,21 +175,26 @@ std::vector<Ammunition*> PlayerBody::fireshotgunBullet()
 {
 	Bullets.clear();
 
-	//weaponType 1 is shotgun
-
-	if (weaponType == 1) {
-		for (int i = 0; i < 3; ++i) {
+	// WeaponType 1 is shotgun
+	if (weaponType == 1)
+	{
+		for (int i = 0; i < 3; ++i)
+		{
 			Bullets.push_back(new Ammunition);
 			Bullets[i]->setBoundingSphere(Sphere(0.25f));
 
-			if (i == 1) { angle += 15; }
-			if (i == 2) { angle -= 30; }
+			if (i == 1)
+				angle += 15;
+			if (i == 2)
+				angle -= 30;
 
 			float velx = 10.0f * cos(angle * M_PI / 180);
 			float vely = -10.0f * sin(angle * M_PI / 180);
 
 			Bullets[i]->setPos(Vec3(pos.x, pos.y, 0.0f));
 			Bullets[i]->setVel(Vec3(velx, vely, 0.0f));
+
+			//Bullets[i]->setRemainingBounces(0);
 		}
 
 		angle += 15;
@@ -203,14 +202,13 @@ std::vector<Ammunition*> PlayerBody::fireshotgunBullet()
 
 	return Bullets;
 }
-#pragma endregion
 
-#pragma region knife
 vector<Ammunition*> PlayerBody::stabbing()
 {
 	knife.clear();
 
-	if (weaponType == 2) {
+	if (weaponType == 2)
+	{
 		float velx = 10.0f * cos(angle * M_PI / 180);//10.0f * cos(angle * M_PI / 180)
 		float vely = -10.0f * sin(angle * M_PI / 180);//-10.0f * sin(angle * M_PI / 180)
 
@@ -227,22 +225,29 @@ vector<Ammunition*> PlayerBody::stabbing()
 		knife[0]->setPos(Vec3(knifePos.x, knifePos.y, 0.0f));
 		knife[0]->setVel(Vec3(0.0f, 0.0f, 0.0f));
 
+
+		//angle = -atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
+		//angle = 180 - atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
+
+		//Bullets[0]->setRemainingBounces(3);
 	}
+
 	return knife;
 }
-#pragma endregion
-
 
 bool PlayerBody::OnCreate()
 {
-	//image = IMG_Load("Pacman.png");
 	image = IMG_Load("Assets/humans/idle_human2.png");
+
 	SDL_Renderer* renderer = game->getRenderer();
 	texture = SDL_CreateTextureFromSurface(renderer, image);
-	if (image == nullptr) {
+
+	if (image == nullptr)
+	{
 		std::cerr << "Can't open the image" << std::endl;
 		return false;
 	}
+
 	return true;
 }
 
@@ -273,10 +278,8 @@ void PlayerBody::Render(float scale)
 
 void PlayerBody::HandleEvents(const SDL_Event& event)
 {
-
 	loadammo = 30;
 	ammoPool = 30;
-
 
 	// If key pressed, set velocity or acceleration
 	if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
@@ -376,36 +379,22 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
 		}
 	}
 
-	//WeaponSwitch
-	if (event.key.keysym.scancode == SDL_SCANCODE_C) {
+	// WeaponSwitch
+	if (event.key.keysym.scancode == SDL_SCANCODE_C)
 		weaponType = 0;
-	}
-
 	if (event.key.keysym.scancode == SDL_SCANCODE_V)
 	{
-		if (altWeaponAvailable == true) {
+		if (altWeaponAvailable == true)
 			weaponType = 1;
-		}
-		//weaponType = 1;
 	}
-	if (event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
+	if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
 		weaponType = 2;
-	}
 
-
+	// Get mouse position
 	if (event.type == SDL_EventType::SDL_MOUSEMOTION)
 	{
 		Vec3 mousePosView = Vec3(event.button.x, event.button.y, 0);
 		mousePosWorld = MMath::inverse(game->getProjectionMatrix()) * mousePosView;
-
-	}
-
-
-	if (event.type == SDL_EventType::SDL_MOUSEMOTION)
-	{
-		Vec3 mousePosView = Vec3(event.button.x, event.button.y, 0);
-		mousePosWorld = MMath::inverse(game->getProjectionMatrix()) * mousePosView;
-
 	}
 }
 
@@ -473,4 +462,3 @@ void PlayerBody::PrintVectorRotation()
 	//cout << "Orientation Vector: " << orientationVector.x << " || " << orientationVector.y << endl;
 
 }
-

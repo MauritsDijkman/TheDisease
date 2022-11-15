@@ -1,22 +1,19 @@
 #include "CharacterHealth.h"
 
-void CharacterHealth::dead()
+
+CharacterHealth::CharacterHealth() {}
+
+CharacterHealth::~CharacterHealth() {}
+
+void CharacterHealth::dead() {}
+
+void CharacterHealth::EnemytakeDamage(float EnemydamageAmount_)
 {
-}
-
-CharacterHealth::CharacterHealth()
-{
-}
-
-CharacterHealth::~CharacterHealth()
-{
-}
-
-
-void CharacterHealth::EnemytakeDamage(float EnemydamageAmount_) {
 	health -= EnemydamageAmount_;
-	if (health <= 0) {
+
+	if (health <= 0)
+	{
 		dead();
+		health = 0;
 	}
-	//std::cout << " health " << health << std::endl;
 }

@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <vector>
+
 #include "Scene.h"
 #include "GameObject.h"
 #include "PlayerBody.h"
@@ -11,11 +12,11 @@
 #include "Plane.h"
 #include "Level.h"
 
-
 using namespace MATH;
 struct MATH::Plane;
 
-class SceneWin : public Scene {
+class SceneWin : public Scene
+{
 private:
 	SDL_Window* window;
 	Matrix4 projectionMatrix;
@@ -25,16 +26,17 @@ private:
 	int wait;
 	bool pressed;
 
-
 public:
 	SceneWin(SDL_Window* sdlWindow);
 	~SceneWin();
+
 	bool OnCreate(float);
 	void OnDestroy();
 	void Update(const float time);
 	void Render();
 	void HandleEvents(const SDL_Event& sdlEvent);
-	bool getDead();
+
+	bool getDead() { return pressed; };
 	bool nextScene() { return false; }
 	float getHealth() { return 0.0f; }
 };

@@ -1,8 +1,9 @@
-#ifndef SCENED_H
-#define SCENED_H
+#ifndef SCENE_DEATH_H
+#define SCENE_DEATH_H
 
 #include <SDL.h>
 #include <vector>
+
 #include "Scene.h"
 #include "GameObject.h"
 #include "PlayerBody.h"
@@ -11,11 +12,11 @@
 #include "Plane.h"
 #include "Level.h"
 
-
 using namespace MATH;
 struct MATH::Plane;
 
-class SceneD : public Scene {
+class SceneDeath : public Scene
+{
 private:
 	SDL_Window* window;
 	Matrix4 projectionMatrix;
@@ -30,14 +31,16 @@ private:
 	float yAxis = 15.0f;
 
 public:
-	SceneD(SDL_Window* sdlWindow);
-	~SceneD();
+	SceneDeath(SDL_Window* sdlWindow);
+	~SceneDeath();
+
 	bool OnCreate();
 	void OnDestroy();
 	void Update(const float time);
 	void Render();
 	void HandleEvents(const SDL_Event& sdlEvent);
-	bool getDead();
+
+	bool getDead() { return pressed; };
 	bool nextScene() { return false; }
 	float getHealth() { return 0.0f; }
 
@@ -47,7 +50,6 @@ public:
 	SDL_Window* getWindow() { return window; }
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
-
 };
 
-#endif
+#endif // !SCENE_DEATH_H
