@@ -128,11 +128,6 @@ void PlayerBody::OnReload()
 	}
 }
 
-void PlayerBody::dropammo()
-{
-	int ammo = 10;
-}
-
 void PlayerBody::dead()
 {
 	isDead = true;
@@ -161,13 +156,9 @@ std::vector<Ammunition*> PlayerBody::firePistolBullet()
 		if (loadammo <= 0)
 			return vector<Ammunition*>();
 
-		loadammo - loadammo - 1;
-		//angle = -atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
-		//angle = 180 - atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
-
-		//Bullets[0]->setRemainingBounces(3);
+		loadammo = loadammo - 1;
+		
 	}
-
 	return Bullets;
 }
 
@@ -194,7 +185,10 @@ std::vector<Ammunition*> PlayerBody::fireshotgunBullet()
 			Bullets[i]->setPos(Vec3(pos.x, pos.y, 0.0f));
 			Bullets[i]->setVel(Vec3(velx, vely, 0.0f));
 
-			//Bullets[i]->setRemainingBounces(0);
+			if (shotgunammo <= 0)
+				return vector<Ammunition*>();
+
+			shotgunammo = shotgunammo - 1;
 		}
 
 		angle += 15;
@@ -237,6 +231,12 @@ vector<Ammunition*> PlayerBody::stabbing()
 
 bool PlayerBody::OnCreate()
 {
+	loadammo = 10;
+	ammoPool = 30;
+
+	shotgunammo = 30;
+	ammoshotgunpool = 30;
+
 	image = IMG_Load("Assets/humans/idle_human2.png");
 
 	SDL_Renderer* renderer = game->getRenderer();
@@ -247,7 +247,6 @@ bool PlayerBody::OnCreate()
 		std::cerr << "Can't open the image" << std::endl;
 		return false;
 	}
-
 	return true;
 }
 
@@ -278,9 +277,6 @@ void PlayerBody::Render(float scale)
 
 void PlayerBody::HandleEvents(const SDL_Event& event)
 {
-	loadammo = 30;
-	ammoPool = 30;
-
 	// If key pressed, set velocity or acceleration
 	if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
 	{

@@ -1,16 +1,12 @@
 #ifndef SCENESETTING_H
 #define SCENESETTING_H
-
 #include "Scene.h"
 #include "Plane.h"
-
 #include <vector>
 #include <iostream>
 #include <SDL.h>
 #include "SDL_image.h"
-
 using namespace std;
-
 using namespace MATH;
 struct MATH::Plane;
 
@@ -24,9 +20,7 @@ private:
 	SDL_Texture* texturePtr;
 	Matrix4 projectionMatrix;
 	Matrix4 inverseProjection;
-
 	bool pressed;
-
 public:
 	SceneSetting(SDL_Window* sdlWindow_, GameManager* game_);
 	~SceneSetting();
@@ -36,9 +30,7 @@ public:
 	void Render();
 	void HandleEvents(const SDL_Event& sdlEvent);
 	bool nextScene() { return false; }
-
 	bool getDead();
-
 	//Game manager need this to get acces to SceneMenu
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }

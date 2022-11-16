@@ -1,10 +1,8 @@
 #include "Level.h"
 
-Level::Level(int wallNum_)
-{
+Level::Level(int wallNum_){
 	wallNum = wallNum_;
 	walls = new Wall * [wallNum];
-
 	for (int i = 0; i < wallNum; i++) {
 		walls[i] = new Wall;
 		walls[i]->setBoundingBoxWidth(1.0f);
@@ -12,32 +10,16 @@ Level::Level(int wallNum_)
 	}
 }
 
-Level::~Level()
-{
+Level::~Level(){
 	for (int i = 0; i < wallNum; i++)
 		delete walls[i];
-
 	delete walls;
 }
 
 // Makes the level by placing all the walls
-void Level::makeLevel(int sceneNum)
-{
-	//For outside walls
-	//float xpos1 = 0.0;
-	//float ypos1 = 0.0f;
-	//float xpos2 = 0.0f;
-	//float ypos2 = 0.0f;
-
-	//For interior walls
-	//float xpos3 = 0.0f;
-	//float ypos3 = 0.0f;
-
-
-	switch (sceneNum)
-	{
+void Level::makeLevel(int sceneNum){
+	switch (sceneNum){
 	case 1:
-
 		//Interior walls       x.x    y.y    z.z
 #pragma region leftwall	
 		//left wall
@@ -56,7 +38,6 @@ void Level::makeLevel(int sceneNum)
 		walls[12]->setPos(Vec3(-250.0f, 38.0f, 0.0f));
 		walls[13]->setPos(Vec3(-250.0f, 37.0f, 0.0f));
 		walls[14]->setPos(Vec3(-250.0f, 36.0f, 0.0f));
-
 		walls[15]->setPos(Vec3(-250.0f, 35.0f, 0.0f));
 		walls[16]->setPos(Vec3(-250.0f, 34.0f, 0.0f));
 		walls[17]->setPos(Vec3(-250.0f, 33.0f, 0.0f));
@@ -72,7 +53,6 @@ void Level::makeLevel(int sceneNum)
 		walls[27]->setPos(Vec3(-250.0f, 23.0f, 0.0f));
 		walls[28]->setPos(Vec3(-250.0f, 22.0f, 0.0f));
 		walls[29]->setPos(Vec3(-250.0f, 21.0f, 0.0f));
-
 		walls[30]->setPos(Vec3(-250.0f, 20.0f, 0.0f));
 		walls[31]->setPos(Vec3(-250.0f, 19.0f, 0.0f));
 		walls[32]->setPos(Vec3(-250.0f, 18.0f, 0.0f));
@@ -94,7 +74,6 @@ void Level::makeLevel(int sceneNum)
 		walls[48]->setPos(Vec3(-250.0f, 2.0f, 0.0f));
 		walls[49]->setPos(Vec3(-250.0f, 1.0f, 0.0f));
 		walls[50]->setPos(Vec3(-250.0f, 0.0f, 0.0f));
-
 		walls[51]->setPos(Vec3(-250.0f, -1.0f, 0.0f));
 		walls[52]->setPos(Vec3(-250.0f, -2.0f, 0.0f));
 		walls[53]->setPos(Vec3(-250.0f, -3.0f, 0.0f));
@@ -115,7 +94,6 @@ void Level::makeLevel(int sceneNum)
 		walls[68]->setPos(Vec3(-250.0f, -18.0f, 0.0f));
 		walls[69]->setPos(Vec3(-250.0f, -19.0f, 0.0f));
 		walls[70]->setPos(Vec3(-250.0f, -20.0f, 0.0f));
-
 		walls[71]->setPos(Vec3(-250.0f, -21.0f, 0.0f));
 		walls[72]->setPos(Vec3(-250.0f, -22.0f, 0.0f));
 		walls[73]->setPos(Vec3(-250.0f, -23.0f, 0.0f));
@@ -136,7 +114,6 @@ void Level::makeLevel(int sceneNum)
 		walls[88]->setPos(Vec3(-250.0f, -38.0f, 0.0f));
 		walls[89]->setPos(Vec3(-250.0f, -39.0f, 0.0f));
 		walls[90]->setPos(Vec3(-250.0f, -40.0f, 0.0f));
-
 		walls[91]->setPos(Vec3(-250.0f, -41.0f, 0.0f));
 		walls[92]->setPos(Vec3(-250.0f, -42.0f, 0.0f));
 		walls[93]->setPos(Vec3(-250.0f, -43.0f, 0.0f));
@@ -160,7 +137,6 @@ void Level::makeLevel(int sceneNum)
 		walls[107]->setPos(Vec3(250.0f, 44.0f, 0.0f));
 		walls[108]->setPos(Vec3(250.0f, 43.0f, 0.0f));
 		walls[109]->setPos(Vec3(250.0f, 42.0f, 0.0f));
-
 		walls[110]->setPos(Vec3(250.0f, 41.0f, 0.0f));
 		walls[111]->setPos(Vec3(250.0f, 40.0f, 0.0f));
 		walls[112]->setPos(Vec3(250.0f, 39.0f, 0.0f));
@@ -171,7 +147,6 @@ void Level::makeLevel(int sceneNum)
 		walls[117]->setPos(Vec3(250.0f, 34.0f, 0.0f));
 		walls[118]->setPos(Vec3(250.0f, 33.0f, 0.0f));
 		walls[119]->setPos(Vec3(250.0f, 32.0f, 0.0f));
-
 		walls[120]->setPos(Vec3(250.0f, 31.0f, 0.0f));
 		walls[121]->setPos(Vec3(250.0f, 30.0f, 0.0f));
 		walls[122]->setPos(Vec3(250.0f, 29.0f, 0.0f));
@@ -183,7 +158,6 @@ void Level::makeLevel(int sceneNum)
 		walls[128]->setPos(Vec3(250.0f, 23.0f, 0.0f));
 		walls[129]->setPos(Vec3(250.0f, 22.0f, 0.0f));
 		walls[130]->setPos(Vec3(250.0f, 21.0f, 0.0f));
-
 		walls[131]->setPos(Vec3(250.0f, 20.0f, 0.0f));
 		walls[132]->setPos(Vec3(250.0f, 19.0f, 0.0f));
 		walls[133]->setPos(Vec3(250.0f, 18.0f, 0.0f));
@@ -194,7 +168,6 @@ void Level::makeLevel(int sceneNum)
 		walls[138]->setPos(Vec3(250.0f, 13.0f, 0.0f));
 		walls[139]->setPos(Vec3(250.0f, 12.0f, 0.0f));
 		walls[140]->setPos(Vec3(250.0f, 11.0f, 0.0f));
-
 		walls[141]->setPos(Vec3(250.0f, 10.0f, 0.0f));
 		walls[142]->setPos(Vec3(250.0f, 9.0f, 0.0f));
 		walls[143]->setPos(Vec3(250.0f, 8.0f, 0.0f));
@@ -205,7 +178,6 @@ void Level::makeLevel(int sceneNum)
 		walls[148]->setPos(Vec3(250.0f, 3.0f, 0.0f));
 		walls[149]->setPos(Vec3(250.0f, 2.0f, 0.0f));
 		walls[150]->setPos(Vec3(250.0f, 1.0f, 0.0f));
-
 		walls[151]->setPos(Vec3(250.0f, 0.0f, 0.0f));
 		walls[152]->setPos(Vec3(250.0f, -1.0f, 0.0f));
 		walls[153]->setPos(Vec3(250.0f, -2.0f, 0.0f));
@@ -216,7 +188,6 @@ void Level::makeLevel(int sceneNum)
 		walls[158]->setPos(Vec3(250.0f, -7.0f, 0.0f));
 		walls[159]->setPos(Vec3(250.0f, -8.0f, 0.0f));
 		walls[160]->setPos(Vec3(250.0f, -9.0f, 0.0f));
-
 		walls[161]->setPos(Vec3(250.0f, -10.0f, 0.0f));
 		walls[162]->setPos(Vec3(250.0f, -11.0f, 0.0f));
 		walls[163]->setPos(Vec3(250.0f, -12.0f, 0.0f));
@@ -226,7 +197,6 @@ void Level::makeLevel(int sceneNum)
 		walls[168]->setPos(Vec3(250.0f, -16.0f, 0.0f));
 		walls[169]->setPos(Vec3(250.0f, -17.0f, 0.0f));
 		walls[170]->setPos(Vec3(250.0f, -18.0f, 0.0f));
-
 		walls[171]->setPos(Vec3(250.0f, -19.0f, 0.0f));
 		walls[172]->setPos(Vec3(250.0f, -20.0f, 0.0f));
 		walls[173]->setPos(Vec3(250.0f, -21.0f, 0.0f));
@@ -237,7 +207,6 @@ void Level::makeLevel(int sceneNum)
 		walls[178]->setPos(Vec3(250.0f, -26.0f, 0.0f));
 		walls[179]->setPos(Vec3(250.0f, -27.0f, 0.0f));
 		walls[180]->setPos(Vec3(250.0f, -28.0f, 0.0f));
-
 		walls[181]->setPos(Vec3(250.0f, -29.0f, 0.0f));
 		walls[182]->setPos(Vec3(250.0f, -30.0f, 0.0f));
 		walls[183]->setPos(Vec3(250.0f, -31.0f, 0.0f));
@@ -247,7 +216,6 @@ void Level::makeLevel(int sceneNum)
 		walls[187]->setPos(Vec3(250.0f, -35.0f, 0.0f));
 		walls[188]->setPos(Vec3(250.0f, -36.0f, 0.0f));
 		walls[189]->setPos(Vec3(250.0f, -37.0f, 0.0f));
-
 		walls[190]->setPos(Vec3(250.0f, -38.0f, 0.0f));
 		walls[191]->setPos(Vec3(250.0f, -39.0f, 0.0f));
 		walls[192]->setPos(Vec3(250.0f, -40.0f, 0.0f));
@@ -258,7 +226,6 @@ void Level::makeLevel(int sceneNum)
 		walls[197]->setPos(Vec3(250.0f, -45.0f, 0.0f));
 		walls[198]->setPos(Vec3(250.0f, -46.0f, 0.0f));
 		walls[199]->setPos(Vec3(250.0f, -47.0f, 0.0f));
-
 		walls[200]->setPos(Vec3(250.0f, -48.0f, 0.0f));
 		walls[201]->setPos(Vec3(250.0f, -49.0f, 0.0f));
 		walls[202]->setPos(Vec3(250.0f, -50.0f, 0.0f));
@@ -273,7 +240,6 @@ void Level::makeLevel(int sceneNum)
 		walls[207]->setPos(Vec3(-245.0f, -50.0f, 0.0f));//5
 		walls[208]->setPos(Vec3(-244.0f, -50.0f, 0.0f));//6
 		walls[209]->setPos(Vec3(-243.0f, -50.0f, 0.0f));//7
-
 		walls[210]->setPos(Vec3(-242.0f, -50.0f, 0.0f));//8
 		walls[211]->setPos(Vec3(-241.0f, -50.0f, 0.0f));//9
 		walls[212]->setPos(Vec3(-240.0f, -50.0f, 0.0f));//10
@@ -284,7 +250,6 @@ void Level::makeLevel(int sceneNum)
 		walls[217]->setPos(Vec3(-235.0f, -50.0f, 0.0f));//5
 		walls[218]->setPos(Vec3(-234.0f, -50.0f, 0.0f));//6
 		walls[219]->setPos(Vec3(-233.0f, -50.0f, 0.0f));//7
-
 		walls[220]->setPos(Vec3(-232.0f, -50.0f, 0.0f));//8
 		walls[221]->setPos(Vec3(-231.0f, -50.0f, 0.0f));//9
 		walls[222]->setPos(Vec3(-230.0f, -50.0f, 0.0f));//10
@@ -295,7 +260,6 @@ void Level::makeLevel(int sceneNum)
 		walls[227]->setPos(Vec3(-225.0f, -50.0f, 0.0f));//5
 		walls[228]->setPos(Vec3(-224.0f, -50.0f, 0.0f));//6
 		walls[229]->setPos(Vec3(-223.0f, -50.0f, 0.0f));//7
-
 		walls[230]->setPos(Vec3(-222.0f, -50.0f, 0.0f));//8
 		walls[231]->setPos(Vec3(-221.0f, -50.0f, 0.0f));//9
 		walls[232]->setPos(Vec3(-220.0f, -50.0f, 0.0f));//10
@@ -306,7 +270,6 @@ void Level::makeLevel(int sceneNum)
 		walls[237]->setPos(Vec3(-215.0f, -50.0f, 0.0f));//5
 		walls[238]->setPos(Vec3(-214.0f, -50.0f, 0.0f));//6
 		walls[239]->setPos(Vec3(-213.0f, -50.0f, 0.0f));//7
-
 		walls[240]->setPos(Vec3(-212.0f, -50.0f, 0.0f));//8
 		walls[241]->setPos(Vec3(-211.0f, -50.0f, 0.0f));//9
 		walls[242]->setPos(Vec3(-210.0f, -50.0f, 0.0f));//10
@@ -317,7 +280,6 @@ void Level::makeLevel(int sceneNum)
 		walls[247]->setPos(Vec3(-205.0f, -50.0f, 0.0f));//5
 		walls[248]->setPos(Vec3(-204.0f, -50.0f, 0.0f));//6
 		walls[249]->setPos(Vec3(-203.0f, -50.0f, 0.0f));//7
-
 		walls[250]->setPos(Vec3(-202.0f, -50.0f, 0.0f));//8
 		walls[251]->setPos(Vec3(-201.0f, -50.0f, 0.0f));//9
 		walls[252]->setPos(Vec3(-200.0f, -50.0f, 0.0f));//10
@@ -328,7 +290,6 @@ void Level::makeLevel(int sceneNum)
 		walls[257]->setPos(Vec3(-195.0f, -50.0f, 0.0f));//5
 		walls[258]->setPos(Vec3(-194.0f, -50.0f, 0.0f));//6
 		walls[259]->setPos(Vec3(-193.0f, -50.0f, 0.0f));//7
-
 		walls[260]->setPos(Vec3(-192.0f, -50.0f, 0.0f));//8
 		walls[261]->setPos(Vec3(-191.0f, -50.0f, 0.0f));//9
 		walls[262]->setPos(Vec3(-190.0f, -50.0f, 0.0f));//10
@@ -339,7 +300,6 @@ void Level::makeLevel(int sceneNum)
 		walls[267]->setPos(Vec3(-185.0f, -50.0f, 0.0f));//5
 		walls[268]->setPos(Vec3(-184.0f, -50.0f, 0.0f));//6
 		walls[269]->setPos(Vec3(-183.0f, -50.0f, 0.0f));//7
-
 		walls[270]->setPos(Vec3(-182.0f, -50.0f, 0.0f));//8
 		walls[271]->setPos(Vec3(-181.0f, -50.0f, 0.0f));//9
 		walls[272]->setPos(Vec3(-180.0f, -50.0f, 0.0f));//10
@@ -350,7 +310,6 @@ void Level::makeLevel(int sceneNum)
 		walls[277]->setPos(Vec3(-175.0f, -50.0f, 0.0f));//5
 		walls[278]->setPos(Vec3(-174.0f, -50.0f, 0.0f));//6
 		walls[279]->setPos(Vec3(-173.0f, -50.0f, 0.0f));//7
-
 		walls[280]->setPos(Vec3(-172.0f, -50.0f, 0.0f));//8
 		walls[281]->setPos(Vec3(-171.0f, -50.0f, 0.0f));//9
 		walls[282]->setPos(Vec3(-170.0f, -50.0f, 0.0f));//10
@@ -361,7 +320,6 @@ void Level::makeLevel(int sceneNum)
 		walls[287]->setPos(Vec3(-165.0f, -50.0f, 0.0f));//5
 		walls[288]->setPos(Vec3(-164.0f, -50.0f, 0.0f));//6
 		walls[289]->setPos(Vec3(-163.0f, -50.0f, 0.0f));//7
-
 		walls[290]->setPos(Vec3(-162.0f, -50.0f, 0.0f));//8
 		walls[291]->setPos(Vec3(-161.0f, -50.0f, 0.0f));//9
 		walls[292]->setPos(Vec3(-160.0f, -50.0f, 0.0f));//10
@@ -372,7 +330,6 @@ void Level::makeLevel(int sceneNum)
 		walls[297]->setPos(Vec3(-155.0f, -50.0f, 0.0f));//5
 		walls[298]->setPos(Vec3(-154.0f, -50.0f, 0.0f));//6
 		walls[299]->setPos(Vec3(-153.0f, -50.0f, 0.0f));//7
-
 		walls[300]->setPos(Vec3(-152.0f, -50.0f, 0.0f));//8
 		walls[301]->setPos(Vec3(-151.0f, -50.0f, 0.0f));//9
 		walls[302]->setPos(Vec3(-150.0f, -50.0f, 0.0f));//10
@@ -383,7 +340,6 @@ void Level::makeLevel(int sceneNum)
 		walls[307]->setPos(Vec3(-145.0f, -50.0f, 0.0f));//5
 		walls[308]->setPos(Vec3(-144.0f, -50.0f, 0.0f));//6
 		walls[309]->setPos(Vec3(-143.0f, -50.0f, 0.0f));//7
-
 		walls[310]->setPos(Vec3(-142.0f, -50.0f, 0.0f));//8
 		walls[311]->setPos(Vec3(-141.0f, -50.0f, 0.0f));//9
 		walls[312]->setPos(Vec3(-140.0f, -50.0f, 0.0f));//10
@@ -394,7 +350,6 @@ void Level::makeLevel(int sceneNum)
 		walls[317]->setPos(Vec3(-135.0f, -50.0f, 0.0f));//5
 		walls[318]->setPos(Vec3(-134.0f, -50.0f, 0.0f));//6
 		walls[319]->setPos(Vec3(-133.0f, -50.0f, 0.0f));//7
-
 		walls[320]->setPos(Vec3(-132.0f, -50.0f, 0.0f));//8
 		walls[321]->setPos(Vec3(-131.0f, -50.0f, 0.0f));//9
 		walls[322]->setPos(Vec3(-130.0f, -50.0f, 0.0f));//10
@@ -405,7 +360,6 @@ void Level::makeLevel(int sceneNum)
 		walls[327]->setPos(Vec3(-125.0f, -50.0f, 0.0f));//5
 		walls[328]->setPos(Vec3(-124.0f, -50.0f, 0.0f));//6
 		walls[329]->setPos(Vec3(-123.0f, -50.0f, 0.0f));//7
-
 		walls[330]->setPos(Vec3(-122.0f, -50.0f, 0.0f));//8
 		walls[331]->setPos(Vec3(-121.0f, -50.0f, 0.0f));//9
 		walls[332]->setPos(Vec3(-120.0f, -50.0f, 0.0f));//10
@@ -416,7 +370,6 @@ void Level::makeLevel(int sceneNum)
 		walls[337]->setPos(Vec3(-115.0f, -50.0f, 0.0f));//5
 		walls[338]->setPos(Vec3(-114.0f, -50.0f, 0.0f));//6
 		walls[339]->setPos(Vec3(-113.0f, -50.0f, 0.0f));//7
-
 		walls[340]->setPos(Vec3(-112.0f, -50.0f, 0.0f));//8
 		walls[341]->setPos(Vec3(-111.0f, -50.0f, 0.0f));//9
 		walls[342]->setPos(Vec3(-110.0f, -50.0f, 0.0f));//10
@@ -427,7 +380,6 @@ void Level::makeLevel(int sceneNum)
 		walls[347]->setPos(Vec3(-105.0f, -50.0f, 0.0f));//5
 		walls[348]->setPos(Vec3(-104.0f, -50.0f, 0.0f));//6
 		walls[349]->setPos(Vec3(-103.0f, -50.0f, 0.0f));//7
-
 		walls[350]->setPos(Vec3(-102.0f, -50.0f, 0.0f));//8
 		walls[351]->setPos(Vec3(-101.0f, -50.0f, 0.0f));//9
 		walls[352]->setPos(Vec3(-100.0f, -50.0f, 0.0f));//10
@@ -438,7 +390,6 @@ void Level::makeLevel(int sceneNum)
 		walls[357]->setPos(Vec3(-95.0f, -50.0f, 0.0f));//5
 		walls[358]->setPos(Vec3(-94.0f, -50.0f, 0.0f));//6
 		walls[359]->setPos(Vec3(-93.0f, -50.0f, 0.0f));//7
-
 		walls[360]->setPos(Vec3(-92.0f, -50.0f, 0.0f));//8
 		walls[361]->setPos(Vec3(-91.0f, -50.0f, 0.0f));//9
 		walls[362]->setPos(Vec3(-90.0f, -50.0f, 0.0f));//10
@@ -449,7 +400,6 @@ void Level::makeLevel(int sceneNum)
 		walls[367]->setPos(Vec3(-85.0f, -50.0f, 0.0f));//5
 		walls[368]->setPos(Vec3(-84.0f, -50.0f, 0.0f));//6
 		walls[369]->setPos(Vec3(-83.0f, -50.0f, 0.0f));//7
-
 		walls[370]->setPos(Vec3(-82.0f, -50.0f, 0.0f));//8
 		walls[371]->setPos(Vec3(-81.0f, -50.0f, 0.0f));//9
 		walls[372]->setPos(Vec3(-80.0f, -50.0f, 0.0f));//10
@@ -460,7 +410,6 @@ void Level::makeLevel(int sceneNum)
 		walls[377]->setPos(Vec3(-75.0f, -50.0f, 0.0f));//5
 		walls[378]->setPos(Vec3(-74.0f, -50.0f, 0.0f));//6
 		walls[379]->setPos(Vec3(-73.0f, -50.0f, 0.0f));//7
-
 		walls[380]->setPos(Vec3(-72.0f, -50.0f, 0.0f));//8
 		walls[381]->setPos(Vec3(-71.0f, -50.0f, 0.0f));//9
 		walls[382]->setPos(Vec3(-70.0f, -50.0f, 0.0f));//10
@@ -471,7 +420,6 @@ void Level::makeLevel(int sceneNum)
 		walls[387]->setPos(Vec3(-65.0f, -50.0f, 0.0f));//5
 		walls[388]->setPos(Vec3(-64.0f, -50.0f, 0.0f));//6
 		walls[389]->setPos(Vec3(-63.0f, -50.0f, 0.0f));//7
-
 		walls[390]->setPos(Vec3(-62.0f, -50.0f, 0.0f));//8
 		walls[391]->setPos(Vec3(-61.0f, -50.0f, 0.0f));//9
 		walls[392]->setPos(Vec3(-60.0f, -50.0f, 0.0f));//10
@@ -483,7 +431,6 @@ void Level::makeLevel(int sceneNum)
 		walls[398]->setPos(Vec3(-54.0f, -50.0f, 0.0f));//6
 		walls[399]->setPos(Vec3(-53.0f, -50.0f, 0.0f));//7
 		walls[400]->setPos(Vec3(-52.0f, -50.0f, 0.0f));//8
-
 		walls[401]->setPos(Vec3(-51.0f, -50.0f, 0.0f));//9
 		walls[402]->setPos(Vec3(-50.0f, -50.0f, 0.0f));//10
 		walls[403]->setPos(Vec3(-49.0f, -50.0f, 0.0f));//1
@@ -493,7 +440,6 @@ void Level::makeLevel(int sceneNum)
 		walls[407]->setPos(Vec3(-45.0f, -50.0f, 0.0f));//5
 		walls[408]->setPos(Vec3(-44.0f, -50.0f, 0.0f));//6
 		walls[409]->setPos(Vec3(-43.0f, -50.0f, 0.0f));//7
-
 		walls[410]->setPos(Vec3(-42.0f, -50.0f, 0.0f));//8
 		walls[411]->setPos(Vec3(-41.0f, -50.0f, 0.0f));//9
 		walls[412]->setPos(Vec3(-40.0f, -50.0f, 0.0f));//10
@@ -505,7 +451,6 @@ void Level::makeLevel(int sceneNum)
 		walls[418]->setPos(Vec3(-34.0f, -50.0f, 0.0f));//6
 		walls[419]->setPos(Vec3(-33.0f, -50.0f, 0.0f));//7
 		walls[420]->setPos(Vec3(-32.0f, -50.0f, 0.0f));//8
-
 		walls[421]->setPos(Vec3(-31.0f, -50.0f, 0.0f));//10
 		walls[422]->setPos(Vec3(-30.0f, -50.0f, 0.0f));//1
 		walls[423]->setPos(Vec3(-29.0f, -50.0f, 0.0f));//2
@@ -515,7 +460,6 @@ void Level::makeLevel(int sceneNum)
 		walls[427]->setPos(Vec3(-25.0f, -50.0f, 0.0f));//6
 		walls[428]->setPos(Vec3(-24.0f, -50.0f, 0.0f));//7
 		walls[429]->setPos(Vec3(-23.0f, -50.0f, 0.0f));//8
-
 		walls[430]->setPos(Vec3(-22.0f, -50.0f, 0.0f));//9
 		walls[431]->setPos(Vec3(-21.0f, -50.0f, 0.0f));//10
 		walls[432]->setPos(Vec3(-20.0f, -50.0f, 0.0f));//1
@@ -526,7 +470,6 @@ void Level::makeLevel(int sceneNum)
 		walls[437]->setPos(Vec3(-15.0f, -50.0f, 0.0f));//6
 		walls[438]->setPos(Vec3(-14.0f, -50.0f, 0.0f));//7
 		walls[439]->setPos(Vec3(-13.0f, -50.0f, 0.0f));//8
-
 		walls[440]->setPos(Vec3(-12.0f, -50.0f, 0.0f));//9
 		walls[441]->setPos(Vec3(-11.0f, -50.0f, 0.0f));//10
 		walls[442]->setPos(Vec3(-10.0f, -50.0f, 0.0f));//1
@@ -537,7 +480,6 @@ void Level::makeLevel(int sceneNum)
 		walls[447]->setPos(Vec3(-5.0f, -50.0f, 0.0f));//6
 		walls[448]->setPos(Vec3(-4.0f, -50.0f, 0.0f));//7
 		walls[449]->setPos(Vec3(-3.0f, -50.0f, 0.0f));//8
-
 		walls[450]->setPos(Vec3(-2.0f, -50.0f, 0.0f));//9
 		walls[451]->setPos(Vec3(-1.0f, -50.0f, 0.0f));//10	
 		walls[452]->setPos(Vec3(0.0f, -50.0f, 0.0f));//1
@@ -549,7 +491,6 @@ void Level::makeLevel(int sceneNum)
 		walls[458]->setPos(Vec3(6.0f, -50.0f, 0.0f));//7
 		walls[459]->setPos(Vec3(7.0f, -50.0f, 0.0f));//8
 		walls[460]->setPos(Vec3(8.0f, -50.0f, 0.0f));//9
-
 		walls[461]->setPos(Vec3(9.0f, -50.0f, 0.0f));//10		
 		walls[462]->setPos(Vec3(10.0f, -50.0f, 0.0f));//1
 		walls[463]->setPos(Vec3(11.0f, -50.0f, 0.0f));//2
@@ -560,7 +501,6 @@ void Level::makeLevel(int sceneNum)
 		walls[468]->setPos(Vec3(16.0f, -50.0f, 0.0f));//7
 		walls[469]->setPos(Vec3(17.0f, -50.0f, 0.0f));//8
 		walls[470]->setPos(Vec3(18.0f, -50.0f, 0.0f));//9
-
 		walls[471]->setPos(Vec3(19.0f, -50.0f, 0.0f));//10
 		walls[472]->setPos(Vec3(20.0f, -50.0f, 0.0f));//1
 		walls[473]->setPos(Vec3(21.0f, -50.0f, 0.0f));//2
@@ -571,7 +511,6 @@ void Level::makeLevel(int sceneNum)
 		walls[478]->setPos(Vec3(26.0f, -50.0f, 0.0f));//7
 		walls[479]->setPos(Vec3(27.0f, -50.0f, 0.0f));//8
 		walls[480]->setPos(Vec3(28.0f, -50.0f, 0.0f));//9
-
 		walls[481]->setPos(Vec3(29.0f, -50.0f, 0.0f));//10	
 		walls[482]->setPos(Vec3(30.0f, -50.0f, 0.0f));//1
 		walls[483]->setPos(Vec3(31.0f, -50.0f, 0.0f));//2
@@ -581,7 +520,6 @@ void Level::makeLevel(int sceneNum)
 		walls[487]->setPos(Vec3(35.0f, -50.0f, 0.0f));//6
 		walls[488]->setPos(Vec3(36.0f, -50.0f, 0.0f));//7
 		walls[489]->setPos(Vec3(37.0f, -50.0f, 0.0f));//8
-
 		walls[490]->setPos(Vec3(38.0f, -50.0f, 0.0f));//9
 		walls[491]->setPos(Vec3(39.0f, -50.0f, 0.0f));//10		
 		walls[492]->setPos(Vec3(40.0f, -50.0f, 0.0f));//1
@@ -594,7 +532,6 @@ void Level::makeLevel(int sceneNum)
 		walls[499]->setPos(Vec3(47.0f, -50.0f, 0.0f));//8
 		walls[500]->setPos(Vec3(48.0f, -50.0f, 0.0f));//9
 		walls[501]->setPos(Vec3(49.0f, -50.0f, 0.0f));//10
-
 		walls[502]->setPos(Vec3(50.0f, -50.0f, 0.0f));//1
 		walls[503]->setPos(Vec3(51.0f, -50.0f, 0.0f));//2
 		walls[504]->setPos(Vec3(52.0f, -50.0f, 0.0f));//3
@@ -605,7 +542,6 @@ void Level::makeLevel(int sceneNum)
 		walls[509]->setPos(Vec3(57.0f, -50.0f, 0.0f));//8
 		walls[510]->setPos(Vec3(58.0f, -50.0f, 0.0f));//9
 		walls[511]->setPos(Vec3(59.0f, -50.0f, 0.0f));//10
-
 		walls[512]->setPos(Vec3(60.0f, -50.0f, 0.0f));//1
 		walls[513]->setPos(Vec3(61.0f, -50.0f, 0.0f));//2
 		walls[514]->setPos(Vec3(62.0f, -50.0f, 0.0f));//3
@@ -616,7 +552,6 @@ void Level::makeLevel(int sceneNum)
 		walls[519]->setPos(Vec3(67.0f, -50.0f, 0.0f));//8
 		walls[520]->setPos(Vec3(68.0f, -50.0f, 0.0f));//9
 		walls[521]->setPos(Vec3(69.0f, -50.0f, 0.0f));//10
-
 		walls[522]->setPos(Vec3(70.0f, -50.0f, 0.0f));//10
 		walls[523]->setPos(Vec3(71.0f, -50.0f, 0.0f));//1
 		walls[524]->setPos(Vec3(72.0f, -50.0f, 0.0f));//2
@@ -627,7 +562,6 @@ void Level::makeLevel(int sceneNum)
 		walls[529]->setPos(Vec3(77.0f, -50.0f, 0.0f));//7
 		walls[530]->setPos(Vec3(78.0f, -50.0f, 0.0f));//8
 		walls[531]->setPos(Vec3(79.0f, -50.0f, 0.0f));//9
-
 		walls[532]->setPos(Vec3(80.0f, -50.0f, 0.0f));//1
 		walls[533]->setPos(Vec3(81.0f, -50.0f, 0.0f));//2
 		walls[534]->setPos(Vec3(82.0f, -50.0f, 0.0f));//3
@@ -638,7 +572,6 @@ void Level::makeLevel(int sceneNum)
 		walls[539]->setPos(Vec3(87.0f, -50.0f, 0.0f));//8
 		walls[540]->setPos(Vec3(88.0f, -50.0f, 0.0f));//9
 		walls[541]->setPos(Vec3(89.0f, -50.0f, 0.0f));//10
-
 		walls[542]->setPos(Vec3(90.0f, -50.0f, 0.0f));//1
 		walls[543]->setPos(Vec3(91.0f, -50.0f, 0.0f));//2
 		walls[544]->setPos(Vec3(92.0f, -50.0f, 0.0f));//3
@@ -649,8 +582,6 @@ void Level::makeLevel(int sceneNum)
 		walls[549]->setPos(Vec3(97.0f, -50.0f, 0.0f));//8
 		walls[550]->setPos(Vec3(98.0f, -50.0f, 0.0f));//9
 		walls[551]->setPos(Vec3(99.0f, -50.0f, 0.0f));//10
-
-
 		walls[552]->setPos(Vec3(100.0f, -50.0f, 0.0f));//1
 		walls[553]->setPos(Vec3(101.0f, -50.0f, 0.0f));//2
 		walls[554]->setPos(Vec3(102.0f, -50.0f, 0.0f));//3
@@ -661,7 +592,6 @@ void Level::makeLevel(int sceneNum)
 		walls[559]->setPos(Vec3(107.0f, -50.0f, 0.0f));//8
 		walls[560]->setPos(Vec3(108.0f, -50.0f, 0.0f));//9
 		walls[561]->setPos(Vec3(109.0f, -50.0f, 0.0f));//10
-
 		walls[562]->setPos(Vec3(110.0f, -50.0f, 0.0f));//1
 		walls[563]->setPos(Vec3(111.0f, -50.0f, 0.0f));//2
 		walls[564]->setPos(Vec3(112.0f, -50.0f, 0.0f));//3
@@ -672,7 +602,6 @@ void Level::makeLevel(int sceneNum)
 		walls[569]->setPos(Vec3(117.0f, -50.0f, 0.0f));//8
 		walls[570]->setPos(Vec3(118.0f, -50.0f, 0.0f));//9
 		walls[571]->setPos(Vec3(119.0f, -50.0f, 0.0f));//10
-
 		walls[572]->setPos(Vec3(120.0f, -50.0f, 0.0f));//1
 		walls[573]->setPos(Vec3(121.0f, -50.0f, 0.0f));//2
 		walls[574]->setPos(Vec3(122.0f, -50.0f, 0.0f));//3
@@ -683,7 +612,6 @@ void Level::makeLevel(int sceneNum)
 		walls[579]->setPos(Vec3(127.0f, -50.0f, 0.0f));//8
 		walls[580]->setPos(Vec3(128.0f, -50.0f, 0.0f));//9
 		walls[581]->setPos(Vec3(129.0f, -50.0f, 0.0f));//10
-
 		walls[582]->setPos(Vec3(130.0f, -50.0f, 0.0f));//1
 		walls[583]->setPos(Vec3(131.0f, -50.0f, 0.0f));//2
 		walls[584]->setPos(Vec3(132.0f, -50.0f, 0.0f));//3
@@ -694,7 +622,6 @@ void Level::makeLevel(int sceneNum)
 		walls[589]->setPos(Vec3(137.0f, -50.0f, 0.0f));//8
 		walls[590]->setPos(Vec3(138.0f, -50.0f, 0.0f));//9
 		walls[591]->setPos(Vec3(139.0f, -50.0f, 0.0f));//10
-
 		walls[592]->setPos(Vec3(140.0f, -50.0f, 0.0f));//1
 		walls[593]->setPos(Vec3(141.0f, -50.0f, 0.0f));//2
 		walls[594]->setPos(Vec3(142.0f, -50.0f, 0.0f));//3
@@ -705,7 +632,6 @@ void Level::makeLevel(int sceneNum)
 		walls[599]->setPos(Vec3(147.0f, -50.0f, 0.0f));//8
 		walls[600]->setPos(Vec3(148.0f, -50.0f, 0.0f));//9
 		walls[601]->setPos(Vec3(149.0f, -50.0f, 0.0f));//10
-
 		walls[602]->setPos(Vec3(150.0f, -50.0f, 0.0f));//1
 		walls[603]->setPos(Vec3(151.0f, -50.0f, 0.0f));//2
 		walls[604]->setPos(Vec3(152.0f, -50.0f, 0.0f));//3
@@ -716,8 +642,6 @@ void Level::makeLevel(int sceneNum)
 		walls[609]->setPos(Vec3(157.0f, -50.0f, 0.0f));//8
 		walls[610]->setPos(Vec3(158.0f, -50.0f, 0.0f));//9
 		walls[611]->setPos(Vec3(159.0f, -50.0f, 0.0f));//10
-
-
 		walls[612]->setPos(Vec3(160.0f, -50.0f, 0.0f));//1
 		walls[613]->setPos(Vec3(161.0f, -50.0f, 0.0f));//2
 		walls[614]->setPos(Vec3(162.0f, -50.0f, 0.0f));//3
@@ -728,7 +652,6 @@ void Level::makeLevel(int sceneNum)
 		walls[619]->setPos(Vec3(167.0f, -50.0f, 0.0f));//8
 		walls[620]->setPos(Vec3(168.0f, -50.0f, 0.0f));//9
 		walls[621]->setPos(Vec3(169.0f, -50.0f, 0.0f));//10
-
 		walls[622]->setPos(Vec3(170.0f, -50.0f, 0.0f));//1
 		walls[623]->setPos(Vec3(171.0f, -50.0f, 0.0f));//2
 		walls[624]->setPos(Vec3(172.0f, -50.0f, 0.0f));//3
@@ -739,7 +662,6 @@ void Level::makeLevel(int sceneNum)
 		walls[629]->setPos(Vec3(177.0f, -50.0f, 0.0f));//8
 		walls[630]->setPos(Vec3(178.0f, -50.0f, 0.0f));//9
 		walls[631]->setPos(Vec3(179.0f, -50.0f, 0.0f));//10
-
 		walls[632]->setPos(Vec3(180.0f, -50.0f, 0.0f));//1
 		walls[633]->setPos(Vec3(181.0f, -50.0f, 0.0f));//2
 		walls[634]->setPos(Vec3(182.0f, -50.0f, 0.0f));//3
@@ -750,7 +672,6 @@ void Level::makeLevel(int sceneNum)
 		walls[639]->setPos(Vec3(187.0f, -50.0f, 0.0f));//8
 		walls[640]->setPos(Vec3(188.0f, -50.0f, 0.0f));//9
 		walls[641]->setPos(Vec3(189.0f, -50.0f, 0.0f));//10
-
 		walls[642]->setPos(Vec3(190.0f, -50.0f, 0.0f));//1
 		walls[643]->setPos(Vec3(191.0f, -50.0f, 0.0f));//2
 		walls[644]->setPos(Vec3(192.0f, -50.0f, 0.0f));//3
@@ -761,7 +682,6 @@ void Level::makeLevel(int sceneNum)
 		walls[649]->setPos(Vec3(197.0f, -50.0f, 0.0f));//8
 		walls[650]->setPos(Vec3(198.0f, -50.0f, 0.0f));//9
 		walls[651]->setPos(Vec3(199.0f, -50.0f, 0.0f));//10
-
 		walls[652]->setPos(Vec3(200.0f, -50.0f, 0.0f));//1
 		walls[653]->setPos(Vec3(201.0f, -50.0f, 0.0f));//2
 		walls[654]->setPos(Vec3(202.0f, -50.0f, 0.0f));//3
@@ -772,7 +692,6 @@ void Level::makeLevel(int sceneNum)
 		walls[659]->setPos(Vec3(207.0f, -50.0f, 0.0f));//8
 		walls[660]->setPos(Vec3(208.0f, -50.0f, 0.0f));//9
 		walls[661]->setPos(Vec3(209.0f, -50.0f, 0.0f));//10
-
 		walls[662]->setPos(Vec3(210.0f, -50.0f, 0.0f));//1
 		walls[663]->setPos(Vec3(211.0f, -50.0f, 0.0f));//2
 		walls[664]->setPos(Vec3(212.0f, -50.0f, 0.0f));//3
@@ -783,7 +702,6 @@ void Level::makeLevel(int sceneNum)
 		walls[669]->setPos(Vec3(217.0f, -50.0f, 0.0f));//8
 		walls[670]->setPos(Vec3(218.0f, -50.0f, 0.0f));//9
 		walls[671]->setPos(Vec3(219.0f, -50.0f, 0.0f));//10
-
 		walls[672]->setPos(Vec3(220.0f, -50.0f, 0.0f));//1
 		walls[673]->setPos(Vec3(221.0f, -50.0f, 0.0f));//2
 		walls[674]->setPos(Vec3(222.0f, -50.0f, 0.0f));//3
@@ -794,7 +712,6 @@ void Level::makeLevel(int sceneNum)
 		walls[679]->setPos(Vec3(227.0f, -50.0f, 0.0f));//8
 		walls[680]->setPos(Vec3(228.0f, -50.0f, 0.0f));//9
 		walls[681]->setPos(Vec3(229.0f, -50.0f, 0.0f));//10
-
 		walls[682]->setPos(Vec3(230.0f, -50.0f, 0.0f));//1
 		walls[683]->setPos(Vec3(231.0f, -50.0f, 0.0f));//2
 		walls[684]->setPos(Vec3(232.0f, -50.0f, 0.0f));//3
@@ -805,7 +722,6 @@ void Level::makeLevel(int sceneNum)
 		walls[689]->setPos(Vec3(237.0f, -50.0f, 0.0f));//8
 		walls[690]->setPos(Vec3(238.0f, -50.0f, 0.0f));//9
 		walls[691]->setPos(Vec3(239.0f, -50.0f, 0.0f));//10
-
 		walls[692]->setPos(Vec3(240.0f, -50.0f, 0.0f));//1
 		walls[693]->setPos(Vec3(241.0f, -50.0f, 0.0f));//2
 		walls[694]->setPos(Vec3(242.0f, -50.0f, 0.0f));//3
@@ -830,7 +746,6 @@ void Level::makeLevel(int sceneNum)
 		walls[709]->setPos(Vec3(-242.0f, 50.0f, 0.0f));//8
 		walls[710]->setPos(Vec3(-241.0f, 50.0f, 0.0f));//9
 		walls[711]->setPos(Vec3(-240.0f, 50.0f, 0.0f));//10
-
 		walls[712]->setPos(Vec3(-239.0f, 50.0f, 0.0f));//1
 		walls[713]->setPos(Vec3(-238.0f, 50.0f, 0.0f));//2
 		walls[714]->setPos(Vec3(-237.0f, 50.0f, 0.0f));//3
@@ -841,7 +756,6 @@ void Level::makeLevel(int sceneNum)
 		walls[719]->setPos(Vec3(-232.0f, 50.0f, 0.0f));//8
 		walls[720]->setPos(Vec3(-231.0f, 50.0f, 0.0f));//9
 		walls[721]->setPos(Vec3(-230.0f, 50.0f, 0.0f));//10
-
 		walls[722]->setPos(Vec3(-229.0f, 50.0f, 0.0f));//1
 		walls[723]->setPos(Vec3(-228.0f, 50.0f, 0.0f));//2
 		walls[724]->setPos(Vec3(-227.0f, 50.0f, 0.0f));//3
@@ -852,7 +766,6 @@ void Level::makeLevel(int sceneNum)
 		walls[729]->setPos(Vec3(-222.0f, 50.0f, 0.0f));//8
 		walls[730]->setPos(Vec3(-221.0f, 50.0f, 0.0f));//9
 		walls[731]->setPos(Vec3(-220.0f, 50.0f, 0.0f));//10
-
 		walls[732]->setPos(Vec3(-219.0f, 50.0f, 0.0f));//1
 		walls[733]->setPos(Vec3(-218.0f, 50.0f, 0.0f));//2
 		walls[734]->setPos(Vec3(-217.0f, 50.0f, 0.0f));//3
@@ -863,7 +776,6 @@ void Level::makeLevel(int sceneNum)
 		walls[739]->setPos(Vec3(-212.0f, 50.0f, 0.0f));//8
 		walls[740]->setPos(Vec3(-211.0f, 50.0f, 0.0f));//9
 		walls[741]->setPos(Vec3(-210.0f, 50.0f, 0.0f));//10
-
 		walls[742]->setPos(Vec3(-209.0f, 50.0f, 0.0f));//1
 		walls[743]->setPos(Vec3(-208.0f, 50.0f, 0.0f));//2
 		walls[744]->setPos(Vec3(-207.0f, 50.0f, 0.0f));//3
@@ -874,7 +786,6 @@ void Level::makeLevel(int sceneNum)
 		walls[749]->setPos(Vec3(-202.0f, 50.0f, 0.0f));//8
 		walls[750]->setPos(Vec3(-201.0f, 50.0f, 0.0f));//9
 		walls[751]->setPos(Vec3(-200.0f, 50.0f, 0.0f));//10
-
 		walls[752]->setPos(Vec3(-199.0f, 50.0f, 0.0f));//1
 		walls[753]->setPos(Vec3(-198.0f, 50.0f, 0.0f));//2
 		walls[754]->setPos(Vec3(-197.0f, 50.0f, 0.0f));//3
@@ -885,7 +796,6 @@ void Level::makeLevel(int sceneNum)
 		walls[759]->setPos(Vec3(-192.0f, 50.0f, 0.0f));//8
 		walls[760]->setPos(Vec3(-191.0f, 50.0f, 0.0f));//9
 		walls[761]->setPos(Vec3(-190.0f, 50.0f, 0.0f));//10
-
 		walls[762]->setPos(Vec3(-189.0f, 50.0f, 0.0f));//1
 		walls[763]->setPos(Vec3(-188.0f, 50.0f, 0.0f));//2
 		walls[764]->setPos(Vec3(-187.0f, 50.0f, 0.0f));//3
@@ -896,7 +806,6 @@ void Level::makeLevel(int sceneNum)
 		walls[769]->setPos(Vec3(-182.0f, 50.0f, 0.0f));//8
 		walls[770]->setPos(Vec3(-181.0f, 50.0f, 0.0f));//9
 		walls[771]->setPos(Vec3(-180.0f, 50.0f, 0.0f));//10
-
 		walls[772]->setPos(Vec3(-179.0f, 50.0f, 0.0f));//1
 		walls[773]->setPos(Vec3(-178.0f, 50.0f, 0.0f));//2
 		walls[774]->setPos(Vec3(-177.0f, 50.0f, 0.0f));//3
@@ -907,7 +816,6 @@ void Level::makeLevel(int sceneNum)
 		walls[779]->setPos(Vec3(-172.0f, 50.0f, 0.0f));//8
 		walls[780]->setPos(Vec3(-171.0f, 50.0f, 0.0f));//9
 		walls[781]->setPos(Vec3(-170.0f, 50.0f, 0.0f));//10
-
 		walls[782]->setPos(Vec3(-169.0f, 50.0f, 0.0f));//1
 		walls[783]->setPos(Vec3(-168.0f, 50.0f, 0.0f));//2
 		walls[784]->setPos(Vec3(-167.0f, 50.0f, 0.0f));//3
@@ -918,7 +826,6 @@ void Level::makeLevel(int sceneNum)
 		walls[789]->setPos(Vec3(-162.0f, 50.0f, 0.0f));//8
 		walls[790]->setPos(Vec3(-161.0f, 50.0f, 0.0f));//9
 		walls[791]->setPos(Vec3(-160.0f, 50.0f, 0.0f));//10
-
 		walls[792]->setPos(Vec3(-159.0f, 50.0f, 0.0f));//1
 		walls[793]->setPos(Vec3(-158.0f, 50.0f, 0.0f));//2
 		walls[794]->setPos(Vec3(-157.0f, 50.0f, 0.0f));//3
@@ -929,7 +836,6 @@ void Level::makeLevel(int sceneNum)
 		walls[799]->setPos(Vec3(-152.0f, 50.0f, 0.0f));//8
 		walls[800]->setPos(Vec3(-151.0f, 50.0f, 0.0f));//9
 		walls[801]->setPos(Vec3(-150.0f, 50.0f, 0.0f));//10
-
 		walls[802]->setPos(Vec3(-149.0f, 50.0f, 0.0f));//1
 		walls[803]->setPos(Vec3(-148.0f, 50.0f, 0.0f));//2
 		walls[804]->setPos(Vec3(-147.0f, 50.0f, 0.0f));//3
@@ -940,8 +846,7 @@ void Level::makeLevel(int sceneNum)
 		walls[809]->setPos(Vec3(-142.0f, 50.0f, 0.0f));//8
 		walls[810]->setPos(Vec3(-141.0f, 50.0f, 0.0f));//9
 		walls[811]->setPos(Vec3(-140.0f, 50.0f, 0.0f));//10
-
-		walls[812]->setPos(Vec3(-139.0f, 50.0f, 0.0f));//1
+	    walls[812]->setPos(Vec3(-139.0f, 50.0f, 0.0f));//1
 		walls[813]->setPos(Vec3(-138.0f, 50.0f, 0.0f));//2
 		walls[814]->setPos(Vec3(-137.0f, 50.0f, 0.0f));//3
 		walls[815]->setPos(Vec3(-136.0f, 50.0f, 0.0f));//4
@@ -951,7 +856,6 @@ void Level::makeLevel(int sceneNum)
 		walls[819]->setPos(Vec3(-132.0f, 50.0f, 0.0f));//8
 		walls[820]->setPos(Vec3(-131.0f, 50.0f, 0.0f));//9
 		walls[821]->setPos(Vec3(-130.0f, 50.0f, 0.0f));//10
-
 		walls[822]->setPos(Vec3(-129.0f, 50.0f, 0.0f));//1
 		walls[823]->setPos(Vec3(-128.0f, 50.0f, 0.0f));//2
 		walls[824]->setPos(Vec3(-127.0f, 50.0f, 0.0f));//3
@@ -962,7 +866,6 @@ void Level::makeLevel(int sceneNum)
 		walls[829]->setPos(Vec3(-122.0f, 50.0f, 0.0f));//8
 		walls[830]->setPos(Vec3(-121.0f, 50.0f, 0.0f));//9
 		walls[831]->setPos(Vec3(-120.0f, 50.0f, 0.0f));//10
-
 		walls[832]->setPos(Vec3(-119.0f, 50.0f, 0.0f));//1
 		walls[833]->setPos(Vec3(-118.0f, 50.0f, 0.0f));//2
 		walls[834]->setPos(Vec3(-117.0f, 50.0f, 0.0f));//3
@@ -973,7 +876,6 @@ void Level::makeLevel(int sceneNum)
 		walls[839]->setPos(Vec3(-112.0f, 50.0f, 0.0f));//8
 		walls[840]->setPos(Vec3(-111.0f, 50.0f, 0.0f));//9
 		walls[841]->setPos(Vec3(-110.0f, 50.0f, 0.0f));//10
-
 		walls[842]->setPos(Vec3(-109.0f, 50.0f, 0.0f));//1
 		walls[843]->setPos(Vec3(-108.0f, 50.0f, 0.0f));//2
 		walls[844]->setPos(Vec3(-107.0f, 50.0f, 0.0f));//3
@@ -984,7 +886,6 @@ void Level::makeLevel(int sceneNum)
 		walls[849]->setPos(Vec3(-102.0f, 50.0f, 0.0f));//8
 		walls[850]->setPos(Vec3(-101.0f, 50.0f, 0.0f));//9
 		walls[851]->setPos(Vec3(-100.0f, 50.0f, 0.0f));//10
-
 		walls[852]->setPos(Vec3(-99.0f, 50.0f, 0.0f));//1
 		walls[853]->setPos(Vec3(-98.0f, 50.0f, 0.0f));//2
 		walls[854]->setPos(Vec3(-97.0f, 50.0f, 0.0f));//3
@@ -995,7 +896,6 @@ void Level::makeLevel(int sceneNum)
 		walls[859]->setPos(Vec3(-92.0f, 50.0f, 0.0f));//8
 		walls[860]->setPos(Vec3(-91.0f, 50.0f, 0.0f));//9
 		walls[861]->setPos(Vec3(-90.0f, 50.0f, 0.0f));//10
-
 		walls[862]->setPos(Vec3(-89.0f, 50.0f, 0.0f));//1
 		walls[863]->setPos(Vec3(-88.0f, 50.0f, 0.0f));//2
 		walls[864]->setPos(Vec3(-87.0f, 50.0f, 0.0f));//3
@@ -1005,8 +905,7 @@ void Level::makeLevel(int sceneNum)
 		walls[868]->setPos(Vec3(-83.0f, 50.0f, 0.0f));//7
 		walls[869]->setPos(Vec3(-82.0f, 50.0f, 0.0f));//8
 		walls[870]->setPos(Vec3(-81.0f, 50.0f, 0.0f));//9
-		walls[871]->setPos(Vec3(-80.0f, 50.0f, 0.0f));//10
-
+	    walls[871]->setPos(Vec3(-80.0f, 50.0f, 0.0f));//10
 		walls[872]->setPos(Vec3(-79.0f, 50.0f, 0.0f));//1
 		walls[873]->setPos(Vec3(-78.0f, 50.0f, 0.0f));//2
 		walls[874]->setPos(Vec3(-77.0f, 50.0f, 0.0f));//3
@@ -1017,7 +916,6 @@ void Level::makeLevel(int sceneNum)
 		walls[879]->setPos(Vec3(-72.0f, 50.0f, 0.0f));//8
 		walls[880]->setPos(Vec3(-71.0f, 50.0f, 0.0f));//9
 		walls[881]->setPos(Vec3(-70.0f, 50.0f, 0.0f));//10
-
 		walls[882]->setPos(Vec3(-69.0f, 50.0f, 0.0f));//1
 		walls[883]->setPos(Vec3(-68.0f, 50.0f, 0.0f));//2
 		walls[884]->setPos(Vec3(-67.0f, 50.0f, 0.0f));//3
@@ -1028,7 +926,6 @@ void Level::makeLevel(int sceneNum)
 		walls[889]->setPos(Vec3(-62.0f, 50.0f, 0.0f));//8
 		walls[890]->setPos(Vec3(-61.0f, 50.0f, 0.0f));//9
 		walls[891]->setPos(Vec3(-60.0f, 50.0f, 0.0f));//10
-
 		walls[892]->setPos(Vec3(-59.0f, 50.0f, 0.0f));//1
 		walls[893]->setPos(Vec3(-58.0f, 50.0f, 0.0f));//2
 		walls[894]->setPos(Vec3(-57.0f, 50.0f, 0.0f));//3
@@ -1039,7 +936,6 @@ void Level::makeLevel(int sceneNum)
 		walls[899]->setPos(Vec3(-52.0f, 50.0f, 0.0f));//8
 		walls[900]->setPos(Vec3(-51.0f, 50.0f, 0.0f));//9
 		walls[901]->setPos(Vec3(-50.0f, 50.0f, 0.0f));//10
-
 		walls[902]->setPos(Vec3(-49.0f, 50.0f, 0.0f));//1
 		walls[903]->setPos(Vec3(-48.0f, 50.0f, 0.0f));//2
 		walls[904]->setPos(Vec3(-47.0f, 50.0f, 0.0f));//3
@@ -1050,7 +946,6 @@ void Level::makeLevel(int sceneNum)
 		walls[910]->setPos(Vec3(-42.0f, 50.0f, 0.0f));//8
 		walls[911]->setPos(Vec3(-41.0f, 50.0f, 0.0f));//9
 		walls[912]->setPos(Vec3(-40.0f, 50.0f, 0.0f));//10
-
 		walls[913]->setPos(Vec3(-39.0f, 50.0f, 0.0f));//1
 		walls[914]->setPos(Vec3(-38.0f, 50.0f, 0.0f));//2
 		walls[915]->setPos(Vec3(-37.0f, 50.0f, 0.0f));//3
@@ -1060,7 +955,6 @@ void Level::makeLevel(int sceneNum)
 		walls[919]->setPos(Vec3(-33.0f, 50.0f, 0.0f));//7
 		walls[920]->setPos(Vec3(-32.0f, 50.0f, 0.0f));//8
 		walls[921]->setPos(Vec3(-31.0f, 50.0f, 0.0f));//10
-
 		walls[922]->setPos(Vec3(-30.0f, 50.0f, 0.0f));//1
 		walls[923]->setPos(Vec3(-29.0f, 50.0f, 0.0f));//2
 		walls[924]->setPos(Vec3(-28.0f, 50.0f, 0.0f));//3
@@ -1071,7 +965,6 @@ void Level::makeLevel(int sceneNum)
 		walls[929]->setPos(Vec3(-23.0f, 50.0f, 0.0f));//8
 		walls[930]->setPos(Vec3(-22.0f, 50.0f, 0.0f));//9
 		walls[931]->setPos(Vec3(-21.0f, 50.0f, 0.0f));//10
-
 		walls[932]->setPos(Vec3(-20.0f, 50.0f, 0.0f));//1
 		walls[933]->setPos(Vec3(-19.0f, 50.0f, 0.0f));//2
 		walls[934]->setPos(Vec3(-18.0f, 50.0f, 0.0f));//3
@@ -1082,7 +975,6 @@ void Level::makeLevel(int sceneNum)
 		walls[939]->setPos(Vec3(-13.0f, 50.0f, 0.0f));//8
 		walls[940]->setPos(Vec3(-12.0f, 50.0f, 0.0f));//9
 		walls[941]->setPos(Vec3(-11.0f, 50.0f, 0.0f));//10
-
 		walls[942]->setPos(Vec3(-10.0f, 50.0f, 0.0f));//1
 		walls[943]->setPos(Vec3(-9.0f, 50.0f, 0.0f));//2
 		walls[944]->setPos(Vec3(-8.0f, 50.0f, 0.0f));//3
@@ -1093,7 +985,6 @@ void Level::makeLevel(int sceneNum)
 		walls[949]->setPos(Vec3(-3.0f, 50.0f, 0.0f));//8
 		walls[950]->setPos(Vec3(-2.0f, 50.0f, 0.0f));//9
 		walls[951]->setPos(Vec3(-1.0f, 50.0f, 0.0f));//10
-
 		walls[952]->setPos(Vec3(0.0f, 50.0f, 0.0f));//1
 		walls[953]->setPos(Vec3(1.0f, 50.0f, 0.0f));//2
 		walls[954]->setPos(Vec3(2.0f, 50.0f, 0.0f));//3
@@ -1103,8 +994,7 @@ void Level::makeLevel(int sceneNum)
 		walls[958]->setPos(Vec3(6.0f, 50.0f, 0.0f));//7
 		walls[959]->setPos(Vec3(7.0f, 50.0f, 0.0f));//8
 		walls[960]->setPos(Vec3(8.0f, 50.0f, 0.0f));//9
-		walls[961]->setPos(Vec3(9.0f, 50.0f, 0.0f));//10
-
+		walls[961]->setPos(Vec3(9.0f, 50.0f, 0.0f));//1
 		walls[962]->setPos(Vec3(10.0f, 50.0f, 0.0f));//1
 		walls[963]->setPos(Vec3(11.0f, 50.0f, 0.0f));//2
 		walls[964]->setPos(Vec3(12.0f, 50.0f, 0.0f));//3
@@ -1115,7 +1005,6 @@ void Level::makeLevel(int sceneNum)
 		walls[969]->setPos(Vec3(17.0f, 50.0f, 0.0f));//8
 		walls[970]->setPos(Vec3(18.0f, 50.0f, 0.0f));//9
 		walls[971]->setPos(Vec3(19.0f, 50.0f, 0.0f));//10
-
 		walls[972]->setPos(Vec3(20.0f, 50.0f, 0.0f));//1
 		walls[973]->setPos(Vec3(21.0f, 50.0f, 0.0f));//2
 		walls[974]->setPos(Vec3(22.0f, 50.0f, 0.0f));//3
@@ -1126,7 +1015,6 @@ void Level::makeLevel(int sceneNum)
 		walls[979]->setPos(Vec3(27.0f, 50.0f, 0.0f));//8
 		walls[980]->setPos(Vec3(28.0f, 50.0f, 0.0f));//9
 		walls[981]->setPos(Vec3(29.0f, 50.0f, 0.0f));//10
-
 		walls[982]->setPos(Vec3(30.0f, 50.0f, 0.0f));//1
 		walls[983]->setPos(Vec3(31.0f, 50.0f, 0.0f));//2
 		walls[984]->setPos(Vec3(32.0f, 50.0f, 0.0f));//3
@@ -1137,7 +1025,6 @@ void Level::makeLevel(int sceneNum)
 		walls[989]->setPos(Vec3(37.0f, 50.0f, 0.0f));//8
 		walls[990]->setPos(Vec3(38.0f, 50.0f, 0.0f));//9
 		walls[991]->setPos(Vec3(39.0f, 50.0f, 0.0f));//10
-
 		walls[992]->setPos(Vec3(40.0f, 50.0f, 0.0f));//1
 		walls[993]->setPos(Vec3(41.0f, 50.0f, 0.0f));//2
 		walls[994]->setPos(Vec3(42.0f, 50.0f, 0.0f));//3
@@ -1148,7 +1035,6 @@ void Level::makeLevel(int sceneNum)
 		walls[999]->setPos(Vec3(47.0f, 50.0f, 0.0f));//8
 		walls[1000]->setPos(Vec3(48.0f, 50.0f, 0.0f));//9
 		walls[1001]->setPos(Vec3(49.0f, 50.0f, 0.0f));//10
-
 		walls[1002]->setPos(Vec3(50.0f, 50.0f, 0.0f));//1
 		walls[1003]->setPos(Vec3(51.0f, 50.0f, 0.0f));//2
 		walls[1004]->setPos(Vec3(52.0f, 50.0f, 0.0f));//3
@@ -1159,7 +1045,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1009]->setPos(Vec3(57.0f, 50.0f, 0.0f));//8
 		walls[1010]->setPos(Vec3(58.0f, 50.0f, 0.0f));//9
 		walls[1011]->setPos(Vec3(59.0f, 50.0f, 0.0f));//10
-
 		walls[1012]->setPos(Vec3(60.0f, 50.0f, 0.0f));//1
 		walls[1013]->setPos(Vec3(61.0f, 50.0f, 0.0f));//2
 		walls[1014]->setPos(Vec3(62.0f, 50.0f, 0.0f));//3
@@ -1170,7 +1055,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1019]->setPos(Vec3(67.0f, 50.0f, 0.0f));//8
 		walls[1020]->setPos(Vec3(68.0f, 50.0f, 0.0f));//9
 		walls[1021]->setPos(Vec3(69.0f, 50.0f, 0.0f));//10
-
 		walls[1022]->setPos(Vec3(70.0f, 50.0f, 0.0f));//10
 		walls[1023]->setPos(Vec3(71.0f, 50.0f, 0.0f));//1
 		walls[1024]->setPos(Vec3(72.0f, 50.0f, 0.0f));//2
@@ -1181,7 +1065,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1029]->setPos(Vec3(77.0f, 50.0f, 0.0f));//7
 		walls[1030]->setPos(Vec3(78.0f, 50.0f, 0.0f));//8
 		walls[1031]->setPos(Vec3(79.0f, 50.0f, 0.0f));//9
-
 		walls[1032]->setPos(Vec3(80.0f, 50.0f, 0.0f));//1
 		walls[1033]->setPos(Vec3(81.0f, 50.0f, 0.0f));//2
 		walls[1034]->setPos(Vec3(82.0f, 50.0f, 0.0f));//3
@@ -1192,7 +1075,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1039]->setPos(Vec3(87.0f, 50.0f, 0.0f));//8
 		walls[1040]->setPos(Vec3(88.0f, 50.0f, 0.0f));//9
 		walls[1041]->setPos(Vec3(89.0f, 50.0f, 0.0f));//10
-
 		walls[1042]->setPos(Vec3(90.0f, 50.0f, 0.0f));//1
 		walls[1043]->setPos(Vec3(91.0f, 50.0f, 0.0f));//2
 		walls[1044]->setPos(Vec3(92.0f, 50.0f, 0.0f));//3
@@ -1203,7 +1085,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1049]->setPos(Vec3(97.0f, 50.0f, 0.0f));//8
 		walls[1050]->setPos(Vec3(98.0f, 50.0f, 0.0f));//9
 		walls[1051]->setPos(Vec3(99.0f, 50.0f, 0.0f));//10
-
 		walls[1052]->setPos(Vec3(100.0f, 50.0f, 0.0f));//1
 		walls[1053]->setPos(Vec3(101.0f, 50.0f, 0.0f));//2
 		walls[1054]->setPos(Vec3(102.0f, 50.0f, 0.0f));//3
@@ -1214,7 +1095,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1059]->setPos(Vec3(107.0f, 50.0f, 0.0f));//8
 		walls[1060]->setPos(Vec3(108.0f, 50.0f, 0.0f));//9
 		walls[1061]->setPos(Vec3(109.0f, 50.0f, 0.0f));//10
-
 		walls[1062]->setPos(Vec3(110.0f, 50.0f, 0.0f));//1
 		walls[1063]->setPos(Vec3(111.0f, 50.0f, 0.0f));//2
 		walls[1064]->setPos(Vec3(112.0f, 50.0f, 0.0f));//3
@@ -1225,7 +1105,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1069]->setPos(Vec3(117.0f, 50.0f, 0.0f));//8
 		walls[1070]->setPos(Vec3(118.0f, 50.0f, 0.0f));//9
 		walls[1071]->setPos(Vec3(119.0f, 50.0f, 0.0f));//10
-
 		walls[1072]->setPos(Vec3(120.0f, 50.0f, 0.0f));//1
 		walls[1073]->setPos(Vec3(121.0f, 50.0f, 0.0f));//2
 		walls[1074]->setPos(Vec3(122.0f, 50.0f, 0.0f));//3
@@ -1236,7 +1115,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1079]->setPos(Vec3(127.0f, 50.0f, 0.0f));//8
 		walls[1080]->setPos(Vec3(128.0f, 50.0f, 0.0f));//9
 		walls[1081]->setPos(Vec3(129.0f, 50.0f, 0.0f));//10
-
 		walls[1082]->setPos(Vec3(130.0f, 50.0f, 0.0f));//1
 		walls[1083]->setPos(Vec3(131.0f, 50.0f, 0.0f));//2
 		walls[1084]->setPos(Vec3(132.0f, 50.0f, 0.0f));//3
@@ -1247,7 +1125,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1089]->setPos(Vec3(137.0f, 50.0f, 0.0f));//8
 		walls[1090]->setPos(Vec3(138.0f, 50.0f, 0.0f));//9
 		walls[1091]->setPos(Vec3(139.0f, 50.0f, 0.0f));//10
-
 		walls[1092]->setPos(Vec3(140.0f, 50.0f, 0.0f));//1
 		walls[1093]->setPos(Vec3(141.0f, 50.0f, 0.0f));//2
 		walls[1094]->setPos(Vec3(142.0f, 50.0f, 0.0f));//3
@@ -1258,7 +1135,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1099]->setPos(Vec3(147.0f, 50.0f, 0.0f));//8
 		walls[1100]->setPos(Vec3(148.0f, 50.0f, 0.0f));//9
 		walls[1101]->setPos(Vec3(149.0f, 50.0f, 0.0f));//10
-
 		walls[1102]->setPos(Vec3(150.0f, 50.0f, 0.0f));//1
 		walls[1103]->setPos(Vec3(151.0f, 50.0f, 0.0f));//2
 		walls[1104]->setPos(Vec3(152.0f, 50.0f, 0.0f));//3
@@ -1269,7 +1145,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1109]->setPos(Vec3(157.0f, 50.0f, 0.0f));//8
 		walls[1110]->setPos(Vec3(158.0f, 50.0f, 0.0f));//9
 		walls[1111]->setPos(Vec3(159.0f, 50.0f, 0.0f));//10
-
 		walls[1112]->setPos(Vec3(160.0f, 50.0f, 0.0f));//1
 		walls[1113]->setPos(Vec3(161.0f, 50.0f, 0.0f));//2
 		walls[1114]->setPos(Vec3(162.0f, 50.0f, 0.0f));//3
@@ -1280,7 +1155,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1119]->setPos(Vec3(167.0f, 50.0f, 0.0f));//8
 		walls[1120]->setPos(Vec3(168.0f, 50.0f, 0.0f));//9
 		walls[1121]->setPos(Vec3(169.0f, 50.0f, 0.0f));//10
-
 		walls[1122]->setPos(Vec3(170.0f, 50.0f, 0.0f));//1
 		walls[1123]->setPos(Vec3(171.0f, 50.0f, 0.0f));//2
 		walls[1124]->setPos(Vec3(172.0f, 50.0f, 0.0f));//3
@@ -1291,7 +1165,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1129]->setPos(Vec3(177.0f, 50.0f, 0.0f));//8
 		walls[1130]->setPos(Vec3(178.0f, 50.0f, 0.0f));//9
 		walls[1131]->setPos(Vec3(179.0f, 50.0f, 0.0f));//10
-
 		walls[1132]->setPos(Vec3(180.0f, 50.0f, 0.0f));//1
 		walls[1133]->setPos(Vec3(181.0f, 50.0f, 0.0f));//2
 		walls[1134]->setPos(Vec3(182.0f, 50.0f, 0.0f));//3
@@ -1302,7 +1175,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1139]->setPos(Vec3(187.0f, 50.0f, 0.0f));//8
 		walls[1140]->setPos(Vec3(188.0f, 50.0f, 0.0f));//9
 		walls[1141]->setPos(Vec3(189.0f, 50.0f, 0.0f));//10
-
 		walls[1142]->setPos(Vec3(190.0f, 50.0f, 0.0f));//1
 		walls[1143]->setPos(Vec3(191.0f, 50.0f, 0.0f));//2
 		walls[1144]->setPos(Vec3(192.0f, 50.0f, 0.0f));//3
@@ -1313,7 +1185,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1149]->setPos(Vec3(197.0f, 50.0f, 0.0f));//8
 		walls[1150]->setPos(Vec3(198.0f, 50.0f, 0.0f));//9
 		walls[1151]->setPos(Vec3(199.0f, 50.0f, 0.0f));//10
-
 		walls[1152]->setPos(Vec3(200.0f, 50.0f, 0.0f));//1
 		walls[1153]->setPos(Vec3(201.0f, 50.0f, 0.0f));//2
 		walls[1154]->setPos(Vec3(202.0f, 50.0f, 0.0f));//3
@@ -1324,7 +1195,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1159]->setPos(Vec3(207.0f, 50.0f, 0.0f));//8
 		walls[1160]->setPos(Vec3(208.0f, 50.0f, 0.0f));//9
 		walls[1161]->setPos(Vec3(209.0f, 50.0f, 0.0f));//10
-
 		walls[1162]->setPos(Vec3(210.0f, 50.0f, 0.0f));//1
 		walls[1163]->setPos(Vec3(211.0f, 50.0f, 0.0f));//2
 		walls[1164]->setPos(Vec3(212.0f, 50.0f, 0.0f));//3
@@ -1335,7 +1205,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1169]->setPos(Vec3(217.0f, 50.0f, 0.0f));//8
 		walls[1170]->setPos(Vec3(218.0f, 50.0f, 0.0f));//9
 		walls[1171]->setPos(Vec3(219.0f, 50.0f, 0.0f));//10
-
 		walls[1172]->setPos(Vec3(220.0f, 50.0f, 0.0f));//1
 		walls[1173]->setPos(Vec3(221.0f, 50.0f, 0.0f));//2
 		walls[1174]->setPos(Vec3(222.0f, 50.0f, 0.0f));//3
@@ -1346,7 +1215,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1179]->setPos(Vec3(227.0f, 50.0f, 0.0f));//8
 		walls[1180]->setPos(Vec3(228.0f, 50.0f, 0.0f));//9
 		walls[1181]->setPos(Vec3(229.0f, 50.0f, 0.0f));//10
-
 		walls[1183]->setPos(Vec3(230.0f, 50.0f, 0.0f));//1
 		walls[1184]->setPos(Vec3(231.0f, 50.0f, 0.0f));//2
 		walls[1185]->setPos(Vec3(232.0f, 50.0f, 0.0f));//3
@@ -1357,7 +1225,6 @@ void Level::makeLevel(int sceneNum)
 		walls[1190]->setPos(Vec3(237.0f, 50.0f, 0.0f));//8
 		walls[1191]->setPos(Vec3(238.0f, 50.0f, 0.0f));//9
 		walls[1192]->setPos(Vec3(239.0f, 50.0f, 0.0f));//10
-
 		walls[1193]->setPos(Vec3(240.0f, 50.0f, 0.0f));//1
 		walls[1194]->setPos(Vec3(241.0f, 50.0f, 0.0f));//2
 		walls[1195]->setPos(Vec3(242.0f, 50.0f, 0.0f));//3
@@ -1370,14 +1237,12 @@ void Level::makeLevel(int sceneNum)
 		walls[1202]->setPos(Vec3(249.0f, 50.0f, 0.0f));//10
 #pragma endregion
 		break;
-
 	default:
 		break;
 	}
 }
 
-void Level::setWallTextures(SDL_Texture* texturePtr)
-{
+void Level::setWallTextures(SDL_Texture* texturePtr){
 	for (int i = 0; i < wallNum; i++)
 		walls[i]->setTexture(texturePtr);
 }

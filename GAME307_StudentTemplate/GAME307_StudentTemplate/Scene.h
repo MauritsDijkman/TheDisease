@@ -1,14 +1,11 @@
 #ifndef SCENE_H
 #define SCENE_H
-
 #include <SDL.h>
 #include <SDL_image.h>
-
 #include "MMath.h"
 #include "GameManager.h"
 #include "Button.h"
 #include "Node.h"
-
 using namespace MATH;
 
 class Scene {
@@ -26,10 +23,5 @@ public:
 	virtual Matrix4 getProjectionMatrix() = 0;
 	virtual Matrix4 getInverseMatrix() = 0;
 	virtual bool getDead() = 0;
-
-	//vector<Node*> nodes;
-
-	//virtual bool nextScene() = 0; //Check if to load next scene
 };
-
 #endif

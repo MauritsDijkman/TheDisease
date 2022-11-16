@@ -1,23 +1,18 @@
 #include "SceneCredit.h"
 
-SceneCredit::SceneCredit(SDL_Window* sdlWindow_, GameManager* game_)
-{
+SceneCredit::SceneCredit(SDL_Window* sdlWindow_, GameManager* game_){
 	window = sdlWindow_;
 	game = game_;
-
 	xAxis = 25.0f;
 	yAxis = 15.0f;
-
 	renderer = SDL_GetRenderer(window);
 }
 
-SceneCredit::~SceneCredit()
-{
+SceneCredit::~SceneCredit(){
 	OnDestroy();
 }
 
-bool SceneCredit::OnCreate()
-{
+bool SceneCredit::OnCreate(){
 	int w, h;
 	SDL_GetWindowSize(window, &w, &h);
 	Matrix4 ndc = MMath::viewportNDC(w, h);

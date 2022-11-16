@@ -13,4 +13,3 @@ public:
 	void OnDestroy();
 	SDL_Window* GetSDL_Window();
 };
-

@@ -1,19 +1,14 @@
 #ifndef SCENEMENU_H
 #define SCENEMENU_H
-
 #include "Scene.h"
 #include "Plane.h"
-
 #include <vector>
 #include <iostream>
 #include <SDL.h>
 #include "SDL_image.h"
-
 using namespace std;
-
 using namespace MATH;
 struct MATH::Plane;
-
 class SceneMenu : public Scene {
 private:
 	SDL_Window* window;
@@ -25,9 +20,7 @@ private:
 	Matrix4 projectionMatrix;
 	Matrix4 inverseProjection;
 	bool play;
-
 	class Window* windowPtr;
-
 public:
 	SceneMenu(SDL_Window* sdlWindow_, GameManager* game_);
 	~SceneMenu();
