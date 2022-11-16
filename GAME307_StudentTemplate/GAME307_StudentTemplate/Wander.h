@@ -18,7 +18,6 @@ private:
 	float maxSpeed = 3.0f;
 	float maxRotationSpeed = 50.0f;
 
-
 	// The radius and forward offset of the wander circle
 	float wanderOffset;
 	float wanderRadius;

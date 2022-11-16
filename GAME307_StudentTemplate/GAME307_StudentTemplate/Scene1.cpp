@@ -342,7 +342,7 @@ bool Scene1::OnCreate()
 		printf("Node %i, ", nodeLabel);
 
 	// Get shortest path from node to give node
-	vector<int> path = graph->AStar(0, 91);
+	vector<int> path = graph->AStar(0, 449);
 	cout << "Path size: " << path.size() << endl;
 	if (path.size() > 0)
 	{
@@ -391,8 +391,19 @@ bool Scene1::OnCreate()
 	// Set up characters, choose good values for the constructor or use the defaults, like this
 	enemy = new Enemy(game->getPlayer());
 
+	vector<Node*> targetList = vector<Node*>();
+
+	for (int node : path)
+		targetList.push_back(graph->GetNode(node));
+
+	enemy->SetTargetNodes(targetList);
+
+	for (Node* node : targetList)
+		cout << "Enemy target: " << node->GetLabel() << endl;
+
 	if (!enemy->OnCreate(this))
 		return false;
+
 
 	image = IMG_Load("Clyde.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);

@@ -18,7 +18,7 @@ SteeringOutput* Wander::getSteering()
 
 	// Calculate the difference between current velocity and the orientation velocity (will give the linear acceleration)
 	Vec3 differenceVelocity = character->getVel() - velocity;
-	result->linear = VMath::normalize(differenceVelocity) * character->getMaxAcceleration();
+	result->linear = VMath::normalize(differenceVelocity) * (character->getMaxAcceleration());
 #pragma endregion
 
 #pragma region Orientation
@@ -29,10 +29,10 @@ SteeringOutput* Wander::getSteering()
 #pragma endregion
 
 	// Debug
-	cout << "Wander velocity: ";
-	result->linear.print();
+	//cout << "Wander velocity: ";
+	//result->linear.print();
 
-	cout << "Wander rotation: " << result->angular << endl;
+	//cout << "Wander rotation: " << result->angular << endl;
 
 	return result;
 }

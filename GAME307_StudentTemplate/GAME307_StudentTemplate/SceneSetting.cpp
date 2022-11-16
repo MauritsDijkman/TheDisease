@@ -49,10 +49,7 @@ void SceneSetting::OnDestroy()
 	SDL_DestroyTexture(texturePtr);
 }
 
-void SceneSetting::Update(const float time)
-{
-
-}
+void SceneSetting::Update(const float time) {}
 
 void SceneSetting::HandleEvents(const SDL_Event& sdlEvent)
 {
@@ -70,7 +67,7 @@ void SceneSetting::HandleEvents(const SDL_Event& sdlEvent)
 
 		// Set event information
 		event.type = game->getChangeScene();
-		event.user.code = 5;
+		event.user.code = 4;
 		event.user.data1 = nullptr;
 		event.user.data2 = nullptr;
 

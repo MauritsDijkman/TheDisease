@@ -20,12 +20,15 @@ bool Enemy::OnCreate(Scene* ownerScene_)
 
 
 	/**/
-	if (targetNodes.size() > 0) {
+	if (targetNodes.size() > 0)
+	{
 		currentTargetNumber = 0;
 		currentTargetNode = targetNodes[currentTargetNumber];
 		//cout << "Current target node: " << currentTargetNumber << endl;
 		//cout << "Current target node position: " << currentTargetNode->GetPos().x << " || " << currentTargetNode->GetPos().y << endl;
 	}
+	else
+		cout << "List is 0" << endl;
 	/**/
 
 	// Configure and instantiate the body to use for the demo
@@ -71,20 +74,20 @@ void Enemy::HandleDecisionMaking(float deltaTime)
 
 	//cout << "Distance to player: " << distanceToPlayer << endl;
 
-	WanderAround(deltaTime);
+	//WanderAround(deltaTime);
 
-	/**
+	/**/
 	if (distanceToPlayer > 5.0f) {
 		WanderAround(deltaTime);
-		cout << "Wander State!" << endl;
+		//cout << "Wander State!" << endl;
 	}
 	else if (distanceToPlayer > 0.2f) {
 		MoveToTarget(deltaTime);
-		cout << "Move State!" << endl;
+		//cout << "Move State!" << endl;
 	}
 	else {
 		AttackPlayer(deltaTime, 2.0f);
-		cout << "Attack State!" << endl;
+		//cout << "Attack State!" << endl;
 	}
 	/**/
 }
@@ -94,17 +97,19 @@ void Enemy::MoveToTarget(float deltaTime)
 	if (currentTargetNode)
 	{
 		float distance = GetDistance(moveBody->getPos(), currentTargetNode->GetPos());
-		//cout << "Distance: " << distance << endl;
+		//cout << "Distance to node: " << distance << endl;
 
 		// If in range of the node and there is a next node, set the next node
-		if (distance < 0.5f && currentTargetNumber + 1 < targetNodes.size())
+		if (distance < 1.0f && currentTargetNumber + 1 < targetNodes.size())
 		{
 			currentTargetNumber++;
 			currentTargetNode = targetNodes[currentTargetNumber];
-			cout << "New node set!" << endl;
+			//cout << "New node set!" << endl;
 		}
 		else
 		{
+			//cout << "Current node: " << targetNodes[currentTargetNumber]->GetLabel() << endl;
+
 			SteeringOutput* steering;
 			steering = new SteeringOutput();
 

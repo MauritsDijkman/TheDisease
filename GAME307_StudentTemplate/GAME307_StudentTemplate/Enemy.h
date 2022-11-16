@@ -56,10 +56,7 @@ public:
 	bool OnCreate(Scene* ownerScene_);
 	void OnDestroy() {};
 
-	void setTexture(SDL_Texture* texture_)
-	{
-		moveBody->setTexture(texture_);
-	}
+	void setTexture(SDL_Texture* texture_) { moveBody->setTexture(texture_); }
 
 	void Update(float deltaTime);
 	void HandleEvents(const SDL_Event& event);
@@ -72,6 +69,8 @@ public:
 
 	void SteerToTarget(SteeringOutput* steering);
 	void WanderRandom(SteeringOutput* steering);
+
+	void SetTargetNodes(vector<Node*> targetNodes_) { targetNodes = targetNodes_; }
 };
 
 #endif // !ENEMY_H
