@@ -1,4 +1,5 @@
 #include "Enemy.h"
+
 bool Enemy::OnCreate(Scene* ownerScene_){
 	ownerScene = ownerScene_;
 	if (targetNodes.size() > 0){
@@ -36,18 +37,9 @@ void Enemy::HandleDecisionMaking(float deltaTime)
 {
 	float distanceToPlayer = GetDistance(moveBody->getPos(), player->getPos());
 	//WanderAround(deltaTime);
-	if (distanceToPlayer > 5.0f) {
-		WanderAround(deltaTime);
-		//cout << "Wander State!" << endl;
-	}
-	else if (distanceToPlayer > 0.2f) {
-		MoveToTarget(deltaTime);
-		//cout << "Move State!" << endl;
-	}
-	else {
-		AttackPlayer(deltaTime, 2.0f);
-		//cout << "Attack State!" << endl;
-	}
+	if (distanceToPlayer > 5.0f) {WanderAround(deltaTime);}
+	else if (distanceToPlayer > 0.2f) {MoveToTarget(deltaTime);}
+	else { AttackPlayer(deltaTime, 2.0f);}
 }
 
 void Enemy::MoveToTarget(float deltaTime)
@@ -58,10 +50,8 @@ void Enemy::MoveToTarget(float deltaTime)
 		if (distance < 1.0f && currentTargetNumber + 1 < targetNodes.size()){
 			currentTargetNumber++;
 			currentTargetNode = targetNodes[currentTargetNumber];
-			//cout << "New node set!" << endl;
 		}
 		else{
-			//cout << "Current node: " << targetNodes[currentTargetNumber]->GetLabel() << endl;
 			SteeringOutput* steering;
 			steering = new SteeringOutput();
 			SteerToTarget(steering);
@@ -149,6 +139,5 @@ void Enemy::AttackPlayer(float deltaTime, float attackInterval){
 
 float Enemy::GetDistance(Vec3 p, Vec3 q){
 	// Distance = sqrt((pX-qX)^2 + (pY-qY)^2)
-	return sqrt((p.x - q.x) * (p.x - q.x) +
-		(p.y - q.y) * (p.y - q.y));
+	return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
 }

@@ -1,8 +1,10 @@
 #ifndef NODE_H
 #define NODE_H
 #include "MMath.h"
+
 using namespace std;
 using namespace MATH;
+
 class Tile;
 class Node{
 private:
@@ -15,6 +17,7 @@ public:
 		position = position_;
 		tile = NULL;
 	}
+
 	~Node();
 	// Get functions
 	int GetLabel() { return label; }

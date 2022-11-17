@@ -15,6 +15,7 @@
 #include "EnemyCharacter.h"
 #include <BackgroundTile.h>
 #include <Graph.h>
+
 using namespace MATH;
 #define NUMWALL 9999
 class Scene1 : public Scene{
@@ -68,8 +69,6 @@ private:
 	// Scene generation
 	void GenerateSceneLayout();
 	void CalculateConnectionWeights();
-	//void AddTile(int column, int row, int id, int label);
-	//void AddNode(int column, int row, int label);
 	// Lists for scene creation
 	vector<vector<BackgroundTile*>> tiles;
 	vector<Node*> nodes;

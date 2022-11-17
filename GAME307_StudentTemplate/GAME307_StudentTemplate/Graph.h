@@ -4,15 +4,15 @@
 #include <vector>	// From STL
 #include <map>
 #include <queue>
+
 using namespace std;
 
 class Graph{
+
 private:
 	// List of the nodes
-	// Could use STL vector, but map matches some textbooks
-	map<int, Node*> node;
-	// 2D matrix of the connection costs
-	vector<vector<float>> cost;
+	map<int, Node*> node; // Could use STL vector, but map matches some textbooks
+	vector<vector<float>> cost;// 2D matrix of the connection costs
 public:
 	Graph();
 	~Graph();

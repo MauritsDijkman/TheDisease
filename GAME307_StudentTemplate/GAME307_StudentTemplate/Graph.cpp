@@ -3,6 +3,7 @@ using namespace std;
 
 Graph::Graph() {}
 Graph::~Graph() {}
+
 bool Graph::OnCreate(vector<Node*> nodes_){
 	// ASSUMTION; nodes_ vector has the node with label "i" in the "i" position of the vector
 	// Given a list of nodes

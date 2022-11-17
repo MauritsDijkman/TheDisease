@@ -18,14 +18,10 @@ bool SceneCredit::OnCreate(){
 	Matrix4 ndc = MMath::viewportNDC(w, h);
 	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);//xAxis = 25 , yAxis = 15
 	projectionMatrix = ndc * ortho;
-
 	IMG_Init(IMG_INIT_PNG);
-
 	surfacePtr = IMG_Load("Assets/Menu/Menu_Credits.png");
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
-
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
-
 	if (surfacePtr == nullptr) {
 		std::cerr << "Image does not work" << std::endl;
 		return false;
@@ -34,9 +30,7 @@ bool SceneCredit::OnCreate(){
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
-
 	SDL_FreeSurface(surfacePtr);
-
 	return true;
 }
 
@@ -45,17 +39,12 @@ void SceneCredit::OnDestroy()
 	//SDL_DestroyRenderer(renderer);
 	SDL_DestroyTexture(texturePtr);
 }
-
-void SceneCredit::Update(const float time)
-{
-
-}
+void SceneCredit::Update(const float time){}
 
 void SceneCredit::HandleEvents(const SDL_Event& sdlEvent)
 {
 	// Get the position of the mouse
 	Vec3 mousePosView = Vec3(sdlEvent.button.x, sdlEvent.button.y, 0.0f);
-
 	// Back button, loads the previous scene
 	if (sdlEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN &&
 		85 < mousePosView.x && mousePosView.x < 384
@@ -64,22 +53,17 @@ void SceneCredit::HandleEvents(const SDL_Event& sdlEvent)
 		// Create event
 		SDL_Event event;
 		SDL_memset(&event, 0, sizeof(event));
-
 		// Set event information
 		event.type = game->getChangeScene();
 		event.user.code = 4;
 		event.user.data1 = nullptr;
 		event.user.data2 = nullptr;
-
 		// Push the event
 		SDL_PushEvent(&event);
 	}
 }
 
-bool SceneCredit::getDead()
-{
-	return pressed;
-}
+bool SceneCredit::getDead(){return pressed;}
 
 void SceneCredit::Render()
 {

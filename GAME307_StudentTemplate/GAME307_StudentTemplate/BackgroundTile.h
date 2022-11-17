@@ -4,8 +4,10 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <GameObject.h>
+
 using namespace MATH;
 using namespace std;
+
 class BackgroundTile{
 private:
 	GameObject* tileImage = nullptr;

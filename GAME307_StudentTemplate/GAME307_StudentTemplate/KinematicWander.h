@@ -4,6 +4,7 @@
 #include "VMath.h"
 #include "Body.h"
 #include "KinematicSteeringOutput.h"
+
 using namespace MATH;
 
 class KinematicWander {

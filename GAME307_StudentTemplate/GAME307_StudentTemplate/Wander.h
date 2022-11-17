@@ -4,11 +4,11 @@
 #include "KinematicBody.h"
 #include "SteeringBehaviour.h"
 #include "Node.h"
+
 using namespace MATH;
 using namespace std;
-class Wander :
-	
-	public SteeringBehaviour{
+
+class Wander :	public SteeringBehaviour{
 private:
 	KinematicBody* character;
 	float maxSpeed = 3.0f;

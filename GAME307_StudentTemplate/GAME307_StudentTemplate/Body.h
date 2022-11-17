@@ -13,14 +13,14 @@ protected:
 	Vec3 vel;
 	Vec3 accel;
 	float mass;
-	float orientation;			// Facing this direction
-	float rotation;				// Rotating at this speed (radians per second?)
-	float angular;				// Angular acceleration
+	float orientation;// Facing this direction
+	float rotation;// Rotating at this speed (radians per second?)
+	float angular;// Angular acceleration
 	float maxSpeed;
 	float maxAcceleration;
 	float maxRotation;
 	float maxAngular;
-	float radius;				// For getting near walls
+	float radius;// For getting near walls
 	Vec3 imageSizeWorldCoords;
 	SDL_Surface* image;
 	SDL_Texture* texture;
@@ -52,9 +52,7 @@ public:
 	// Image
 	virtual void setImage(SDL_Surface* image_) { image = image_; }
 	virtual SDL_Surface* getImage() { return image; }
-	virtual void setImageSizeWorldCoords(Vec3 imageSizeWorldCoords_){
-		imageSizeWorldCoords = imageSizeWorldCoords_;
-	}
+	virtual void setImageSizeWorldCoords(Vec3 imageSizeWorldCoords_){imageSizeWorldCoords = imageSizeWorldCoords_;}
 	// Texture
 	virtual void setTexture(SDL_Texture* texture_) { texture = texture_; }
 	virtual SDL_Texture* getTexture() { return texture; }

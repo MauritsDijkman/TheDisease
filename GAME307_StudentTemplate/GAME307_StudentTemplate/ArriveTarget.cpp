@@ -7,7 +7,6 @@ ArriveTarget::ArriveTarget(KinematicBody* character_, Node* target_){
 ArriveTarget::~ArriveTarget() {}
 
 SteeringOutput* ArriveTarget::getSteering(){
-	/**/
 	result = new SteeringOutput;
 	direction = target->GetPos() - character->getPos();
 	distance = VMath::mag(direction);
@@ -18,7 +17,7 @@ SteeringOutput* ArriveTarget::getSteering(){
 	if (distance > slowRadius)
 		targetSpeed = maxSpeed;
 	else
-		targetSpeed = maxSpeed * distance / slowRadius;
+	targetSpeed = maxSpeed * distance / slowRadius;
 	targetVelocity = direction;
 	targetVelocity = VMath::normalize(targetVelocity);
 	targetVelocity *= targetSpeed;

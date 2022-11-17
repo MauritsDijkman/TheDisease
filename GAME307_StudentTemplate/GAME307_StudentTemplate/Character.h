@@ -8,7 +8,9 @@
 #include "Seek.h"
 #include "KinematicArrive.h"
 #include "Physics.h"
+
 using namespace std;
+
 class Character{
 private:
 	class KinematicBody* body;
@@ -25,9 +27,7 @@ public:
 	};
 	bool OnCreate(Scene* scene_);
 	void OnDestroy() {};
-	void setTexture(SDL_Texture* texture_){
-		body->setTexture(texture_);
-	}
+	void setTexture(SDL_Texture* texture_){ body->setTexture(texture_);}
 	void Update(float time);
 	void HandleEvents(const SDL_Event& event);
 	void render(float scale = 1.0f);

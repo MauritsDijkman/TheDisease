@@ -4,10 +4,11 @@
 #include "KinematicBody.h"
 #include "SteeringBehaviour.h"
 #include "Node.h"
+
 using namespace MATH;
 using namespace std;
-class ArriveTarget :
-	public SteeringBehaviour{
+
+class ArriveTarget : public SteeringBehaviour{
 private:
 	KinematicBody* character;
 	Node* target;

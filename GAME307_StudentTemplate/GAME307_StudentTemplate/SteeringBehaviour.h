@@ -4,8 +4,7 @@
 #include "KinematicBody.h"
 #include "SteeringOutput.h"
 // Abstract class 
-// Steering behaviour subclasses will inherit from here and
-// must implement the getSteering() function
+// Steering behaviour subclasses will inherit from here and must implement the getSteering() function
 class SteeringBehaviour{
 protected:
 	SteeringOutput* result;
@@ -15,7 +14,7 @@ public:
 	virtual SteeringOutput* getSteering() = 0;
 	virtual ~SteeringBehaviour(){
 		if (result)
-			delete result;
+		delete result;
 	}
 };
 #endif

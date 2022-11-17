@@ -1,27 +1,18 @@
-//
-//  PlayerBody.cpp
-//  DemoAI
-//
-//  Created by Gail Harris on 2021-Dec-23.
-//
-
 #include "PlayerBody.h"
-//#include "PhysicsObject.h"
 #include <SDL.h>
 
 void PlayerBody::FollowMouse(float mousePosX, float mousPosY)
 {
+orientation = atan2(pos.y - mousPosY, mousePosX - pos.x);
 
-	orientation = atan2(pos.y - mousPosY, mousePosX - pos.x);
-
-	lookDirection = Vec3(mousePosX, mousePosX, 0.0f);
-	if (mousePosX > pos.x) {
-		angle = -atan((mousPosY - pos.y) / (mousePosX - pos.x)) * 180 / M_PI;
-	}
-	else {
-		angle = 180 - atan((mousPosY - pos.y) / (mousePosX - pos.x)) * 180 / M_PI;
-	}
-	//std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
+lookDirection = Vec3(mousePosX, mousePosX, 0.0f);
+if (mousePosX > pos.x) {
+angle = -atan((mousPosY - pos.y) / (mousePosX - pos.x)) * 180 / M_PI;
+}
+else {
+angle = 180 - atan((mousPosY - pos.y) / (mousePosX - pos.x)) * 180 / M_PI;
+}
+//std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
 }
 
 bool PlayerBody::restoreshotgun(float shotgun_)

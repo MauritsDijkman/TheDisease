@@ -2,8 +2,10 @@
 #define SEEK_TARGET_H
 #include "SteeringBehaviour.h"
 #include "Node.h"
-class SeekTarget :
-	public SteeringBehaviour{
+
+class SeekTarget : 
+	
+public SteeringBehaviour{
 protected:
 	Node* target;
 public:
