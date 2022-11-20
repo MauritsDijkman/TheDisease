@@ -15,7 +15,7 @@ angle = 180 - atan((mousPosY - pos.y) / (mousePosX - pos.x)) * 180 / M_PI;
 //std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
 }
 
-bool PlayerBody::restoreshotgun(float shotgun_)
+bool PlayerBody::restoreshotgun(float shotgun_)//pick up shotgun
 {
 	bool destroyshotgunPickup;
 
@@ -34,6 +34,7 @@ bool PlayerBody::restoreshotgun(float shotgun_)
 	return destroyshotgunPickup;
 }
 
+
 bool PlayerBody::restoreammo(float ammo_)
 {
 	bool destroyammoPickup;
@@ -45,11 +46,29 @@ bool PlayerBody::restoreammo(float ammo_)
 		ammos += ammo_;
 
 		if (ammos > oneammos)
-			ammos > oneammos;
+			ammos = oneammos;
 
 		destroyammoPickup = true;
 	}
 	return destroyammoPickup;
+}
+
+bool PlayerBody::restoreshotgunammo(float shotgunammo_)
+{
+	bool destroyshotgunammopickup;
+
+	if (shotgun_ammo == shotgun_ammos)
+		destroyshotgunammopickup = false;
+	else
+	{
+		shotgun_ammo += shotgunammo_;
+
+		if (shotgun_ammo > shotgun_ammos)
+			shotgun_ammo = shotgun_ammos;
+
+		destroyshotgunammopickup = true;
+	}
+	return destroyshotgunammopickup;
 }
 
 bool PlayerBody::restoreHealth(float healingAmount_)
@@ -100,22 +119,49 @@ void PlayerBody::takeDamage(float damageAmount_)
 	}
 }
 
-void PlayerBody::OnReload()
+bool PlayerBody::OnReload(float pistol_reload_)
 {
+	bool destroypistolammoPickup;
 	//Do we have ammo in the ammoPool?
-	if (ammoPool <= 0 || loadammo >= 30)
-		return;
+	if (ammoPool <= 0 || loadammo >= 100)
+		return pistol_reload_;
 
 	//Do we have enough to meet what the gun needs?
-	if (ammoPool < (30 - loadammo))
+	if (ammoPool < (100 - loadammo))
 	{
+		loadammo += pistol_reload_;
 		loadammo = loadammo + ammoPool;
 		ammoPool = 0;
+		destroypistolammoPickup = false;
 	}
 	else
 	{
-		ammoPool = ammoPool - (30 - loadammo);
-		loadammo = 30;
+		ammoPool = ammoPool - (100 - loadammo);
+		loadammo = 100;
+		destroypistolammoPickup = true;
+	}
+}
+
+bool PlayerBody::OnReload2(float shotgun_reload_)
+{
+	bool destroyshotgunammoPickup;
+	//Do we have ammo in the ammoPool?
+	if (ammoshotgunpool <= 0 || ammoshotgun >= 100)
+		return shotgun_reload_;
+
+	//Do we have enough to meet what the gun needs?
+	if (ammoshotgunpool < (100 - ammoshotgun))
+	{
+		ammoshotgun += shotgun_reload_;
+		ammoshotgun =  ammoshotgun + ammoshotgunpool;
+		ammoshotgunpool = 0;
+		destroyshotgunammoPickup = false;
+	}
+	else
+	{
+		ammoshotgunpool = ammoshotgunpool - (100 - ammoshotgun);
+		ammoshotgun = 100;
+		destroyshotgunammoPickup = true;
 	}
 }
 
@@ -176,10 +222,10 @@ std::vector<Ammunition*> PlayerBody::fireshotgunBullet()
 			Bullets[i]->setPos(Vec3(pos.x, pos.y, 0.0f));
 			Bullets[i]->setVel(Vec3(velx, vely, 0.0f));
 
-			if (shotgunammo <= 0)
+			if (ammoshotgun <= 0)
 				return vector<Ammunition*>();
 
-			shotgunammo = shotgunammo - 1;
+			ammoshotgun = ammoshotgun - 1;
 		}
 
 		angle += 15;
@@ -210,11 +256,6 @@ vector<Ammunition*> PlayerBody::stabbing()
 		knife[0]->setPos(Vec3(knifePos.x, knifePos.y, 0.0f));
 		knife[0]->setVel(Vec3(0.0f, 0.0f, 0.0f));
 
-
-		//angle = -atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
-		//angle = 180 - atan((offsety - pos.y) / (offsetx - pos.x)) * 180 / M_PI;
-
-		//Bullets[0]->setRemainingBounces(3);
 	}
 
 	return knife;
@@ -223,10 +264,10 @@ vector<Ammunition*> PlayerBody::stabbing()
 bool PlayerBody::OnCreate()
 {
 	loadammo = 10;
-	ammoPool = 30;
+	ammoPool = 100;
 
-	shotgunammo = 30;
-	ammoshotgunpool = 30;
+	ammoshotgunpool = 20;
+	ammoshotgun = 100;
 
 	image = IMG_Load("Assets/humans/idle_human2.png");
 

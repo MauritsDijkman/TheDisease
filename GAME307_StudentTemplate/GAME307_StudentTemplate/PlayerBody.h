@@ -31,10 +31,17 @@ protected:
 	float onegun = 1.0f;
 	float ammos;
 	float oneammos = 1.0f;
+
+	float shotgun_ammo;
+	float shotgun_ammos = 1.0f;
+
+
 	int ammoPool;
 	int loadammo;
-	int shotgunammo;
+
 	int ammoshotgunpool;
+	int ammoshotgun;
+
 	Sphere boundingSphere;
 	double angle, angularVel, angularAccel, rotationalI;
 public:
@@ -67,9 +74,16 @@ public:
 	void setshotgun(float s) { gun = s; }
 	float getshotgun() { return gun; }
 	bool restoreshotgun(float shotgun_);
+	
 	void setammo(float a) { ammos = a; }
 	float getammo() { return ammos; }
 	bool restoreammo(float ammo_);
+
+	void setshotgunammo(float s_) { shotgun_ammo = s_; }
+	float getshotgunammo() { return shotgun_ammo; }
+	bool restoreshotgunammo(float shotgunammo_);
+
+
 	void setHealth(float h) { health = h; }
 	float getHealth() { return health; }
 	bool restoreHealth(float healingAmount_);
@@ -77,7 +91,8 @@ public:
 	float getitemhealth() { return itemhealth; }
 	bool restoreItemHealth(float healingitemamount_);
 	void takeDamage(float damageAmount_);
-	void OnReload();
+	bool OnReload(float pistol_reload_);
+	bool OnReload2(float shotgun_reload_);
 	void setAltWeaponAvailable(bool altWeaponAvailable_) { altWeaponAvailable = altWeaponAvailable_; }
 	void setWeaponType(int weaponType_) { weaponType = weaponType_; }
 };

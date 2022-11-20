@@ -246,12 +246,34 @@ SDL_FreeSurface(surfacePtr);
 		return false;
 	}
 	SDL_FreeSurface(surfacePtr);
+
 	// Create ammo
 	ammoPickup = new Object();
 	// Set stats
-	ammoPickup->setPos(Vec3(.0f, 13.0f, 0.0f));
+	ammoPickup->setPos(Vec3(0.0f, 13.0f, 0.0f));
 	ammoPickup->setBoundingSphere(Sphere(0.25f));
 	ammoPickup->setTexture(ammo);
+
+	// Load shotgun picked up icon and set the texture
+	surfacePtr = IMG_Load("Assets/Ethan/ammo_2.png");
+	shotgunammo = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+	// Null pointer checks
+	if (surfacePtr == nullptr) {
+		std::cerr << "Image does not work" << std::endl;
+		return false;
+	}
+	if (shotgunammo == nullptr) {
+		printf("%s\n", SDL_GetError());
+		return false;
+	}
+	SDL_FreeSurface(surfacePtr);
+
+	// Create ammo
+	shotgunammoPickup = new Object();
+	// Set stats
+	shotgunammoPickup->setPos(Vec3(5.0f, 10.0f, 0.0f));
+	shotgunammoPickup->setBoundingSphere(Sphere(0.25f));
+	shotgunammoPickup->setTexture(shotgunammo);
 #pragma endregion
 
 	// Making the level
@@ -348,15 +370,22 @@ for (auto nodeLabel : graph->GetNeighbours(93))
 
 void Scene1::OnDestroy()
 {
-	for (EnemyCharacter* EnemyCharacter : enemies)
-		delete EnemyCharacter; SDL_DestroyRenderer(renderer);
-	for (EnemyCharacter* EnemyCharacter : enemies1)
-		delete EnemyCharacter; SDL_DestroyRenderer(renderer);
-	for (EnemyCharacter* EnemyCharacter : enemies2)
-		delete EnemyCharacter; SDL_DestroyRenderer(renderer);
-	for (EnemyCharacter* EnemyCharacter : enemies3)
-		delete EnemyCharacter; SDL_DestroyRenderer(renderer);
-	SDL_DestroyRenderer(renderer);
+	
+	for (EnemyCharacter* EnemyCharacter : enemies,enemies,enemies2,enemies3) {
+		SDL_DestroyTexture(EnemyCharacter->getTexture());
+		delete EnemyCharacter;
+	}
+	
+	//for (EnemyCharacter* EnemyCharacter : enemies1){
+	//	delete EnemyCharacter;
+	//}
+	//SDL_DestroyRenderer(renderer);
+	//for (EnemyCharacter* EnemyCharacter : enemies2)
+	//	delete EnemyCharacter; SDL_DestroyRenderer(renderer);
+	//for (EnemyCharacter* EnemyCharacter : enemies3)
+	//	delete EnemyCharacter; SDL_DestroyRenderer(renderer);
+	//SDL_DestroyRenderer(renderer);
+	
 }
 
 void Scene1::Update(const float deltaTime)
@@ -440,6 +469,11 @@ void Scene1::Update(const float deltaTime)
 		if (Physics::SphereSphereCollision(*ammoPickup, *P1) == true)
 			game->getPlayer()->Update(-deltaTime);
 	}
+
+	if (shotgunammoPickup) {
+		if (Physics::SphereSphereCollision(*shotgunammoPickup, *P1) == true)
+			game->getPlayer()->Update(-deltaTime);
+	}
 #pragma endregion
 
 #pragma region Enemy & Bullet movement
@@ -449,13 +483,22 @@ void Scene1::Update(const float deltaTime)
 	// Bullets movement
 	for (int i = 0; i < shotgun.size(); i++)
 		Physics::SimpleNewtonMotion(*shotgun[i], deltaTime);
+	
+	//vector <int> ToBeDelete;
+
 	// Enemy hits player
 	for (int i = 0; i < enemies.size(); i++){
 		if (Physics::SphereSphereCollision(*enemies[i], *P1) == true){
 			game->getPlayer()->takeDamage(1.0f);
 			enemies.erase(enemies.begin() + i);
+			//ToBeDelete.push_back(i);
 		}
 	}
+	//for (auto item : ToBeDelete) {
+	//	enemies.erase(enemies.begin() + item);
+	//}
+	//ToBeDelete.clear();
+
 	for (int i = 0; i < enemies1.size(); i++){
 		if (Physics::SphereSphereCollision(*enemies1[i], *P1) == true){
 			game->getPlayer()->takeDamage(1.0f);
@@ -491,6 +534,8 @@ void Scene1::Update(const float deltaTime)
 		enemies3[i]->SeekPlayer(player->getPos());
 		Physics::SimpleNewtonMotion(*enemies3[i], deltaTime);
 	}
+	//vector <int> ToBeDelete;
+
 	// Bullet hits enemy
 	for (int i = 0; i < pistol.size(); i++){
 		for (int j = 0; j < enemies.size(); j++){
@@ -499,10 +544,15 @@ void Scene1::Update(const float deltaTime)
 				enemies[j]->EnemytakeDamage(0.5f);
 				if (enemies[j]->getHealth() <= 0)
 					enemies.erase(enemies.begin() + j);
+					//ToBeDelete.push_back(j);
 				break;
 			}
 		}
 	}
+	//for (auto item : ToBeDelete) {
+	//	enemies.erase(enemies.begin() + item);
+	//}
+	//ToBeDelete.clear();
 #pragma endregion
 
 #pragma region Ammo, collide and enemies
@@ -672,30 +722,34 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, level->getWall(i)->getTexture(), nullptr, &WallRect);
 	}
 
+	// draw
+	SDL_Rect weaponcollectibleRect;
+	Vec3 weaponPickupScreenCoords;
+	int weaponcollectibleW, weaponcollectibleH;
+
 	if (weaponPickup){
-		SDL_Rect collectibleRect;
-		Vec3 weaponPickupScreenCoords;
-		int collectibleW, collectibleH;
-		SDL_QueryTexture(weaponPickup->getTexture(), nullptr, nullptr, &collectibleW, &collectibleH);
+		SDL_QueryTexture(weaponPickup->getTexture(), nullptr, nullptr, &weaponcollectibleW, &weaponcollectibleH);
 		weaponPickupScreenCoords = projectionMatrix * weaponPickup->getPos();
-		collectibleRect.x = static_cast<int>(weaponPickupScreenCoords.x) - collectibleW / 4;
-		collectibleRect.y = static_cast<int>(weaponPickupScreenCoords.y) - collectibleH / 4;
-		collectibleRect.w = collectibleW / 2;
-		collectibleRect.h = collectibleH / 2;
-		SDL_RenderCopy(renderer, weaponPickup->getTexture(), nullptr, &collectibleRect);
+		weaponcollectibleRect.x = static_cast<int>(weaponPickupScreenCoords.x) - weaponcollectibleW / 4;
+		weaponcollectibleRect.y = static_cast<int>(weaponPickupScreenCoords.y) - weaponcollectibleH / 4;
+		weaponcollectibleRect.w = weaponcollectibleW / 2;
+		weaponcollectibleRect.h = weaponcollectibleH / 2;
+		SDL_RenderCopy(renderer, weaponPickup->getTexture(), nullptr, &weaponcollectibleRect);
 	}
 
+	//draw
+	SDL_Rect ammocollectibleRect;
+	Vec3 ammoPickupScreenCoords;
+	int ammocollectibleW, ammocollectibleH;
+
 	if (ammoPickup){
-		SDL_Rect collectibleRect;
-		Vec3 ammoPickupScreenCoords;
-		int collectibleW, collectibleH;
-		SDL_QueryTexture(ammoPickup->getTexture(), nullptr, nullptr, &collectibleW, &collectibleH);
+		SDL_QueryTexture(ammoPickup->getTexture(), nullptr, nullptr, &ammocollectibleW, &ammocollectibleH);
 		ammoPickupScreenCoords = projectionMatrix * ammoPickup->getPos();
-		collectibleRect.x = static_cast<int>(ammoPickupScreenCoords.x) - collectibleW / 4;
-		collectibleRect.y = static_cast<int>(ammoPickupScreenCoords.y) - collectibleH / 4;
-		collectibleRect.w = collectibleW / 2;
-		collectibleRect.h = collectibleH / 2;
-		SDL_RenderCopy(renderer, ammoPickup->getTexture(), nullptr, &collectibleRect);
+		ammocollectibleRect.x = static_cast<int>(ammoPickupScreenCoords.x) - ammocollectibleW / 4;
+		ammocollectibleRect.y = static_cast<int>(ammoPickupScreenCoords.y) - ammocollectibleH / 4;
+		ammocollectibleRect.w = ammocollectibleW / 2;
+		ammocollectibleRect.h = ammocollectibleH / 2;
+		SDL_RenderCopy(renderer, ammoPickup->getTexture(), nullptr, &ammocollectibleRect);
 	}
 
 	if (game->getPlayer()->getammo() > 0){
@@ -707,13 +761,28 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, ammo, nullptr, &ammoRect);
 	}
 
-	if (game->getPlayer()->getshotgun() > 0){
-		SDL_Rect gunRect;
-		gunRect.x = 80;
-		gunRect.y = 400;
-		gunRect.w = 50;
-		gunRect.h = 50;
-		SDL_RenderCopy(renderer, melee, nullptr, &gunRect);
+	//draw
+	SDL_Rect shotgunammoRect;
+	Vec3 shotgunammoScreenCoords;
+	int shotgunammoW, shotgunammoH;
+
+	if (shotgunammoPickup) {
+		SDL_QueryTexture(shotgunammoPickup->getTexture(), nullptr, nullptr, &shotgunammoW, &shotgunammoH);
+		shotgunammoScreenCoords = projectionMatrix * shotgunammoPickup->getPos();
+		shotgunammoRect.x = static_cast<int>(shotgunammoScreenCoords.x) - shotgunammoW / 4;
+		shotgunammoRect.y = static_cast<int>(shotgunammoScreenCoords.y) - shotgunammoH / 4;
+		shotgunammoRect.w = shotgunammoW / 2;
+		shotgunammoRect.h = shotgunammoH / 2;
+		SDL_RenderCopy(renderer, shotgunammoPickup->getTexture(), nullptr, &shotgunammoRect);
+	}
+
+	if (game->getPlayer()->getshotgunammo() > 0) {
+		SDL_Rect shotgunammoRect;
+		shotgunammoRect.x = 80;
+		shotgunammoRect.y = 300;
+		shotgunammoRect.w = 50;
+		shotgunammoRect.h = 50;
+		SDL_RenderCopy(renderer, shotgunammo, nullptr, &shotgunammoRect);
 	}
 
 	// Draw pistol bullets
@@ -745,6 +814,15 @@ void Scene1::Render()
 		shotgunRect.h = shotgunH / 10;
 
 		SDL_RenderCopy(renderer, shotgun[i]->getTexture(), nullptr, &shotgunRect);
+	}
+
+	if (game->getPlayer()->getshotgun() > 0) {
+		SDL_Rect gunRect;
+		gunRect.x = 80;
+		gunRect.y = 400;
+		gunRect.w = 50;
+		gunRect.h = 50;
+		SDL_RenderCopy(renderer, melee, nullptr, &gunRect);
 	}
 
 	// Draw knife
@@ -793,28 +871,32 @@ void Scene1::Render()
 	}
 
 	// Draw collectibles
-	SDL_Rect collectibleRect;
+	SDL_Rect healthcollectibleRect;
 	Vec3 healthPickupScreenCoords;
-	int collectibleW, collectibleH;
+	int healthcollectibleW, healthcollectibleH;
 
 	if (healthPickup){
-		SDL_QueryTexture(healthPickup->getTexture(), nullptr, nullptr, &collectibleW, &collectibleH);
+		SDL_QueryTexture(healthPickup->getTexture(), nullptr, nullptr, &healthcollectibleW, &healthcollectibleH);
 		healthPickupScreenCoords = projectionMatrix * healthPickup->getPos();
-		collectibleRect.x = static_cast<int>(healthPickupScreenCoords.x) - collectibleW / 8;
-		collectibleRect.y = static_cast<int>(healthPickupScreenCoords.y) - collectibleH / 8;
-		collectibleRect.w = collectibleW / 4;
-		collectibleRect.h = collectibleH / 4;
-		SDL_RenderCopy(renderer, healthPickup->getTexture(), nullptr, &collectibleRect);
+		healthcollectibleRect.x = static_cast<int>(healthPickupScreenCoords.x) - healthcollectibleW / 8;
+		healthcollectibleRect.y = static_cast<int>(healthPickupScreenCoords.y) - healthcollectibleH / 8;
+		healthcollectibleRect.w = healthcollectibleW / 4;
+		healthcollectibleRect.h = healthcollectibleH / 4;
+		SDL_RenderCopy(renderer, healthPickup->getTexture(), nullptr, &healthcollectibleRect);
 	}
 
+	// Draw collectibles
+	SDL_Rect itemhealthcollectibleRect;
+	Vec3 itemhealthPickupScreenCoords;
+	int itemhealthcollectibleW, itemhealthcollectibleH;
 	if (itemhealthpickup){
-		SDL_QueryTexture(itemhealthpickup->getTexture(), nullptr, nullptr, &collectibleW, &collectibleH);
+		SDL_QueryTexture(itemhealthpickup->getTexture(), nullptr, nullptr, &itemhealthcollectibleW, &itemhealthcollectibleH);
 		Vec3 itemhealthPickupScreenCoords = projectionMatrix * itemhealthpickup->getPos();
-		collectibleRect.x = static_cast<int>(healthPickupScreenCoords.x) - collectibleW / 8;
-		collectibleRect.y = static_cast<int>(healthPickupScreenCoords.y) - collectibleH / 8;
-		collectibleRect.w = collectibleW / 4;
-		collectibleRect.h = collectibleH / 4;
-		SDL_RenderCopy(renderer, itemhealthpickup->getTexture(), nullptr, &collectibleRect);
+		itemhealthcollectibleRect.x = static_cast<int>(itemhealthPickupScreenCoords.x) - itemhealthcollectibleW / 8;
+		itemhealthcollectibleRect.y = static_cast<int>(itemhealthPickupScreenCoords.y) - itemhealthcollectibleH / 8;
+		itemhealthcollectibleRect.w = itemhealthcollectibleW / 4;
+		itemhealthcollectibleRect.h = itemhealthcollectibleH / 4;
+		SDL_RenderCopy(renderer, itemhealthpickup->getTexture(), nullptr, &itemhealthcollectibleRect);
 	}
 
 	if (game->getPlayer()->getitemhealth() > 0){
@@ -952,14 +1034,39 @@ void Scene1::HandleEvents(const SDL_Event& event){
 			delete ammoPickup;
 			ammoPickup = nullptr;
 		}
+
+		if ((shotgunammoPickup && Physics::SphereSphereCollision(*shotgunammoPickup, *P1) == true)) {
+			game->getPlayer()->restoreshotgunammo(1.0f) == true;
+			delete shotgunammoPickup;
+			shotgunammoPickup = nullptr;
+		}
 	}
 
 	if (event.key.keysym.scancode == SDL_SCANCODE_F){
-		if (game->getPlayer()->getitemhealth()){
+		if (game->getPlayer()->getitemhealth()){// if item health in the inventory
 			game->getPlayer()->restoreHealth(0.5f) == true;
-			game->getPlayer()->setitemhealth(0.0f);
+			game->getPlayer()->setitemhealth(0.0f);//make it destroy when press f
 
 		}
+		
+	}
+
+	if (event.key.keysym.scancode == SDL_SCANCODE_R) {
+
+		if (game->getPlayer()->getammo()) {
+			game->getPlayer()->OnReload(100) == true;
+			game->getPlayer()->setammo(0.0f);
+		}
+
+	}
+
+	if (event.key.keysym.scancode == SDL_SCANCODE_R) {
+		
+			if(game->getPlayer()->getshotgunammo()){
+				game->getPlayer()->OnReload2(100) == true;
+				game->getPlayer()->setshotgunammo(0.0f);
+			}
+		
 	}
 #pragma endregion
 }

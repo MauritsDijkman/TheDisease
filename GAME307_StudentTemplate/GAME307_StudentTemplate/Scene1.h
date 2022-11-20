@@ -35,6 +35,7 @@ private:
 	SDL_Texture* shotgunbullet;
 	SDL_Texture* melee;
 	SDL_Texture* ammo;
+	SDL_Texture* shotgunammo;
 	SDL_Texture* knifes;
 	// Lists for weapons
 	vector<Ammunition*> pistol;
@@ -55,6 +56,7 @@ private:
 	Object* healthPickup;
 	Object* itemhealthpickup;
 	Object* ammoPickup;
+	Object* shotgunammoPickup;
 	// Level
 	Level* level;
 	Plane* wallLeft;

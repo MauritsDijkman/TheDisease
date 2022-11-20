@@ -177,7 +177,7 @@ void GameManager::Run()
 				if (!currentScene->OnCreate())
 					isRunning = false;
 			}
-			/*
+			
              else if (event.type == changeSceneEventType && event.user.code == 5)
 			{
 				currentScene->OnDestroy();
@@ -189,7 +189,7 @@ void GameManager::Run()
 				if (!currentScene->OnCreate())
 					isRunning = false;
 			}
-			*/
+			
 			// Check to see what happens when you die. The code decides your fate, worship the code, THE CODE!!!!
 			else if (currentScene->getDead() && sceneNum >= 0)
 			{
@@ -197,7 +197,7 @@ void GameManager::Run()
 				delete currentScene;
 
 				// Switch scenes
-				currentScene = new SceneDeath(windowPtr->GetSDL_Window());
+				currentScene = new SceneDeath(windowPtr->GetSDL_Window(), this);
 
 				if (!currentScene->OnCreate())
 					currentScene->OnCreate();
