@@ -5,12 +5,14 @@
 #include "Physics.h"
 #include <iostream>
 
-SceneWin::SceneWin(SDL_Window* sdlWindow_)
+SceneWin::SceneWin(SDL_Window* sdlWindow_, GameManager* game_)
 {
 	window = sdlWindow_;
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	//renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	renderer = SDL_GetRenderer(window);
+	game = game_;
 	pressed = false;
-	wait = 0;
+	//wait = 0;
 }
 
 SceneWin::~SceneWin()
@@ -19,7 +21,7 @@ SceneWin::~SceneWin()
 	OnDestroy();
 }
 
-bool SceneWin::OnCreate(float GOF)
+bool SceneWin::OnCreate()
 {
 	int w, h;
 	float xAxis = 32.0f;
@@ -35,7 +37,7 @@ bool SceneWin::OnCreate(float GOF)
 	IMG_Init(IMG_INIT_PNG);
 
 	// Load the Back ground image and set the texture as well
-	surfacePtr = IMG_Load("Art/WinScreen.png");
+	surfacePtr = IMG_Load("win.jpg");
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
 	if (surfacePtr == nullptr)
@@ -56,7 +58,8 @@ bool SceneWin::OnCreate(float GOF)
 
 void SceneWin::OnDestroy()
 {
-	SDL_DestroyRenderer(renderer);
+	//SDL_DestroyRenderer(renderer);
+	SDL_DestroyTexture(texturePtr);
 }
 
 void SceneWin::Render() {
@@ -81,15 +84,22 @@ void SceneWin::Update(const float time) {}
 
 void SceneWin::HandleEvents(const SDL_Event& sdlEvent)
 {
-	//Make stuff happen here with the clickety clack
-	if (wait > 20)
-	{
 		if (sdlEvent.type == SDL_KEYDOWN || sdlEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN)
 		{
-			// Move you to the menu when you press any key 
-			pressed = true;
-		}
-	}
+		
+			// Create event
+			SDL_Event event;
+			SDL_memset(&event, 0, sizeof(event));
 
-	wait++;
+			// Set event information
+			event.type = game->getChangeScene();
+			event.user.code = 7;
+			event.user.data1 = nullptr;
+			event.user.data2 = nullptr;
+
+			// Push the event
+			SDL_PushEvent(&event);
+			// Move you to the menu when you press any key 
+			
+		}
 }

@@ -40,6 +40,6 @@ float Wander::randomBinomial(){
 		else if (randomInt == 1)
 			randomNumber /= -100;
 	}
-	cout << "Random number: " << randomNumber << endl;
+	//cout << "Random number: " << randomNumber << endl;
 	return randomNumber;
 }

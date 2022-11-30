@@ -24,5 +24,6 @@ public:
 	virtual Matrix4 getProjectionMatrix() = 0;
 	virtual Matrix4 getInverseMatrix() = 0;
 	virtual bool getDead() = 0;
+	virtual bool nextScene() = 0; //Check if to load next scene
 };
 #endif

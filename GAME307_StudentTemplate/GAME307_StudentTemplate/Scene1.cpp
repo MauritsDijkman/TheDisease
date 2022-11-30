@@ -152,6 +152,17 @@ bool Scene1::OnCreate()
 	healthPickup->setPos(Vec3(10.0f, 9.0f, 0.0f));
 	healthPickup->setBoundingSphere(Sphere(0.5f));
 	healthPickup->setTexture(texturePtr);
+
+	//LoadImage("Assets/Ethan/medicine.png");
+	// Create health pickup
+	healthPickup2 = new Object();
+	// Set stats
+	healthPickup2->setPos(Vec3(20.0f, 9.0f, 0.0f));
+	healthPickup2->setBoundingSphere(Sphere(0.5f));
+	healthPickup2->setTexture(texturePtr);
+
+	
+
 #pragma endregion
 
 #pragma region Shotgun
@@ -185,11 +196,18 @@ SDL_FreeSurface(surfacePtr);
 		return false;
 	}
 	SDL_FreeSurface(surfacePtr);
+
 	// Load health image
-	LoadImage("Assets/Ethan/medicine.png");
+	//LoadImage("Assets/Ethan/medicine.png");
 	// Create health pickup
 	itemhealthpickup = new Object();
 	itemhealthpickup->setTexture(texturePtr);
+
+	// Load health image
+	//LoadImage("Assets/Ethan/medicine.png");
+	// Create health pickup
+	itemhealthpickup2 = new Object();
+	itemhealthpickup2->setTexture(texturePtr);
 #pragma endregion
 
 #pragma region Shotgun
@@ -200,6 +218,30 @@ SDL_FreeSurface(surfacePtr);
 	weaponPickup->setPos(Vec3(3.0f, 13.0f, 0.0f));
 	weaponPickup->setBoundingSphere(Sphere(0.25f));
 	weaponPickup->setTexture(texturePtr);
+#pragma endregion
+
+#pragma region Vaccine
+	game->getPlayer()->setvaccine(0.0f);
+	// Load shotgun picked up icon and set the texture
+	surfacePtr = IMG_Load("Assets/Ethan/key.png");
+	vax = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+	// Null pointer checks
+	if (surfacePtr == nullptr) {
+		std::cerr << "Image does not work" << std::endl;
+		return false;
+	}
+	if (vax == nullptr) {
+		printf("%s\n", SDL_GetError());
+		return false;
+	}
+	SDL_FreeSurface(surfacePtr);
+	
+	LoadImage("Assets/Ethan/key.png");
+	vaccinePickup = new Object();
+	vaccinePickup->setPos(Vec3(1.0f, 25.0f, 0.0f));
+	vaccinePickup->setBoundingSphere(Sphere(0.25f));
+	vaccinePickup->setTexture(texturePtr);
+	
 #pragma endregion
 
 #pragma region Wall
@@ -461,10 +503,22 @@ void Scene1::Update(const float deltaTime)
 		if (Physics::SphereSphereCollision(*P1, *healthPickup) == true)
 			game->getPlayer()->Update(-deltaTime);
 	}
+
+	if (healthPickup2) {
+		if (Physics::SphereSphereCollision(*P1, *healthPickup2) == true)
+			game->getPlayer()->Update(-deltaTime);
+	}
+
 	if (weaponPickup){
 		if (Physics::SphereSphereCollision(*weaponPickup, *P1) == true)
 			game->getPlayer()->Update(-deltaTime);
 	}
+
+	if (vaccinePickup) {
+		if (Physics::SphereSphereCollision(*vaccinePickup, *P1) == true)
+			game->getPlayer()->Update(-deltaTime);
+	}
+
 	if (ammoPickup){
 		if (Physics::SphereSphereCollision(*ammoPickup, *P1) == true)
 			game->getPlayer()->Update(-deltaTime);
@@ -474,6 +528,13 @@ void Scene1::Update(const float deltaTime)
 		if (Physics::SphereSphereCollision(*shotgunammoPickup, *P1) == true)
 			game->getPlayer()->Update(-deltaTime);
 	}
+
+	/*
+	if(collectable){
+	if (Physics::SphereSphereCollision(*collectable, *P1) == true)
+			game->getPlayer()->Update(-deltaTime);
+	}
+	*/
 #pragma endregion
 
 #pragma region Enemy & Bullet movement
@@ -736,6 +797,49 @@ void Scene1::Render()
 		weaponcollectibleRect.h = weaponcollectibleH / 2;
 		SDL_RenderCopy(renderer, weaponPickup->getTexture(), nullptr, &weaponcollectibleRect);
 	}
+	
+// draw
+	SDL_Rect vaccinecollectibleRect;
+	Vec3 vaccineScreenCoords;
+	int vaccineW, vaccineH;
+
+	if (vaccinePickup){
+		SDL_QueryTexture(vaccinePickup->getTexture(), nullptr, nullptr, &vaccineW, &vaccineH);
+		vaccineScreenCoords = projectionMatrix * vaccinePickup->getPos();
+		vaccinecollectibleRect.x = static_cast<int>(vaccineScreenCoords.x) - vaccineW / 4;
+		vaccinecollectibleRect.y = static_cast<int>(vaccineScreenCoords.y) - vaccineH / 4;
+		vaccinecollectibleRect.w = vaccineW / 2;
+		vaccinecollectibleRect.h = vaccineH / 2;
+		SDL_RenderCopy(renderer, vaccinePickup->getTexture(), nullptr, &vaccinecollectibleRect);
+	}
+	
+	if (game->getPlayer()->getvaccine() > 0) {
+		SDL_Rect vaxRect;
+		vaxRect.x = 60;
+		vaxRect.y = 200;
+		vaxRect.w = 50;
+		vaxRect.h = 50;
+		SDL_RenderCopy(renderer, vax, nullptr, &vaxRect);
+
+		if (game->getPlayer()->getvaccine() > 1) {
+			SDL_Rect vaxRect1;
+			vaxRect1.x = 80;
+			vaxRect1.y = 200;
+			vaxRect1.w = 50;
+			vaxRect1.h = 50;
+			SDL_RenderCopy(renderer, vax, nullptr, &vaxRect1);
+
+			if (game->getPlayer()->getvaccine() > 2) {
+				SDL_Rect vaxRect2;
+				vaxRect2.x = 100;
+				vaxRect2.y = 200;
+				vaxRect2.w = 50;
+				vaxRect2.h = 50;
+				SDL_RenderCopy(renderer, vax, nullptr, &vaxRect2);
+			}
+		}
+	}
+
 
 	//draw
 	SDL_Rect ammocollectibleRect;
@@ -885,6 +989,17 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, healthPickup->getTexture(), nullptr, &healthcollectibleRect);
 	}
 
+	if (healthPickup2) {
+		SDL_QueryTexture(healthPickup2->getTexture(), nullptr, nullptr, &healthcollectibleW, &healthcollectibleH);
+		healthPickupScreenCoords = projectionMatrix * healthPickup2->getPos();
+		healthcollectibleRect.x = static_cast<int>(healthPickupScreenCoords.x) - healthcollectibleW / 8;
+		healthcollectibleRect.y = static_cast<int>(healthPickupScreenCoords.y) - healthcollectibleH / 8;
+		healthcollectibleRect.w = healthcollectibleW / 4;
+		healthcollectibleRect.h = healthcollectibleH / 4;
+		SDL_RenderCopy(renderer, healthPickup2->getTexture(), nullptr, &healthcollectibleRect);
+	}
+
+
 	// Draw collectibles
 	SDL_Rect itemhealthcollectibleRect;
 	Vec3 itemhealthPickupScreenCoords;
@@ -899,13 +1014,34 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, itemhealthpickup->getTexture(), nullptr, &itemhealthcollectibleRect);
 	}
 
+	
+	if (itemhealthpickup2) {
+		SDL_QueryTexture(itemhealthpickup2->getTexture(), nullptr, nullptr, &itemhealthcollectibleW, &itemhealthcollectibleH);
+		Vec3 itemhealthPickupScreenCoords = projectionMatrix * itemhealthpickup2->getPos();
+		itemhealthcollectibleRect.x = static_cast<int>(itemhealthPickupScreenCoords.x) - itemhealthcollectibleW / 8;
+		itemhealthcollectibleRect.y = static_cast<int>(itemhealthPickupScreenCoords.y) - itemhealthcollectibleH / 8;
+		itemhealthcollectibleRect.w = itemhealthcollectibleW / 4;
+		itemhealthcollectibleRect.h = itemhealthcollectibleH / 4;
+		SDL_RenderCopy(renderer, itemhealthpickup2->getTexture(), nullptr, &itemhealthcollectibleRect);
+	}
+
 	if (game->getPlayer()->getitemhealth() > 0){
 		SDL_Rect itemRect;
-		itemRect.x = 80;
+		itemRect.x = 40;
 		itemRect.y = 500;
 		itemRect.w = 50;
 		itemRect.h = 50;
 		SDL_RenderCopy(renderer, itemhealth, nullptr, &itemRect);
+
+		if (game->getPlayer()->getitemhealth() > 1) {
+			SDL_Rect itemRect1;
+			itemRect1.x = 60;
+			itemRect1.y = 500;
+			itemRect1.w = 50;
+			itemRect1.h = 50;
+			SDL_RenderCopy(renderer, itemhealth, nullptr, &itemRect1);
+		}
+
 	}
 
 	// Draw enemies
@@ -1029,6 +1165,14 @@ void Scene1::HandleEvents(const SDL_Event& event){
 			itemhealthpickup = nullptr;
 		}
 
+		if (healthPickup2 && Physics::SphereSphereCollision(*healthPickup2, *P1) == true) {
+			delete healthPickup2;
+			healthPickup2 = nullptr;
+			game->getPlayer()->restoreItemHealth(1.0f) == true;
+			delete itemhealthpickup2;
+			itemhealthpickup2 = nullptr;
+		}
+
 		if ((ammoPickup && Physics::SphereSphereCollision(*ammoPickup, *P1) == true)){
 			game->getPlayer()->restoreammo(1.0f) == true;
 			delete ammoPickup;
@@ -1040,15 +1184,36 @@ void Scene1::HandleEvents(const SDL_Event& event){
 			delete shotgunammoPickup;
 			shotgunammoPickup = nullptr;
 		}
+
+		if (vaccinePickup && Physics::SphereSphereCollision(*vaccinePickup, *P1) == true) {
+			game->getPlayer()->restorevaccine(1.0f) == true;
+			delete vaccinePickup;
+			vaccinePickup = nullptr;
+		
+		}
+
 	}
 
 	if (event.key.keysym.scancode == SDL_SCANCODE_F){
 		if (game->getPlayer()->getitemhealth()){// if item health in the inventory
-			game->getPlayer()->restoreHealth(0.5f) == true;
+			game->getPlayer()->restoreHealth(1.0f);
 			game->getPlayer()->setitemhealth(0.0f);//make it destroy when press f
 
 		}
 		
+	}
+
+	if (event.key.keysym.scancode == SDL_SCANCODE_F) {
+		if (game->getPlayer()->getvaccine()) {// if item health in the inventory
+			game->getPlayer()->restorevaccine(1.0f) == true;
+			game->getPlayer()->setvaccine(0.0f);//make it destroy when press f
+			
+		}
+		else
+		{
+			nextScene();
+		}
+
 	}
 
 	if (event.key.keysym.scancode == SDL_SCANCODE_R) {
@@ -1211,3 +1376,29 @@ bool Scene1::LoadImage(string pathName_)
 	SDL_FreeSurface(surfacePtr);
 	return true;
 }
+
+bool Scene1::nextScene() { //win condition to change scene
+	
+	if (game->getPlayer()->getvaccine()) {
+		// Create event
+		SDL_Event event;
+		SDL_memset(&event, 0, sizeof(event));
+
+		// Set event information
+		event.type = game->getChangeScene();
+		event.user.code = 6;
+		event.user.data1 = nullptr;
+		event.user.data2 = nullptr;
+		// Push the event
+		SDL_PushEvent(&event);
+		pressed = true;
+		
+		/*
+		
+		*/
+	}
+	
+	
+	return true;
+}
+

@@ -71,11 +71,29 @@ bool PlayerBody::restoreshotgunammo(float shotgunammo_)
 	return destroyshotgunammopickup;
 }
 
+bool PlayerBody::restorevaccine(float vaccine_)
+{
+	bool destroyvaccinepickup;
+
+	if (vaccine_bad == vaccine_good)
+		destroyvaccinepickup = false;
+	else
+	{
+		vaccine_bad += vaccine_;
+
+		if (vaccine_bad > vaccine_good)
+			vaccine_bad = vaccine_good;
+
+		destroyvaccinepickup = true;
+	}
+	return destroyvaccinepickup;
+}
+
 bool PlayerBody::restoreHealth(float healingAmount_)
 {
 	bool destroyHealthPickup;	//if player full on health, keep health pickup on ground
 
-	if (health == maxHealth)
+	if (health >= maxHealth)
 		destroyHealthPickup = false;
 	else
 	{
@@ -94,7 +112,7 @@ bool PlayerBody::restoreItemHealth(float healingItemAmount_)
 {
 	bool destroyitemHealthPickup;	//if player full on health, keep health pickup on ground
 
-	if (itemhealth == maxitemhealth)
+	if (itemhealth >= maxitemhealth)
 		destroyitemHealthPickup = false;
 	else
 	{

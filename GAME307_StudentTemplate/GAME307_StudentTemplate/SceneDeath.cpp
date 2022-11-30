@@ -36,7 +36,7 @@ bool SceneDeath::OnCreate()
 	//Makes loading PNGs easer so only use PNGs
 	IMG_Init(IMG_INIT_PNG);
 
-	surfacePtr = IMG_Load("Credit.png");
+	surfacePtr = IMG_Load("death.jpg");
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
 	if (surfacePtr == nullptr) {

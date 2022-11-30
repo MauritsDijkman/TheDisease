@@ -37,6 +37,7 @@ private:
 	SDL_Texture* ammo;
 	SDL_Texture* shotgunammo;
 	SDL_Texture* knifes;
+	SDL_Texture* vax;
 	// Lists for weapons
 	vector<Ammunition*> pistol;
 	vector<Ammunition*> shotgun;
@@ -54,9 +55,12 @@ private:
 	// Pickups
 	Object* weaponPickup;
 	Object* healthPickup;
+	Object* healthPickup2;
 	Object* itemhealthpickup;
+	Object* itemhealthpickup2;
 	Object* ammoPickup;
 	Object* shotgunammoPickup;
+	Object* vaccinePickup;
 	// Level
 	Level* level;
 	Plane* wallLeft;
@@ -92,5 +96,7 @@ public:
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
 	Vec3 getMousePosition();
+	bool nextScene();
+	bool pressed;
 };
 #endif

@@ -26,7 +26,7 @@ protected:
 	float health;
 	float maxHealth = 3.0f;
 	float itemhealth;
-	float maxitemhealth = 1.0f;
+	float maxitemhealth = 3.0f;
 	float gun;
 	float onegun = 1.0f;
 	float ammos;
@@ -35,6 +35,8 @@ protected:
 	float shotgun_ammo;
 	float shotgun_ammos = 1.0f;
 
+	float vaccine_bad;
+	float vaccine_good = 1.0f;
 
 	int ammoPool;
 	int loadammo;
@@ -83,6 +85,10 @@ public:
 	float getshotgunammo() { return shotgun_ammo; }
 	bool restoreshotgunammo(float shotgunammo_);
 
+	void setvaccine(float vaccine) { vaccine_bad = vaccine; }
+	float getvaccine() { return vaccine_bad; }
+	bool restorevaccine(float vaccine_);
+
 
 	void setHealth(float h) { health = h; }
 	float getHealth() { return health; }
@@ -90,6 +96,7 @@ public:
 	void setitemhealth(float h) { itemhealth = h; }
 	float getitemhealth() { return itemhealth; }
 	bool restoreItemHealth(float healingitemamount_);
+
 	void takeDamage(float damageAmount_);
 	bool OnReload(float pistol_reload_);
 	bool OnReload2(float shotgun_reload_);
