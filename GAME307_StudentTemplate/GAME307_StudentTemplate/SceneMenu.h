@@ -23,6 +23,7 @@ private:
 	Matrix4 inverseProjection;
 	bool play;
 	class Window* windowPtr;
+	SDL_Texture* PlayerScore;
 public:
 	SceneMenu(SDL_Window* sdlWindow_, GameManager* game_);
 	~SceneMenu();

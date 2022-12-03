@@ -26,17 +26,18 @@ protected:
 	float health;
 	float maxHealth = 3.0f;
 	float itemhealth;
-	float maxitemhealth = 3.0f;
+	float maxitemhealth = 4.0f;
 	float gun;
 	float onegun = 1.0f;
+
 	float ammos;
-	float oneammos = 1.0f;
+	float oneammos = 4.0f;
 
 	float shotgun_ammo;
-	float shotgun_ammos = 1.0f;
+	float shotgun_ammos = 4.0f;
 
 	float vaccine_bad;
-	float vaccine_good = 1.0f;
+	float vaccine_good = 5.0f;
 
 	int ammoPool;
 	int loadammo;

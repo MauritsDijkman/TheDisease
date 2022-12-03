@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "PlayerBody.h"
 
+
 class GameManager {
 private:
 	class Window* windowPtr;
@@ -18,6 +19,7 @@ private:
 	class Scene* currentScene;
 	class PlayerBody* player;
 	Uint32 changeSceneEventType;	// Event type number for user defined events
+	
 public:
 	GameManager();
 	~GameManager();

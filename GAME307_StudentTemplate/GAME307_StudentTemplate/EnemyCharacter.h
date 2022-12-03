@@ -7,7 +7,7 @@ private:
 	int enemyType;
 	void Dead();
 protected:
-	float moveSpeed = 1.0f;
+	float moveSpeed = 0.0f;//2.5
 public:
 	EnemyCharacter();
 	~EnemyCharacter();
