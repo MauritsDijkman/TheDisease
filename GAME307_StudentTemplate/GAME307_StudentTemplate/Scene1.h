@@ -26,6 +26,7 @@ private:
 	SDL_Renderer* renderer;
 	Matrix4 projectionMatrix;
 	Matrix4 inverseProjection;
+
 	// Surfaces and textures
 	SDL_Surface* surfacePtr;
 	SDL_Texture* texturePtr;

@@ -11,6 +11,7 @@ SteeringOutput* Wander::getSteering(){
 #pragma region Velocity
 	Vec3 velocity;
 	velocity = maxSpeed * GetOrientationVector(character);
+	
 	// Calculate the difference between current velocity and the orientation velocity (will give the linear acceleration)
 	Vec3 differenceVelocity = character->getVel() - velocity;
 	result->linear = VMath::normalize(differenceVelocity) * (character->getMaxAcceleration());
@@ -40,6 +41,7 @@ float Wander::randomBinomial(){
 		else if (randomInt == 1)
 			randomNumber /= -100;
 	}
+
 	//cout << "Random number: " << randomNumber << endl;
 	return randomNumber;
 }

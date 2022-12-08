@@ -25,6 +25,7 @@ private:
 	bool pressed;
 	float xAxis = 25.0f;
 	float yAxis = 15.0f;
+
 public:
 	SceneDeath(SDL_Window* sdlWindow, GameManager* game_);
 	~SceneDeath();

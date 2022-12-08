@@ -34,6 +34,7 @@ public:
 	virtual ~Body();
 	virtual void Update(float deltaTime);
 	virtual void ApplyForce(Vec3 force_);
+
 	// Get functions
 	virtual Vec3 getPos() { return pos; }
 	virtual Vec3 getVel() { return vel; }
@@ -46,18 +47,23 @@ public:
 	virtual float getMaxAcceleration() { return maxAcceleration; }
 	virtual float getMaxRotation() { return maxRotation; }
 	virtual float getMaxAngular() { return maxAngular; }
+
 	// Set functions
 	virtual void setMaxSpeed(float maxSpeed_) { maxSpeed = maxSpeed_; }
 	virtual void setMaxAcceleration(float maxAcceleration_) { maxAcceleration = maxAcceleration_; }
+	
 	// Image
 	virtual void setImage(SDL_Surface* image_) { image = image_; }
 	virtual SDL_Surface* getImage() { return image; }
 	virtual void setImageSizeWorldCoords(Vec3 imageSizeWorldCoords_){imageSizeWorldCoords = imageSizeWorldCoords_;}
+	
 	// Texture
 	virtual void setTexture(SDL_Texture* texture_) { texture = texture_; }
 	virtual SDL_Texture* getTexture() { return texture; }
+	
 	// Events
 	virtual void HandleEvents(const SDL_Event& event);
+	
 	// Added this as public to deal with my demo so that mouse position can be copied into a Body.
 	virtual void setPos(Vec3 pos);
 };

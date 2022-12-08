@@ -15,11 +15,13 @@ private:
 	bool isRunning;
 	int sceneNum;
 	float playerHealth;
+
 	// Class
 	class Scene* currentScene;
 	class PlayerBody* player;
-	Uint32 changeSceneEventType;	// Event type number for user defined events
-	
+
+	// Event type number for user defined events
+	Uint32 changeSceneEventType;
 public:
 	GameManager();
 	~GameManager();

@@ -20,9 +20,8 @@ Level::~Level(){
 void Level::makeLevel(int sceneNum){
 	switch (sceneNum){
 	case 1:
-		//Interior walls       x.x    y.y    z.z
 #pragma region leftwall	
-		//left wall
+//set left wall
 walls[0]->setPos(Vec3(-250.0f, 50.0f, 0.0f)); walls[1]->setPos(Vec3(-250.0f, 49.0f, 0.0f)); walls[2]->setPos(Vec3(-250.0f, 48.0f, 0.0f)); walls[3]->setPos(Vec3(-250.0f, 47.0f, 0.0f));
 walls[4]->setPos(Vec3(-250.0f, 46.0f, 0.0f)); walls[5]->setPos(Vec3(-250.0f, 45.0f, 0.0f));walls[6]->setPos(Vec3(-250.0f, 44.0f, 0.0f)); walls[7]->setPos(Vec3(-250.0f, 43.0f, 0.0f));
 walls[8]->setPos(Vec3(-250.0f, 42.0f, 0.0f)); walls[9]->setPos(Vec3(-250.0f, 41.0f, 0.0f));walls[10]->setPos(Vec3(-250.0f, 40.0f, 0.0f)); walls[11]->setPos(Vec3(-250.0f, 39.0f, 0.0f));
@@ -52,7 +51,7 @@ walls[100]->setPos(Vec3(-250.0f, -50.0f, 0.0f));
 #pragma endregion
 
 #pragma region rightwall
-		//right wall
+//set right wall
 walls[101]->setPos(Vec3(250.0f, 50.0f, 0.0f)); walls[102]->setPos(Vec3(250.0f, 49.0f, 0.0f));walls[103]->setPos(Vec3(250.0f, 48.0f, 0.0f)); walls[104]->setPos(Vec3(250.0f, 47.0f, 0.0f));
 walls[105]->setPos(Vec3(250.0f, 46.0f, 0.0f)); walls[106]->setPos(Vec3(250.0f, 45.0f, 0.0f));walls[107]->setPos(Vec3(250.0f, 44.0f, 0.0f)); walls[108]->setPos(Vec3(250.0f, 43.0f, 0.0f));
 walls[109]->setPos(Vec3(250.0f, 42.0f, 0.0f)); walls[110]->setPos(Vec3(250.0f, 41.0f, 0.0f));walls[111]->setPos(Vec3(250.0f, 40.0f, 0.0f)); walls[112]->setPos(Vec3(250.0f, 39.0f, 0.0f));
@@ -82,7 +81,7 @@ walls[202]->setPos(Vec3(250.0f, -50.0f, 0.0f));
 #pragma endregion
 
 #pragma region downwall
-		// down wall
+// set down wall
 walls[203]->setPos(Vec3(-249.0f, -50.0f, 0.0f)); walls[204]->setPos(Vec3(-248.0f, -50.0f, 0.0f));walls[205]->setPos(Vec3(-247.0f, -50.0f, 0.0f)); walls[206]->setPos(Vec3(-246.0f, -50.0f, 0.0f));
 walls[207]->setPos(Vec3(-245.0f, -50.0f, 0.0f)); walls[208]->setPos(Vec3(-244.0f, -50.0f, 0.0f));walls[209]->setPos(Vec3(-243.0f, -50.0f, 0.0f)); walls[210]->setPos(Vec3(-242.0f, -50.0f, 0.0f));
 walls[211]->setPos(Vec3(-241.0f, -50.0f, 0.0f)); walls[212]->setPos(Vec3(-240.0f, -50.0f, 0.0f));walls[213]->setPos(Vec3(-239.0f, -50.0f, 0.0f)); walls[214]->setPos(Vec3(-238.0f, -50.0f, 0.0f));
@@ -211,7 +210,7 @@ walls[699]->setPos(Vec3(247.0f, -50.0f, 0.0f));	walls[700]->setPos(Vec3(248.0f, 
 #pragma endregion
 
 #pragma region topwall	
-		//top wall
+//setting top wall
 walls[702]->setPos(Vec3(-249.0f, 50.0f, 0.0f)); walls[703]->setPos(Vec3(-248.0f, 50.0f, 0.0f));walls[704]->setPos(Vec3(-247.0f, 50.0f, 0.0f)); walls[705]->setPos(Vec3(-246.0f, 50.0f, 0.0f));	
 walls[706]->setPos(Vec3(-245.0f, 50.0f, 0.0f)); walls[707]->setPos(Vec3(-244.0f, 50.0f, 0.0f));walls[708]->setPos(Vec3(-243.0f, 50.0f, 0.0f)); walls[709]->setPos(Vec3(-242.0f, 50.0f, 0.0f));
 walls[710]->setPos(Vec3(-241.0f, 50.0f, 0.0f)); walls[711]->setPos(Vec3(-240.0f, 50.0f, 0.0f));walls[712]->setPos(Vec3(-239.0f, 50.0f, 0.0f)); walls[713]->setPos(Vec3(-238.0f, 50.0f, 0.0f));
@@ -322,21 +321,21 @@ walls[1127]->setPos(Vec3(175.0f, 50.0f, 0.0f));walls[1128]->setPos(Vec3(176.0f, 
 walls[1131]->setPos(Vec3(179.0f, 50.0f, 0.0f)); walls[1132]->setPos(Vec3(180.0f, 50.0f, 0.0f));walls[1133]->setPos(Vec3(181.0f, 50.0f, 0.0f));	walls[1134]->setPos(Vec3(182.0f, 50.0f, 0.0f));
 walls[1135]->setPos(Vec3(183.0f, 50.0f, 0.0f));walls[1136]->setPos(Vec3(184.0f, 50.0f, 0.0f));walls[1137]->setPos(Vec3(185.0f, 50.0f, 0.0f));walls[1138]->setPos(Vec3(186.0f, 50.0f, 0.0f));
 walls[1139]->setPos(Vec3(187.0f, 50.0f, 0.0f)); walls[1140]->setPos(Vec3(188.0f, 50.0f, 0.0f));walls[1141]->setPos(Vec3(189.0f, 50.0f, 0.0f)); walls[1142]->setPos(Vec3(190.0f, 50.0f, 0.0f));
-walls[1143]->setPos(Vec3(191.0f, 50.0f, 0.0f)); walls[1144]->setPos(Vec3(192.0f, 50.0f, 0.0f));walls[1145]->setPos(Vec3(193.0f, 50.0f, 0.0f)); walls[1146]->setPos(Vec3(194.0f, 50.0f, 0.0f));//5
-walls[1147]->setPos(Vec3(195.0f, 50.0f, 0.0f)); walls[1148]->setPos(Vec3(196.0f, 50.0f, 0.0f));walls[1149]->setPos(Vec3(197.0f, 50.0f, 0.0f)); walls[1150]->setPos(Vec3(198.0f, 50.0f, 0.0f));//9
+walls[1143]->setPos(Vec3(191.0f, 50.0f, 0.0f)); walls[1144]->setPos(Vec3(192.0f, 50.0f, 0.0f));walls[1145]->setPos(Vec3(193.0f, 50.0f, 0.0f)); walls[1146]->setPos(Vec3(194.0f, 50.0f, 0.0f));
+walls[1147]->setPos(Vec3(195.0f, 50.0f, 0.0f)); walls[1148]->setPos(Vec3(196.0f, 50.0f, 0.0f));walls[1149]->setPos(Vec3(197.0f, 50.0f, 0.0f)); walls[1150]->setPos(Vec3(198.0f, 50.0f, 0.0f));
 walls[1151]->setPos(Vec3(199.0f, 50.0f, 0.0f)); walls[1152]->setPos(Vec3(200.0f, 50.0f, 0.0f));walls[1153]->setPos(Vec3(201.0f, 50.0f, 0.0f)); walls[1154]->setPos(Vec3(202.0f, 50.0f, 0.0f));
-walls[1155]->setPos(Vec3(203.0f, 50.0f, 0.0f));walls[1156]->setPos(Vec3(204.0f, 50.0f, 0.0f));walls[1157]->setPos(Vec3(205.0f, 50.0f, 0.0f)); walls[1158]->setPos(Vec3(206.0f, 50.0f, 0.0f));//7
-walls[1159]->setPos(Vec3(207.0f, 50.0f, 0.0f)); walls[1160]->setPos(Vec3(208.0f, 50.0f, 0.0f));walls[1161]->setPos(Vec3(209.0f, 50.0f, 0.0f));walls[1162]->setPos(Vec3(210.0f, 50.0f, 0.0f));//1
-walls[1163]->setPos(Vec3(211.0f, 50.0f, 0.0f));walls[1164]->setPos(Vec3(212.0f, 50.0f, 0.0f));walls[1165]->setPos(Vec3(213.0f, 50.0f, 0.0f));walls[1166]->setPos(Vec3(214.0f, 50.0f, 0.0f));//5
-walls[1167]->setPos(Vec3(215.0f, 50.0f, 0.0f)); walls[1168]->setPos(Vec3(216.0f, 50.0f, 0.0f));walls[1169]->setPos(Vec3(217.0f, 50.0f, 0.0f)); walls[1170]->setPos(Vec3(218.0f, 50.0f, 0.0f));//9
-walls[1171]->setPos(Vec3(219.0f, 50.0f, 0.0f));walls[1172]->setPos(Vec3(220.0f, 50.0f, 0.0f));walls[1173]->setPos(Vec3(221.0f, 50.0f, 0.0f)); walls[1174]->setPos(Vec3(222.0f, 50.0f, 0.0f));//3
-walls[1175]->setPos(Vec3(223.0f, 50.0f, 0.0f)); walls[1176]->setPos(Vec3(224.0f, 50.0f, 0.0f));walls[1177]->setPos(Vec3(225.0f, 50.0f, 0.0f)); walls[1178]->setPos(Vec3(226.0f, 50.0f, 0.0f));//7
-walls[1179]->setPos(Vec3(227.0f, 50.0f, 0.0f)); walls[1180]->setPos(Vec3(228.0f, 50.0f, 0.0f));walls[1181]->setPos(Vec3(229.0f, 50.0f, 0.0f)); walls[1183]->setPos(Vec3(230.0f, 50.0f, 0.0f));//1
-walls[1184]->setPos(Vec3(231.0f, 50.0f, 0.0f)); walls[1185]->setPos(Vec3(232.0f, 50.0f, 0.0f));walls[1186]->setPos(Vec3(233.0f, 50.0f, 0.0f)); walls[1187]->setPos(Vec3(234.0f, 50.0f, 0.0f));//5
-walls[1188]->setPos(Vec3(235.0f, 50.0f, 0.0f)); walls[1189]->setPos(Vec3(236.0f, 50.0f, 0.0f));walls[1190]->setPos(Vec3(237.0f, 50.0f, 0.0f)); walls[1191]->setPos(Vec3(238.0f, 50.0f, 0.0f));//9
-walls[1192]->setPos(Vec3(239.0f, 50.0f, 0.0f)); walls[1193]->setPos(Vec3(240.0f, 50.0f, 0.0f));walls[1194]->setPos(Vec3(241.0f, 50.0f, 0.0f)); walls[1195]->setPos(Vec3(242.0f, 50.0f, 0.0f));//3
-walls[1196]->setPos(Vec3(243.0f, 50.0f, 0.0f)); walls[1197]->setPos(Vec3(244.0f, 50.0f, 0.0f));walls[1198]->setPos(Vec3(245.0f, 50.0f, 0.0f));	walls[1199]->setPos(Vec3(246.0f, 50.0f, 0.0f));//7
-walls[1200]->setPos(Vec3(247.0f, 50.0f, 0.0f));	walls[1201]->setPos(Vec3(248.0f, 50.0f, 0.0f));walls[1202]->setPos(Vec3(249.0f, 50.0f, 0.0f));//10
+walls[1155]->setPos(Vec3(203.0f, 50.0f, 0.0f));walls[1156]->setPos(Vec3(204.0f, 50.0f, 0.0f));walls[1157]->setPos(Vec3(205.0f, 50.0f, 0.0f)); walls[1158]->setPos(Vec3(206.0f, 50.0f, 0.0f));
+walls[1159]->setPos(Vec3(207.0f, 50.0f, 0.0f)); walls[1160]->setPos(Vec3(208.0f, 50.0f, 0.0f));walls[1161]->setPos(Vec3(209.0f, 50.0f, 0.0f));walls[1162]->setPos(Vec3(210.0f, 50.0f, 0.0f));
+walls[1163]->setPos(Vec3(211.0f, 50.0f, 0.0f));walls[1164]->setPos(Vec3(212.0f, 50.0f, 0.0f));walls[1165]->setPos(Vec3(213.0f, 50.0f, 0.0f));walls[1166]->setPos(Vec3(214.0f, 50.0f, 0.0f));
+walls[1167]->setPos(Vec3(215.0f, 50.0f, 0.0f)); walls[1168]->setPos(Vec3(216.0f, 50.0f, 0.0f));walls[1169]->setPos(Vec3(217.0f, 50.0f, 0.0f)); walls[1170]->setPos(Vec3(218.0f, 50.0f, 0.0f));
+walls[1171]->setPos(Vec3(219.0f, 50.0f, 0.0f));walls[1172]->setPos(Vec3(220.0f, 50.0f, 0.0f));walls[1173]->setPos(Vec3(221.0f, 50.0f, 0.0f)); walls[1174]->setPos(Vec3(222.0f, 50.0f, 0.0f));
+walls[1175]->setPos(Vec3(223.0f, 50.0f, 0.0f)); walls[1176]->setPos(Vec3(224.0f, 50.0f, 0.0f));walls[1177]->setPos(Vec3(225.0f, 50.0f, 0.0f)); walls[1178]->setPos(Vec3(226.0f, 50.0f, 0.0f));
+walls[1179]->setPos(Vec3(227.0f, 50.0f, 0.0f)); walls[1180]->setPos(Vec3(228.0f, 50.0f, 0.0f));walls[1181]->setPos(Vec3(229.0f, 50.0f, 0.0f)); walls[1183]->setPos(Vec3(230.0f, 50.0f, 0.0f));
+walls[1184]->setPos(Vec3(231.0f, 50.0f, 0.0f)); walls[1185]->setPos(Vec3(232.0f, 50.0f, 0.0f));walls[1186]->setPos(Vec3(233.0f, 50.0f, 0.0f)); walls[1187]->setPos(Vec3(234.0f, 50.0f, 0.0f));
+walls[1188]->setPos(Vec3(235.0f, 50.0f, 0.0f)); walls[1189]->setPos(Vec3(236.0f, 50.0f, 0.0f));walls[1190]->setPos(Vec3(237.0f, 50.0f, 0.0f)); walls[1191]->setPos(Vec3(238.0f, 50.0f, 0.0f));
+walls[1192]->setPos(Vec3(239.0f, 50.0f, 0.0f)); walls[1193]->setPos(Vec3(240.0f, 50.0f, 0.0f));walls[1194]->setPos(Vec3(241.0f, 50.0f, 0.0f)); walls[1195]->setPos(Vec3(242.0f, 50.0f, 0.0f));
+walls[1196]->setPos(Vec3(243.0f, 50.0f, 0.0f)); walls[1197]->setPos(Vec3(244.0f, 50.0f, 0.0f));walls[1198]->setPos(Vec3(245.0f, 50.0f, 0.0f));	walls[1199]->setPos(Vec3(246.0f, 50.0f, 0.0f));
+walls[1200]->setPos(Vec3(247.0f, 50.0f, 0.0f));	walls[1201]->setPos(Vec3(248.0f, 50.0f, 0.0f));walls[1202]->setPos(Vec3(249.0f, 50.0f, 0.0f));
 #pragma endregion
 		break;
 	default:

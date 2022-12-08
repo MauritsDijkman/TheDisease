@@ -36,7 +36,6 @@ bool SceneCredit::OnCreate(){
 
 void SceneCredit::OnDestroy()
 {
-	//SDL_DestroyRenderer(renderer);
 	SDL_DestroyTexture(texturePtr);
 }
 void SceneCredit::Update(const float time){}
@@ -45,6 +44,7 @@ void SceneCredit::HandleEvents(const SDL_Event& sdlEvent)
 {
 	// Get the position of the mouse
 	Vec3 mousePosView = Vec3(sdlEvent.button.x, sdlEvent.button.y, 0.0f);
+	
 	// Back button, loads the previous scene
 	if (sdlEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN &&
 		85 < mousePosView.x && mousePosView.x < 384
@@ -53,11 +53,13 @@ void SceneCredit::HandleEvents(const SDL_Event& sdlEvent)
 		// Create event
 		SDL_Event event;
 		SDL_memset(&event, 0, sizeof(event));
+		
 		// Set event information
 		event.type = game->getChangeScene();
 		event.user.code = 4;
 		event.user.data1 = nullptr;
 		event.user.data2 = nullptr;
+		
 		// Push the event
 		SDL_PushEvent(&event);
 	}

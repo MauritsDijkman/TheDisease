@@ -141,9 +141,9 @@ bool PlayerBody::OnReload(float pistol_reload_)
 {
 	bool destroypistolammoPickup;
 	//Do we have ammo in the ammoPool?
-	if (ammoPool <= 0 || loadammo >= 100)
+	if (ammoPool <= 0 && loadammo >= 100) {
 		return pistol_reload_;
-
+	}
 	//Do we have enough to meet what the gun needs?
 	if (ammoPool < (100 - loadammo))
 	{
@@ -164,11 +164,11 @@ bool PlayerBody::OnReload2(float shotgun_reload_)
 {
 	bool destroyshotgunammoPickup;
 	//Do we have ammo in the ammoPool?
-	if (ammoshotgunpool <= 0 || ammoshotgun >= 100)
+	if (ammoshotgunpool <= 0 && ammoshotgun >= 300)
 		return shotgun_reload_;
 
 	//Do we have enough to meet what the gun needs?
-	if (ammoshotgunpool < (100 - ammoshotgun))
+	if (ammoshotgunpool < (300 - ammoshotgun))
 	{
 		ammoshotgun += shotgun_reload_;
 		ammoshotgun =  ammoshotgun + ammoshotgunpool;
@@ -177,8 +177,8 @@ bool PlayerBody::OnReload2(float shotgun_reload_)
 	}
 	else
 	{
-		ammoshotgunpool = ammoshotgunpool - (100 - ammoshotgun);
-		ammoshotgun = 100;
+		ammoshotgunpool = ammoshotgunpool - (300 - ammoshotgun);
+		ammoshotgun = 300;
 		destroyshotgunammoPickup = true;
 	}
 }

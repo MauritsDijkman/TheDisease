@@ -2,10 +2,11 @@
 #define CHARACTERHEALTH_H
 #include "Object.h"
 
+
 class CharacterHealth : public Object{
 protected:
-	float health = 2.0f;
-	float maxHealth = 2.0f;
+	float health = 3.0f;
+	float maxHealth = 3.0f;
 	virtual void dead();
 public:
 	CharacterHealth();

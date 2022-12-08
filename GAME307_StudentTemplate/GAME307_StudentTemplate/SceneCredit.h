@@ -22,6 +22,7 @@ private:
 	Matrix4 projectionMatrix;
 	Matrix4 inverseProjection;
 	bool pressed;
+
 public:
 	SceneCredit(SDL_Window* sdlWindow_, GameManager* game_);
 	~SceneCredit();
@@ -32,7 +33,6 @@ public:
 	void HandleEvents(const SDL_Event& sdlEvent);
 	bool nextScene() { return false; }
 	bool getDead();
-	//Game manager need this to get acces to SceneMenu
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }
 	SDL_Window* getWindow() { return window; }

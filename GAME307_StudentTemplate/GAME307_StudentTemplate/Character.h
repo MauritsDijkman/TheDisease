@@ -20,7 +20,7 @@ public:
 		body = NULL;
 		scene = NULL;
 	};
-	// TODO add constructor that takes parameters for the body
+	//add constructor that takes parameters for the body
 	~Character(){
 		if (body)
 			delete body;

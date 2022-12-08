@@ -23,28 +23,41 @@ private:
 	void PrintVectorRotation();
 protected:
 	class GameManager* game;
+	//max health the player have
 	float health;
-	float maxHealth = 3.0f;
+	float maxHealth = 4.0f;
+
+//max of how many health pack the player can carry
 	float itemhealth;
 	float maxitemhealth = 4.0f;
+
+// can pick up the shotgun
 	float gun;
 	float onegun = 1.0f;
 
+//max of how many ammo for pistol
+//pack the player can carry
 	float ammos;
 	float oneammos = 4.0f;
 
+//max of how many ammo for shotgun
+//pack the player can carry
 	float shotgun_ammo;
 	float shotgun_ammos = 4.0f;
 
+//How much the player need to collect to win the game
 	float vaccine_bad;
 	float vaccine_good = 5.0f;
 
+	
+
+//How much ammo the player will contain
 	int ammoPool;
 	int loadammo;
-
 	int ammoshotgunpool;
 	int ammoshotgun;
 
+//use mouse to control player
 	Sphere boundingSphere;
 	double angle, angularVel, angularAccel, rotationalI;
 public:
@@ -74,6 +87,7 @@ public:
 	void setTexture(SDL_Texture* texture_) { texture = texture_; }
 	void FollowMouse(float mousePosX, float mousPosY);
 	void dead();
+	
 	void setshotgun(float s) { gun = s; }
 	float getshotgun() { return gun; }
 	bool restoreshotgun(float shotgun_);
@@ -89,7 +103,6 @@ public:
 	void setvaccine(float vaccine) { vaccine_bad = vaccine; }
 	float getvaccine() { return vaccine_bad; }
 	bool restorevaccine(float vaccine_);
-
 
 	void setHealth(float h) { health = h; }
 	float getHealth() { return health; }

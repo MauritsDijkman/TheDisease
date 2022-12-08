@@ -46,9 +46,11 @@ public:
 	inline float getBoundingBoxWidth() { return boundingBoxWidth; }
 	inline void setBoundingBoxHeight(const float boundingBoxHeight_) { boundingBoxHeight = boundingBoxHeight_; }
 	inline float getBoundingBoxHeight() { return boundingBoxHeight; }
+	
 	//Simple physics functions
 	inline void applyTorque(const double torque) { angularAccel = torque / rotationalI; }
 	inline void applyForce(const Vec3 force) { accel = force / mass; }
+	
 	// Weapons types
 	const void setAltWeaponAvailable(bool altWeaponAvailable_) { altWeaponAvailable = altWeaponAvailable_; }
 	const void setWeaponType(int weaponType_) { weaponType = weaponType_; }

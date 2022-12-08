@@ -13,4 +13,4 @@ public:
 	static bool CircleRectCollision(const PhysicsObject& circle, const PhysicsObject& rect);
 	static void CircleRectCollisionResponse(PhysicsObject& circle, PhysicsObject& rect);
 };
-#endif
+#endif//include physic in the game

@@ -11,13 +11,17 @@ bool Graph::OnCreate(vector<Node*> nodes_){
 	int numNodes = nodes_.size();
 	cost.resize(numNodes);
 	for (int i = 0; i < numNodes; i++){
+		
 		// Check if the current i is the same as in the list
 		if (i != nodes_[i]->GetLabel())
 			return false;
+		
 		// Add the nodes to internal list
 		node[i] = nodes_[i];
+		
 		// Set up the connections
 		cost[i].resize(numNodes);
+		
 		// Initialize connections to other nodes
 		for (int j = 0; j < numNodes; j++)
 			cost[i][j] = 0.0f;
@@ -69,30 +73,40 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode){
 	// Declare helper variables
 	float new_cost = 0;
 	int current;
+	
 	// Declare current NodeAndPriority
 	NodeAndPriority* currentNodeAndPriority;
 	currentNodeAndPriority = new NodeAndPriority(startNode, 0.0f);
+	
 	// Set up prority queue for frontier of nodes
 	priority_queue< NodeAndPriority, deque<NodeAndPriority>, ComparePriority> frontier;
 	frontier.push(*currentNodeAndPriority);
+	
 	// Track solution path
 	vector<int> came_from;
 	came_from.resize(NumNodes());
+	
 	// Store cost so far to reach that node
 	map<int, float> cost_so_far;
-	cost_so_far[startNode] = 0.0f;
+	
 	// Set every cost so far value to 0.0f 
+	cost_so_far[startNode] = 0.0f;
+	
 	// This will be used for checking if value is already in the list later
 	for (int i = 0; i < cost_so_far.size(); i++)
 		cost_so_far[i] = 0.0f;
+	
 	// Usage for returning value
 	bool hasReachedEndNode = false;
 	while (!frontier.empty()){
+	
 		// Set the current node to the top one of the list and remove 
 		current = frontier.top().node;
 		frontier.pop();
+		
 		// Check if the current node is the goal node
 		if (current == goalNode){
+		
 			// Debug to check if the current node is the goal node
 			cout << "Same node! || " << current << " || " << goalNode << endl;
 			hasReachedEndNode = true;
@@ -100,10 +114,13 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode){
 		}
 		// Run code for every neighbour
 		for (Node next : GetNeighbours(current)){
+			
 			// Debug to check which neighbours the current node has
 			cout << "Current: " << current << " || Neighbour: " << next.GetLabel() << endl;
+			
 			// Set the cost so far to the already existing cost
 			new_cost = cost_so_far[current] + cost[current][next.GetLabel()];
+			
 			// Check if the node is already in the list or if it's smaller than the cost so far
 			if (cost_so_far[next.GetLabel()] == 0.0f || new_cost < cost_so_far[next.GetLabel()]){
 				cost_so_far[next.GetLabel()] = new_cost;		// Set the cost so far for this node
@@ -118,6 +135,7 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode){
 	if (hasReachedEndNode){
 		// Create a vector int list for the path
 		vector<int> path;
+		
 		// Keep getting the previous node while the start node has not been reached
 		while (current != startNode){
 			path.push_back(current);
@@ -125,8 +143,10 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode){
 		}
 		// Add the start node to the list
 		path.push_back(startNode);
+		
 		// Debug to check if the code has reached the end node
 		cout << "Has reached end node!" << endl;
+		
 		// Reverse the list to start with the startNode
 		reverse(path.begin(), path.end());
 		return path;
@@ -137,30 +157,40 @@ vector<int> Graph::AStar(int startNode, int goalNode){
 	// Declare helper variables
 	float new_cost = 0;
 	int current;
+	
 	// Declare current NodeAndPriority
 	NodeAndPriority* currentNodeAndPriority;
 	currentNodeAndPriority = new NodeAndPriority(startNode, 0.0f);
+	
 	// Set up prority queue for frontier of nodes
 	priority_queue< NodeAndPriority, deque<NodeAndPriority>, ComparePriority> frontier;
 	frontier.push(*currentNodeAndPriority);
+	
 	// Track solution path
 	vector<int> came_from;
 	came_from.resize(NumNodes());
+	
 	// Store cost so far to reach that node
 	map<int, float> cost_so_far;
-	cost_so_far[startNode] = 0.0f;
+
 	// Set every cost so far value to 0.0f 
+	cost_so_far[startNode] = 0.0f;
+	
 	// This will be used for checking if value is already in the list later
 	for (int i = 0; i < cost_so_far.size(); i++)
 		cost_so_far[i] = 0.0f;
+	
 	// Usage for returning value
 	bool hasReachedEndNode = false;
 	while (!frontier.empty()){
+		
 		// Set the current node to the top one of the list and remove 
 		current = frontier.top().node;
 		frontier.pop();
+		
 		// Check if the current node is the goal node
 		if (current == goalNode){
+			
 			// Debug to check if the current node is the goal node
 			cout << "Same node! || " << current << " || " << goalNode << endl;
 			hasReachedEndNode = true;
@@ -168,10 +198,13 @@ vector<int> Graph::AStar(int startNode, int goalNode){
 		}
 		// Run code for every neighbour
 		for (Node next : GetNeighbours(current)){
+			
 			// Debug to check which neighbours the current node has
 			cout << "Current: " << current << " || Neighbour: " << next.GetLabel() << endl;
+			
 			// Set the cost so far to the already existing cost
 			new_cost = cost_so_far[current] + cost[current][next.GetLabel()];
+			
 			// Check if the node is already in the list or if it's smaller than the cost so far
 			if (cost_so_far[next.GetLabel()] == 0.0f || new_cost < cost_so_far[next.GetLabel()]){
 				cost_so_far[next.GetLabel()] = new_cost;																// Set the cost so far for this node
@@ -186,6 +219,7 @@ vector<int> Graph::AStar(int startNode, int goalNode){
 	if (hasReachedEndNode){
 		// Create a vector int list for the path
 		vector<int> path;
+		
 		// Keep getting the previous node while the start node has not been reached
 		while (current != startNode)
 		{
@@ -194,8 +228,10 @@ vector<int> Graph::AStar(int startNode, int goalNode){
 		}
 		// Add the start node to the list
 		path.push_back(startNode);
+		
 		// Debug to check if the code has reached the end node
 		cout << "Has reached end node!" << endl;
+		
 		// Reverse the list to start with the startNode
 		reverse(path.begin(), path.end());
 		return path;
