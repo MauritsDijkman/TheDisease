@@ -10,7 +10,7 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
-	
+
 	// Create a NPC
 	blinky = nullptr;
 	enemy = nullptr;
@@ -19,13 +19,13 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 Scene1::~Scene1()
 {
 	// Following enemy
-	if (blinky){
+	if (blinky) {
 		blinky->OnDestroy();
 		delete blinky;
 	}
 
 	// Enemy follows given targetss
-	if (enemy){
+	if (enemy) {
 		enemy->OnDestroy();
 		delete enemy;
 	}
@@ -65,11 +65,11 @@ bool Scene1::OnCreate()
 	surfacePtr = IMG_Load("bullet.2.png");
 	shotgunbullet = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
-	if (surfacePtr == nullptr){
+	if (surfacePtr == nullptr) {
 		std::cerr << "Image does not work" << std::endl;
 		return false;
 	}
-	if (shotgunbullet == nullptr){
+	if (shotgunbullet == nullptr) {
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
@@ -81,19 +81,19 @@ bool Scene1::OnCreate()
 	surfacePtr = IMG_Load("The Unbread.png");
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
-	if (surfacePtr == nullptr){
+	if (surfacePtr == nullptr) {
 		std::cerr << "Image does not work" << std::endl;
 		return false;
 	}
-	if (texturePtr == nullptr){
+	if (texturePtr == nullptr) {
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
 	SDL_FreeSurface(surfacePtr);
 
 #pragma region Wave1	
-// Spawn to right
-	for (int i = 0; i < 10; i++){
+	// Spawn to right
+	for (int i = 0; i < 10; i++) {
 		// Create enemy and add in the list
 		enemies.push_back(new EnemyCharacter());
 		// Set stats of the current enemy
@@ -102,7 +102,7 @@ bool Scene1::OnCreate()
 		enemies[i]->setTexture(texturePtr);
 	}
 	// Spawn to left
-	for (int i = 0; i < 10; i++){
+	for (int i = 0; i < 10; i++) {
 		// Create enemy and add in the list
 		enemies1.push_back(new EnemyCharacter());
 		// Set stats of the current enemy
@@ -111,7 +111,7 @@ bool Scene1::OnCreate()
 		enemies1[i]->setTexture(texturePtr);
 	}
 	// Spawn up
-	for (int i = 0; i < 10; i++){
+	for (int i = 0; i < 10; i++) {
 		// Create enemy and add in the list
 		enemies2.push_back(new EnemyCharacter());
 		// Set stats of the current enemy
@@ -120,7 +120,7 @@ bool Scene1::OnCreate()
 		enemies2[i]->setTexture(texturePtr);
 	}
 	// Spawn down
-	for (int i = 0; i < 10; i++){
+	for (int i = 0; i < 10; i++) {
 		// Create enemy and add in the list
 		enemies3.push_back(new EnemyCharacter());
 		// Set stats of the current enemy
@@ -295,11 +295,11 @@ bool Scene1::OnCreate()
 	surfacePtr = IMG_Load("Assets/Ethan/medicine.png");
 	health = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 	// Null pointer checks
-	if (surfacePtr == nullptr){
+	if (surfacePtr == nullptr) {
 		std::cerr << "Image does not work" << std::endl;
 		return false;
 	}
-	if (health == nullptr){
+	if (health == nullptr) {
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
@@ -321,7 +321,7 @@ bool Scene1::OnCreate()
 	healthPickup2->setPos(Vec3(20.0f, 9.0f, 0.0f));
 	healthPickup2->setBoundingSphere(Sphere(0.5f));
 	healthPickup2->setTexture(texturePtr);
-	
+
 	// Create health pickup
 	healthPickup3 = new Object();
 	// Set stats
@@ -343,15 +343,15 @@ bool Scene1::OnCreate()
 	surfacePtr = IMG_Load("Shotgun96.png");
 	melee = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 	// Null pointer checks
-	if (surfacePtr == nullptr){
+	if (surfacePtr == nullptr) {
 		std::cerr << "Image does not work" << std::endl;
 		return false;
 	}
-	if (melee == nullptr){
+	if (melee == nullptr) {
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
-SDL_FreeSurface(surfacePtr);
+	SDL_FreeSurface(surfacePtr);
 #pragma endregion
 
 #pragma region Health image
@@ -360,11 +360,11 @@ SDL_FreeSurface(surfacePtr);
 	itemhealth = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
 	// Null pointer checks
-	if (surfacePtr == nullptr){
+	if (surfacePtr == nullptr) {
 		std::cerr << "Image does not work" << std::endl;
 		return false;
 	}
-	if (itemhealth == nullptr){
+	if (itemhealth == nullptr) {
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
@@ -409,11 +409,11 @@ SDL_FreeSurface(surfacePtr);
 		return false;
 	}
 	SDL_FreeSurface(surfacePtr);
-	
+
 	LoadImage("Assets/Ethan/key.png");
 	keyPickup = new Object();
 	keyPickup->setPos(Vec3(1.0f, 2.0f, 0.0f));
-    keyPickup->setBoundingSphere(Sphere(0.25f));
+	keyPickup->setBoundingSphere(Sphere(0.25f));
 	keyPickup->setTexture(texturePtr);
 
 	keyPickup1 = new Object();
@@ -425,7 +425,7 @@ SDL_FreeSurface(surfacePtr);
 	keyPickup2->setPos(Vec3(45.0f, 30.0f, 0.0f));
 	keyPickup2->setBoundingSphere(Sphere(0.25f));
 	keyPickup2->setTexture(texturePtr);
-	
+
 	keyPickup3 = new Object();
 	keyPickup3->setPos(Vec3(-20.0f, -24.0f, 0.0f));
 	keyPickup3->setBoundingSphere(Sphere(0.25f));
@@ -441,34 +441,34 @@ SDL_FreeSurface(surfacePtr);
 	// Loads in the wall image and set the texture to the walls
 	surfacePtr = IMG_Load("Assets/Ethan/wall.png");
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
-	if (surfacePtr == nullptr){
+	if (surfacePtr == nullptr) {
 		std::cerr << "Image does not work" << std::endl;
 		return false;
 	}
-	if (texturePtr == nullptr){
+	if (texturePtr == nullptr) {
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
-SDL_FreeSurface(surfacePtr);
+	SDL_FreeSurface(surfacePtr);
 #pragma endregion
 
 #pragma region Knife
 	surfacePtr = IMG_Load("knife.png");
 	knifes = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 	// Null pointer checks
-	if (surfacePtr == nullptr){
+	if (surfacePtr == nullptr) {
 		std::cerr << "Image does not work" << std::endl;
 		return false;
 	}
-	if (knifes == nullptr){
+	if (knifes == nullptr) {
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
-SDL_FreeSurface(surfacePtr);
+	SDL_FreeSurface(surfacePtr);
 #pragma endregion
 
 #pragma region Ammo
-// Load pistol ammo picked up icon and set the texture
+	// Load pistol ammo picked up icon and set the texture
 	surfacePtr = IMG_Load("Assets/Ethan/ammo_1.png");
 	ammo = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 	// Null pointer checks
@@ -575,34 +575,34 @@ SDL_FreeSurface(surfacePtr);
 	IMG_Init(IMG_INIT_PNG);
 
 #pragma region Level & A* algorithm
-// Generate the layout of the scene
-GenerateSceneLayout();
+	// Generate the layout of the scene
+	GenerateSceneLayout();
 
-// Create the graph, an empty graph
-graph = new Graph();
-if (!graph->OnCreate(nodes)) {
+	// Create the graph, an empty graph
+	graph = new Graph();
+	if (!graph->OnCreate(nodes)) {
 		cout << "Graph OnCreate false!" << endl;
 		return false;
-}
+	}
 
-// Calculate the weight of the connections
-CalculateConnectionWeights();
+	// Calculate the weight of the connections
+	CalculateConnectionWeights();
 
-// Print the neighbours of give node
-printf("Neighbours of 93: \n");
-int nodeLabel;
-for (auto nodeLabel : graph->GetNeighbours(93))
-	printf("Node %i, ", nodeLabel);
+	// Print the neighbours of give node
+	printf("Neighbours of 93: \n");
+	int nodeLabel;
+	for (auto nodeLabel : graph->GetNeighbours(93))
+		printf("Node %i, ", nodeLabel);
 
 	// Get shortest path from node to give node
 	vector<int> path = graph->AStar(0, 449);
 	cout << "Path size: " << path.size() << endl;
-	if (path.size() > 0){
+	if (path.size() > 0) {
 		for (int i = 0; i < path.size(); i++)
 			cout << "Path " << i << ": " << path[i] << endl;
 	}
 	else if (path.size() <= 0)
-	cout << "You can't get there from here!" << endl;
+		cout << "You can't get there from here!" << endl;
 #pragma endregion
 
 #pragma region Player
@@ -622,11 +622,11 @@ for (auto nodeLabel : graph->GetNeighbours(93))
 		return false;
 	image = IMG_Load("Blinky.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
-	if (image == nullptr){
+	if (image == nullptr) {
 		std::cerr << "Can't open the image" << std::endl;
 		return false;
 	}
-	else{
+	else {
 		blinky->setTexture(texture);
 		SDL_FreeSurface(image);
 	}
@@ -646,27 +646,27 @@ for (auto nodeLabel : graph->GetNeighbours(93))
 	image = IMG_Load("Clyde.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
 
-	if (image == nullptr){
+	if (image == nullptr) {
 		std::cerr << "Can't open the image" << std::endl;
 		return false;
 	}
-	else{
+	else {
 		enemy->setTexture(texture);
 		SDL_FreeSurface(image);
 	}
 #pragma endregion
-	
+
 	return true;
 }
 
 void Scene1::OnDestroy()
 {
-	
-	for (EnemyCharacter* EnemyCharacter : enemies,enemies1,enemies2,enemies3) {
+
+	for (EnemyCharacter* EnemyCharacter : enemies, enemies1, enemies2, enemies3) {
 		SDL_DestroyTexture(EnemyCharacter->getTexture());
 		delete EnemyCharacter;
 	}
-	
+
 	for (EnemyCharacter* EnemyCharacter : enemies4, enemies5, enemies6, enemies7) {
 		SDL_DestroyTexture(EnemyCharacter->getTexture());
 		delete EnemyCharacter;
@@ -680,7 +680,7 @@ void Scene1::OnDestroy()
 	for (EnemyCharacter* EnemyCharacter : enemies9, enemies10, enemies11, enemies12) {
 		SDL_DestroyTexture(EnemyCharacter->getTexture());
 		delete EnemyCharacter;
-	}	
+	}
 
 	for (EnemyCharacter* EnemyCharacter : enemies13, enemies14, enemies15, enemies16) {
 		SDL_DestroyTexture(EnemyCharacter->getTexture());
@@ -699,27 +699,27 @@ void Scene1::Update(const float deltaTime)
 	// Updates the location of the orthograpic each frame
 	int w, h;
 	SDL_GetWindowSize(window, &w, &h);
-	
+
 	// For moving camera view
 	float minX = game->getPlayer()->getPos().x - xAxis / 2;
 	float maxX = game->getPlayer()->getPos().x + xAxis / 2;
 	float minY = game->getPlayer()->getPos().y - yAxis / 2;
 	float maxY = game->getPlayer()->getPos().y + yAxis / 2;
-	
+
 	// Calculate the matrixes
 	Matrix4 ndc = MMath::viewportNDC(w, h);
 	Matrix4 ortho = MMath::orthographic(minX, maxX, minY, maxY, 0.0f, 1.0f);
-	
+
 	// Calculate the projections
 	projectionMatrix = ndc * ortho;
 	inverseProjection = MMath::inverse(projectionMatrix);
 	Body* player = game->getPlayer();
 	float radius = 1.0f;
 	float timeToTarget = 0.5f;
-	
+
 	// Update the npc's
 	blinky->Update(deltaTime); enemy->Update(deltaTime);
-	
+
 	// Create physicobject from the kinematicbody for npc
 	Sphere boundingSphere;
 	boundingSphere.x = blinky->getBody()->getPos().x;	// Get pos.x of the sphere equal to npc //myNPC->getPos().x
@@ -731,7 +731,7 @@ void Scene1::Update(const float deltaTime)
 	boundingSphere2.r = 0.4f;
 
 #pragma region Ethan
-//Set the object	
+	//Set the object	
 	PhysicsObject* AI = new PhysicsObject();
 	AI->setPos(blinky->getBody()->getPos());//
 	AI->setVel(blinky->getBody()->getVel());
@@ -769,7 +769,7 @@ void Scene1::Update(const float deltaTime)
 
 #pragma region player collide to item
 	// if Player collide on item
-	if (healthPickup){
+	if (healthPickup) {
 		if (Physics::SphereSphereCollision(*P1, *healthPickup) == true)
 			game->getPlayer()->Update(-deltaTime);
 	}
@@ -789,7 +789,7 @@ void Scene1::Update(const float deltaTime)
 			game->getPlayer()->Update(-deltaTime);
 	}
 
-	if (weaponPickup){
+	if (weaponPickup) {
 		if (Physics::SphereSphereCollision(*weaponPickup, *P1) == true)
 			game->getPlayer()->Update(-deltaTime);
 	}
@@ -819,7 +819,7 @@ void Scene1::Update(const float deltaTime)
 			game->getPlayer()->Update(-deltaTime);
 	}
 
-	if (ammoPickup){
+	if (ammoPickup) {
 		if (Physics::SphereSphereCollision(*ammoPickup, *P1) == true)
 			game->getPlayer()->Update(-deltaTime);
 	}
@@ -884,29 +884,29 @@ void Scene1::Update(const float deltaTime)
 
 #pragma region damage player
 	// Enemy hits player
-	for (int i = 0; i < enemies.size(); i++){
-		if (Physics::SphereSphereCollision(*enemies[i], *P1) == true){
+	for (int i = 0; i < enemies.size(); i++) {
+		if (Physics::SphereSphereCollision(*enemies[i], *P1) == true) {
 			game->getPlayer()->takeDamage(1.0f);
 			enemies.erase(enemies.begin() + i);
 		}
 	}
 
-	for (int i = 0; i < enemies1.size(); i++){
-		if (Physics::SphereSphereCollision(*enemies1[i], *P1) == true){
+	for (int i = 0; i < enemies1.size(); i++) {
+		if (Physics::SphereSphereCollision(*enemies1[i], *P1) == true) {
 			game->getPlayer()->takeDamage(1.0f);
 			enemies1.erase(enemies1.begin() + i);
 		}
 	}
 
-	for (int i = 0; i < enemies2.size(); i++){
-		if (Physics::SphereSphereCollision(*enemies2[i], *P1) == true){
+	for (int i = 0; i < enemies2.size(); i++) {
+		if (Physics::SphereSphereCollision(*enemies2[i], *P1) == true) {
 			game->getPlayer()->takeDamage(1.0f);
 			enemies2.erase(enemies2.begin() + i);
 		}
 	}
 
-	for (int i = 0; i < enemies3.size(); i++){
-		if (Physics::SphereSphereCollision(*enemies3[i], *P1) == true){
+	for (int i = 0; i < enemies3.size(); i++) {
+		if (Physics::SphereSphereCollision(*enemies3[i], *P1) == true) {
 			game->getPlayer()->takeDamage(1.0f);
 			enemies3.erase(enemies3.begin() + i);
 		}
@@ -1027,23 +1027,23 @@ void Scene1::Update(const float deltaTime)
 
 #pragma region momevent enemy
 	// Enemy movement
-	for (int i = 0; i < enemies.size(); i++){
+	for (int i = 0; i < enemies.size(); i++) {
 		enemies[i]->SeekPlayer(player->getPos());
 		Physics::SimpleNewtonMotion(*enemies[i], deltaTime);
 	}
-	for (int i = 0; i < enemies1.size(); i++){
+	for (int i = 0; i < enemies1.size(); i++) {
 		enemies1[i]->SeekPlayer(player->getPos());
 		Physics::SimpleNewtonMotion(*enemies1[i], deltaTime);
 	}
-	for (int i = 0; i < enemies2.size(); i++){
+	for (int i = 0; i < enemies2.size(); i++) {
 		enemies2[i]->SeekPlayer(player->getPos());
 		Physics::SimpleNewtonMotion(*enemies2[i], deltaTime);
 	}
-	for (int i = 0; i < enemies3.size(); i++){
+	for (int i = 0; i < enemies3.size(); i++) {
 		enemies3[i]->SeekPlayer(player->getPos());
 		Physics::SimpleNewtonMotion(*enemies3[i], deltaTime);
 	}
-	
+
 	for (int i = 0; i < enemies4.size(); i++) {
 		enemies4[i]->SeekPlayer(player->getPos());
 		Physics::SimpleNewtonMotion(*enemies4[i], deltaTime);
@@ -1129,9 +1129,9 @@ void Scene1::Update(const float deltaTime)
 		}
 	}
 
-	for (int i = 0; i < pistol.size(); i++){
-		for (int j = 0; j < enemies1.size(); j++){
-			if (Physics::SphereSphereCollision(*pistol[i], *enemies1[j]) == true){
+	for (int i = 0; i < pistol.size(); i++) {
+		for (int j = 0; j < enemies1.size(); j++) {
+			if (Physics::SphereSphereCollision(*pistol[i], *enemies1[j]) == true) {
 				pistol.erase(pistol.begin() + i);
 				enemies1[j]->EnemytakeDamage(1.0f);
 				if (enemies1[j]->getHealth() <= 0)
@@ -1140,9 +1140,9 @@ void Scene1::Update(const float deltaTime)
 			}
 		}
 	}
-	for (int i = 0; i < pistol.size(); i++){
-		for (int j = 0; j < enemies2.size(); j++){
-			if (Physics::SphereSphereCollision(*pistol[i], *enemies2[j]) == true){
+	for (int i = 0; i < pistol.size(); i++) {
+		for (int j = 0; j < enemies2.size(); j++) {
+			if (Physics::SphereSphereCollision(*pistol[i], *enemies2[j]) == true) {
 				pistol.erase(pistol.begin() + i);
 				enemies2[j]->EnemytakeDamage(1.0f);
 				if (enemies2[j]->getHealth() <= 0)
@@ -1151,9 +1151,9 @@ void Scene1::Update(const float deltaTime)
 			}
 		}
 	}
-	for (int i = 0; i < pistol.size(); i++){
-		for (int j = 0; j < enemies3.size(); j++){
-			if (Physics::SphereSphereCollision(*pistol[i], *enemies3[j]) == true){
+	for (int i = 0; i < pistol.size(); i++) {
+		for (int j = 0; j < enemies3.size(); j++) {
+			if (Physics::SphereSphereCollision(*pistol[i], *enemies3[j]) == true) {
 				pistol.erase(pistol.begin() + i);
 				enemies3[j]->EnemytakeDamage(1.0f);
 				if (enemies3[j]->getHealth() <= 0)
@@ -1395,9 +1395,9 @@ void Scene1::Update(const float deltaTime)
 	}
 
 
-	for (int i = 0; i < shotgun.size(); i++){
-		for (int j = 0; j < enemies.size(); j++){
-			if (Physics::SphereSphereCollision(*shotgun[i], *enemies[j]) == true){
+	for (int i = 0; i < shotgun.size(); i++) {
+		for (int j = 0; j < enemies.size(); j++) {
+			if (Physics::SphereSphereCollision(*shotgun[i], *enemies[j]) == true) {
 				shotgun.erase(shotgun.begin() + i);
 				enemies[j]->EnemytakeDamage(1.5f);
 				if (enemies[j]->getHealth() <= 0)
@@ -1407,9 +1407,9 @@ void Scene1::Update(const float deltaTime)
 		}
 	}
 
-	for (int i = 0; i < shotgun.size(); i++){
-		for (int j = 0; j < enemies1.size(); j++){
-			if (Physics::SphereSphereCollision(*shotgun[i], *enemies1[j]) == true){
+	for (int i = 0; i < shotgun.size(); i++) {
+		for (int j = 0; j < enemies1.size(); j++) {
+			if (Physics::SphereSphereCollision(*shotgun[i], *enemies1[j]) == true) {
 				shotgun.erase(shotgun.begin() + i);
 				enemies1[j]->EnemytakeDamage(1.5f);
 				if (enemies1[j]->getHealth() <= 0)
@@ -1419,9 +1419,9 @@ void Scene1::Update(const float deltaTime)
 		}
 	}
 
-	for (int i = 0; i < shotgun.size(); i++){
-		for (int j = 0; j < enemies2.size(); j++){
-			if (Physics::SphereSphereCollision(*shotgun[i], *enemies2[j]) == true){
+	for (int i = 0; i < shotgun.size(); i++) {
+		for (int j = 0; j < enemies2.size(); j++) {
+			if (Physics::SphereSphereCollision(*shotgun[i], *enemies2[j]) == true) {
 				shotgun.erase(shotgun.begin() + i);
 				enemies2[j]->EnemytakeDamage(1.5f);
 				if (enemies2[j]->getHealth() <= 0)
@@ -1431,9 +1431,9 @@ void Scene1::Update(const float deltaTime)
 		}
 	}
 
-	for (int i = 0; i < shotgun.size(); i++){
-		for (int j = 0; j < enemies3.size(); j++){
-			if (Physics::SphereSphereCollision(*shotgun[i], *enemies3[j]) == true){
+	for (int i = 0; i < shotgun.size(); i++) {
+		for (int j = 0; j < enemies3.size(); j++) {
+			if (Physics::SphereSphereCollision(*shotgun[i], *enemies3[j]) == true) {
 				shotgun.erase(shotgun.begin() + i);
 				enemies3[j]->EnemytakeDamage(1.5f);
 				if (enemies3[j]->getHealth() <= 0)
@@ -1637,9 +1637,9 @@ void Scene1::Update(const float deltaTime)
 		}
 	}
 
-	for (int i = 0; i < knife.size(); i++){
-		for (int j = 0; j < enemies.size(); j++){
-			if (Physics::SphereSphereCollision(*knife[i], *enemies[j]) == true){
+	for (int i = 0; i < knife.size(); i++) {
+		for (int j = 0; j < enemies.size(); j++) {
+			if (Physics::SphereSphereCollision(*knife[i], *enemies[j]) == true) {
 				knife.erase(knife.begin() + i);
 				enemies[j]->EnemytakeDamage(0.5f);
 				if (enemies[j]->getHealth() <= 0)
@@ -1649,9 +1649,9 @@ void Scene1::Update(const float deltaTime)
 		}
 	}
 
-	for (int i = 0; i < knife.size(); i++){
-		for (int j = 0; j < enemies1.size(); j++){
-			if (Physics::SphereSphereCollision(*knife[i], *enemies1[j]) == true){
+	for (int i = 0; i < knife.size(); i++) {
+		for (int j = 0; j < enemies1.size(); j++) {
+			if (Physics::SphereSphereCollision(*knife[i], *enemies1[j]) == true) {
 				knife.erase(knife.begin() + i);
 				enemies1[j]->EnemytakeDamage(0.5f);
 				if (enemies1[j]->getHealth() <= 0)
@@ -1661,9 +1661,9 @@ void Scene1::Update(const float deltaTime)
 		}
 	}
 
-	for (int i = 0; i < knife.size(); i++){
-		for (int j = 0; j < enemies2.size(); j++){
-			if (Physics::SphereSphereCollision(*knife[i], *enemies2[j]) == true){
+	for (int i = 0; i < knife.size(); i++) {
+		for (int j = 0; j < enemies2.size(); j++) {
+			if (Physics::SphereSphereCollision(*knife[i], *enemies2[j]) == true) {
 				knife.erase(knife.begin() + i);
 				enemies2[j]->EnemytakeDamage(0.5f);
 				if (enemies2[j]->getHealth() <= 0)
@@ -1673,9 +1673,9 @@ void Scene1::Update(const float deltaTime)
 		}
 	}
 
-	for (int i = 0; i < knife.size(); i++){
-		for (int j = 0; j < enemies3.size(); j++){
-			if (Physics::SphereSphereCollision(*knife[i], *enemies3[j]) == true){
+	for (int i = 0; i < knife.size(); i++) {
+		for (int j = 0; j < enemies3.size(); j++) {
+			if (Physics::SphereSphereCollision(*knife[i], *enemies3[j]) == true) {
 				knife.erase(knife.begin() + i);
 				enemies3[j]->EnemytakeDamage(0.5f);
 				if (enemies3[j]->getHealth() <= 0)
@@ -1889,9 +1889,9 @@ void Scene1::Render()
 	SDL_RenderClear(renderer);
 	// Render all the background tiles (including their nodes)
 	// Place the tiles for the amount of columns and rows
-	for (int row = 0; row < gridHeight; row++){
+	for (int row = 0; row < gridHeight; row++) {
 		for (int column = 0; column < gridWidth; column++)
-			tiles[row][column]->Render(renderer, game->getProjectionMatrix(), true);
+			tiles[row][column]->Render(renderer, game->getProjectionMatrix(), false);
 	}
 	// Render any npc's
 	//blinky->render(0.15f);
@@ -1903,7 +1903,7 @@ void Scene1::Render()
 	Vec3 wallScreenCoords;
 	int WallW, WallH;
 
-	for (int i = 0; i < NUMWALL; ++i){
+	for (int i = 0; i < NUMWALL; ++i) {
 		SDL_QueryTexture(level->getWall(i)->getTexture(), nullptr, nullptr, &WallW, &WallH);
 		wallScreenCoords = projectionMatrix * level->getWall(i)->getPos();
 		WallRect.x = static_cast<int> (wallScreenCoords.x) - 30;
@@ -1918,7 +1918,7 @@ void Scene1::Render()
 	Vec3 weaponPickupScreenCoords;
 	int weaponcollectibleW, weaponcollectibleH;
 
-	if (weaponPickup){
+	if (weaponPickup) {
 		SDL_QueryTexture(weaponPickup->getTexture(), nullptr, nullptr, &weaponcollectibleW, &weaponcollectibleH);
 		weaponPickupScreenCoords = projectionMatrix * weaponPickup->getPos();
 		weaponcollectibleRect.x = static_cast<int>(weaponPickupScreenCoords.x) - weaponcollectibleW / 4;
@@ -1927,13 +1927,13 @@ void Scene1::Render()
 		weaponcollectibleRect.h = weaponcollectibleH / 2;
 		SDL_RenderCopy(renderer, weaponPickup->getTexture(), nullptr, &weaponcollectibleRect);
 	}
-	
-// draw
+
+	// draw
 	SDL_Rect vaccinecollectibleRect;
 	Vec3 vaccineScreenCoords;
 	int vaccineW, vaccineH;
 
-	if (keyPickup){
+	if (keyPickup) {
 		SDL_QueryTexture(keyPickup->getTexture(), nullptr, nullptr, &vaccineW, &vaccineH);
 		vaccineScreenCoords = projectionMatrix * keyPickup->getPos();
 		vaccinecollectibleRect.x = static_cast<int>(vaccineScreenCoords.x) - vaccineW / 4;
@@ -1942,7 +1942,7 @@ void Scene1::Render()
 		vaccinecollectibleRect.h = vaccineH / 2;
 		SDL_RenderCopy(renderer, keyPickup->getTexture(), nullptr, &vaccinecollectibleRect);
 	}
-	
+
 
 	if (keyPickup1) {
 		SDL_QueryTexture(keyPickup1->getTexture(), nullptr, nullptr, &vaccineW, &vaccineH);
@@ -2048,7 +2048,7 @@ void Scene1::Render()
 	Vec3 ammoPickupScreenCoords;
 	int ammocollectibleW, ammocollectibleH;
 
-	if (ammoPickup){
+	if (ammoPickup) {
 		SDL_QueryTexture(ammoPickup->getTexture(), nullptr, nullptr, &ammocollectibleW, &ammocollectibleH);
 		ammoPickupScreenCoords = projectionMatrix * ammoPickup->getPos();
 		ammocollectibleRect.x = static_cast<int>(ammoPickupScreenCoords.x) - ammocollectibleW / 4;
@@ -2098,7 +2098,7 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, ammo4Pickup->getTexture(), nullptr, &ammocollectibleRect);
 	}
 
-	if (game->getPlayer()->getammo() > 0){
+	if (game->getPlayer()->getammo() > 0) {
 		SDL_Rect ammoRect;
 		ammoRect.x = 20;
 		ammoRect.y = 450;
@@ -2229,7 +2229,7 @@ void Scene1::Render()
 					shotgunammoRect3.w = 50;
 					shotgunammoRect3.h = 50;
 					SDL_RenderCopy(renderer, shotgunammo, nullptr, &shotgunammoRect3);
-				
+
 					if (game->getPlayer()->getshotgunammo() > 4) {
 						SDL_Rect shotgunammoRect4;
 						shotgunammoRect4.x = 100;
@@ -2248,7 +2248,7 @@ void Scene1::Render()
 	Vec3 pistolScreenCoords;
 	int pistolW, pistolH;
 
-	for (int i = 0; i < pistol.size(); i++){
+	for (int i = 0; i < pistol.size(); i++) {
 		pistolScreenCoords = projectionMatrix * pistol[i]->getPos();
 		SDL_QueryTexture(pistol[i]->getTexture(), nullptr, nullptr, &pistolW, &pistolH);
 		pistolRect.x = static_cast<int>(pistolScreenCoords.x - pistolW / 20);
@@ -2263,7 +2263,7 @@ void Scene1::Render()
 	Vec3 shotgunScreenCoords;
 	int shotgunW, shotgunH;
 
-	for (int i = 0; i < shotgun.size(); i++){
+	for (int i = 0; i < shotgun.size(); i++) {
 		shotgunScreenCoords = projectionMatrix * shotgun[i]->getPos();
 		SDL_QueryTexture(shotgun[i]->getTexture(), nullptr, nullptr, &shotgunW, &shotgunH);
 		shotgunRect.x = static_cast<int>(shotgunScreenCoords.x - shotgunW / 20);
@@ -2288,8 +2288,8 @@ void Scene1::Render()
 	Vec3 knifeScreenCoords;
 	int knifeW, knifeH;
 
-	for (int i = 0; i < knife.size(); i++){
-		if (knife[i]->getvisible() > 0){
+	for (int i = 0; i < knife.size(); i++) {
+		if (knife[i]->getvisible() > 0) {
 			knifeScreenCoords = projectionMatrix * knife[i]->getPos();
 			SDL_QueryTexture(knife[i]->getTexture(), nullptr, nullptr, &knifeW, &knifeH);
 			knifeRect.x = static_cast<int>(knifeScreenCoords.x - knifeW / 20);
@@ -2301,7 +2301,7 @@ void Scene1::Render()
 		knife[i]->decrementVisible();
 	}
 
-	if (game->getPlayer()->getHealth() > 0){
+	if (game->getPlayer()->getHealth() > 0) {
 		SDL_Rect healthRect;
 		healthRect.x = 10;
 		healthRect.y = 13;
@@ -2309,7 +2309,7 @@ void Scene1::Render()
 		healthRect.h = 100;
 		SDL_RenderCopy(renderer, health, nullptr, &healthRect);
 
-		if (game->getPlayer()->getHealth() > 1){
+		if (game->getPlayer()->getHealth() > 1) {
 			SDL_Rect health1Rect;
 			health1Rect.x = 40;
 			health1Rect.y = 13;
@@ -2317,7 +2317,7 @@ void Scene1::Render()
 			health1Rect.h = 100;
 			SDL_RenderCopy(renderer, health, nullptr, &health1Rect);
 
-			if (game->getPlayer()->getHealth() > 2){
+			if (game->getPlayer()->getHealth() > 2) {
 				SDL_Rect health2Rect;
 				health2Rect.x = 70;
 				health2Rect.y = 13;
@@ -2333,7 +2333,7 @@ void Scene1::Render()
 	Vec3 healthPickupScreenCoords;
 	int healthcollectibleW, healthcollectibleH;
 
-	if (healthPickup){
+	if (healthPickup) {
 		SDL_QueryTexture(healthPickup->getTexture(), nullptr, nullptr, &healthcollectibleW, &healthcollectibleH);
 		healthPickupScreenCoords = projectionMatrix * healthPickup->getPos();
 		healthcollectibleRect.x = static_cast<int>(healthPickupScreenCoords.x) - healthcollectibleW / 8;
@@ -2377,7 +2377,7 @@ void Scene1::Render()
 	SDL_Rect itemhealthcollectibleRect;
 	Vec3 itemhealthPickupScreenCoords;
 	int itemhealthcollectibleW, itemhealthcollectibleH;
-	if (itemhealthpickup){
+	if (itemhealthpickup) {
 		SDL_QueryTexture(itemhealthpickup->getTexture(), nullptr, nullptr, &itemhealthcollectibleW, &itemhealthcollectibleH);
 		Vec3 itemhealthPickupScreenCoords = projectionMatrix * itemhealthpickup->getPos();
 		itemhealthcollectibleRect.x = static_cast<int>(itemhealthPickupScreenCoords.x) - itemhealthcollectibleW / 8;
@@ -2387,7 +2387,7 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, itemhealthpickup->getTexture(), nullptr, &itemhealthcollectibleRect);
 	}
 
-	
+
 	if (itemhealthpickup2) {
 		SDL_QueryTexture(itemhealthpickup2->getTexture(), nullptr, nullptr, &itemhealthcollectibleW, &itemhealthcollectibleH);
 		Vec3 itemhealthPickupScreenCoords = projectionMatrix * itemhealthpickup2->getPos();
@@ -2418,7 +2418,7 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, itemhealthpickup4->getTexture(), nullptr, &itemhealthcollectibleRect);
 	}
 
-	if (game->getPlayer()->getitemhealth() > 0){
+	if (game->getPlayer()->getitemhealth() > 0) {
 		SDL_Rect itemRect;
 		itemRect.x = 40;
 		itemRect.y = 500;
@@ -2462,7 +2462,7 @@ void Scene1::Render()
 	Vec3 enemyScreenCoords;
 	int enemyW, enemyH;
 
-	for (int i = 0; i < enemies.size(); i++){
+	for (int i = 0; i < enemies.size(); i++) {
 		enemyScreenCoords = projectionMatrix * enemies[i]->getPos();
 		SDL_QueryTexture(enemies[i]->getTexture(), nullptr, nullptr, &enemyW, &enemyH);
 		enemyRect.x = static_cast<int>(enemyScreenCoords.x - enemyW / 2);
@@ -2472,7 +2472,7 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, enemies[i]->getTexture(), nullptr, &enemyRect);
 	}
 
-	for (int i = 0; i < enemies1.size(); i++){
+	for (int i = 0; i < enemies1.size(); i++) {
 		enemyScreenCoords = projectionMatrix * enemies1[i]->getPos();
 		SDL_QueryTexture(enemies1[i]->getTexture(), nullptr, nullptr, &enemyW, &enemyH);
 		enemyRect.x = static_cast<int>(enemyScreenCoords.x - enemyW / 2);
@@ -2482,7 +2482,7 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, enemies1[i]->getTexture(), nullptr, &enemyRect);
 	}
 
-	for (int i = 0; i < enemies2.size(); i++){
+	for (int i = 0; i < enemies2.size(); i++) {
 		enemyScreenCoords = projectionMatrix * enemies2[i]->getPos();
 		SDL_QueryTexture(enemies2[i]->getTexture(), nullptr, nullptr, &enemyW, &enemyH);
 		enemyRect.x = static_cast<int>(enemyScreenCoords.x - enemyW / 2);
@@ -2492,7 +2492,7 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, enemies2[i]->getTexture(), nullptr, &enemyRect);
 	}
 
-	for (int i = 0; i < enemies3.size(); i++){
+	for (int i = 0; i < enemies3.size(); i++) {
 		enemyScreenCoords = projectionMatrix * enemies3[i]->getPos();
 		SDL_QueryTexture(enemies3[i]->getTexture(), nullptr, nullptr, &enemyW, &enemyH);
 		enemyRect.x = static_cast<int>(enemyScreenCoords.x - enemyW / 2);
@@ -2668,19 +2668,19 @@ void Scene1::Render()
 	SDL_RenderPresent(renderer);
 }
 
-void Scene1::HandleEvents(const SDL_Event& event){
+void Scene1::HandleEvents(const SDL_Event& event) {
 	// Send events to player as needed
 	game->getPlayer()->HandleEvents(event);
-	
+
 	// Player
 	Body* player = game->getPlayer();
-	
+
 	// Sphere
 	Sphere boundingSphere2;
 	boundingSphere2.x = player->getPos().x;	// get pos.x of the sphere equal to player
 	boundingSphere2.y = player->getPos().y;	// get pos.y of the sphere equal to player
 	boundingSphere2.r = 1.0f;
-	
+
 	// Player object
 	PhysicsObject* P1 = new PhysicsObject();
 	P1->setPos(player->getPos());
@@ -2693,39 +2693,39 @@ void Scene1::HandleEvents(const SDL_Event& event){
 	P1->setBoundingSphere(boundingSphere2);
 
 #pragma region Buttons_and_Events
-	if (event.button.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT){
+	if (event.button.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 		std::vector<Ammunition*> newpistol;
 		newpistol = game->getPlayer()->firePistolBullet();
 
-		for (int i = 0; i < newpistol.size(); ++i){
+		for (int i = 0; i < newpistol.size(); ++i) {
 			newpistol[i]->setTexture(pistolbullet);
 			pistol.push_back(newpistol[i]);
 		}
 	}
 
-	if (event.button.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT){
+	if (event.button.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 		std::vector<Ammunition*> newknife;
 		newknife = game->getPlayer()->stabbing();
 
-		for (int i = 0; i < newknife.size(); ++i){
+		for (int i = 0; i < newknife.size(); ++i) {
 			newknife[i]->setTexture(knifes);
 			knife.push_back(newknife[i]);
 		}
 	}
 
-	if (event.button.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT){
+	if (event.button.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 		std::vector<Ammunition*> newshotgun;
 		newshotgun = game->getPlayer()->fireshotgunBullet();
 
-		for (int i = 0; i < newshotgun.size(); ++i){
+		for (int i = 0; i < newshotgun.size(); ++i) {
 			newshotgun[i]->setTexture(shotgunbullet);
 			shotgun.push_back(newshotgun[i]);
 		}
 	}
 
-	if (event.key.keysym.scancode == SDL_SCANCODE_E){
+	if (event.key.keysym.scancode == SDL_SCANCODE_E) {
 
-		if (weaponPickup && Physics::SphereSphereCollision(*weaponPickup, *P1) == true){
+		if (weaponPickup && Physics::SphereSphereCollision(*weaponPickup, *P1) == true) {
 			game->getPlayer()->restoreshotgun(1.0f) == true;
 			delete weaponPickup;
 			weaponPickup = nullptr;
@@ -2733,7 +2733,7 @@ void Scene1::HandleEvents(const SDL_Event& event){
 			game->getPlayer()->setWeaponType(1);
 		}
 
-		if (healthPickup && Physics::SphereSphereCollision(*healthPickup, *P1) == true){
+		if (healthPickup && Physics::SphereSphereCollision(*healthPickup, *P1) == true) {
 			delete healthPickup;
 			healthPickup = nullptr;
 			game->getPlayer()->restoreItemHealth(1.0f) == true;
@@ -2765,7 +2765,7 @@ void Scene1::HandleEvents(const SDL_Event& event){
 			itemhealthpickup4 = nullptr;
 		}
 
-		if ((ammoPickup && Physics::SphereSphereCollision(*ammoPickup, *P1) == true)){
+		if ((ammoPickup && Physics::SphereSphereCollision(*ammoPickup, *P1) == true)) {
 			game->getPlayer()->restoreammo(1.0f) == true;
 			delete ammoPickup;
 			ammoPickup = nullptr;
@@ -2829,7 +2829,7 @@ void Scene1::HandleEvents(const SDL_Event& event){
 			game->getPlayer()->restorevaccine(1.0f) == true;
 			delete keyPickup;
 			keyPickup = nullptr;
-		
+
 		}
 
 		if (keyPickup1 && Physics::SphereSphereCollision(*keyPickup1, *P1) == true) {
@@ -2862,20 +2862,20 @@ void Scene1::HandleEvents(const SDL_Event& event){
 
 	}
 
-	if (event.key.keysym.scancode == SDL_SCANCODE_F){
-		if (game->getPlayer()->getitemhealth()){// if item in the inventory
+	if (event.key.keysym.scancode == SDL_SCANCODE_F) {
+		if (game->getPlayer()->getitemhealth()) {// if item in the inventory
 			game->getPlayer()->restoreHealth(1.0f);
 			game->getPlayer()->setitemhealth(0.0f);//make it destroy when press f
 
 		}
-		
+
 	}
 
 	if (event.key.keysym.scancode == SDL_SCANCODE_F) {
 		if (game->getPlayer()->getvaccine()) {// if item in the inventory
 			game->getPlayer()->restorevaccine(1.0f);
 			game->getPlayer()->setvaccine(0.0f);//make it destroy when press f
-			
+
 		}
 	}
 
@@ -2890,19 +2890,19 @@ void Scene1::HandleEvents(const SDL_Event& event){
 
 	if (event.key.keysym.scancode == SDL_SCANCODE_R) {
 		//reload weapon
-			if(game->getPlayer()->getshotgunammo()){
-				game->getPlayer()->OnReload2(600) == true;
-				game->getPlayer()->setshotgunammo(0.0f);
-			}
-		
+		if (game->getPlayer()->getshotgunammo()) {
+			game->getPlayer()->OnReload2(600) == true;
+			game->getPlayer()->setshotgunammo(0.0f);
+		}
+
 	}
 #pragma endregion
 }
 
-bool Scene1::getDead(){
+bool Scene1::getDead() {
 	if (game->getPlayer()->getHealth() <= 0)
 		return true;
-	
+
 	return false;
 }
 
@@ -2953,8 +2953,8 @@ void Scene1::GenerateSceneLayout()
 	j = 0;
 	label = 0;
 
-	for (int row = 0; row < gridHeight; row++){
-		for (int column = 0; column < gridWidth; column++){
+	for (int row = 0; row < gridHeight; row++) {
+		for (int column = 0; column < gridWidth; column++) {
 			int id = levelData[row][column];
 			// Position in pixels
 			Vec3 startPos = Vec3(0.0f, 0.0f, 0.0f);
@@ -2984,12 +2984,12 @@ void Scene1::GenerateSceneLayout()
 	}
 }
 
-void Scene1::CalculateConnectionWeights(){
+void Scene1::CalculateConnectionWeights() {
 	int rows = tiles.size();
 	int columns = tiles[0].size();
 
-	for (int i = 0; i < rows; i++){
-		for (int j = 0; j < columns; j++){
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
 			//						i+1, j
 			//		i, j-1			  i, j			 i, j+1
 			//						i-1, j
@@ -3041,7 +3041,7 @@ bool Scene1::LoadImage(string pathName_)
 }
 
 bool Scene1::nextScene() { //win condition to change scene
-	
+
 	if (game->getPlayer()->getvaccine() > 4) {
 		// Create event
 		SDL_Event event;
@@ -3052,13 +3052,13 @@ bool Scene1::nextScene() { //win condition to change scene
 		event.user.code = 6;
 		event.user.data1 = nullptr;
 		event.user.data2 = nullptr;
-		
+
 		// Push the event
 		SDL_PushEvent(&event);
 		pressed = true;
 	}
-	
-	
+
+
 	return true;
 }
 
