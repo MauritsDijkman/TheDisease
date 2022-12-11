@@ -7,8 +7,10 @@
 using namespace MATH;
 
 class Body {
+
 protected:
 	// Inherited classes can access this
+
 	Vec3 pos;
 	Vec3 vel;
 	Vec3 accel;
@@ -24,6 +26,7 @@ protected:
 	Vec3 imageSizeWorldCoords;
 	SDL_Surface* image;
 	SDL_Texture* texture;
+
 public:
 	Body();
 	Body(

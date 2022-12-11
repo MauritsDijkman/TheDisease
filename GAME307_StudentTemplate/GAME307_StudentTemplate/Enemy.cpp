@@ -8,6 +8,7 @@ bool Enemy::OnCreate(Scene* ownerScene_){
 	}
 	else
 		cout << "List is 0" << endl;
+
 	// Configure and instantiate the body to use for the demo
 	if (!moveBody){
 		float radius = 0.2;
@@ -23,6 +24,7 @@ bool Enemy::OnCreate(Scene* ownerScene_){
 			radius,orientation,rotation,angular,maxSpeed,maxAcceleration,maxRotation,maxAngular
 		);
 	}
+
 	if (!moveBody)
 		return false;
 	return true;
@@ -46,6 +48,7 @@ void Enemy::MoveToTarget(float deltaTime)
 {
 	if (currentTargetNode){
 		float distance = GetDistance(moveBody->getPos(), currentTargetNode->GetPos());
+
 		// If in range of the node and there is a next node, set the next node
 		if (distance < 1.0f && currentTargetNumber + 1 < targetNodes.size()){
 			currentTargetNumber++;
@@ -79,6 +82,7 @@ void Enemy::render(float scale){
 	SDL_Rect square;
 	Vec3 screenCoords;
 	int w, h;
+
 	// Notice use of "body" in the following
 	SDL_QueryTexture(moveBody->getTexture(), nullptr, nullptr, &w, &h);
 	w = static_cast<int>(w * scale);
@@ -88,6 +92,7 @@ void Enemy::render(float scale){
 	square.y = static_cast<int>(screenCoords.y - 0.5f * h);
 	square.w = w;
 	square.h = h;
+
 	// Convert character orientation from radians to degrees
 	float orientation = moveBody->getOrientation() * 180.0f / M_PI;
 	SDL_RenderCopyEx(renderer, moveBody->getTexture(), nullptr, &square,
@@ -97,14 +102,17 @@ void Enemy::render(float scale){
 void Enemy::SteerToTarget(SteeringOutput* steering){
 	// Create a list with the steering outputs
 	vector<SteeringOutput*> steering_outputs;
+
 	// Set the steering behaviour
 	SteeringBehaviour* steering_algorithm = new ArriveTarget(moveBody, currentTargetNode);
 	steering_outputs.push_back(steering_algorithm->getSteering());
+
 	// Add togethere any steering outputs
 	for (unsigned i = 0; i < steering_outputs.size(); i++){
 		if (steering_outputs[i])
 			*steering += *steering_outputs[i];
 	}
+
 	// Clean up memory
 	if (steering_algorithm)
 		delete steering_algorithm;
@@ -113,14 +121,17 @@ void Enemy::SteerToTarget(SteeringOutput* steering){
 void Enemy::WanderRandom(SteeringOutput* steering){
 	// Create a list with the steering outputs
 	vector<SteeringOutput*> steering_outputs;
+
 	// Set the steering behaviour
 	SteeringBehaviour* steering_algorithm = new Wander(moveBody);
 	steering_outputs.push_back(steering_algorithm->getSteering());
+
 	// Add togethere any steering outputs
 	for (unsigned i = 0; i < steering_outputs.size(); i++){
 		if (steering_outputs[i])
 			*steering += *steering_outputs[i];
 	}
+
 	// Clean up memory
 	if (steering_algorithm)
 		delete steering_algorithm;

@@ -9,10 +9,12 @@ using namespace MATH;
 using namespace std;
 
 class GameObject : public PhysicsObject {
+
 private:
 	SDL_Surface* surface;
 	SDL_Texture* texture;
 	string pathName;
+
 public:
 	GameObject(SDL_Renderer* render_, string pathName_);
 	void Render(Matrix4 projectionMatrix_, SDL_Renderer* renderer_,

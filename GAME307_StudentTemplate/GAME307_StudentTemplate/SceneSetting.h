@@ -12,6 +12,7 @@ using namespace MATH;
 struct MATH::Plane;
 
 class SceneSetting : public Scene {
+
 private:
 	SDL_Window* window;
 	float xAxis = 25.0f;
@@ -22,6 +23,7 @@ private:
 	Matrix4 projectionMatrix;
 	Matrix4 inverseProjection;
 	bool pressed;
+
 public:
 	SceneSetting(SDL_Window* sdlWindow_, GameManager* game_);
 	~SceneSetting();

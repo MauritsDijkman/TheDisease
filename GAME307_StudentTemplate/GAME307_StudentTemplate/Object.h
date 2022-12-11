@@ -5,8 +5,10 @@
 using namespace MATH;
 
 class Object : public PhysicsObject{
+
 private:
 	SDL_Texture* texture;
+
 public:
 	Object();
 	Object(SDL_Texture* texture_);

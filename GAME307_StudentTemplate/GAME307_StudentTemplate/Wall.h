@@ -4,11 +4,13 @@
 #include "Plane.h"
 
 class Wall : public Object{
+
 private:
 	Plane LeftPlane;
 	Plane RightPlane;
 	Plane UpPlane;
 	Plane DownPlane;
+
 public:
 	Wall();
 	Wall(Plane LeftPlane_, Plane RightPlane_, Plane UpPlane_, Plane DownPlane_);

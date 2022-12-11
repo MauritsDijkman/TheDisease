@@ -37,6 +37,7 @@ bool Scene1::OnCreate()
 	SDL_GetWindowSize(window, &w, &h);
 	Matrix4 ndc = MMath::viewportNDC(w, h);
 	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
+
 	// Calculates the ortho matrix with the player's position as middle point
 	float minX = game->getPlayer()->getPos().x - xAxis / 2;
 	float maxX = game->getPlayer()->getPos().x + xAxis / 2;
@@ -44,10 +45,12 @@ bool Scene1::OnCreate()
 	float maxY = game->getPlayer()->getPos().y + yAxis / 2;
 	ortho = MMath::orthographic(minX, maxX, minY, maxY, 0.0f, 1.0f);
 	projectionMatrix = ndc * ortho;
+
 	// Load background
 	background = new GameObject(renderer, "Assets/Background.png");
 
 #pragma region Bullet
+
 	// Load the crouton image and set the texture
 	surfacePtr = IMG_Load("bullet.2.png");
 	pistolbullet = SDL_CreateTextureFromSurface(renderer, surfacePtr);
@@ -60,7 +63,9 @@ bool Scene1::OnCreate()
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
+
 	SDL_FreeSurface(surfacePtr);
+
 	// Load the crouton image and set the texture
 	surfacePtr = IMG_Load("bullet.2.png");
 	shotgunbullet = SDL_CreateTextureFromSurface(renderer, surfacePtr);
@@ -77,6 +82,7 @@ bool Scene1::OnCreate()
 #pragma endregion
 
 #pragma region Enemies
+
 	// Load enemy characters
 	surfacePtr = IMG_Load("The Unbread.png");
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
@@ -89,198 +95,259 @@ bool Scene1::OnCreate()
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
+
 	SDL_FreeSurface(surfacePtr);
 
 #pragma region Wave1	
+
 // Spawn to right
 	for (int i = 0; i < 10; i++){
+
 		// Create enemy and add in the list
 		enemies.push_back(new EnemyCharacter());
+
 		// Set stats of the current enemy
 		enemies[i]->setPos(Vec3(50.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies[i]->setBoundingSphere(Sphere(0.5f));
 		enemies[i]->setTexture(texturePtr);
 	}
+
 	// Spawn to left
 	for (int i = 0; i < 10; i++){
+
 		// Create enemy and add in the list
 		enemies1.push_back(new EnemyCharacter());
+		
 		// Set stats of the current enemy
-		enemies1[i]->setPos(Vec3(-60.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies1[i]->setPos(Vec3(-100.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies1[i]->setBoundingSphere(Sphere(0.5f));
 		enemies1[i]->setTexture(texturePtr);
 	}
+
 	// Spawn up
 	for (int i = 0; i < 10; i++){
+		
 		// Create enemy and add in the list
 		enemies2.push_back(new EnemyCharacter());
+		
 		// Set stats of the current enemy
-		enemies2[i]->setPos(Vec3(xAxis - 3.0f, 50 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies2[i]->setPos(Vec3(xAxis - 3.0f, 150 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies2[i]->setBoundingSphere(Sphere(0.5f));
 		enemies2[i]->setTexture(texturePtr);
 	}
+
 	// Spawn down
 	for (int i = 0; i < 10; i++){
+		
 		// Create enemy and add in the list
 		enemies3.push_back(new EnemyCharacter());
+		
 		// Set stats of the current enemy
-		enemies3[i]->setPos(Vec3(xAxis - 3.0f, -50 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies3[i]->setPos(Vec3(xAxis - 3.0f, -200 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies3[i]->setBoundingSphere(Sphere(0.5f));
 		enemies3[i]->setTexture(texturePtr);
 	}
 #pragma endregion
 
 #pragma region Wave2	
+
 	// Spawn to right
 	for (int i = 0; i < 20; i++) {
+		
 		// Create enemy and add in the list
 		enemies4.push_back(new EnemyCharacter());
+		
 		// Set stats of the current enemy
-		enemies4[i]->setPos(Vec3(100.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies4[i]->setPos(Vec3(250.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies4[i]->setBoundingSphere(Sphere(0.5f));
 		enemies4[i]->setTexture(texturePtr);
 	}
+
 	// Spawn to left
 	for (int i = 0; i < 20; i++) {
+		
 		// Create enemy and add in the list
 		enemies5.push_back(new EnemyCharacter());
+		
 		// Set stats of the current enemy
-		enemies5[i]->setPos(Vec3(-120.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies5[i]->setPos(Vec3(-300.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies5[i]->setBoundingSphere(Sphere(0.5f));
 		enemies5[i]->setTexture(texturePtr);
 	}
+
 	// Spawn up
 	for (int i = 0; i < 20; i++) {
+		
 		// Create enemy and add in the list
 		enemies6.push_back(new EnemyCharacter());
+		
 		// Set stats of the current enemy
-		enemies6[i]->setPos(Vec3(xAxis - 3.0f, 100 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies6[i]->setPos(Vec3(xAxis - 3.0f, 350 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies6[i]->setBoundingSphere(Sphere(0.5f));
 		enemies6[i]->setTexture(texturePtr);
 	}
+
 	// Spawn down
 	for (int i = 0; i < 20; i++) {
+		
 		// Create enemy and add in the list
 		enemies7.push_back(new EnemyCharacter());
+		
 		// Set stats of the current enemy
-		enemies7[i]->setPos(Vec3(xAxis - 3.0f, -100 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies7[i]->setPos(Vec3(xAxis - 3.0f, -350 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies7[i]->setBoundingSphere(Sphere(0.5f));
 		enemies7[i]->setTexture(texturePtr);
 	}
 #pragma endregion
 
-#pragma region Wave3	
+#pragma region Wave3
+
 	// Spawn to right
 	for (int i = 0; i < 40; i++) {
+		
 		// Create enemy and add in the list
 		enemies8.push_back(new EnemyCharacter());
+		
 		// Set stats of the current enemy
-		enemies8[i]->setPos(Vec3(140.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies8[i]->setPos(Vec3(400.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies8[i]->setBoundingSphere(Sphere(0.5f));
 		enemies8[i]->setTexture(texturePtr);
 	}
+
 	// Spawn to left
 	for (int i = 0; i < 40; i++) {
+		
 		// Create enemy and add in the list
 		enemies9.push_back(new EnemyCharacter());
+		
 		// Set stats of the current enemy
-		enemies9[i]->setPos(Vec3(-140.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies9[i]->setPos(Vec3(-450.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies9[i]->setBoundingSphere(Sphere(0.5f));
 		enemies9[i]->setTexture(texturePtr);
 	}
+
 	// Spawn up
 	for (int i = 0; i < 40; i++) {
+		
 		// Create enemy and add in the list
 		enemies10.push_back(new EnemyCharacter());
+		
 		// Set stats of the current enemy
-		enemies10[i]->setPos(Vec3(xAxis - 3.0f, 150 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies10[i]->setPos(Vec3(xAxis - 3.0f, 500 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies10[i]->setBoundingSphere(Sphere(0.5f));
 		enemies10[i]->setTexture(texturePtr);
 	}
+
 	// Spawn down
 	for (int i = 0; i < 40; i++) {
+		
 		// Create enemy and add in the list
 		enemies11.push_back(new EnemyCharacter());
+		
 		// Set stats of the current enemy
-		enemies11[i]->setPos(Vec3(xAxis - 3.0f, -150 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies11[i]->setPos(Vec3(xAxis - 3.0f, -550 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies11[i]->setBoundingSphere(Sphere(0.5f));
 		enemies11[i]->setTexture(texturePtr);
 	}
 #pragma endregion
 
 #pragma region Wave4	
+
 	// Spawn to right
 	for (int i = 0; i < 80; i++) {
+
 		// Create enemy and add in the list
 		enemies12.push_back(new EnemyCharacter());
+
 		// Set stats of the current enemy
-		enemies12[i]->setPos(Vec3(160.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies12[i]->setPos(Vec3(600.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies12[i]->setBoundingSphere(Sphere(0.5f));
 		enemies12[i]->setTexture(texturePtr);
 	}
+
 	// Spawn to left
 	for (int i = 0; i < 80; i++) {
+
 		// Create enemy and add in the list
 		enemies13.push_back(new EnemyCharacter());
+
 		// Set stats of the current enemy
-		enemies13[i]->setPos(Vec3(-160.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies13[i]->setPos(Vec3(-650.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies13[i]->setBoundingSphere(Sphere(0.5f));
 		enemies13[i]->setTexture(texturePtr);
 	}
+
 	// Spawn up
 	for (int i = 0; i < 80; i++) {
+
 		// Create enemy and add in the list
 		enemies14.push_back(new EnemyCharacter());
+
 		// Set stats of the current enemy
-		enemies14[i]->setPos(Vec3(xAxis - 3.0f, 200 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies14[i]->setPos(Vec3(xAxis - 3.0f, 700 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies14[i]->setBoundingSphere(Sphere(0.5f));
 		enemies14[i]->setTexture(texturePtr);
 	}
+
 	// Spawn down
 	for (int i = 0; i < 80; i++) {
+
 		// Create enemy and add in the list
 		enemies15.push_back(new EnemyCharacter());
+
 		// Set stats of the current enemy
-		enemies15[i]->setPos(Vec3(xAxis - 3.0f, -200 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies15[i]->setPos(Vec3(xAxis - 3.0f, -750 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies15[i]->setBoundingSphere(Sphere(0.5f));
 		enemies15[i]->setTexture(texturePtr);
 	}
 #pragma endregion
 
 #pragma region Wave Final	
+
 	// Spawn to right
 	for (int i = 0; i < 300; i++) {
+
 		// Create enemy and add in the list
 		enemies16.push_back(new EnemyCharacter());
+
 		// Set stats of the current enemy
-		enemies16[i]->setPos(Vec3(225.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies16[i]->setPos(Vec3(800.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies16[i]->setBoundingSphere(Sphere(0.5f));
 		enemies16[i]->setTexture(texturePtr);
 	}
+
 	// Spawn to left
 	for (int i = 0; i < 300; i++) {
+
 		// Create enemy and add in the list
 		enemies17.push_back(new EnemyCharacter());
+
 		// Set stats of the current enemy
-		enemies17[i]->setPos(Vec3(-225.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies17[i]->setPos(Vec3(-850.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies17[i]->setBoundingSphere(Sphere(0.5f));
 		enemies17[i]->setTexture(texturePtr);
 	}
+
 	// Spawn up
 	for (int i = 0; i < 300; i++) {
+
 		// Create enemy and add in the list
 		enemies18.push_back(new EnemyCharacter());
+
 		// Set stats of the current enemy
-		enemies18[i]->setPos(Vec3(xAxis - 3.0f, 250 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies18[i]->setPos(Vec3(xAxis - 3.0f, 900 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies18[i]->setBoundingSphere(Sphere(0.5f));
 		enemies18[i]->setTexture(texturePtr);
 	}
+
 	// Spawn down
 	for (int i = 0; i < 300; i++) {
+
 		// Create enemy and add in the list
 		enemies19.push_back(new EnemyCharacter());
+
 		// Set stats of the current enemy
-		enemies19[i]->setPos(Vec3(xAxis - 3.0f, -250 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies19[i]->setPos(Vec3(xAxis - 3.0f, -950 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies19[i]->setBoundingSphere(Sphere(0.5f));
 		enemies19[i]->setTexture(texturePtr);
 	}
@@ -387,8 +454,10 @@ SDL_FreeSurface(surfacePtr);
 
 #pragma region Shotgun
 	LoadImage("Shotgun96.png");
+
 	// Create weapon pickup
 	weaponPickup = new Object();
+
 	// Set stats
 	weaponPickup->setPos(Vec3(3.0f, 13.0f, 0.0f));
 	weaponPickup->setBoundingSphere(Sphere(0.25f));
@@ -399,6 +468,7 @@ SDL_FreeSurface(surfacePtr);
 	game->getPlayer()->setvaccine(0.0f);
 	surfacePtr = IMG_Load("Assets/Ethan/key.png");
 	key = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+
 	// Null pointer checks
 	if (surfacePtr == nullptr) {
 		std::cerr << "Image does not work" << std::endl;
@@ -445,16 +515,19 @@ SDL_FreeSurface(surfacePtr);
 		std::cerr << "Image does not work" << std::endl;
 		return false;
 	}
+
 	if (texturePtr == nullptr){
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
+
 SDL_FreeSurface(surfacePtr);
 #pragma endregion
 
 #pragma region Knife
 	surfacePtr = IMG_Load("knife.png");
 	knifes = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+
 	// Null pointer checks
 	if (surfacePtr == nullptr){
 		std::cerr << "Image does not work" << std::endl;
@@ -471,6 +544,7 @@ SDL_FreeSurface(surfacePtr);
 // Load pistol ammo picked up icon and set the texture
 	surfacePtr = IMG_Load("Assets/Ethan/ammo_1.png");
 	ammo = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+
 	// Null pointer checks
 	if (surfacePtr == nullptr) {
 		std::cerr << "Image does not work" << std::endl;
@@ -480,10 +554,12 @@ SDL_FreeSurface(surfacePtr);
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
+
 	SDL_FreeSurface(surfacePtr);
 
 	// Create ammo
 	ammoPickup = new Object();
+
 	// Set stats
 	ammoPickup->setPos(Vec3(0.0f, 13.0f, 0.0f));
 	ammoPickup->setBoundingSphere(Sphere(0.25f));
@@ -491,6 +567,7 @@ SDL_FreeSurface(surfacePtr);
 
 	// Create ammo
 	ammo1Pickup = new Object();
+
 	// Set stats
 	ammo1Pickup->setPos(Vec3(25.0f, 25.0f, 0.0f));
 	ammo1Pickup->setBoundingSphere(Sphere(0.25f));
@@ -498,6 +575,7 @@ SDL_FreeSurface(surfacePtr);
 
 	// Create ammo
 	ammo2Pickup = new Object();
+
 	// Set stats
 	ammo2Pickup->setPos(Vec3(-25.0f, -25.0f, 0.0f));
 	ammo2Pickup->setBoundingSphere(Sphere(0.25f));
@@ -505,6 +583,7 @@ SDL_FreeSurface(surfacePtr);
 
 	// Create ammo
 	ammo3Pickup = new Object();
+
 	// Set stats
 	ammo3Pickup->setPos(Vec3(-30.0f, 40.0f, 0.0f));
 	ammo3Pickup->setBoundingSphere(Sphere(0.25f));
@@ -512,6 +591,7 @@ SDL_FreeSurface(surfacePtr);
 
 	// Create ammo
 	ammo4Pickup = new Object();
+
 	// Set stats
 	ammo4Pickup->setPos(Vec3(30.0f, -40.0f, 0.0f));
 	ammo4Pickup->setBoundingSphere(Sphere(0.25f));
@@ -525,14 +605,17 @@ SDL_FreeSurface(surfacePtr);
 		std::cerr << "Image does not work" << std::endl;
 		return false;
 	}
+
 	if (shotgunammo == nullptr) {
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
+
 	SDL_FreeSurface(surfacePtr);
 
 	// Create ammo
 	shotgunammoPickup = new Object();
+
 	// Set stats
 	shotgunammoPickup->setPos(Vec3(15.0f, 20.0f, 0.0f));
 	shotgunammoPickup->setBoundingSphere(Sphere(0.25f));
@@ -554,6 +637,7 @@ SDL_FreeSurface(surfacePtr);
 
 	// Create ammo
 	shotgunammoPickup3 = new Object();
+
 	// Set stats
 	shotgunammoPickup3->setPos(Vec3(40.0f, -33.0f, 0.0f));
 	shotgunammoPickup3->setBoundingSphere(Sphere(0.25f));
@@ -561,6 +645,7 @@ SDL_FreeSurface(surfacePtr);
 
 	// Create ammo
 	shotgunammoPickup4 = new Object();
+
 	// Set stats
 	shotgunammoPickup4->setPos(Vec3(-40.0f, 33.0f, 0.0f));
 	shotgunammoPickup4->setBoundingSphere(Sphere(0.25f));
@@ -571,10 +656,12 @@ SDL_FreeSurface(surfacePtr);
 	level = new Level(NUMWALL);
 	level->makeLevel(1); //pos of wall
 	level->setWallTextures(texturePtr);
+
 	// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
 
 #pragma region Level & A* algorithm
+
 // Generate the layout of the scene
 GenerateSceneLayout();
 
@@ -591,21 +678,26 @@ CalculateConnectionWeights();
 // Print the neighbours of give node
 printf("Neighbours of 93: \n");
 int nodeLabel;
+
 for (auto nodeLabel : graph->GetNeighbours(93))
 	printf("Node %i, ", nodeLabel);
 
 	// Get shortest path from node to give node
 	vector<int> path = graph->AStar(0, 449);
+
 	cout << "Path size: " << path.size() << endl;
+
 	if (path.size() > 0){
 		for (int i = 0; i < path.size(); i++)
 			cout << "Path " << i << ": " << path[i] << endl;
 	}
 	else if (path.size() <= 0)
+
 	cout << "You can't get there from here!" << endl;
 #pragma endregion
 
 #pragma region Player
+
 	// Set player image
 	SDL_Surface* image;
 	SDL_Texture* texture;
@@ -616,12 +708,15 @@ for (auto nodeLabel : graph->GetNeighbours(93))
 #pragma endregion
 
 #pragma region Blinky
+
 	// Set up characters, choose good values for the constructor or use the defaults, like this
 	blinky = new Character();
 	if (!blinky->OnCreate(this))
 		return false;
+
 	image = IMG_Load("Blinky.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
+
 	if (image == nullptr){
 		std::cerr << "Can't open the image" << std::endl;
 		return false;
@@ -633,16 +728,21 @@ for (auto nodeLabel : graph->GetNeighbours(93))
 #pragma endregion
 
 #pragma region Enemy
+
 	// Set up characters, choose good values for the constructor or use the defaults, like this
 	enemy = new Enemy(game->getPlayer());
 	vector<Node*> targetList = vector<Node*>();
 	for (int node : path)
 		targetList.push_back(graph->GetNode(node));
+
 	enemy->SetTargetNodes(targetList);
+
 	for (Node* node : targetList)
 		cout << "Enemy target: " << node->GetLabel() << endl;
+
 	if (!enemy->OnCreate(this))
 		return false;
+
 	image = IMG_Load("Clyde.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
 
@@ -731,6 +831,7 @@ void Scene1::Update(const float deltaTime)
 	boundingSphere2.r = 0.4f;
 
 #pragma region Ethan
+
 //Set the object	
 	PhysicsObject* AI = new PhysicsObject();
 	AI->setPos(blinky->getBody()->getPos());//
@@ -756,6 +857,7 @@ void Scene1::Update(const float deltaTime)
 	Physics::SimpleNewtonMotion(*AI, deltaTime);
 
 #pragma region Player collides with wall
+
 	// Player hits walls
 	for (int i = 0; i < level->getWallNum(); i++)
 	{
@@ -768,6 +870,7 @@ void Scene1::Update(const float deltaTime)
 #pragma endregion
 
 #pragma region player collide to item
+
 	// if Player collide on item
 	if (healthPickup){
 		if (Physics::SphereSphereCollision(*P1, *healthPickup) == true)
@@ -873,6 +976,7 @@ void Scene1::Update(const float deltaTime)
 #pragma region Enemy & Bullet
 
 #pragma region bullet momevent
+
 	// Pistol bullets movement
 	for (int i = 0; i < pistol.size(); i++)
 		Physics::SimpleNewtonMotion(*pistol[i], deltaTime);
@@ -883,6 +987,7 @@ void Scene1::Update(const float deltaTime)
 #pragma endregion
 
 #pragma region damage player
+
 	// Enemy hits player
 	for (int i = 0; i < enemies.size(); i++){
 		if (Physics::SphereSphereCollision(*enemies[i], *P1) == true){
@@ -1026,6 +1131,7 @@ void Scene1::Update(const float deltaTime)
 #pragma endregion
 
 #pragma region momevent enemy
+
 	// Enemy movement
 	for (int i = 0; i < enemies.size(); i++){
 		enemies[i]->SeekPlayer(player->getPos());
@@ -1115,6 +1221,7 @@ void Scene1::Update(const float deltaTime)
 #pragma endregion
 
 #pragma region player_damage_enemy
+
 	// Bullet hits enemy
 	for (int i = 0; i < pistol.size(); i++) {
 		for (int j = 0; j < enemies.size(); j++) {
@@ -1140,6 +1247,7 @@ void Scene1::Update(const float deltaTime)
 			}
 		}
 	}
+
 	for (int i = 0; i < pistol.size(); i++){
 		for (int j = 0; j < enemies2.size(); j++){
 			if (Physics::SphereSphereCollision(*pistol[i], *enemies2[j]) == true){
@@ -1151,6 +1259,7 @@ void Scene1::Update(const float deltaTime)
 			}
 		}
 	}
+
 	for (int i = 0; i < pistol.size(); i++){
 		for (int j = 0; j < enemies3.size(); j++){
 			if (Physics::SphereSphereCollision(*pistol[i], *enemies3[j]) == true){
@@ -1186,6 +1295,7 @@ void Scene1::Update(const float deltaTime)
 			}
 		}
 	}
+
 	for (int i = 0; i < pistol.size(); i++) {
 		for (int j = 0; j < enemies6.size(); j++) {
 			if (Physics::SphereSphereCollision(*pistol[i], *enemies6[j]) == true) {
@@ -1197,6 +1307,7 @@ void Scene1::Update(const float deltaTime)
 			}
 		}
 	}
+
 	for (int i = 0; i < pistol.size(); i++) {
 		for (int j = 0; j < enemies7.size(); j++) {
 			if (Physics::SphereSphereCollision(*pistol[i], *enemies7[j]) == true) {
@@ -1232,6 +1343,7 @@ void Scene1::Update(const float deltaTime)
 			}
 		}
 	}
+
 	for (int i = 0; i < pistol.size(); i++) {
 		for (int j = 0; j < enemies10.size(); j++) {
 			if (Physics::SphereSphereCollision(*pistol[i], *enemies10[j]) == true) {
@@ -1243,6 +1355,7 @@ void Scene1::Update(const float deltaTime)
 			}
 		}
 	}
+
 	for (int i = 0; i < pistol.size(); i++) {
 		for (int j = 0; j < enemies11.size(); j++) {
 			if (Physics::SphereSphereCollision(*pistol[i], *enemies11[j]) == true) {
@@ -1266,6 +1379,7 @@ void Scene1::Update(const float deltaTime)
 			}
 		}
 	}
+
 	for (int i = 0; i < pistol.size(); i++) {
 		for (int j = 0; j < enemies13.size(); j++) {
 			if (Physics::SphereSphereCollision(*pistol[i], *enemies13[j]) == true) {
@@ -1289,6 +1403,7 @@ void Scene1::Update(const float deltaTime)
 			}
 		}
 	}
+
 	for (int i = 0; i < pistol.size(); i++) {
 		for (int j = 0; j < enemies15.size(); j++) {
 			if (Physics::SphereSphereCollision(*pistol[i], *enemies15[j]) == true) {
@@ -1335,6 +1450,7 @@ void Scene1::Update(const float deltaTime)
 			}
 		}
 	}
+
 	for (int i = 0; i < pistol.size(); i++) {
 		for (int j = 0; j < enemies15.size(); j++) {
 			if (Physics::SphereSphereCollision(*pistol[i], *enemies15[j]) == true) {
@@ -1358,6 +1474,7 @@ void Scene1::Update(const float deltaTime)
 			}
 		}
 	}
+
 	for (int i = 0; i < pistol.size(); i++) {
 		for (int j = 0; j < enemies17.size(); j++) {
 			if (Physics::SphereSphereCollision(*pistol[i], *enemies17[j]) == true) {
@@ -1887,6 +2004,7 @@ void Scene1::Render()
 {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
+
 	// Render all the background tiles (including their nodes)
 	// Place the tiles for the amount of columns and rows
 	for (int row = 0; row < gridHeight; row++){
@@ -1898,6 +2016,7 @@ void Scene1::Render()
 	enemy->render(0.15f);
 
 #pragma region Render_location, height and length
+
 	// Draws all the walls
 	SDL_Rect WallRect;
 	Vec3 wallScreenCoords;
@@ -2662,6 +2781,7 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, enemies19[i]->getTexture(), nullptr, &enemyRect);
 	}
 #pragma endregion
+
 	// Render the player
 	game->RenderPlayer(0.10f);
 	// Render all things in the renderer
@@ -2669,6 +2789,7 @@ void Scene1::Render()
 }
 
 void Scene1::HandleEvents(const SDL_Event& event){
+
 	// Send events to player as needed
 	game->getPlayer()->HandleEvents(event);
 	
@@ -2693,6 +2814,7 @@ void Scene1::HandleEvents(const SDL_Event& event){
 	P1->setBoundingSphere(boundingSphere2);
 
 #pragma region Buttons_and_Events
+
 	if (event.button.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT){
 		std::vector<Ammunition*> newpistol;
 		newpistol = game->getPlayer()->firePistolBullet();
@@ -2889,6 +3011,7 @@ void Scene1::HandleEvents(const SDL_Event& event){
 	}
 
 	if (event.key.keysym.scancode == SDL_SCANCODE_R) {
+
 		//reload weapon
 			if(game->getPlayer()->getshotgunammo()){
 				game->getPlayer()->OnReload2(600) == true;
@@ -2900,6 +3023,7 @@ void Scene1::HandleEvents(const SDL_Event& event){
 }
 
 bool Scene1::getDead(){
+
 	if (game->getPlayer()->getHealth() <= 0)
 		return true;
 	
@@ -2954,28 +3078,37 @@ void Scene1::GenerateSceneLayout()
 	label = 0;
 
 	for (int row = 0; row < gridHeight; row++){
+
 		for (int column = 0; column < gridWidth; column++){
+
 			int id = levelData[row][column];
+
 			// Position in pixels
 			Vec3 startPos = Vec3(0.0f, 0.0f, 0.0f);
 			Vec3 endPos = Vec3(0.0f, 0.0f, 0.0f);
+
 			// Set the position to have the origin top left
 			endPos.x = (startPos.x + column * tileWidth + (tileWidth * 0.5f));
 			endPos.y = (startPos.y + row * tileHeight + (tileHeight * 0.5f));
+			
 			// Transverse the position from viewport to game
 			Vec3 position = Vec3(endPos.x, endPos.y, 0.0f);
 			position = MMath::inverse(projectionMatrix) * position;
+			
 			// Set the position to the game coordinates
 			endPos.x = (position.x);
 			endPos.y = (position.y);
+			
 			// Set node
 			n = new Node(label, endPos);
 			nodes.push_back(n);
+			
 			// Set the background tile
 			if (id == 1 || id == 3)
 				t = new BackgroundTile(n, true);
 			else
 				t = new BackgroundTile(n, false);
+			
 			// Set the tile
 			t->AddTile(renderer, column, row, id, label, tileWidth, tileHeight, game->getProjectionMatrix());
 			tiles[row][column] = t;
@@ -3027,15 +3160,18 @@ bool Scene1::LoadImage(string pathName_)
 	// Loads in the wall image and set the texture to the walls
 	surfacePtr = IMG_Load(pathName_.c_str());
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+	
 	// Null pointer checks
 	if (surfacePtr == nullptr) {
 		cerr << "Image cannot be loaded!" << endl;
 		return false;
 	}
+	
 	if (texturePtr == nullptr) {
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
+	
 	SDL_FreeSurface(surfacePtr);
 	return true;
 }
@@ -3043,6 +3179,7 @@ bool Scene1::LoadImage(string pathName_)
 bool Scene1::nextScene() { //win condition to change scene
 	
 	if (game->getPlayer()->getvaccine() > 4) {
+		
 		// Create event
 		SDL_Event event;
 		SDL_memset(&event, 0, sizeof(event));
@@ -3061,4 +3198,3 @@ bool Scene1::nextScene() { //win condition to change scene
 	
 	return true;
 }
-

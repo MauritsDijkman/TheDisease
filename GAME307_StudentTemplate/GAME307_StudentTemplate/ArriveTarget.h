@@ -21,7 +21,9 @@ private:
 	float distance;
 	float targetSpeed;
 	Vec3 targetVelocity;
+
 public:
+	//Directions
 	ArriveTarget(KinematicBody* character_, Node* target_);
 	virtual ~ArriveTarget();
 	SteeringOutput* getSteering();

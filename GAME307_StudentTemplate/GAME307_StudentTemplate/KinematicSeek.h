@@ -8,10 +8,12 @@
 using namespace MATH;
 
 class KinematicSeek {
+
 private:
 	KinematicSteeringOutput* result;
 	Body* character;
 	Body* target;
+
 public:
 	KinematicSeek(Body* character_, Body* target_);
 	~KinematicSeek();

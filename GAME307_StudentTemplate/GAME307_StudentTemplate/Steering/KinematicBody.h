@@ -7,6 +7,7 @@
 class KinematicBody :
 	public Body{
 protected:
+
 public:
 KinematicBody() : Body{} {}
 KinematicBody(

@@ -12,19 +12,23 @@
 using namespace std;
 
 class Character{
+
 private:
 	class KinematicBody* body;
 	class Scene* scene;
+
 public:
 	Character(){
 		body = NULL;
 		scene = NULL;
 	};
+
 	//add constructor that takes parameters for the body
 	~Character(){
 		if (body)
 			delete body;
 	};
+
 	bool OnCreate(Scene* scene_);
 	void OnDestroy() {};
 	void setTexture(SDL_Texture* texture_){ body->setTexture(texture_);}

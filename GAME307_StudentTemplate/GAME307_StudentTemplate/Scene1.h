@@ -18,6 +18,7 @@
 
 using namespace MATH;
 #define NUMWALL 9999
+
 class Scene1 : public Scene{
 private:
 	SDL_Window* window;
@@ -130,8 +131,8 @@ private:
 	vector<vector<BackgroundTile*>> tiles;
 	vector<Node*> nodes;
 	Graph* graph;
-	void CreateTiles(int rows_, int columns_);
 	bool LoadImage(string pathName_);
+
 public:
 	Scene1(SDL_Window* sdlWindow, GameManager* game_);
 	~Scene1();

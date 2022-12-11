@@ -73,12 +73,6 @@ void Body::Update(float deltaTime)
 	// Clip to maxrotation, if needed
 	if (rotation > maxRotation)
 		rotation = maxRotation;
-
-	// Could introduce dampening, of velocity and/or rotation, to simulate friction
-	/**
-	vel -= 0.05 * vel;
-	rotation -= 0.05 * rotation;
-	/**/
 }
 
 void Body::HandleEvents(const SDL_Event& event) {}

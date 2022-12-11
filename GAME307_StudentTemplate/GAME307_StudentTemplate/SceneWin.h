@@ -14,6 +14,7 @@ using namespace MATH;
 struct MATH::Plane;
 
 class SceneWin : public Scene{
+
 private:
 	SDL_Window* window;
 	Matrix4 projectionMatrix;
@@ -26,6 +27,7 @@ private:
 	bool pressed;
 	float xAxis = 25.0f;
 	float yAxis = 15.0f;
+
 public:
 	SceneWin(SDL_Window* sdlWindow, GameManager* game_);
 	~SceneWin();

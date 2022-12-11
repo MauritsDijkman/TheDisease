@@ -22,15 +22,19 @@ bool SceneCredit::OnCreate(){
 	surfacePtr = IMG_Load("Assets/Menu/Menu_Credits.png");
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+
 	if (surfacePtr == nullptr) {
 		std::cerr << "Image does not work" << std::endl;
 		return false;
 	}
+
 	if (texturePtr == nullptr) {
 		printf("%s\n", SDL_GetError());
 		return false;
 	}
+
 	SDL_FreeSurface(surfacePtr);
+
 	return true;
 }
 

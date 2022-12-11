@@ -12,7 +12,7 @@ angle = -atan((mousPosY - pos.y) / (mousePosX - pos.x)) * 180 / M_PI;
 else {
 angle = 180 - atan((mousPosY - pos.y) / (mousePosX - pos.x)) * 180 / M_PI;
 }
-//std::cout << "MousePosWorld: " << mousePosWorld.x << ' ' << mousePosWorld.y << " || PlayerPos: " << pos.x << ' ' << pos.y << " || Orientation: " << orientation << ' ' << std::endl;
+
 }
 
 bool PlayerBody::restoreshotgun(float shotgun_)//pick up shotgun
@@ -140,10 +140,12 @@ void PlayerBody::takeDamage(float damageAmount_)
 bool PlayerBody::OnReload(float pistol_reload_)
 {
 	bool destroypistolammoPickup;
+	
 	//Do we have ammo in the ammoPool?
 	if (ammoPool <= 0 && loadammo >= 100) {
 		return pistol_reload_;
 	}
+
 	//Do we have enough to meet what the gun needs?
 	if (ammoPool < (100 - loadammo))
 	{
@@ -163,6 +165,7 @@ bool PlayerBody::OnReload(float pistol_reload_)
 bool PlayerBody::OnReload2(float shotgun_reload_)
 {
 	bool destroyshotgunammoPickup;
+
 	//Do we have ammo in the ammoPool?
 	if (ammoshotgunpool <= 0 && ammoshotgun >= 300)
 		return shotgun_reload_;
@@ -457,34 +460,8 @@ void PlayerBody::Update(float deltaTime)
 	width = game->getSceneWidth();
 
 	float scalar = getOrientation();
-	//cout << "Orientation/Scalar player: " << scalar << endl;
-
-	// [TODO] Border for the game
-	/**
-	if (pos.x < radius)
-	{
-		pos.x = radius;
-		vel.x = 0.0f;
-	}
-	if (pos.y < radius)
-	{
-		pos.y = radius;
-		vel.y = 0.0f;
-	}
-	if (pos.x > width - radius)
-	{
-		pos.x = width - radius;
-		vel.x = 0.0f;
-	}
-	if (pos.y > height - radius)
-	{
-		pos.y = height - radius;
-		vel.y = 0.0f;
-	}
-	/**/
-
-	FollowMouse(mousePosWorld.x, mousePosWorld.y);	// mousePosWorld.x, mousePosWorld.y
-	//PrintVectorRotation();
+	
+	FollowMouse(mousePosWorld.x, mousePosWorld.y);
 }
 
 void PlayerBody::resetToOrigin()
@@ -503,8 +480,6 @@ void PlayerBody::PrintVectorRotation()
 
 	// (x2 - x1, y2 - y1)
 	Vec3 orientationVector;
-	orientationVector = Vec3((characterPos.x - originPos.x) / unitlength, (characterPos.y - originPos.y) / unitlength, 0.0f);
-
-	//cout << "Orientation Vector: " << orientationVector.x << " || " << orientationVector.y << endl;
+	orientationVector = Vec3((characterPos.x - originPos.x) / unitlength, (characterPos.y - originPos.y) / unitlength, 0.0f);	
 
 }

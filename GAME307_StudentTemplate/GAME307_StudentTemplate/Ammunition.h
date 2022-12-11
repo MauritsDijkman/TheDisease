@@ -3,8 +3,10 @@
 #include "Object.h"
 
 class Ammunition : public Object{
+
 private:
 	int visible = 1;
+
 public:
 	Ammunition();
 	~Ammunition();

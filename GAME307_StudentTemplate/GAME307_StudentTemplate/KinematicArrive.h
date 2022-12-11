@@ -6,14 +6,18 @@
 #include "KinematicSteeringOutput.h"
 using namespace MATH;
 
+//AI
 class KinematicArrive {
+
 private:
 	float radius;
 	float timeToTarget;
+
 private:
 	KinematicSteeringOutput* result;
 	Body* character;
 	Body* target;
+
 public:
 	KinematicArrive(float radius_, float timeToTarget_, Body* character_, Body* target_);
 	KinematicSteeringOutput* getSteering();

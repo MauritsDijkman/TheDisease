@@ -6,11 +6,14 @@
 class SeekTarget : 
 	
 public SteeringBehaviour{
+
 protected:
 	Node* target;
+
 public:
 	SeekTarget(Body* character_, Node* target_);
 	virtual ~SeekTarget();
+	//Direction
 	SteeringOutput* getSteering();
 };
 #endif

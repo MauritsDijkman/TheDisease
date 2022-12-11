@@ -7,9 +7,11 @@ using namespace MATH;
 
 class PhysicsObject{
 	friend class Physics;
+
 private:
 	int weaponType;
 	bool altWeaponAvailable;
+
 protected:
 	Vec3 pos, vel, accel;
 	double mass;
@@ -18,9 +20,11 @@ protected:
 	bool fixedStatus;
 	float boundingBoxHeight, boundingBoxWidth;
 	virtual void dead();
+
 public:
 	PhysicsObject();
 	virtual ~PhysicsObject();
+
 public:
 	// Untility functions so small they cane be inlined
 	inline void setFixedStatus(const bool fixed_) { fixedStatus = fixed_; }

@@ -8,6 +8,7 @@
 using namespace MATH;
 
 class KinematicWander {
+
 private:
 	KinematicSteeringOutput* result;
 	Body* character;
@@ -15,6 +16,7 @@ private:
 	float maxRotation;
 	float randomBinomial();
 	Vec3 GetOrientationVector();
+
 public:
 	KinematicWander(Body* character_, float maxSpeed_, float maxRotation_);
 	KinematicSteeringOutput* getSteering();

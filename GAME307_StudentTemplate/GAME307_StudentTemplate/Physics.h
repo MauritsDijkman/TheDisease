@@ -2,7 +2,9 @@
 #define PHYSICS_H
 #include "Plane.h"
 #include "PhysicsObject.h"
+
 class Physics{
+
 public:
 	static void SimpleNewtonMotion(PhysicsObject& object, const float deltaTime);
 	static void RigidBodyRotation(PhysicsObject& object, const float deltaTime);

@@ -12,6 +12,7 @@ using namespace MATH;
 
 struct MATH::Plane;
 class SceneMenu : public Scene {
+
 private:
 	SDL_Window* window;
 	float xAxis = 25.0f;
@@ -24,6 +25,7 @@ private:
 	bool play;
 	class Window* windowPtr;
 	SDL_Texture* PlayerScore;
+
 public:
 	SceneMenu(SDL_Window* sdlWindow_, GameManager* game_);
 	~SceneMenu();

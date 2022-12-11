@@ -12,6 +12,7 @@ using namespace MATH;
 
 struct MATH::Plane;
 class SceneCredit : public Scene {
+
 private:
 	SDL_Window* window;
 	float xAxis = 25.0f;

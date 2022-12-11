@@ -2,10 +2,12 @@
 #define LEVEL_H
 #include "Wall.h"
 
+//Create level 
 class Level {
 private:
 	Wall** walls;
 	int wallNum;
+
 public:
 	Level(int wallNum_);
 	~Level();

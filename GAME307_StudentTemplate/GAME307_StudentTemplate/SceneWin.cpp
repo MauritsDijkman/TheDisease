@@ -8,11 +8,10 @@
 SceneWin::SceneWin(SDL_Window* sdlWindow_, GameManager* game_)
 {
 	window = sdlWindow_;
-	//renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	renderer = SDL_GetRenderer(window);
 	game = game_;
 	pressed = false;
-	//wait = 0;
+	
 }
 
 SceneWin::~SceneWin()
@@ -58,7 +57,6 @@ bool SceneWin::OnCreate()
 
 void SceneWin::OnDestroy()
 {
-	//SDL_DestroyRenderer(renderer);
 	SDL_DestroyTexture(texturePtr);
 }
 

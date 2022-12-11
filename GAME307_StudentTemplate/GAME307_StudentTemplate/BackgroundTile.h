@@ -8,6 +8,7 @@
 using namespace MATH;
 using namespace std;
 
+//Tiles 
 class BackgroundTile{
 private:
 	GameObject* tileImage = nullptr;

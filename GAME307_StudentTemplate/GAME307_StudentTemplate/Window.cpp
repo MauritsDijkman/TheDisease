@@ -42,6 +42,7 @@ bool Window::OnCreate() {
 }
 
 void Window::OnDestroy() {
+
 	/// Kill the surface first
 	if (screenSurface) {
 		SDL_FreeSurface(screenSurface);

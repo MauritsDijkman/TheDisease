@@ -4,10 +4,12 @@
 
 
 class CharacterHealth : public Object{
+
 protected:
 	float health = 3.0f;
 	float maxHealth = 3.0f;
 	virtual void dead();
+
 public:
 	CharacterHealth();
 	~CharacterHealth();

@@ -10,10 +10,11 @@ SteeringOutput* ArriveTarget::getSteering(){
 	result = new SteeringOutput;
 	direction = target->GetPos() - character->getPos();
 	distance = VMath::mag(direction);
+
 	if (distance < targetRadius) {
 		return new SteeringOutput(Vec3(0, 0, 0), 0.0f);
-		//return null;
 	}
+
 	if (distance > slowRadius)
 		targetSpeed = maxSpeed;
 	else
@@ -23,6 +24,7 @@ SteeringOutput* ArriveTarget::getSteering(){
 	targetVelocity *= targetSpeed;
 	result->linear = targetVelocity - character->getVel();
 	result->linear /= timeToTarget;
+
 	if (VMath::mag(result->linear) > maxAcceleration) {
 		result->linear = VMath::normalize(result->linear);
 		result->linear *= maxAcceleration;

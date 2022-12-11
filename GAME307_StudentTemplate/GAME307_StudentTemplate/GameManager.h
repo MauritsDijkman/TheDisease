@@ -9,6 +9,7 @@
 
 
 class GameManager {
+
 private:
 	class Window* windowPtr;
 	class Timer* timer;
@@ -22,6 +23,7 @@ private:
 
 	// Event type number for user defined events
 	Uint32 changeSceneEventType;
+
 public:
 	GameManager();
 	~GameManager();

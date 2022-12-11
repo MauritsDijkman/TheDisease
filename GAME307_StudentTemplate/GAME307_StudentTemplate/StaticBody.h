@@ -5,6 +5,7 @@
 
 class StaticBody : public Body{
 private:
+
 public:
 	StaticBody() : Body{} {}
 	StaticBody(

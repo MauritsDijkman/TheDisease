@@ -112,6 +112,7 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode){
 			hasReachedEndNode = true;
 			break;
 		}
+
 		// Run code for every neighbour
 		for (Node next : GetNeighbours(current)){
 			
@@ -131,6 +132,7 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode){
 			}
 		}
 	}
+
 	// Only return list when the end node has been reached
 	if (hasReachedEndNode){
 		// Create a vector int list for the path
@@ -141,6 +143,7 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode){
 			path.push_back(current);
 			current = came_from[current];
 		}
+
 		// Add the start node to the list
 		path.push_back(startNode);
 		
@@ -196,6 +199,7 @@ vector<int> Graph::AStar(int startNode, int goalNode){
 			hasReachedEndNode = true;
 			break;
 		}
+
 		// Run code for every neighbour
 		for (Node next : GetNeighbours(current)){
 			
@@ -215,6 +219,7 @@ vector<int> Graph::AStar(int startNode, int goalNode){
 			}
 		}
 	}
+
 	// Only return list when the end node has been reached
 	if (hasReachedEndNode){
 		// Create a vector int list for the path

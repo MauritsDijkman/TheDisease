@@ -9,7 +9,6 @@
 SceneDeath::SceneDeath(SDL_Window* sdlWindow_, GameManager* game_)
 {
 	window = sdlWindow_;
-	//renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	renderer = SDL_GetRenderer(window);
 	game = game_;
 	pressed = false;
@@ -89,13 +88,16 @@ void SceneDeath::HandleEvents(const SDL_Event& sdlEvent)
 		// Create event
 		SDL_Event event;
 		SDL_memset(&event, 0, sizeof(event));
+
 		// Set event information
 		event.type = game->getChangeScene();
 		event.user.code = 5;
 		event.user.data1 = nullptr;
 		event.user.data2 = nullptr;
+
 		// Push the event
 		SDL_PushEvent(&event);
+
 		pressed = true;
 	}
 }

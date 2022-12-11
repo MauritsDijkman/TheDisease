@@ -12,6 +12,7 @@ using namespace std;
 using namespace MATH;
 
 class PlayerBody : public Body{
+
 private:
 	Vec3 mousePosWorld;
 	bool isDead;
@@ -21,6 +22,7 @@ private:
 	vector<Ammunition*> Bullets;
 	vector<Ammunition*> knife;
 	void PrintVectorRotation();
+
 protected:
 	class GameManager* game;
 	//max health the player have
@@ -60,10 +62,12 @@ protected:
 //use mouse to control player
 	Sphere boundingSphere;
 	double angle, angularVel, angularAccel, rotationalI;
+
 public:
 	PlayerBody() : Body{}{
 		game = nullptr;
 	}
+
 	PlayerBody(
 		Vec3 pos_, Vec3 vel_, Vec3 accel_,
 		float mass_,float radius_,float orientation_,float rotation_,float angular_,float maxSpeed_,
@@ -75,6 +79,7 @@ public:
 	}
 		, game{ game_ }
 	{}
+
 	// Use the base class versions of getters
 	vector<Ammunition*> firePistolBullet();
 	vector<Ammunition*> fireshotgunBullet();
@@ -87,30 +92,24 @@ public:
 	void setTexture(SDL_Texture* texture_) { texture = texture_; }
 	void FollowMouse(float mousePosX, float mousPosY);
 	void dead();
-	
 	void setshotgun(float s) { gun = s; }
 	float getshotgun() { return gun; }
 	bool restoreshotgun(float shotgun_);
-	
 	void setammo(float a) { ammos = a; }
 	float getammo() { return ammos; }
 	bool restoreammo(float ammo_);
-
 	void setshotgunammo(float s_) { shotgun_ammo = s_; }
 	float getshotgunammo() { return shotgun_ammo; }
 	bool restoreshotgunammo(float shotgunammo_);
-
 	void setvaccine(float vaccine) { vaccine_bad = vaccine; }
 	float getvaccine() { return vaccine_bad; }
 	bool restorevaccine(float vaccine_);
-
 	void setHealth(float h) { health = h; }
 	float getHealth() { return health; }
 	bool restoreHealth(float healingAmount_);
 	void setitemhealth(float h) { itemhealth = h; }
 	float getitemhealth() { return itemhealth; }
 	bool restoreItemHealth(float healingitemamount_);
-
 	void takeDamage(float damageAmount_);
 	bool OnReload(float pistol_reload_);
 	bool OnReload2(float shotgun_reload_);

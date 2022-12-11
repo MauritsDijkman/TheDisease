@@ -27,6 +27,7 @@ private:
 	float currentAttackValue;
 	void HandleDecisionMaking(float deltaTime);
 	void AttackPlayer(float deltaTime, float attackInterval);
+
 public:
 	class KinematicBody* moveBody;
 	Enemy(PlayerBody* player_){
