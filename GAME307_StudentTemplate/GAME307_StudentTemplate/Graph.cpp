@@ -111,11 +111,6 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode)
 	map<int, float> cost_so_far;
 	cost_so_far[startNode] = 0.0f;
 
-	// Set every cost so far value to 0.0f 
-	// This will be used for checking if value is already in the list later
-	for (int i = 0; i < cost_so_far.size(); i++)
-		cost_so_far[i] = 0.0f;
-
 	// Usage for returning value
 	bool hasReachedEndNode = false;
 
@@ -145,7 +140,8 @@ vector<int> Graph::Dijkstra(int startNode, int goalNode)
 			new_cost = cost_so_far[current] + cost[current][next.GetLabel()];
 
 			// Check if the node is already in the list or if it's smaller than the cost so far
-			if (cost_so_far[next.GetLabel()] == 0.0f || new_cost < cost_so_far[next.GetLabel()])
+			if (cost_so_far.count(next.GetLabel()) == 0 || new_cost < cost_so_far[next.GetLabel()])
+
 			{
 				cost_so_far[next.GetLabel()] = new_cost;		// Set the cost so far for this node
 				currentNodeAndPriority->priority = new_cost;	// Set the current priority
@@ -203,11 +199,6 @@ vector<int> Graph::AStar(int startNode, int goalNode)
 	map<int, float> cost_so_far;
 	cost_so_far[startNode] = 0.0f;
 
-	// Set every cost so far value to 0.0f 
-	// This will be used for checking if value is already in the list later
-	//for (int i = 0; i < cost_so_far.size(); i++)
-	//	cost_so_far[i] = 0.0f;
-
 	// Usage for returning value
 	bool hasReachedEndNode = false;
 
@@ -237,7 +228,6 @@ vector<int> Graph::AStar(int startNode, int goalNode)
 			new_cost = cost_so_far[current] + cost[current][next.GetLabel()];
 
 			// Check if the node is not already in the list or if it's smaller than the cost so far
-			//if (cost_so_far[next.GetLabel()] == 0.0f || new_cost < cost_so_far[next.GetLabel()])
 			if (cost_so_far.count(next.GetLabel()) == 0 || new_cost < cost_so_far[next.GetLabel()])
 			{
 				cost_so_far[next.GetLabel()] = new_cost;																// Set the cost so far for this node
