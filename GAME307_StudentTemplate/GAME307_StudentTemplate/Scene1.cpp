@@ -630,6 +630,8 @@ bool Scene1::OnCreate()
 		blinky->setTexture(texture);
 		SDL_FreeSurface(image);
 	}
+
+	blinky->readStateMachineXML("some.xml");
 #pragma endregion
 
 #pragma region Enemy
@@ -718,7 +720,8 @@ void Scene1::Update(const float deltaTime)
 	float timeToTarget = 0.5f;
 
 	// Update the npc's
-	blinky->Update(deltaTime); enemy->Update(deltaTime);
+	blinky->Update(deltaTime);
+	enemy->Update(deltaTime);
 
 	// Create physicobject from the kinematicbody for npc
 	Sphere boundingSphere;
