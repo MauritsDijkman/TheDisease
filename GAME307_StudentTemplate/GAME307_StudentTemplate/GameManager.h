@@ -1,5 +1,6 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
+
 #include <SDL.h>
 #include <iostream>
 #include "Window.h"
@@ -7,8 +8,8 @@
 #include "Scene.h"
 #include "PlayerBody.h"
 
-
-class GameManager {
+class GameManager
+{
 private:
 	class Window* windowPtr;
 	class Timer* timer;
@@ -25,17 +26,22 @@ private:
 public:
 	GameManager();
 	~GameManager();
+
 	bool OnCreate();
 	void OnDestroy();
+
 	float getSceneHeight();
 	float getSceneWidth();
 	Matrix4 getProjectionMatrix();
 	PlayerBody* getPlayer() { return player; }
 	Uint32 getChangeScene() { return changeSceneEventType; }
 	SDL_Renderer* getRenderer();
+
 	void RenderPlayer(float scale = 1.0f);
 	void Run();
+
 	void LoadScene(int i);
 	bool ValidateCurrentScene();
 };
-#endif
+
+#endif	// !GAMEMANAGER_H

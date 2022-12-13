@@ -40,11 +40,35 @@ void Character::Update(float deltaTime)
 	SteeringOutput* steering;
 	steering = new SteeringOutput();
 
+	if (stateMachine)
+	{
+		stateMachine->Update();
+
+		switch (stateMachine->GetCurrentStateName())
+		{
+		case STATE::ATTACK:
+			cout << "STATE: ATTACK" << endl;
+			break;
+
+		case STATE::CHASE:
+			cout << "STATE: CHASE" << endl;
+			steerToSeekPlayer(steering);
+			break;
+
+		case STATE::DO_NOTHING:
+			cout << "STATE: DO_NOTHING" << endl;
+			break;
+		}
+	}
+
+
+
+
 	// set the target for steering; target is used by the steerTo... functions
 	// (often the target is the Player)
 
 	// using the target, calculate and set values in the overall steering output
-	steerToSeekPlayer(steering);
+	//steerToSeekPlayer(steering);
 
 	//SteeringBehaviour* steering_algorithm = new Seek(body, target);
 	//steering = steering_algorithm->getSteering();

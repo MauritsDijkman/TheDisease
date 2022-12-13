@@ -1,27 +1,34 @@
 #include "SceneCredit.h"
 
-SceneCredit::SceneCredit(SDL_Window* sdlWindow_, GameManager* game_){
+SceneCredit::SceneCredit(SDL_Window* sdlWindow_, GameManager* game_) {
 	window = sdlWindow_;
 	game = game_;
+
 	xAxis = 25.0f;
 	yAxis = 15.0f;
+
 	renderer = SDL_GetRenderer(window);
 }
 
-SceneCredit::~SceneCredit(){
+SceneCredit::~SceneCredit() {
 	OnDestroy();
 }
 
-bool SceneCredit::OnCreate(){
+bool SceneCredit::OnCreate() {
 	int w, h;
 	SDL_GetWindowSize(window, &w, &h);
+
 	Matrix4 ndc = MMath::viewportNDC(w, h);
-	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);//xAxis = 25 , yAxis = 15
+	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);	//xAxis = 25 , yAxis = 15
 	projectionMatrix = ndc * ortho;
+
 	IMG_Init(IMG_INIT_PNG);
+
 	surfacePtr = IMG_Load("Assets/Menu/Menu_Credits.png");
+
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
+
 	if (surfacePtr == nullptr) {
 		std::cerr << "Image does not work" << std::endl;
 		return false;
@@ -38,13 +45,13 @@ void SceneCredit::OnDestroy()
 {
 	SDL_DestroyTexture(texturePtr);
 }
-void SceneCredit::Update(const float time){}
+void SceneCredit::Update(const float time) {}
 
 void SceneCredit::HandleEvents(const SDL_Event& sdlEvent)
 {
 	// Get the position of the mouse
 	Vec3 mousePosView = Vec3(sdlEvent.button.x, sdlEvent.button.y, 0.0f);
-	
+
 	// Back button, loads the previous scene
 	if (sdlEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN &&
 		85 < mousePosView.x && mousePosView.x < 384
@@ -53,19 +60,19 @@ void SceneCredit::HandleEvents(const SDL_Event& sdlEvent)
 		// Create event
 		SDL_Event event;
 		SDL_memset(&event, 0, sizeof(event));
-		
+
 		// Set event information
 		event.type = game->getChangeScene();
 		event.user.code = 4;
 		event.user.data1 = nullptr;
 		event.user.data2 = nullptr;
-		
+
 		// Push the event
 		SDL_PushEvent(&event);
 	}
 }
 
-bool SceneCredit::getDead(){return pressed;}
+bool SceneCredit::getDead() { return pressed; }
 
 void SceneCredit::Render()
 {
