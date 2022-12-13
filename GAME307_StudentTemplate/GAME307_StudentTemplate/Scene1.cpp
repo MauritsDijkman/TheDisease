@@ -619,10 +619,13 @@ bool Scene1::OnCreate()
 #pragma region Blinky
 	// Set up characters, choose good values for the constructor or use the defaults, like this
 	blinky = new Character();
+
 	if (!blinky->OnCreate(this))
 		return false;
+
 	image = IMG_Load("Blinky.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
+
 	if (image == nullptr) {
 		std::cerr << "Can't open the image" << std::endl;
 		return false;
@@ -639,13 +642,18 @@ bool Scene1::OnCreate()
 	// Set up characters, choose good values for the constructor or use the defaults, like this
 	enemy = new Enemy(game->getPlayer());
 	vector<Node*> targetList = vector<Node*>();
+
 	for (int node : path)
 		targetList.push_back(graph->GetNode(node));
+
 	enemy->SetTargetNodes(targetList);
+
 	for (Node* node : targetList)
 		cout << "Enemy target: " << node->GetLabel() << endl;
+
 	if (!enemy->OnCreate(this))
 		return false;
+
 	image = IMG_Load("Clyde.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
 
@@ -657,6 +665,8 @@ bool Scene1::OnCreate()
 		enemy->setTexture(texture);
 		SDL_FreeSurface(image);
 	}
+
+	enemy->readStateMachineXML("some.xml");
 #pragma endregion
 
 	return true;
@@ -2666,8 +2676,10 @@ void Scene1::Render()
 		SDL_RenderCopy(renderer, enemies19[i]->getTexture(), nullptr, &enemyRect);
 	}
 #pragma endregion
+
 	// Render the player
 	game->RenderPlayer(0.10f);
+
 	// Render all things in the renderer
 	SDL_RenderPresent(renderer);
 }
@@ -2872,14 +2884,9 @@ void Scene1::HandleEvents(const SDL_Event& event) {
 			game->getPlayer()->setitemhealth(0.0f);//make it destroy when press f
 
 		}
-
-	}
-
-	if (event.key.keysym.scancode == SDL_SCANCODE_F) {
-		if (game->getPlayer()->getvaccine()) {// if item in the inventory
+		else if (game->getPlayer()->getvaccine()) {// if item in the inventory
 			game->getPlayer()->restorevaccine(1.0f);
 			game->getPlayer()->setvaccine(0.0f);//make it destroy when press f
-
 		}
 	}
 
@@ -2889,16 +2896,10 @@ void Scene1::HandleEvents(const SDL_Event& event) {
 			game->getPlayer()->OnReload(100) == true;
 			game->getPlayer()->setammo(0.0f);
 		}
-
-	}
-
-	if (event.key.keysym.scancode == SDL_SCANCODE_R) {
-		//reload weapon
-		if (game->getPlayer()->getshotgunammo()) {
+		else if (game->getPlayer()->getshotgunammo()) {
 			game->getPlayer()->OnReload2(600) == true;
 			game->getPlayer()->setshotgunammo(0.0f);
 		}
-
 	}
 #pragma endregion
 }

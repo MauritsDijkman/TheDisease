@@ -1,5 +1,5 @@
 #include "ConditionInChaseRange.h"
-#include "Character.h"
+#include "Enemy.h"
 
 bool ConditionInChaseRange::test()
 {

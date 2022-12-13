@@ -55,7 +55,7 @@ void Character::Update(float deltaTime)
 			steerToSeekPlayer(steering);
 			break;
 
-		case STATE::DO_NOTHING:
+		case STATE::WANDER:
 			cout << "STATE: DO_NOTHING" << endl;
 			break;
 		}
@@ -143,7 +143,7 @@ void Character::render(float scale)
 
 bool Character::readStateMachineXML(string fileName)
 {
-	/**/
+	/**
 	stateMachine = new StateMachine(this);
 
 	State* attackPlayer = new State(STATE::ATTACK);

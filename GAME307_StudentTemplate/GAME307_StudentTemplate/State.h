@@ -8,7 +8,7 @@
 using namespace std;
 
 // States
-enum class STATE { DO_NOTHING, CHASE, ATTACK };
+enum class STATE { DO_NOTHING, WANDER, CHASE, ATTACK };
 
 // Necessary class include (solves weird bug)
 class Transition;

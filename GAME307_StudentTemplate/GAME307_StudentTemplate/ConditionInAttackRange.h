@@ -8,7 +8,7 @@ class ConditionInAttackRange :
 	public Condition
 {
 public:
-	ConditionInAttackRange(Character* owner_) : Condition{ owner_ }
+	ConditionInAttackRange(Enemy* owner_) : Condition{ owner_ }
 	{
 		// Put other stuff here if needed in constructor
 	}

@@ -5,11 +5,11 @@
 class Condition
 {
 protected:
-	class Character* owner;
+	class Enemy* owner;
 
 public:
 	// Constructor
-	Condition(Character* owner_) { owner = owner_; }
+	Condition(Enemy* owner_) { owner = owner_; }
 	~Condition() {};
 
 	// Test function

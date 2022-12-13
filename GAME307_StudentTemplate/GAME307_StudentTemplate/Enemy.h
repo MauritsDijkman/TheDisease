@@ -10,12 +10,17 @@
 #include "ArriveTarget.h"
 #include "Wander.h"
 #include "KinematicWander.h"
+#include "Statemachine.h"
 
 using namespace std;
 using namespace MATH;
 
-class Enemy{
+class Enemy {
 private:
+
+	StateMachine* stateMachine;
+
+
 	class Scene* ownerScene;
 	Node* currentTargetNode;
 	int currentTargetNumber;
@@ -29,26 +34,38 @@ private:
 	void AttackPlayer(float deltaTime, float attackInterval);
 public:
 	class KinematicBody* moveBody;
-	Enemy(PlayerBody* player_){
+
+	Enemy(PlayerBody* player_)
+	{
 		ownerScene = NULL;
 		moveBody = NULL;
 		player = player_;
 	};
-	~Enemy(){
+	~Enemy()
+	{
 		if (moveBody)
 			delete moveBody;
 	};
+
 	bool OnCreate(Scene* ownerScene_);
 	void OnDestroy() {};
+
 	void setTexture(SDL_Texture* texture_) { moveBody->setTexture(texture_); }
+
 	void Update(float deltaTime);
 	void HandleEvents(const SDL_Event& event);
 	void render(float scale);
+
 	void MoveToTarget(float deltaTime);
 	void WanderAround(float deltaTime);
 	float GetDistance(Vec3 p, Vec3 q);
 	void SteerToTarget(SteeringOutput* steering);
 	void WanderRandom(SteeringOutput* steering);
 	void SetTargetNodes(vector<Node*> targetNodes_) { targetNodes = targetNodes_; }
+
+	Vec3 GetPos() { return moveBody->getPos(); }
+	Vec3 GetPlayerPos() { return player->getPos(); }
+
+	bool readStateMachineXML(string fileName);
 };
 #endif // !ENEMY_H

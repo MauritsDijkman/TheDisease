@@ -1,5 +1,5 @@
 #include "ConditionInAttackRange.h"
-#include "Character.h"
+#include "Enemy.h"
 
 bool ConditionInAttackRange::test()
 {

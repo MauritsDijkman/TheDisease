@@ -1,5 +1,5 @@
 #include "ConditionOutOfAttackRange.h"
-#include "Character.h"
+#include "Enemy.h"
 
 bool ConditionOutOfAttackRange::test()
 {

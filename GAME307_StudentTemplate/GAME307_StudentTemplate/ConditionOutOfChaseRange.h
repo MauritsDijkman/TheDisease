@@ -8,7 +8,7 @@ class ConditionOutOfChaseRange :
 	public Condition
 {
 public:
-	ConditionOutOfChaseRange(Character* owner_) : Condition{ owner_ }
+	ConditionOutOfChaseRange(Enemy* owner_) : Condition{ owner_ }
 	{
 		// Put other stuff here if needed in constructor
 	}

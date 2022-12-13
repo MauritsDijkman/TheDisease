@@ -1,15 +1,15 @@
 #include "Enemy.h"
 
-bool Enemy::OnCreate(Scene* ownerScene_){
+bool Enemy::OnCreate(Scene* ownerScene_) {
 	ownerScene = ownerScene_;
-	if (targetNodes.size() > 0){
+	if (targetNodes.size() > 0) {
 		currentTargetNumber = 0;
 		currentTargetNode = targetNodes[currentTargetNumber];
 	}
 	else
 		cout << "List is 0" << endl;
 	// Configure and instantiate the body to use for the demo
-	if (!moveBody){
+	if (!moveBody) {
 		float radius = 0.2;
 		float orientation = 0.0f;
 		float rotation = 0.0f;
@@ -20,7 +20,7 @@ bool Enemy::OnCreate(Scene* ownerScene_){
 		float maxAngular = 10.0f;
 		moveBody = new KinematicBody(
 			Vec3(10.0f, 5.0f, 0), Vec3(0, 0, 0), Vec3(0, 0, 0), 1.0f,
-			radius,orientation,rotation,angular,maxSpeed,maxAcceleration,maxRotation,maxAngular
+			radius, orientation, rotation, angular, maxSpeed, maxAcceleration, maxRotation, maxAngular
 		);
 	}
 	if (!moveBody)
@@ -35,23 +35,49 @@ void Enemy::Update(float deltaTime)
 
 void Enemy::HandleDecisionMaking(float deltaTime)
 {
+	if (stateMachine)
+		stateMachine->Update();
+
+	switch (stateMachine->GetCurrentStateName())
+	{
+	case STATE::ATTACK:
+		cout << "STATE: ATTACK" << endl;
+		break;
+
+	case STATE::CHASE:
+		cout << "STATE: CHASE" << endl;
+		MoveToTarget(deltaTime);
+		break;
+
+	case STATE::WANDER:
+		cout << "STATE: WANDER" << endl;
+		WanderAround(deltaTime);
+		break;
+
+	case STATE::DO_NOTHING:
+		cout << "STATE: DO_NOTHING" << endl;
+		break;
+	}
+
+	/**
 	float distanceToPlayer = GetDistance(moveBody->getPos(), player->getPos());
-	//WanderAround(deltaTime);
-	if (distanceToPlayer > 5.0f) {WanderAround(deltaTime);}
-	else if (distanceToPlayer > 0.2f) {MoveToTarget(deltaTime);}
-	else { AttackPlayer(deltaTime, 2.0f);}
+
+	if (distanceToPlayer > 5.0f) { WanderAround(deltaTime); }
+	else if (distanceToPlayer > 0.2f) { MoveToTarget(deltaTime); }
+	else { AttackPlayer(deltaTime, 2.0f); }
+	/**/
 }
 
 void Enemy::MoveToTarget(float deltaTime)
 {
-	if (currentTargetNode){
+	if (currentTargetNode) {
 		float distance = GetDistance(moveBody->getPos(), currentTargetNode->GetPos());
 		// If in range of the node and there is a next node, set the next node
-		if (distance < 1.0f && currentTargetNumber + 1 < targetNodes.size()){
+		if (distance < 1.0f && currentTargetNumber + 1 < targetNodes.size()) {
 			currentTargetNumber++;
 			currentTargetNode = targetNodes[currentTargetNumber];
 		}
-		else{
+		else {
 			SteeringOutput* steering;
 			steering = new SteeringOutput();
 			SteerToTarget(steering);
@@ -62,7 +88,7 @@ void Enemy::MoveToTarget(float deltaTime)
 	}
 }
 
-void Enemy::WanderAround(float deltaTime){
+void Enemy::WanderAround(float deltaTime) {
 	SteeringOutput* steering;
 	steering = new SteeringOutput();
 	WanderRandom(steering);
@@ -71,9 +97,9 @@ void Enemy::WanderAround(float deltaTime){
 		delete steering;
 }
 
-void Enemy::HandleEvents(const SDL_Event& event){}
+void Enemy::HandleEvents(const SDL_Event& event) {}
 
-void Enemy::render(float scale){
+void Enemy::render(float scale) {
 	SDL_Renderer* renderer = ownerScene->game->getRenderer();
 	Matrix4 projectionMatrix = ownerScene->getProjectionMatrix();
 	SDL_Rect square;
@@ -94,14 +120,14 @@ void Enemy::render(float scale){
 		orientation, nullptr, SDL_FLIP_NONE);
 }
 
-void Enemy::SteerToTarget(SteeringOutput* steering){
+void Enemy::SteerToTarget(SteeringOutput* steering) {
 	// Create a list with the steering outputs
 	vector<SteeringOutput*> steering_outputs;
 	// Set the steering behaviour
 	SteeringBehaviour* steering_algorithm = new ArriveTarget(moveBody, currentTargetNode);
 	steering_outputs.push_back(steering_algorithm->getSteering());
 	// Add togethere any steering outputs
-	for (unsigned i = 0; i < steering_outputs.size(); i++){
+	for (unsigned i = 0; i < steering_outputs.size(); i++) {
 		if (steering_outputs[i])
 			*steering += *steering_outputs[i];
 	}
@@ -110,14 +136,46 @@ void Enemy::SteerToTarget(SteeringOutput* steering){
 		delete steering_algorithm;
 }
 
-void Enemy::WanderRandom(SteeringOutput* steering){
+bool Enemy::readStateMachineXML(string fileName)
+{
+	stateMachine = new StateMachine(this);
+
+	State* attackPlayer = new State(STATE::ATTACK);
+	State* chasePlayer = new State(STATE::CHASE);
+	State* wander = new State(STATE::WANDER);
+
+	// Chase -> Attack
+	Condition* ifInAttackRange = new ConditionInAttackRange(this);
+	chasePlayer->AddTransition(new Transition(ifInAttackRange, attackPlayer));
+
+	// Attack -> Chase
+	Condition* ifOutOfAttackRange = new ConditionOutOfAttackRange(this);
+	attackPlayer->AddTransition(new Transition(ifOutOfAttackRange, chasePlayer));
+
+
+	// Chase -> Wander
+	Condition* ifOutOfChaseRange = new ConditionOutOfChaseRange(this);
+	chasePlayer->AddTransition(new Transition(ifOutOfChaseRange, wander));
+
+	// Wander -> Chase
+	Condition* ifInChaseRange = new ConditionInChaseRange(this);
+	wander->AddTransition(new Transition(ifInChaseRange, chasePlayer));
+
+
+	// Set the start (initial) state
+	stateMachine->SetInitialState(wander);
+
+	return true;
+}
+
+void Enemy::WanderRandom(SteeringOutput* steering) {
 	// Create a list with the steering outputs
 	vector<SteeringOutput*> steering_outputs;
 	// Set the steering behaviour
 	SteeringBehaviour* steering_algorithm = new Wander(moveBody);
 	steering_outputs.push_back(steering_algorithm->getSteering());
 	// Add togethere any steering outputs
-	for (unsigned i = 0; i < steering_outputs.size(); i++){
+	for (unsigned i = 0; i < steering_outputs.size(); i++) {
 		if (steering_outputs[i])
 			*steering += *steering_outputs[i];
 	}
@@ -126,10 +184,10 @@ void Enemy::WanderRandom(SteeringOutput* steering){
 		delete steering_algorithm;
 }
 
-void Enemy::AttackPlayer(float deltaTime, float attackInterval){
+void Enemy::AttackPlayer(float deltaTime, float attackInterval) {
 	if (currentAttackValue > 0.0f)
 		currentAttackValue -= deltaTime;
-	else{
+	else {
 		// [TODO] Attack player
 		player->takeDamage(1.0f);
 		cout << "Player took damage!" << endl;
@@ -137,7 +195,7 @@ void Enemy::AttackPlayer(float deltaTime, float attackInterval){
 	}
 }
 
-float Enemy::GetDistance(Vec3 p, Vec3 q){
+float Enemy::GetDistance(Vec3 p, Vec3 q) {
 	// Distance = sqrt((pX-qX)^2 + (pY-qY)^2)
 	return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
 }

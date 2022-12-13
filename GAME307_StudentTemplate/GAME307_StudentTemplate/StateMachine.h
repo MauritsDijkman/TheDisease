@@ -18,11 +18,11 @@ private:
 	State* initialState;
 	State* currentState;
 
-	class Character* owner;
+	class Enemy* owner;
 
 public:
 	// Constructors
-	StateMachine(Character* owner_) { owner = owner_; }
+	StateMachine(Enemy* owner_) { owner = owner_; }
 	~StateMachine() {};
 
 	// Basic update
