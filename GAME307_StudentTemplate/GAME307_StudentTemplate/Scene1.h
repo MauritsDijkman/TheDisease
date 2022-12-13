@@ -13,12 +13,12 @@
 #include "Level.h"
 #include "PlayerBody.h"
 #include "EnemyCharacter.h"
-#include <BackgroundTile.h>
-#include <Graph.h>
+#include "BackgroundTile.h"
+#include "Graph.h"
 
 using namespace MATH;
 #define NUMWALL 9999
-class Scene1 : public Scene{
+class Scene1 : public Scene {
 private:
 	SDL_Window* window;
 	float xAxis = 25.0f;
@@ -30,7 +30,7 @@ private:
 	// Surfaces and textures
 	SDL_Surface* surfacePtr;
 	SDL_Texture* texturePtr;
-	
+
 #pragma region SDL_Texture
 	SDL_Texture* health;
 	SDL_Texture* itemhealth;
@@ -135,6 +135,7 @@ private:
 public:
 	Scene1(SDL_Window* sdlWindow, GameManager* game_);
 	~Scene1();
+
 	bool OnCreate();
 	void OnDestroy();
 	void Update(const float time);

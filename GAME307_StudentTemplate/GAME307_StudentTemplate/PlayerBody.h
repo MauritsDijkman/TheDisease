@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <vector>
 #include "Body.h"
-#include "Character.h"
 #include "GameManager.h"
 #include "CharacterHealth.h"
 #include "Ammunition.h"
@@ -11,7 +10,7 @@
 using namespace std;
 using namespace MATH;
 
-class PlayerBody : public Body{
+class PlayerBody : public Body {
 private:
 	Vec3 mousePosWorld;
 	bool isDead;
@@ -27,47 +26,47 @@ protected:
 	float health;
 	float maxHealth = 4.0f;
 
-//max of how many health pack the player can carry
+	//max of how many health pack the player can carry
 	float itemhealth;
 	float maxitemhealth = 4.0f;
 
-// can pick up the shotgun
+	// can pick up the shotgun
 	float gun;
 	float onegun = 1.0f;
 
-//max of how many ammo for pistol
-//pack the player can carry
+	//max of how many ammo for pistol
+	//pack the player can carry
 	float ammos;
 	float oneammos = 4.0f;
 
-//max of how many ammo for shotgun
-//pack the player can carry
+	//max of how many ammo for shotgun
+	//pack the player can carry
 	float shotgun_ammo;
 	float shotgun_ammos = 4.0f;
 
-//How much the player need to collect to win the game
+	//How much the player need to collect to win the game
 	float vaccine_bad;
 	float vaccine_good = 5.0f;
 
-	
 
-//How much ammo the player will contain
+
+	//How much ammo the player will contain
 	int ammoPool;
 	int loadammo;
 	int ammoshotgunpool;
 	int ammoshotgun;
 
-//use mouse to control player
+	//use mouse to control player
 	Sphere boundingSphere;
 	double angle, angularVel, angularAccel, rotationalI;
 public:
-	PlayerBody() : Body{}{
+	PlayerBody() : Body{} {
 		game = nullptr;
 	}
 	PlayerBody(
 		Vec3 pos_, Vec3 vel_, Vec3 accel_,
-		float mass_,float radius_,float orientation_,float rotation_,float angular_,float maxSpeed_,
-		float maxAcceleration_,float maxRotation_,float maxAngular_,
+		float mass_, float radius_, float orientation_, float rotation_, float angular_, float maxSpeed_,
+		float maxAcceleration_, float maxRotation_, float maxAngular_,
 		GameManager* game_
 	) : Body{
 		  pos_, vel_, accel_, mass_, radius_, orientation_, rotation_, angular_, maxSpeed_
@@ -87,11 +86,11 @@ public:
 	void setTexture(SDL_Texture* texture_) { texture = texture_; }
 	void FollowMouse(float mousePosX, float mousPosY);
 	void dead();
-	
+
 	void setshotgun(float s) { gun = s; }
 	float getshotgun() { return gun; }
 	bool restoreshotgun(float shotgun_);
-	
+
 	void setammo(float a) { ammos = a; }
 	float getammo() { return ammos; }
 	bool restoreammo(float ammo_);

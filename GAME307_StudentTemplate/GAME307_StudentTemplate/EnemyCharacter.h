@@ -1,8 +1,9 @@
 #ifndef ENEMYCHARACTER_H
 #define ENEMYCHARACTER_H
-#include "Character.h"
 
-class EnemyCharacter : public CharacterHealth{
+#include "CharacterHealth.h"
+
+class EnemyCharacter : public CharacterHealth {
 private:
 	int enemyType;
 	void Dead();

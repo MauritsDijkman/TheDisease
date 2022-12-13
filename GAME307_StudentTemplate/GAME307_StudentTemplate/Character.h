@@ -46,10 +46,10 @@ public:
 	KinematicBody* getBody() { return body; }
 	void steerToSeekPlayer(SteeringOutput* steering);
 
-	//Vec3 GetPos() { return body->getPos(); }
-	Vec3 GetPos() { return Vec3(); }
-	//Vec3 GetPlayerPos() { return scene->game->getPlayer()->getPos(); }
-	Vec3 GetPlayerPos() { return Vec3(); }
+	Vec3 GetPos() { return body->getPos(); }
+	//Vec3 GetPos() { return Vec3(); }
+	Vec3 GetPlayerPos() { return scene->game->getPlayer()->getPos(); }
+	//Vec3 GetPlayerPos() { return Vec3(); }
 
 	bool readStateMachineXML(string fileName);
 

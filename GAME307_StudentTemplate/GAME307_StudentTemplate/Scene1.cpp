@@ -8,6 +8,7 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	window = sdlWindow_;
 	game = game_;
 	renderer = SDL_GetRenderer(window);
+
 	xAxis = 25.0f;
 	yAxis = 15.0f;
 
