@@ -60,27 +60,12 @@ private:
 	vector<EnemyCharacter*> enemies1;
 	vector<EnemyCharacter*> enemies2;
 	vector<EnemyCharacter*> enemies3;
-	vector<EnemyCharacter*> enemies4;
-	vector<EnemyCharacter*> enemies5;
-	vector<EnemyCharacter*> enemies6;
-	vector<EnemyCharacter*> enemies7;
-	vector<EnemyCharacter*> enemies8;
-	vector<EnemyCharacter*> enemies9;
-	vector<EnemyCharacter*> enemies10;
-	vector<EnemyCharacter*> enemies11;
-	vector<EnemyCharacter*> enemies12;
-	vector<EnemyCharacter*> enemies13;
-	vector<EnemyCharacter*> enemies14;
-	vector<EnemyCharacter*> enemies15;
-	vector<EnemyCharacter*> enemies16;
-	vector<EnemyCharacter*> enemies17;
-	vector<EnemyCharacter*> enemies18;
-	vector<EnemyCharacter*> enemies19;
 #pragma endregion
 
 	// Npc
 	Character* blinky;
 	Enemy* enemy;
+	Enemy* enemy1;
 
 #pragma region Pickup
 	// Pickups
@@ -131,6 +116,7 @@ private:
 	vector<vector<BackgroundTile*>> tiles;
 	vector<Node*> nodes;
 	Graph* graph;
+	//void CreateTiles(int rows_, int columns_);
 	bool LoadImage(string pathName_);
 
 public:

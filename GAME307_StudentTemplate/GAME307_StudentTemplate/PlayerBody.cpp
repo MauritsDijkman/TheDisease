@@ -429,16 +429,16 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
 	}
 
 	// WeaponSwitch
-	if (event.key.keysym.scancode == SDL_SCANCODE_C)
+	if (event.key.keysym.scancode == SDL_SCANCODE_Z)
 		weaponType = 0;
-	if (event.key.keysym.scancode == SDL_SCANCODE_V)
+	if (event.key.keysym.scancode == SDL_SCANCODE_X)
 	{
 		if (altWeaponAvailable == true)
 			weaponType = 1;
 	}
-	if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
+	if (event.key.keysym.scancode == SDL_SCANCODE_C) {
 		weaponType = 2;
-
+	}
 	// Get mouse position
 	if (event.type == SDL_EventType::SDL_MOUSEMOTION)
 	{
@@ -451,7 +451,6 @@ void PlayerBody::Update(float deltaTime)
 {
 	// Update position, call Update from base class
 	// Note that would update velocity too, and rotation motion
-
 	Body::Update(deltaTime);
 
 	// This will ensure player body stops at edges
@@ -460,8 +459,9 @@ void PlayerBody::Update(float deltaTime)
 	width = game->getSceneWidth();
 
 	float scalar = getOrientation();
-	
+
 	FollowMouse(mousePosWorld.x, mousePosWorld.y);
+
 }
 
 void PlayerBody::resetToOrigin()
@@ -480,6 +480,6 @@ void PlayerBody::PrintVectorRotation()
 
 	// (x2 - x1, y2 - y1)
 	Vec3 orientationVector;
-	orientationVector = Vec3((characterPos.x - originPos.x) / unitlength, (characterPos.y - originPos.y) / unitlength, 0.0f);	
+	orientationVector = Vec3((characterPos.x - originPos.x) / unitlength, (characterPos.y - originPos.y) / unitlength, 0.0f);
 
 }

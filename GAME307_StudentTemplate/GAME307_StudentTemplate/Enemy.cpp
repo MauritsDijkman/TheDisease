@@ -142,7 +142,7 @@ void Enemy::AttackPlayer(float deltaTime, float attackInterval){
 		currentAttackValue -= deltaTime;
 	else{
 		// [TODO] Attack player
-		player->takeDamage(1.0f);
+		player->takeDamage(3.0f);
 		cout << "Player took damage!" << endl;
 		currentAttackValue = attackInterval;
 	}

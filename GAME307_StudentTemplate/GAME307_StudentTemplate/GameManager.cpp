@@ -16,7 +16,7 @@ GameManager::GameManager() {
 	player = nullptr;
 
 	changeSceneEventType = 0;
-	playerHealth = 3.0f;
+	//playerHealth = 3.0f;
 
 	//This will keep track of wich scene it is -1 will be the menu 
 	//and -2 will be option -3 will be the credit and -4 will be the win screen
