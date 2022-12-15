@@ -1,6 +1,5 @@
 #include "Character.h"
 
-
 bool Character::OnCreate(Scene* scene_)
 {
 	scene = scene_;
@@ -30,25 +29,46 @@ bool Character::OnCreate(Scene* scene_)
 	}
 
 	if (!body)
-	{
 		return false;
-	}
 
 	return true;
 }
 
 void Character::Update(float deltaTime)
 {
-	// create a new overall steering output
+	// Create a new overall steering output
 	SteeringOutput* steering;
-	//steering = NULL;
 	steering = new SteeringOutput();
+
+	if (stateMachine)
+	{
+		stateMachine->Update();
+
+		switch (stateMachine->GetCurrentStateName())
+		{
+		case STATE::ATTACK:
+			cout << "STATE: ATTACK" << endl;
+			break;
+
+		case STATE::CHASE:
+			cout << "STATE: CHASE" << endl;
+			steerToSeekPlayer(steering);
+			break;
+
+		case STATE::DO_NOTHING:
+			cout << "STATE: DO_NOTHING" << endl;
+			break;
+		}
+	}
+
+
+
 
 	// set the target for steering; target is used by the steerTo... functions
 	// (often the target is the Player)
 
 	// using the target, calculate and set values in the overall steering output
-	steerToSeekPlayer(steering);
+	//steerToSeekPlayer(steering);
 
 	//SteeringBehaviour* steering_algorithm = new Seek(body, target);
 	//steering = steering_algorithm->getSteering();
@@ -68,7 +88,6 @@ void Character::steerToSeekPlayer(SteeringOutput* steering)
 	PlayerBody* target = scene->game->getPlayer();
 
 	SteeringBehaviour* steering_algorithm = new Seek(body, target);
-	//SteeringBehaviour* steering_algorithm = new KinematicArrive(3.0f, 0.5f, body, target);
 	steering_outputs.push_back(steering_algorithm->getSteering());
 
 	// Add togethere any steering outputs
@@ -120,4 +139,36 @@ void Character::render(float scale)
 
 	SDL_RenderCopyEx(renderer, body->getTexture(), nullptr, &square,
 		orientation, nullptr, SDL_FLIP_NONE);
+}
+
+bool Character::readStateMachineXML(string fileName)
+{
+	/**/
+	stateMachine = new StateMachine(this);
+
+	State* attackPlayer = new State(STATE::ATTACK);
+	State* chasePlayer = new State(STATE::CHASE);
+	State* doNothing = new State(STATE::DO_NOTHING);
+
+	// Chase -> Attack
+	Condition* ifInAttackRange = new ConditionInAttackRange(this);
+	chasePlayer->AddTransition(new Transition(ifInAttackRange, attackPlayer));
+
+	// Attack -> Chase
+	Condition* ifOutOfAttackRange = new ConditionOutOfAttackRange(this);
+	attackPlayer->AddTransition(new Transition(ifOutOfAttackRange, chasePlayer));
+
+
+	// Chase -> Do Nothing
+	Condition* ifOutOfChaseRange = new ConditionOutOfChaseRange(this);
+	chasePlayer->AddTransition(new Transition(ifOutOfChaseRange, doNothing));
+
+	// Do Nothing -> Chase
+	Condition* ifInChaseRange = new ConditionInChaseRange(this);
+	doNothing->AddTransition(new Transition(ifInChaseRange, chasePlayer));
+
+	stateMachine->SetInitialState(doNothing);
+	/**/
+
+	return true;
 }

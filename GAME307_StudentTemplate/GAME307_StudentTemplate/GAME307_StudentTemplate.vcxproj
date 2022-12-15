@@ -139,6 +139,10 @@
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CharacterHealth.cpp" />
+    <ClCompile Include="ConditionInAttackRange.cpp" />
+    <ClCompile Include="ConditionInChaseRange.cpp" />
+    <ClCompile Include="ConditionOutOfAttackRange.cpp" />
+    <ClCompile Include="ConditionOutOfChaseRange.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyCharacter.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -165,6 +169,7 @@
     <ClCompile Include="SceneWin.cpp" />
     <ClCompile Include="Seek.cpp" />
     <ClCompile Include="SeekTarget.cpp" />
+    <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="StaticBody.cpp" />
     <ClCompile Include="SteeringBehaviour.cpp" />
     <ClCompile Include="Steering\KinematicBody.cpp" />
@@ -182,6 +187,11 @@
     <ClInclude Include="Body.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterHealth.h" />
+    <ClInclude Include="Condition.h" />
+    <ClInclude Include="ConditionInAttackRange.h" />
+    <ClInclude Include="ConditionInChaseRange.h" />
+    <ClInclude Include="ConditionOutOfAttackRange.h" />
+    <ClInclude Include="ConditionOutOfChaseRange.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyCharacter.h" />
     <ClInclude Include="GameManager.h" />
@@ -210,11 +220,14 @@
     <ClInclude Include="Seek.h" />
     <ClInclude Include="SeekTarget.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateMachine.h" />
     <ClInclude Include="StaticBody.h" />
     <ClInclude Include="SteeringBehaviour.h" />
     <ClInclude Include="Steering\KinematicBody.h" />
     <ClInclude Include="Steering\SteeringOutput.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Transition.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vector2D.h" />
     <ClInclude Include="VMath.h" />
