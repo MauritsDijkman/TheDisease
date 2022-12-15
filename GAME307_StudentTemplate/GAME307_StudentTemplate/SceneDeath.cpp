@@ -9,6 +9,7 @@
 SceneDeath::SceneDeath(SDL_Window* sdlWindow_, GameManager* game_)
 {
 	window = sdlWindow_;
+	//renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	renderer = SDL_GetRenderer(window);
 	game = game_;
 	pressed = false;
@@ -23,19 +24,20 @@ SceneDeath::~SceneDeath()
 bool SceneDeath::OnCreate()
 {
 	int w, h;
-	float xAxis = 32.0f;
-	float yAxis = 18.0f;
-	float zAxis = 1.0f;
+	xAxis = 25.0f;
+	yAxis = 15.0f;
 	SDL_GetWindowSize(window, &w, &h);
 
 	Matrix4 ndc = MMath::viewportNDC(w, h);
-	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, zAxis);
+	//Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, zAxis);
+	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
+
 	projectionMatrix = ndc * ortho;
 
 	//Makes loading PNGs easer so only use PNGs
 	IMG_Init(IMG_INIT_PNG);
 
-	surfacePtr = IMG_Load("death.jpg");
+	surfacePtr = IMG_Load("Assets/Menu/Menu_Death.png");
 	texturePtr = SDL_CreateTextureFromSurface(renderer, surfacePtr);
 
 	if (surfacePtr == nullptr) {
@@ -63,17 +65,31 @@ void SceneDeath::Render()
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_Renderer* renderer = SDL_GetRenderer(window);
 
+	SDL_Rect square;
+	Vec3 screenCoords;
+
+	float scale = 1.0f;
+	Vec3 pos = Vec3(12.5f, 7.5f, 1.0f);	// To spawn in the middle
+	int w, h;
+
+	// Set up the info of the image
+	SDL_QueryTexture(texturePtr, nullptr, nullptr, &w, &h);
+	w = static_cast<int>(w * scale);
+	h = static_cast<int>(h * scale);
+	screenCoords = projectionMatrix * pos;
+	square.x = static_cast<int>(screenCoords.x - 0.5f * w);
+	square.y = static_cast<int>(screenCoords.y - 0.5f * h);
+	square.w = w;
+	square.h = h;
+
 	// Clear screen
 	SDL_RenderClear(renderer);
 
-	SDL_Rect youDied;
-	youDied.x = 310;
-	youDied.y = 0;
-	youDied.w = 720;
-	youDied.h = 720;
-	SDL_RenderCopy(renderer, texturePtr, nullptr, &youDied);
+	// Copy for rotation and flipping
+	SDL_RenderCopyEx(renderer, texturePtr, nullptr, &square,
+		0.0f, nullptr, SDL_FLIP_NONE);
 
-	// Update screen
+	// Render the screen
 	SDL_RenderPresent(renderer);
 }
 
@@ -81,10 +97,14 @@ void SceneDeath::Update(const float time) {}
 
 void SceneDeath::HandleEvents(const SDL_Event& sdlEvent)
 {
-	//Make stuff happen here with the clickety clack
-	if (sdlEvent.type == SDL_KEYDOWN || sdlEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN)
+	// Get the position of the mouse
+	Vec3 mousePosView = Vec3(sdlEvent.button.x, sdlEvent.button.y, 0.0f);
+
+	// Restart button, restarts the level
+	if (sdlEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN &&
+		84 < mousePosView.x && mousePosView.x < 383
+		&& 325 < mousePosView.y && mousePosView.y < 419)
 	{
-		//Move you to the menu when you press any key 
 		// Create event
 		SDL_Event event;
 		SDL_memset(&event, 0, sizeof(event));
@@ -97,7 +117,24 @@ void SceneDeath::HandleEvents(const SDL_Event& sdlEvent)
 
 		// Push the event
 		SDL_PushEvent(&event);
+	}
+	// Menu button, loads the menu
+	else if (sdlEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN &&
+		84 < mousePosView.x && mousePosView.x < 383
+		&& 462 < mousePosView.y && mousePosView.y < 556)
+	{
+		// Create event
+		SDL_Event event;
+		SDL_memset(&event, 0, sizeof(event));
 
-		pressed = true;
+		// Set event information
+		event.type = game->getChangeScene();
+		event.user.code = 4;
+		event.user.data1 = nullptr;
+		event.user.data2 = nullptr;
+
+		// Push the event
+		SDL_PushEvent(&event);
 	}
 }
+

@@ -11,7 +11,6 @@ SceneWin::SceneWin(SDL_Window* sdlWindow_, GameManager* game_)
 	renderer = SDL_GetRenderer(window);
 	game = game_;
 	pressed = false;
-	
 }
 
 SceneWin::~SceneWin()
@@ -23,16 +22,12 @@ SceneWin::~SceneWin()
 bool SceneWin::OnCreate()
 {
 	int w, h;
-	//float xAxis = 32.0f;
-	//float yAxis = 18.0f;
-	//float zAxis = 1.0f;
 
 	xAxis = 25.0f;
 	yAxis = 15.0f;
 	SDL_GetWindowSize(window, &w, &h);
 
 	Matrix4 ndc = MMath::viewportNDC(w, h);
-	//Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, zAxis);
 	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
 
 	projectionMatrix = ndc * ortho;
@@ -59,6 +54,7 @@ bool SceneWin::OnCreate()
 
 void SceneWin::OnDestroy()
 {
+	//SDL_DestroyRenderer(renderer);
 	SDL_DestroyTexture(texturePtr);
 }
 

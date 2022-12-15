@@ -14,13 +14,6 @@ GameManager::GameManager() {
 	isRunning = true;
 	currentScene = nullptr;
 	player = nullptr;
-
-	changeSceneEventType = 0;
-	//playerHealth = 3.0f;
-
-	//This will keep track of wich scene it is -1 will be the menu 
-	//and -2 will be option -3 will be the credit and -4 will be the win screen
-	//sceneNum = -1;
 }
 
 bool GameManager::OnCreate() {
@@ -283,7 +276,6 @@ void GameManager::Run()
 
 				}
 			}
-
 			currentScene->HandleEvents(event);
 		}
 
@@ -329,7 +321,6 @@ void GameManager::OnDestroy()
 }
 SDL_Renderer* GameManager::getRenderer()
 {
-	// [TODO] Might be missing some SDL error checking
 	SDL_Window* window = currentScene->getWindow();
 	SDL_Renderer* renderer = SDL_GetRenderer(window);
 	return renderer;

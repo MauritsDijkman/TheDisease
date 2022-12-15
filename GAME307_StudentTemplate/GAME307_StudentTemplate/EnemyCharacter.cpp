@@ -2,8 +2,6 @@
 
 EnemyCharacter::EnemyCharacter() : enemyType(0) {}
 
-
-
 void EnemyCharacter::SeekPlayer(Vec3 playerLocation_)
 {
 	Vec3 enemyToPlayer = playerLocation_ - pos;

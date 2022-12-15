@@ -248,7 +248,6 @@ std::vector<Ammunition*> PlayerBody::fireshotgunBullet()
 
 			ammoshotgun = ammoshotgun - 1;
 		}
-
 		angle += 15;
 	}
 
@@ -278,17 +277,16 @@ vector<Ammunition*> PlayerBody::stabbing()
 		knife[0]->setVel(Vec3(0.0f, 0.0f, 0.0f));
 
 	}
-
 	return knife;
 }
 
 bool PlayerBody::OnCreate()
 {
-	loadammo = 10;
-	ammoPool = 100;
+	loadammo = 10;//begin of game how much ammo player have
+	ammoPool = 100;//how much player get when pickup
 
-	ammoshotgunpool = 20;
-	ammoshotgun = 100;
+	ammoshotgunpool = 20;//begin of game how much ammo player have
+	ammoshotgun = 100;//how much player get when pickup
 
 	image = IMG_Load("Assets/humans/idle_human2.png");
 
@@ -481,5 +479,4 @@ void PlayerBody::PrintVectorRotation()
 	// (x2 - x1, y2 - y1)
 	Vec3 orientationVector;
 	orientationVector = Vec3((characterPos.x - originPos.x) / unitlength, (characterPos.y - originPos.y) / unitlength, 0.0f);
-
 }

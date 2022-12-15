@@ -112,7 +112,7 @@ bool Scene1::OnCreate()
 		enemies.push_back(new EnemyCharacter());
 
 		// Set stats of the current enemy
-		enemies[i]->setPos(Vec3(100.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies[i]->setPos(Vec3(300.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies[i]->setBoundingSphere(Sphere(0.5f));
 		enemies[i]->setTexture(texturePtr);
 	}
@@ -124,7 +124,7 @@ bool Scene1::OnCreate()
 		enemies1.push_back(new EnemyCharacter());
 		
 		// Set stats of the current enemy
-		enemies1[i]->setPos(Vec3(-300.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies1[i]->setPos(Vec3(-600.0f - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies1[i]->setBoundingSphere(Sphere(0.5f));
 		enemies1[i]->setTexture(texturePtr);
 	}
@@ -136,7 +136,7 @@ bool Scene1::OnCreate()
 		enemies2.push_back(new EnemyCharacter());
 		
 		// Set stats of the current enemy
-		enemies2[i]->setPos(Vec3(xAxis - 3.0f, 600 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
+		enemies2[i]->setPos(Vec3(xAxis - 3.0f, 900 - 4.0f - 3.0f * i, 0.0f));//xAxis - 3.0f, yAxis - 4.0f - 3.0f * i, 0.0f
 		enemies2[i]->setBoundingSphere(Sphere(0.5f));
 		enemies2[i]->setTexture(texturePtr);
 	}
@@ -1830,12 +1830,10 @@ void Scene1::HandleEvents(const SDL_Event& event){
 		}
 	}
 
-
-
 	if (event.key.keysym.scancode == SDL_SCANCODE_F) {
-		if (game->getPlayer()->getvaccine()) {// if item in the inventory
-			game->getPlayer()->restorevaccine(1.0f);
-			game->getPlayer()->setvaccine(0.0f);//make it destroy when press f
+		if (game->getPlayer()->getitemhealth()) {// if item in the inventory
+			game->getPlayer()->restoreHealth(1.0f);
+			game->getPlayer()->setitemhealth(0.0f);//make it destroy when press f
 		}
 
 		if (game->getPlayer()->getvaccine()) {// if item in the inventory
@@ -1851,22 +1849,11 @@ void Scene1::HandleEvents(const SDL_Event& event){
 			game->getPlayer()->OnReload(100) == true;
 			game->getPlayer()->setammo(0.0f);
 		}
-	}
 
-	if (event.key.keysym.scancode == SDL_SCANCODE_R) {
-
-		//reload weapon
-			if(game->getPlayer()->getshotgunammo()){
-				game->getPlayer()->OnReload2(600) == true;
-				game->getPlayer()->setshotgunammo(0.0f);
-			}
-
-		//reload weapon
 		if (game->getPlayer()->getshotgunammo()) {
 			game->getPlayer()->OnReload2(600) == true;
 			game->getPlayer()->setshotgunammo(0.0f);
 		}
-
 	}
 
 #pragma endregion
