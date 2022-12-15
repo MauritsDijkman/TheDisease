@@ -38,6 +38,9 @@ public:
 	// Algorithms
 	vector<int> Dijkstra(int startNode, int goalNode);
 	vector<int> AStar(int startNode, int goalNode);
+
+	// Get closest node to the player
+	int GetClosestNodeToPlayer(Vec3 playerPos);
 };
 
 #endif // !GRAPH_H

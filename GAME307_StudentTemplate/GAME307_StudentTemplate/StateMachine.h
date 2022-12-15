@@ -11,6 +11,8 @@
 #include "ConditionOutOfAttackRange.h"
 #include "ConditionOutOfChaseRange.h"
 #include "ConditionInChaseRange.h"
+#include "ConditionOutOfWanderRange.h"
+#include "ConditionBackInWanderRange.h"
 
 class StateMachine
 {

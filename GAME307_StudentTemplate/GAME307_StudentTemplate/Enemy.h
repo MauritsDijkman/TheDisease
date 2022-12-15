@@ -8,6 +8,7 @@
 #include "Node.h"
 #include "SeekTarget.h"
 #include "ArriveTarget.h"
+#include "SteerToTarget.h"
 #include "Wander.h"
 #include "KinematicWander.h"
 #include "Statemachine.h"
@@ -17,19 +18,25 @@ using namespace MATH;
 
 class Enemy {
 private:
+	class Scene* ownerScene;
 
 	StateMachine* stateMachine;
 
-
-	class Scene* ownerScene;
 	Node* currentTargetNode;
 	int currentTargetNumber;
+
 	vector<Node*> targetNodes;
+
+	Vec3 spawnPos;
 	Vec3 position;
 	Vec3 velocity;
+
 	float maxSpeed = 5;
+
 	PlayerBody* player;
+
 	float currentAttackValue;
+
 	void HandleDecisionMaking(float deltaTime);
 	void AttackPlayer(float deltaTime, float attackInterval);
 public:
@@ -56,15 +63,20 @@ public:
 	void HandleEvents(const SDL_Event& event);
 	void render(float scale);
 
-	void MoveToTarget(float deltaTime);
-	void WanderAround(float deltaTime);
 	float GetDistance(Vec3 p, Vec3 q);
-	void SteerToTarget(SteeringOutput* steering);
+
+	void SteerToNodeTarget_Caller(float deltaTime);
+	void SteerToTargetPos_Caller(float deltaTime);
+	void WanderRandom_Caller(float deltaTime);
+	void SteerToNodeTarget(SteeringOutput* steering);
+	void SteerToTargetPos(SteeringOutput* steering);
 	void WanderRandom(SteeringOutput* steering);
+
 	void SetTargetNodes(vector<Node*> targetNodes_) { targetNodes = targetNodes_; }
 
 	Vec3 GetPos() { return moveBody->getPos(); }
 	Vec3 GetPlayerPos() { return player->getPos(); }
+	Vec3 GetSpawnPos() { return spawnPos; }
 
 	bool readStateMachineXML(string fileName);
 };

@@ -603,7 +603,10 @@ bool Scene1::OnCreate()
 			cout << "Path " << i << ": " << path[i] << endl;
 	}
 	else if (path.size() <= 0)
-		cout << "You can't get there from here!" << endl;
+		cout << "You can't get there from here\n!" << endl;
+
+	cout << "Closest node: " << graph->GetClosestNodeToPlayer(game->getPlayer()->getPos()) << endl;
+
 #pragma endregion
 
 #pragma region Player
@@ -712,6 +715,10 @@ void Scene1::Update(const float deltaTime)
 	// Updates the location of the orthograpic each frame
 	int w, h;
 	SDL_GetWindowSize(window, &w, &h);
+
+	cout << "Closest node: " << graph->GetClosestNodeToPlayer(game->getPlayer()->getPos()) << endl;
+	cout << "Player Pos: ";
+	game->getPlayer()->getPos().print();
 
 	// For moving camera view
 	float minX = game->getPlayer()->getPos().x - xAxis / 2;

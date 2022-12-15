@@ -40,30 +40,6 @@ void Character::Update(float deltaTime)
 	SteeringOutput* steering;
 	steering = new SteeringOutput();
 
-	if (stateMachine)
-	{
-		stateMachine->Update();
-
-		switch (stateMachine->GetCurrentStateName())
-		{
-		case STATE::ATTACK:
-			cout << "STATE: ATTACK" << endl;
-			break;
-
-		case STATE::CHASE:
-			cout << "STATE: CHASE" << endl;
-			steerToSeekPlayer(steering);
-			break;
-
-		case STATE::WANDER:
-			cout << "STATE: DO_NOTHING" << endl;
-			break;
-		}
-	}
-
-
-
-
 	// set the target for steering; target is used by the steerTo... functions
 	// (often the target is the Player)
 
@@ -139,36 +115,4 @@ void Character::render(float scale)
 
 	SDL_RenderCopyEx(renderer, body->getTexture(), nullptr, &square,
 		orientation, nullptr, SDL_FLIP_NONE);
-}
-
-bool Character::readStateMachineXML(string fileName)
-{
-	/**
-	stateMachine = new StateMachine(this);
-
-	State* attackPlayer = new State(STATE::ATTACK);
-	State* chasePlayer = new State(STATE::CHASE);
-	State* doNothing = new State(STATE::DO_NOTHING);
-
-	// Chase -> Attack
-	Condition* ifInAttackRange = new ConditionInAttackRange(this);
-	chasePlayer->AddTransition(new Transition(ifInAttackRange, attackPlayer));
-
-	// Attack -> Chase
-	Condition* ifOutOfAttackRange = new ConditionOutOfAttackRange(this);
-	attackPlayer->AddTransition(new Transition(ifOutOfAttackRange, chasePlayer));
-
-
-	// Chase -> Do Nothing
-	Condition* ifOutOfChaseRange = new ConditionOutOfChaseRange(this);
-	chasePlayer->AddTransition(new Transition(ifOutOfChaseRange, doNothing));
-
-	// Do Nothing -> Chase
-	Condition* ifInChaseRange = new ConditionInChaseRange(this);
-	doNothing->AddTransition(new Transition(ifInChaseRange, chasePlayer));
-
-	stateMachine->SetInitialState(doNothing);
-	/**/
-
-	return true;
 }

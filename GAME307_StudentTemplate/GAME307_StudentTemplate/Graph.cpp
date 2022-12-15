@@ -2,6 +2,11 @@
 
 using namespace std;
 
+float GetDistance(Vec3 p, Vec3 q) {
+	// Distance = sqrt((pX-qX)^2 + (pY-qY)^2)
+	return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
+}
+
 Graph::Graph() {}
 
 Graph::~Graph() {}
@@ -262,4 +267,34 @@ vector<int> Graph::AStar(int startNode, int goalNode)
 		reverse(path.begin(), path.end());
 		return path;
 	}
+}
+
+int Graph::GetClosestNodeToPlayer(Vec3 playerPos)
+{
+	int closestNode = 0;
+	float closestDistance = std::numeric_limits<int>::max();	// Set to infinity
+
+	int currentNode = 0;
+
+	while (currentNode != node.size() - 1)
+	{
+		for (Node pNode : GetNeighbours(currentNode))
+		{
+			//cout << "CurrentNode: " << currentNode << " || Node.Label(): " << pNode.GetLabel() << endl;
+
+			float distanceToPlayer = GetDistance(pNode.GetPos(), playerPos);
+			//cout << "pNode.GetPos:";
+			//pNode.GetPos().print();
+
+			if (distanceToPlayer < closestDistance)
+			{
+				closestNode = pNode.GetLabel();
+				closestDistance = distanceToPlayer;
+			}
+
+			currentNode++;
+		}
+	}
+
+	return closestNode;
 }

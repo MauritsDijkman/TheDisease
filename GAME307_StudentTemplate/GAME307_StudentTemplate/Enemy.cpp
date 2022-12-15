@@ -25,6 +25,9 @@ bool Enemy::OnCreate(Scene* ownerScene_) {
 	}
 	if (!moveBody)
 		return false;
+
+	spawnPos = position;
+
 	return true;
 }
 
@@ -42,16 +45,22 @@ void Enemy::HandleDecisionMaking(float deltaTime)
 	{
 	case STATE::ATTACK:
 		cout << "STATE: ATTACK" << endl;
+		AttackPlayer(deltaTime, 0.5f);
 		break;
 
 	case STATE::CHASE:
 		cout << "STATE: CHASE" << endl;
-		MoveToTarget(deltaTime);
+		SteerToNodeTarget_Caller(deltaTime);
 		break;
 
 	case STATE::WANDER:
 		cout << "STATE: WANDER" << endl;
-		WanderAround(deltaTime);
+		WanderRandom_Caller(deltaTime);
+		break;
+
+	case STATE::BACK_TO_START:
+		cout << "STATE: BACK_TO_START" << endl;
+		SteerToTargetPos_Caller(deltaTime);
 		break;
 
 	case STATE::DO_NOTHING:
@@ -68,31 +77,52 @@ void Enemy::HandleDecisionMaking(float deltaTime)
 	/**/
 }
 
-void Enemy::MoveToTarget(float deltaTime)
+void Enemy::SteerToNodeTarget_Caller(float deltaTime)
 {
-	if (currentTargetNode) {
+	if (currentTargetNode)
+	{
 		float distance = GetDistance(moveBody->getPos(), currentTargetNode->GetPos());
+
 		// If in range of the node and there is a next node, set the next node
-		if (distance < 1.0f && currentTargetNumber + 1 < targetNodes.size()) {
+		if (distance < 1.0f && currentTargetNumber + 1 < targetNodes.size())
+		{
 			currentTargetNumber++;
 			currentTargetNode = targetNodes[currentTargetNumber];
 		}
-		else {
+		else
+		{
 			SteeringOutput* steering;
 			steering = new SteeringOutput();
-			SteerToTarget(steering);
+
+			SteerToNodeTarget(steering);
 			moveBody->Update(deltaTime, steering);
+
 			if (steering)
 				delete steering;
 		}
 	}
 }
 
-void Enemy::WanderAround(float deltaTime) {
+void Enemy::SteerToTargetPos_Caller(float deltaTime)
+{
 	SteeringOutput* steering;
 	steering = new SteeringOutput();
+
+	SteerToTargetPos(steering);
+	moveBody->Update(deltaTime, steering);
+
+	if (steering)
+		delete steering;
+}
+
+void Enemy::WanderRandom_Caller(float deltaTime)
+{
+	SteeringOutput* steering;
+	steering = new SteeringOutput();
+
 	WanderRandom(steering);
 	moveBody->Update(deltaTime, steering);
+
 	if (steering)
 		delete steering;
 }
@@ -120,22 +150,6 @@ void Enemy::render(float scale) {
 		orientation, nullptr, SDL_FLIP_NONE);
 }
 
-void Enemy::SteerToTarget(SteeringOutput* steering) {
-	// Create a list with the steering outputs
-	vector<SteeringOutput*> steering_outputs;
-	// Set the steering behaviour
-	SteeringBehaviour* steering_algorithm = new ArriveTarget(moveBody, currentTargetNode);
-	steering_outputs.push_back(steering_algorithm->getSteering());
-	// Add togethere any steering outputs
-	for (unsigned i = 0; i < steering_outputs.size(); i++) {
-		if (steering_outputs[i])
-			*steering += *steering_outputs[i];
-	}
-	// Clean up memory
-	if (steering_algorithm)
-		delete steering_algorithm;
-}
-
 bool Enemy::readStateMachineXML(string fileName)
 {
 	stateMachine = new StateMachine(this);
@@ -143,6 +157,7 @@ bool Enemy::readStateMachineXML(string fileName)
 	State* attackPlayer = new State(STATE::ATTACK);
 	State* chasePlayer = new State(STATE::CHASE);
 	State* wander = new State(STATE::WANDER);
+	State* backToStart = new State(STATE::BACK_TO_START);
 
 	// Chase -> Attack
 	Condition* ifInAttackRange = new ConditionInAttackRange(this);
@@ -162,40 +177,97 @@ bool Enemy::readStateMachineXML(string fileName)
 	wander->AddTransition(new Transition(ifInChaseRange, chasePlayer));
 
 
+	// Wander -> BackToStart
+	Condition* ifOutOfWanderRange = new ConditionOutOfWanderRange(this);
+	wander->AddTransition(new Transition(ifOutOfWanderRange, backToStart));
+
+	// BackToStart -> Wander
+	Condition* ifBackInWanderRange = new ConditionBackInWanderRange(this);
+	wander->AddTransition(new Transition(ifBackInWanderRange, wander));
+
+
 	// Set the start (initial) state
 	stateMachine->SetInitialState(wander);
 
 	return true;
 }
 
-void Enemy::WanderRandom(SteeringOutput* steering) {
+void Enemy::SteerToNodeTarget(SteeringOutput* steering) {
 	// Create a list with the steering outputs
 	vector<SteeringOutput*> steering_outputs;
+
 	// Set the steering behaviour
-	SteeringBehaviour* steering_algorithm = new Wander(moveBody);
+	SteeringBehaviour* steering_algorithm = new ArriveTarget(moveBody, currentTargetNode);
 	steering_outputs.push_back(steering_algorithm->getSteering());
+
 	// Add togethere any steering outputs
-	for (unsigned i = 0; i < steering_outputs.size(); i++) {
+	for (unsigned i = 0; i < steering_outputs.size(); i++)
+	{
 		if (steering_outputs[i])
 			*steering += *steering_outputs[i];
 	}
+
 	// Clean up memory
 	if (steering_algorithm)
 		delete steering_algorithm;
 }
 
-void Enemy::AttackPlayer(float deltaTime, float attackInterval) {
+void Enemy::SteerToTargetPos(SteeringOutput* steering)
+{
+	// Create a list with the steering outputs
+	vector<SteeringOutput*> steering_outputs;
+
+	// Set the steering behaviour
+	SteeringBehaviour* steering_algorithm = new SteerToTarget(moveBody, spawnPos);
+	steering_outputs.push_back(steering_algorithm->getSteering());
+
+	// Add togethere any steering outputs
+	for (unsigned i = 0; i < steering_outputs.size(); i++)
+	{
+		if (steering_outputs[i])
+			*steering += *steering_outputs[i];
+	}
+
+	// Clean up memory
+	if (steering_algorithm)
+		delete steering_algorithm;
+}
+
+void Enemy::WanderRandom(SteeringOutput* steering)
+{
+	// Create a list with the steering outputs
+	vector<SteeringOutput*> steering_outputs;
+
+	// Set the steering behaviour
+	SteeringBehaviour* steering_algorithm = new Wander(moveBody);
+	steering_outputs.push_back(steering_algorithm->getSteering());
+
+	// Add togethere any steering outputs
+	for (unsigned i = 0; i < steering_outputs.size(); i++)
+	{
+		if (steering_outputs[i])
+			*steering += *steering_outputs[i];
+	}
+
+	// Clean up memory
+	if (steering_algorithm)
+		delete steering_algorithm;
+}
+
+void Enemy::AttackPlayer(float deltaTime, float attackInterval)
+{
 	if (currentAttackValue > 0.0f)
 		currentAttackValue -= deltaTime;
-	else {
-		// [TODO] Attack player
+	else
+	{
 		player->takeDamage(1.0f);
-		cout << "Player took damage!" << endl;
 		currentAttackValue = attackInterval;
+		cout << "Player took damage!" << endl;
 	}
 }
 
-float Enemy::GetDistance(Vec3 p, Vec3 q) {
+float Enemy::GetDistance(Vec3 p, Vec3 q)
+{
 	// Distance = sqrt((pX-qX)^2 + (pY-qY)^2)
 	return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
 }

@@ -1,17 +1,17 @@
-#include "ArriveTarget.h"
+#include "SteerToTarget.h"
 
-ArriveTarget::ArriveTarget(KinematicBody* character_, Node* target_)
+SteerToTarget::SteerToTarget(KinematicBody* character_, Vec3 target_)
 {
 	character = character_;
 	target = target_;
 }
 
-ArriveTarget::~ArriveTarget() {}
+SteerToTarget::~SteerToTarget() {}
 
-SteeringOutput* ArriveTarget::getSteering()
+SteeringOutput* SteerToTarget::getSteering()
 {
 	result = new SteeringOutput;
-	direction = target->GetPos() - character->getPos();
+	direction = target - character->getPos();
 	distance = VMath::mag(direction);
 
 	if (distance < targetRadius)

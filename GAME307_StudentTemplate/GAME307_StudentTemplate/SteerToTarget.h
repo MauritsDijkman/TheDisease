@@ -1,5 +1,5 @@
-#ifndef ARRIVE_TARGET_H
-#define ARRIVE_TARGET_H
+#ifndef STEER_TO_TARGET_H
+#define STEER_TO_TARGET_H
 
 #include "Vector.h"
 #include "KinematicBody.h"
@@ -9,11 +9,11 @@
 using namespace MATH;
 using namespace std;
 
-class ArriveTarget : public SteeringBehaviour
+class SteerToTarget : public SteeringBehaviour
 {
 private:
 	KinematicBody* character;
-	Node* target;
+	Vec3 target;
 
 	float maxAcceleration = 1.0f;
 	float maxSpeed = 2.0f;
@@ -27,9 +27,9 @@ private:
 	Vec3 targetVelocity;
 
 public:
-	ArriveTarget(KinematicBody* character_, Node* target_);
-	virtual ~ArriveTarget();
+	SteerToTarget(KinematicBody* character_, Vec3 target_);
+	virtual ~SteerToTarget();
 	SteeringOutput* getSteering();
 };
 
-#endif // !ARRIVE_TARGET_H
+#endif // !STEER_TO_TARGET_H

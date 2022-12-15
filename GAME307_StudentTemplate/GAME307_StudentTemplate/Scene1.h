@@ -23,6 +23,7 @@ private:
 	SDL_Window* window;
 	float xAxis = 25.0f;
 	float yAxis = 15.0f;
+
 	SDL_Renderer* renderer;
 	Matrix4 projectionMatrix;
 	Matrix4 inverseProjection;
@@ -130,8 +131,10 @@ private:
 	vector<vector<BackgroundTile*>> tiles;
 	vector<Node*> nodes;
 	Graph* graph;
+
 	void CreateTiles(int rows_, int columns_);
 	bool LoadImage(string pathName_);
+
 public:
 	Scene1(SDL_Window* sdlWindow, GameManager* game_);
 	~Scene1();
@@ -141,13 +144,18 @@ public:
 	void Update(const float time);
 	void Render();
 	void HandleEvents(const SDL_Event& event);
+
 	bool getDead();
+
 	float getxAxis() { return xAxis; }
 	float getyAxis() { return yAxis; }
+
 	SDL_Window* getWindow() { return window; }
 	Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
+
 	Vec3 getMousePosition();
+
 	bool nextScene();
 	bool pressed;
 };
